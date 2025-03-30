@@ -3,9 +3,11 @@ import numpy as np
 from tqdm import tqdm
 
 class IonPermeationAnalysis:
-    def __init__(self, universe, ion_selection, channel1, channel2, channel3):
+    def __init__(self, universe, ion_selection, start_frame, end_frame, channel1, channel2, channel3):
         self.u = universe
         self.ion_selection = ion_selection
+        self.start_frame = start_frame
+        self.end_frame = end_frame
         self.channel1 = channel1
         self.channel2 = channel2
         self.channel3 = channel3
@@ -17,7 +19,7 @@ class IonPermeationAnalysis:
         self.permeation_events3 = []
         self.ions = self.u.select_atoms(self.ion_selection)
 
-    def _check_ion_position(self, ion_id, ion_pos, channel, states, events, frame):
+    def _check_ion_position(self, ion_id, ion_pos, channel, states, events, frame, keep_first_permeation, keep_first_insertion):
         ion_vec = ion_pos - channel.channel_center
         ion_z = np.dot(ion_vec, channel.channel_axis)
 
@@ -31,7 +33,11 @@ class IonPermeationAnalysis:
         if in_cylinder:
             if states[ion_id]['upper_flag'] == 0:
                 states[ion_id]['upper_flag'] = 1
-                states[ion_id]['upper_flag_frame'] = frame
+                if keep_first_insertion:
+                    if states[ion_id]['upper_flag_frame'] == 0:
+                        states[ion_id]['upper_flag_frame'] = frame
+                else:
+                    states[ion_id]['upper_flag_frame'] = frame
             elif states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 1:
 
                 if states[ion_id]['prev_ion_z'] < upper_z:
@@ -40,35 +46,43 @@ class IonPermeationAnalysis:
                     exit_frame = states[ion_id]['lower_flag_frame']
                     total_time = exit_frame - start_frame
                     events.append({
-                        'ion_id': ion_id,
-                        'start_frame': start_frame,
-                        'exit_frame': exit_frame,
-                        'total_time': total_time
+                        'ion_id': int(ion_id),
+                        'start_frame': int(start_frame),
+                        'exit_frame': int(exit_frame),
+                        'total_time': int(total_time)
                     })
                     states[ion_id]['upper_flag_frame'] = frame
                 states[ion_id]['lower_flag'] = 0
 
         if ion_z > lower_z and states[ion_id]['upper_flag'] == 1:
             if states[ion_id]['lower_flag'] == 0:
-                states[ion_id]['lower_flag_frame'] = frame
                 states[ion_id]['lower_flag'] = 1
+                if keep_first_permeation:
+                    if states[ion_id]['lower_flag_frame'] == 0:
+                        states[ion_id]['lower_flag_frame'] = frame
+                else:
+                    states[ion_id]['lower_flag_frame'] = frame
+
 
         if not in_cylinder and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
             states[ion_id]['upper_flag'] = 0
 
         states[ion_id]['prev_ion_z'] = ion_z
 
+        # if ion_id == 1469 and keep_first_permeation:
+        #     print(frame, in_cylinder, ion_z, lower_z)
+
     def run_analysis(self):
         print("Starting analysis...")
-        start_frame = 3100
-        end_frame = 3700
 
-        for ts in tqdm(self.u.trajectory[start_frame:end_frame],
-                       total=(end_frame - start_frame),
+        for ts in tqdm(self.u.trajectory[self.start_frame:self.end_frame],
+                       total=(self.end_frame - self.start_frame),
                        desc="Processing Frames", unit="frame"):
-            # if ts.frame>start_frame+1:
-                # print(ts.frame, self.ion_states1[2433])
-                # print(ts.frame, self.ion_states2[2433])
+            # if ts.frame>self.start_frame+1:
+            #     # print(ts.frame, self.ion_states1[2433])
+            #     print(ts.frame, self.ion_states1[1469])
+            #     # print(self.channel1.lower_center)
+            #     # print(self.channel2.upper_center)
             self.channel1.compute_geometry(1)
             self.channel2.compute_geometry(2)
             self.channel3.compute_geometry(3)
@@ -76,9 +90,9 @@ class IonPermeationAnalysis:
             for ion in self.ions:
                 ion_id = ion.resid
                 pos = ion.position
-                self._check_ion_position(ion_id, pos, self.channel1, self.ion_states1, self.permeation_events1, ts.frame)
-                self._check_ion_position(ion_id, pos, self.channel2, self.ion_states2, self.permeation_events2, ts.frame)
-                self._check_ion_position(ion_id, pos, self.channel3, self.ion_states3, self.permeation_events3, ts.frame)
+                self._check_ion_position(ion_id, pos, self.channel1, self.ion_states1, self.permeation_events1, ts.frame, True, False)
+                self._check_ion_position(ion_id, pos, self.channel2, self.ion_states2, self.permeation_events2, ts.frame, False, True)
+                self._check_ion_position(ion_id, pos, self.channel3, self.ion_states3, self.permeation_events3, ts.frame, False, False)
 
     def print_results(self):
         def print_channel_results(channel_name, ion_states, permeation_events):
@@ -92,10 +106,10 @@ class IonPermeationAnalysis:
                     exit_frame = state['lower_flag_frame']
                     total_time = exit_frame - start_frame
                     permeation_events.append({
-                        'ion_id': ion_id,
-                        'start_frame': start_frame,
-                        'exit_frame': exit_frame,
-                        'total_time': total_time
+                        'ion_id': int(ion_id),
+                        'start_frame': int(start_frame),
+                        'exit_frame': int(exit_frame),
+                        'total_time': int(total_time)
                     })
 
             permeation_events.sort(key=lambda x: x['start_frame'])
