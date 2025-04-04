@@ -69,13 +69,21 @@ class IonPermeationAnalysis:
 
         states[ion_id]['prev_ion_z'] = ion_z
 
-        # if ion_id == 1469 and keep_first_permeation:
-        #     print(frame, in_cylinder, ion_z, lower_z)
+        # if ion_id == 1374:
+        #     print(frame)
+            
+        if frame == self.end_frame and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
+            states[ion_id]['lower_flag'] = 1
+            states[ion_id]['lower_flag_frame'] = frame
+
+        # if ion_id == 1400 and keep_first_insertion:
+        #     print(states[ion_id])
+        #     print(frame, in_cylinder, ion_z, upper_z)
 
     def run_analysis(self):
         print("Starting analysis...")
 
-        for ts in tqdm(self.u.trajectory[self.start_frame:self.end_frame],
+        for ts in tqdm(self.u.trajectory[self.start_frame:self.end_frame+1],
                        total=(self.end_frame - self.start_frame),
                        desc="Processing Frames", unit="frame"):
             # if ts.frame>self.start_frame+1:
@@ -122,3 +130,53 @@ class IonPermeationAnalysis:
         print_channel_results("Channel 1", self.ion_states1, self.permeation_events1)
         print_channel_results("Channel 2", self.ion_states2, self.permeation_events2)
         print_channel_results("Channel 3", self.ion_states3, self.permeation_events3)
+
+
+
+
+
+    def fix_permeations(self, residue_clusters):
+        def print_fixed_channel_results(ch2_fixed):
+            print(f"\nFixed Permeation Events for Channel 2 (after residue clustering):")
+            print("Ion ID | Start Frame | Exit Frame | Total Time (frames)")
+            print("-" * 55)
+
+            ch2_fixed_sorted = sorted(ch2_fixed, key=lambda x: x['start_frame'])
+
+            for event in ch2_fixed_sorted:
+                print(f"{event['ion_id']:6d} | {event['start_frame']:11d} | {event['exit_frame']:10d} | {event['total_time']:10d}")
+
+            print(f"\nTotal fixed permeation events: {len(ch2_fixed_sorted)}")
+    
+        ch2_fixed = []
+        for ion_id, ion_grouped_frames in residue_clusters.items():
+            
+            
+            sorted_ion_grouped_frames = sorted(ion_grouped_frames, key=lambda x: x['start'])
+
+            if sorted_ion_grouped_frames[0]["residue"] == "SF":
+                ch2_start = sorted_ion_grouped_frames[0]["end"]+1
+            else:
+                ch2_start = sorted_ion_grouped_frames[0]["start"]
+
+            for group in sorted_ion_grouped_frames[1:]:
+                if group["residue"] == "SF":
+                    if group["end"]-group["start"]+1>3:
+                        ch2_fixed.append({
+                                    "ion_id": ion_id,
+                                    "start_frame": ch2_start,
+                                    "exit_frame": group["start"]-1,
+                                    "total_time": group["start"]-ch2_start
+                                })
+                        ch2_start = group["end"]+1
+
+            ch2_fixed.append({
+                        "ion_id": ion_id,
+                        "start_frame": ch2_start,
+                        "exit_frame": group["end"],
+                        "total_time": group["end"] - ch2_start + 1
+                    })
+            
+        print_fixed_channel_results(ch2_fixed)
+
+        return ch2_fixed

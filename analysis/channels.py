@@ -101,7 +101,8 @@ class Channel:
     #     self.channel_center = (self.upper_center + self.lower_center) / 2
 
     def compute_geometry(self, gate_num):
-        offset = 1.2  # adjust this value as needed (in Ångströms)
+        offset = 1.33  # adjust this value as needed (in Ångströms)
+        offset = 0  # adjust this value as needed (in Ångströms)
         if gate_num == 1:
             upper_sel = self.u.select_atoms(f"resid {' '.join(map(str, self.upper_gate_residues))}")
             self.upper_center = upper_sel.center_of_mass()
@@ -111,7 +112,8 @@ class Channel:
             for resid in self.upper_gate_residues:
                 residue_atoms = self.u.select_atoms(f"resid {resid}")
                 coords = residue_atoms.positions
-                upper_index = coords[:, 2].argmin()
+                sorted_indices = coords[:, 2].argsort()  # sort Z-values
+                upper_index = sorted_indices[0]  # second from the end
                 atom_indices.append(residue_atoms[upper_index].index)
 
             upper_atoms = self.u.atoms[atom_indices]
@@ -188,4 +190,6 @@ class Channel:
         radial = rel_vector - proj
         radial_dist = np.linalg.norm(radial)
         axial_pos = np.dot(rel_vector, self.channel_axis)
+        # print("radius",radial_dist <= self.radius)
+        # print("length",abs(axial_pos) <= self.channel_length / 2)
         return radial_dist <= self.radius and abs(axial_pos) <= self.channel_length / 2

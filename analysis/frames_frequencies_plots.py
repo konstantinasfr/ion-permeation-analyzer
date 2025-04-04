@@ -46,5 +46,5 @@ def plot_top_intervals_by_frames(intervals, max_bar_number=20):
         plt.savefig(plot_filename)
         print(f"Saved plot for Ion {ion_id} → {plot_filename}")
 
-        # Show the plot
-        plt.show()
+        # # Show the plot
+        # plt.show()

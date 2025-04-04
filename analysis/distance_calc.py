@@ -19,14 +19,15 @@ def calculate_distances(ion_permeated, analyzer):
     Calculates the distances between a given ion and selected residues across relevant frames.
     Adds results to the global total_distances_dict.
     """
+
     u = analyzer.u
     ch1 = analyzer.permeation_events1
     ch2 = analyzer.permeation_events2
     ch3 = analyzer.permeation_events3
-    ion_id = int(ion_permeated['ion_id'])
-    start_frame = ion_permeated['start_frame']
-    exit_frame = ion_permeated['exit_frame']
 
+    ion_id = int(ion_permeated['ion_id'])
+
+    # Get the start/exit frame from ch2 (the source event)
     start_frame, exit_frame = next(
         (event['start_frame'], event['exit_frame'])
         for event in ch2 if event['ion_id'] == ion_id
@@ -38,14 +39,16 @@ def calculate_distances(ion_permeated, analyzer):
     ions_to_test += get_overlapping_ions(ion_id, start_frame, exit_frame, ch2)
     ions_to_test += get_overlapping_ions(ion_id, start_frame, exit_frame, ch3)
 
-
-
     # Create an entry for this ion
     temp_distances_dict[ion_id] = []
 
     # Residues to measure distances from
     residue_ids = [98, 423, 748, 1073, 130, 455, 780, 1105]
-    residue_atoms = {resid: u.select_atoms(f"resid {resid} and name CA") for resid in residue_ids}
+    sf_residues = [100, 425, 750, 1075]  # Selectivity filter residues
+
+    # Select CA atoms for all residues
+    all_residues = residue_ids + sf_residues
+    residue_atoms = {resid: u.select_atoms(f"resid {resid} and name CA") for resid in all_residues}
 
     # Select the ion based on its resid
     ion = u.select_atoms(f"resname K+ and resid {ion_id}")
@@ -53,22 +56,33 @@ def calculate_distances(ion_permeated, analyzer):
         print(f"Warning: Ion resid {ion_id} not found uniquely.")
         return
 
+    # Loop through trajectory frames
     for ts in u.trajectory[start_frame:exit_frame + 1]:
-        frame_data = {'frame': ts.frame, 'residues':{}, 'ions': {}}
-
+        frame_data = {'frame': ts.frame, 'residues': {}, 'ions': {}}
         ion_pos = ion.positions[0]
 
+        # Distances to individual residues
         for resid in residue_ids:
             atomgroup = residue_atoms[resid]
             dist = float(np.linalg.norm(ion_pos - atomgroup.positions[0]))
-            frame_data['residues'][resid]=dist
+            frame_data['residues'][resid] = dist
 
+        # Mean distance to selectivity filter (SF) residues
+        sf_distances = []
+        for sf_resid in sf_residues:
+            sf_atom = residue_atoms[sf_resid]
+            dist = float(np.linalg.norm(ion_pos - sf_atom.positions[0]))
+            sf_distances.append(dist)
+
+        frame_data['residues']["SF"] = float(np.mean(sf_distances))
+
+        # Distances to other ions
         for ion_to_test in ions_to_test:
             other_ion = u.select_atoms(f"resname K+ and resid {ion_to_test}")
-            other_pos = other_ion.positions[0]
-            dist = float(np.linalg.norm(ion_pos - other_pos))
-            frame_data['ions'][ion_to_test] = dist
-
+            if len(other_ion) == 1:
+                other_pos = other_ion.positions[0]
+                dist = float(np.linalg.norm(ion_pos - other_pos))
+                frame_data['ions'][ion_to_test] = dist
 
         temp_distances_dict[ion_id].append(frame_data)
 

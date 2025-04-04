@@ -3,47 +3,53 @@
     "ion_id": 1327,
     "start_frame": 6500,
     "exit_frame": 6799,
-    "total_time": 299
+    "total_time": 300
   },
   {
     "ion_id": 1330,
-    "start_frame": 6500,
+    "start_frame": 6507,
     "exit_frame": 6799,
-    "total_time": 299
+    "total_time": 293
   },
   {
     "ion_id": 1341,
     "start_frame": 6500,
     "exit_frame": 6728,
-    "total_time": 228
+    "total_time": 229
   },
   {
     "ion_id": 1355,
     "start_frame": 6500,
     "exit_frame": 6562,
-    "total_time": 62
+    "total_time": 63
   },
   {
     "ion_id": 1465,
-    "start_frame": 6568,
+    "start_frame": 6569,
+    "exit_frame": 6582,
+    "total_time": 14
+  },
+  {
+    "ion_id": 1465,
+    "start_frame": 6617,
     "exit_frame": 6671,
-    "total_time": 103
+    "total_time": 55
   },
   {
     "ion_id": 1359,
-    "start_frame": 6687,
+    "start_frame": 6693,
     "exit_frame": 6799,
-    "total_time": 112
+    "total_time": 107
   },
   {
     "ion_id": 1374,
-    "start_frame": 6707,
+    "start_frame": 6716,
     "exit_frame": 6749,
-    "total_time": 42
+    "total_time": 34
   },
   {
     "ion_id": 1400,
-    "start_frame": 6752,
+    "start_frame": 6753,
     "exit_frame": 6799,
     "total_time": 47
   }

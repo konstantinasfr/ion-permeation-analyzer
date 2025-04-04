@@ -42,8 +42,8 @@ def main():
     # end_frame = 5553
     # start_frame = 5000
     # end_frame = 6800
-    start_frame = 3000
-    end_frame = 6800
+    start_frame = 6500
+    end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)
     ch2 = Channel(u, upper2, lower2, radius=15.0)
@@ -55,9 +55,9 @@ def main():
 
     total_distances_dict = {}
                        
-    for ion_permpeated in tqdm(analyzer.permeation_events3,total=len(analyzer.permeation_events3),
+    for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
                        desc="Calculating Distances", unit="ion"):
-        temp_distances_dict = calculate_distances(ion_permpeated, analyzer)
+        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer)
         total_distances_dict.update(temp_distances_dict)
 
 
@@ -65,14 +65,25 @@ def main():
     results_dir = Path("results")
     results_dir.mkdir(exist_ok=True)
 
+    with open(results_dir / "ch1.json", "w") as f:
+        json.dump(analyzer.permeation_events1, f, indent=2)
+
     with open(results_dir / "ch2.json", "w") as f:
         json.dump(analyzer.permeation_events2, f, indent=2)
+
+    with open(results_dir / "ch3.json", "w") as f:
+        json.dump(analyzer.permeation_events3, f, indent=2)
 
     # Save total_distances_dict to JSON
     with open(results_dir / "distances.json", "w") as f:
         json.dump(total_distances_dict, f, indent=2)
 
     residue_clusters = cluster_frames_by_closest_residue(total_distances_dict)
+
+    ch2_permeations = analyzer.fix_permeations(residue_clusters)
+
+    with open(results_dir / "ch2_fixed.json", "w") as f:
+        json.dump(ch2_permeations, f, indent=2)
 
     with open(results_dir / "residue_clusters.json", "w") as f:
         json.dump(residue_clusters, f, indent=2)
