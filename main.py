@@ -20,8 +20,8 @@ def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
     # parser.add_argument("--top_file", default="/media/konsfr/Intenso/Nousheen/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/Intenso/Nousheen/protein.nc")
-    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
+    parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../protein.nc")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -42,7 +42,8 @@ def main():
     # end_frame = 5553
     # start_frame = 5000
     # end_frame = 6800
-    start_frame = 6500
+    start_frame = 3000
+    start_frame = 0
     end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)
@@ -78,7 +79,7 @@ def main():
     with open(results_dir / "distances.json", "w") as f:
         json.dump(total_distances_dict, f, indent=2)
 
-    residue_clusters = cluster_frames_by_closest_residue(total_distances_dict)
+    residue_clusters, min_results_per_frame = cluster_frames_by_closest_residue(total_distances_dict)
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
@@ -88,11 +89,21 @@ def main():
     with open(results_dir / "residue_clusters.json", "w") as f:
         json.dump(residue_clusters, f, indent=2)
 
+    with open(results_dir / "min_results_per_frame.json", "w") as f:
+        json.dump(min_results_per_frame, f, indent=2)
+
     print("Saved residue clustering to results/residue_clusters.json")
 
     # Create an ExcelWriter to hold multiple sheets
     with pd.ExcelWriter(results_dir / "residue_clusters.xlsx") as writer:
         for ion_id, intervals in residue_clusters.items():
+            df = pd.DataFrame(intervals)
+            df.insert(0, "residue", df.pop("residue"))
+            df.to_excel(writer, sheet_name=str(ion_id), index=False)
+
+        # Create an ExcelWriter to hold multiple sheets
+    with pd.ExcelWriter(results_dir / "min_results_per_frame.xlsx") as writer:
+        for ion_id, intervals in min_results_per_frame.items():
             df = pd.DataFrame(intervals)
             df.insert(0, "residue", df.pop("residue"))
             df.to_excel(writer, sheet_name=str(ion_id), index=False)
