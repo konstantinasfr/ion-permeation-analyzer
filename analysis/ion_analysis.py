@@ -83,9 +83,34 @@ class IonPermeationAnalysis:
     def run_analysis(self):
         print("Starting analysis...")
 
+        hbc_residues = [138, 463, 788, 1113]
+        diagonal_pairs = [(138, 788), (463, 1113)]
+
+        # Select CA atoms for each HBC residue
+        atoms = {resid: self.u.select_atoms(f"resid {resid} and name CA")[0] for resid in hbc_residues}
+
+        self.hbc_diameters = []
+
         for ts in tqdm(self.u.trajectory[self.start_frame:self.end_frame+1],
                        total=(self.end_frame - self.start_frame),
                        desc="Processing Frames", unit="frame"):
+            
+            distances = []
+            for res1, res2 in diagonal_pairs:
+                pos1 = atoms[res1].position
+                pos2 = atoms[res2].position
+                dist = np.linalg.norm(pos1 - pos2)
+                distances.append(dist)
+
+            mean_diameter = np.mean(distances)
+            self.hbc_diameters.append({
+                "frame": int(ts.frame),
+                "mean": float(mean_diameter),
+                "138_788": float(distances[0]),
+                "463_1113": float(distances[1])
+            })
+
+
             # if ts.frame>self.start_frame+1:
             #     # print(ts.frame, self.ion_states1[2433])
             #     print(ts.frame, self.ion_states1[1469])

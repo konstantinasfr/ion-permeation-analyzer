@@ -11,6 +11,7 @@ from analysis.ion_analysis import IonPermeationAnalysis
 from analysis.distance_calc import calculate_distances
 from analysis.organizing_frames import cluster_frames_by_closest_residue
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
+from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates
 import json
 import pandas as pd
 
@@ -18,10 +19,10 @@ import pandas as pd
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
-    # parser.add_argument("--top_file", default="/media/konsfr/Intenso/Nousheen/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="/media/konsfr/Intenso/Nousheen/protein.nc")
-    parser.add_argument("--top_file", default="../com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../protein.nc")
+    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
+    # parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../protein.nc")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -42,8 +43,8 @@ def main():
     # end_frame = 5553
     # start_frame = 5000
     # end_frame = 6800
-    start_frame = 3000
-    start_frame = 0
+    start_frame = 6700
+    # start_frame = 3000
     end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)
@@ -66,6 +67,9 @@ def main():
     results_dir = Path("results")
     results_dir.mkdir(exist_ok=True)
 
+    with open(results_dir / "hbc_diameters.json", "w") as f:
+        json.dump(analyzer.hbc_diameters, f, indent=2)
+    
     with open(results_dir / "ch1.json", "w") as f:
         json.dump(analyzer.permeation_events1, f, indent=2)
 
@@ -93,6 +97,19 @@ def main():
         json.dump(min_results_per_frame, f, indent=2)
 
     print("Saved residue clustering to results/residue_clusters.json")
+
+    ch2_permation_residues = analyze_ch2_permation_residues(min_results_per_frame, end_frame)
+
+    ch2_permation_residue_comb = count_residue_combinations_with_duplicates(ch2_permation_residues)
+
+    for residues, count in ch2_permation_residue_comb.items():
+        print(f"Residues {residues} appear {count} time(s)")
+
+    with open(results_dir / "ch2_permation_residues.json", "w") as f:
+        json.dump(ch2_permation_residues, f, indent=2)
+
+    with open(results_dir / "ch2_permation_residue_comb.json", "w") as f:
+        json.dump(ch2_permation_residue_comb, f, indent=2)
 
     # Create an ExcelWriter to hold multiple sheets
     with pd.ExcelWriter(results_dir / "residue_clusters.xlsx") as writer:

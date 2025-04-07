@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ion Timeline Viewer (Plotly.js + Cursor Tracker)</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    #plot {
+      width: 100%;
+      height: 80vh;
+    }
+    #hoverbox {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-size: 14px;
+      display: none;
+      z-index: 10;
+      white-space: pre;
+    }
+    input[type="file"] {
+      margin-top: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h2>Ion Timeline Viewer (Plotly.js with Cursor Tracking)</h2>
+  <input type="file" id="upload" accept=".json" />
+  <input type="file" id="upload-hbc" accept=".json" />
+  <input type="file" id="upload-ch3" accept=".json" />
+  <div id="plot"></div>
+  <div id="hoverbox"></div>
+
+  <script>
+    let residueColors = {};
+    let ionIDs = [];
+    let ionYMap = {};
+    let allData = {};
+    let hbcByFrame = {};
+    let permeatedHBC = {};
+    let hbcMinFrame = Infinity;
+    let hbcMaxFrame = -Infinity;
+
+    document.getElementById("upload").addEventListener("change", function (evt) {
+      const file = evt.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const data = JSON.parse(e.target.result);
+        allData = data;
+        renderPlot(data);
+      };
+      reader.readAsText(file);
+    });
+
+    document.getElementById("upload-hbc").addEventListener("change", function (evt) {
+      const file = evt.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const data = JSON.parse(e.target.result);
+        hbcByFrame = {};
+        hbcMinFrame = Infinity;
+        hbcMaxFrame = -Infinity;
+        data.forEach(entry => {
+          hbcByFrame[entry.frame] = entry.mean;
+          if (entry.frame < hbcMinFrame) hbcMinFrame = entry.frame;
+          if (entry.frame > hbcMaxFrame) hbcMaxFrame = entry.frame;
+        });
+      };
+      reader.readAsText(file);
+    });
+
+    document.getElementById("upload-ch3").addEventListener("change", function (evt) {
+      const file = evt.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const data = JSON.parse(e.target.result);
+        permeatedHBC = {};
+        data.forEach(entry => {
+          permeatedHBC[entry.ion_id] = entry.exit_frame;
+        });
+        if (Object.keys(allData).length > 0) {
+          renderPlot(allData);
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    function renderPlot(data) {
+      const colorPalette = [
+        "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
+        "#8c564b", "#e377c2", "#ffcc00", "#bcbd22", "#17becf",
+        "#aec7e8", "#ffbb78", "#98df8a", "#ff9896", "#c5b0d5",
+        "#c49c94", "#f7b6d2", "#c7c7c7", "#dbdb8d", "#9edae5"
+      ];
+
+      residueColors = {};
+      let colorIndex = 0;
+      let traces = [];
+      let layoutShapes = [];
+      const plottedResidues = new Set();
+      let hbcX = [];
+      let hbcY = [];
+
+      ionIDs = Object.keys(data).sort((a, b) => {
+        const aStart = Math.min(...data[a].map(f => f.frame));
+        const bStart = Math.min(...data[b].map(f => f.frame));
+        return aStart - bStart;
+      });
+
+      ionYMap = {};
+      ionIDs.forEach((ionID, index) => {
+        ionYMap[ionID] = index;
+      });
+
+      ionIDs.forEach((ionID) => {
+        const yPos = ionYMap[ionID];
+        data[ionID].forEach(point => {
+          const res = String(point.residue);
+          if (!(res in residueColors)) {
+            residueColors[res] = res === "SF" ? "#d3d3d3" : colorPalette[colorIndex++ % colorPalette.length];
+          }
+
+          traces.push({
+            x: [point.frame],
+            y: [yPos],
+            type: "scatter",
+            mode: "markers",
+            marker: {
+              size: 8,
+              color: residueColors[res],
+              symbol: "square",
+              line: { width: 0 },
+              sizemode: "diameter"
+            },
+            name: res,
+            showlegend: !plottedResidues.has(res),
+            hoverinfo: "skip"
+          });
+
+          plottedResidues.add(res);
+        });
+
+        if (ionID in permeatedHBC) {
+          hbcX.push(permeatedHBC[ionID]);
+          hbcY.push(yPos);
+        }
+      });
+
+      if (hbcX.length > 0) {
+        traces.push({
+          x: hbcX,
+          y: hbcY,
+          type: "scatter",
+          mode: "markers",
+          marker: {
+            size: 8,
+            color: "black",
+            symbol: "square",
+            line: { width: 0 },
+            sizemode: "diameter"
+          },
+          name: "HBC permeation",
+          hoverinfo: "skip",
+          showlegend: true
+        });
+      }
+
+      layoutShapes.push({
+        type: "line",
+        x0: 0,
+        x1: 0,
+        y0: -1,
+        y1: 100,
+        line: { color: "black", width: 1, dash: "dot" },
+        xref: "x",
+        yref: "paper"
+      });
+
+      const layout = {
+        title: "Closest Residue per Ion over Time",
+        xaxis: {
+          title: "Frame",
+          tickmode: "linear",
+          dtick: 100,
+          showgrid: true,
+          range: [hbcMinFrame - 5, hbcMaxFrame + 5]
+        },
+        yaxis: {
+          title: "Ion ID",
+          tickvals: ionIDs.map((_, i) => i),
+          ticktext: ionIDs.map(id => `Ion ${id}`),
+          automargin: true
+        },
+        hovermode: false,
+        shapes: layoutShapes,
+        height: Math.min(800, Math.max(ionIDs.length * 28, 450)),
+        legend: {
+          orientation: "h",
+          y: -0.2,
+          x: 0.5,
+          xanchor: "center",
+          font: { size: 16 },
+          itemsizing: "constant"
+        }
+      };
+
+      Plotly.newPlot("plot", traces, layout);
+
+      const hoverbox = document.getElementById("hoverbox");
+      const plotDiv = document.getElementById("plot");
+
+      plotDiv.onmousemove = function (e) {
+        const bounds = plotDiv.getBoundingClientRect();
+        const xPos = e.clientX - bounds.left;
+        const xInData = getXFromPixel(xPos, plotDiv);
+        const frame = Math.round(xInData);
+
+        layout.shapes[layout.shapes.length - 1].x0 = frame;
+        layout.shapes[layout.shapes.length - 1].x1 = frame;
+        Plotly.relayout(plotDiv, { shapes: layout.shapes });
+
+        let hoverText = `Frame: ${frame}\n`;
+        if (frame in hbcByFrame) {
+          hoverText += `HBC Diameter: ${hbcByFrame[frame].toFixed(2)} Å\n`;
+        }
+
+        ionIDs.forEach(ionID => {
+          const match = allData[ionID].find(f => f.frame === frame);
+          if (match) {
+            hoverText += `Ion ${ionID}: ${match.residue}, d = ${match.min_distance.toFixed(2)} Å\n`;
+          }
+          if (permeatedHBC[ionID] === frame) {
+            hoverText += `Ion ${ionID} permeated HBC\n`;
+          }
+        });
+
+        hoverbox.innerText = hoverText;
+        hoverbox.style.left = `${e.pageX + 15}px`;
+        hoverbox.style.top = `${e.pageY + 15}px`;
+        hoverbox.style.display = "block";
+      };
+
+      plotDiv.onmouseleave = function () {
+        hoverbox.style.display = "none";
+      };
+    }
+
+    function getXFromPixel(xPixel, plotDiv) {
+      const fullLayout = plotDiv._fullLayout;
+      const xaxis = fullLayout.xaxis;
+      const l = fullLayout._size.l;
+      const w = fullLayout.width - fullLayout._size.l - fullLayout._size.r;
+      const x0 = xaxis.range[0];
+      const x1 = xaxis.range[1];
+      return x0 + ((xPixel - l) * (x1 - x0)) / w;
+    }
+  </script>
+</body>
+</html>

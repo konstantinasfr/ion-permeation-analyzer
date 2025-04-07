@@ -1,0 +1,14 @@
+{
+  "98, 130, 423, 780, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      1105
+    ]
+  },
+  "98, 98, 130, 455": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ]
+  }
+}
