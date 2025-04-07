@@ -1,14 +1,170 @@
 {
+  "130, 780": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      3631
+    ]
+  },
+  "130": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      3667
+    ]
+  },
+  "1073, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      1105
+    ],
+    "frames": [
+      5131
+    ]
+  },
+  "130, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      4416
+    ]
+  },
+  "130, 423, 1073": {
+    "count": 2,
+    "permeated_residues": [
+      130,
+      130
+    ],
+    "frames": [
+      4995,
+      5330
+    ]
+  },
+  "130, 130, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      5270
+    ]
+  },
+  "130, 1073, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      1105
+    ],
+    "frames": [
+      5400
+    ]
+  },
+  "423, 748, 780, 1073": {
+    "count": 2,
+    "permeated_residues": [
+      780,
+      780
+    ],
+    "frames": [
+      5678,
+      5887
+    ]
+  },
+  "130, 423, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      5434
+    ]
+  },
+  "98, 130, 748, 780, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6017
+    ]
+  },
+  "98, 130, 748, 1073": {
+    "count": 2,
+    "permeated_residues": [
+      130,
+      130
+    ],
+    "frames": [
+      5582,
+      6488
+    ]
+  },
+  "130, 423, 748, 1073, SF": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6203
+    ]
+  },
+  "130, 423, SF": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6425
+    ]
+  },
+  "130, 423, 780, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6562
+    ]
+  },
+  "98, 130, 780, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6360
+    ]
+  },
   "98, 130, 423, 780, 1105": {
     "count": 1,
     "permeated_residues": [
       1105
+    ],
+    "frames": [
+      6728
+    ]
+  },
+  "98, 423, 780, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      780
+    ],
+    "frames": [
+      6671
     ]
   },
   "98, 98, 130, 455": {
     "count": 1,
     "permeated_residues": [
       130
+    ],
+    "frames": [
+      6749
     ]
   }
 }
