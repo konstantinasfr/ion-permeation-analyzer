@@ -1151,9 +1151,9 @@
     {
       "residue": 130,
       "start": 3626,
-      "end": 3630,
-      "frames": 5,
-      "mean_distance": 5.674454402923584
+      "end": 3631,
+      "frames": 6,
+      "mean_distance": 5.6737434069315595
     }
   ],
   "1313": [
@@ -3734,6 +3734,13 @@
       "end": 5130,
       "frames": 1,
       "mean_distance": 6.858291149139404
+    },
+    {
+      "residue": 1105,
+      "start": 5131,
+      "end": 5131,
+      "frames": 1,
+      "mean_distance": 7.1699371337890625
     }
   ],
   "1387": [
@@ -6581,6 +6588,20 @@
       "end": 5329,
       "frames": 2,
       "mean_distance": 6.4487550258636475
+    },
+    {
+      "residue": 130,
+      "start": 5330,
+      "end": 5330,
+      "frames": 1,
+      "mean_distance": 5.698581218719482
+    },
+    {
+      "residue": 1105,
+      "start": 5331,
+      "end": 5331,
+      "frames": 1,
+      "mean_distance": 6.957254886627197
     }
   ],
   "1469": [
@@ -7185,6 +7206,13 @@
       "end": 5886,
       "frames": 1,
       "mean_distance": 7.283039093017578
+    },
+    {
+      "residue": 780,
+      "start": 5887,
+      "end": 5887,
+      "frames": 1,
+      "mean_distance": 6.795814037322998
     }
   ],
   "2436": [
@@ -7933,6 +7961,13 @@
       "end": 5581,
       "frames": 1,
       "mean_distance": 6.022099494934082
+    },
+    {
+      "residue": 130,
+      "start": 5582,
+      "end": 5582,
+      "frames": 1,
+      "mean_distance": 5.874401092529297
     }
   ],
   "2443": [
@@ -10263,6 +10298,13 @@
       "end": 6487,
       "frames": 1,
       "mean_distance": 8.363360404968262
+    },
+    {
+      "residue": 130,
+      "start": 6488,
+      "end": 6488,
+      "frames": 1,
+      "mean_distance": 7.501237869262695
     }
   ],
   "1355": [
@@ -13639,36 +13681,6 @@
       "end": 6748,
       "frames": 2,
       "mean_distance": 6.223405838012695
-    }
-  ],
-  "1400": [
-    {
-      "residue": 130,
-      "start": 6753,
-      "end": 6753,
-      "frames": 1,
-      "mean_distance": 8.152956008911133
-    },
-    {
-      "residue": 423,
-      "start": 6754,
-      "end": 6768,
-      "frames": 15,
-      "mean_distance": 5.282794761657715
-    },
-    {
-      "residue": 455,
-      "start": 6769,
-      "end": 6769,
-      "frames": 1,
-      "mean_distance": 5.587139129638672
-    },
-    {
-      "residue": 423,
-      "start": 6770,
-      "end": 6798,
-      "frames": 29,
-      "mean_distance": 4.689263121835117
     }
   ]
 }

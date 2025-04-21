@@ -2229,6 +2229,11 @@
       "frame": 3630,
       "residue": 130,
       "min_distance": 5.910991668701172
+    },
+    {
+      "frame": 3631,
+      "residue": 130,
+      "min_distance": 5.6701884269714355
     }
   ],
   "1313": [
@@ -7958,6 +7963,11 @@
       "frame": 5130,
       "residue": 780,
       "min_distance": 6.858291149139404
+    },
+    {
+      "frame": 5131,
+      "residue": 1105,
+      "min_distance": 7.1699371337890625
     }
   ],
   "1387": [
@@ -13735,6 +13745,16 @@
       "frame": 5329,
       "residue": 1105,
       "min_distance": 5.930993556976318
+    },
+    {
+      "frame": 5330,
+      "residue": 130,
+      "min_distance": 5.698581218719482
+    },
+    {
+      "frame": 5331,
+      "residue": 1105,
+      "min_distance": 6.957254886627197
     }
   ],
   "1469": [
@@ -16437,6 +16457,11 @@
       "frame": 5886,
       "residue": 130,
       "min_distance": 7.283039093017578
+    },
+    {
+      "frame": 5887,
+      "residue": 780,
+      "min_distance": 6.795814037322998
     }
   ],
   "2436": [
@@ -19268,6 +19293,11 @@
       "frame": 5581,
       "residue": 1105,
       "min_distance": 6.022099494934082
+    },
+    {
+      "frame": 5582,
+      "residue": 130,
+      "min_distance": 5.874401092529297
     }
   ],
   "2443": [
@@ -28984,6 +29014,11 @@
       "frame": 6487,
       "residue": "SF",
       "min_distance": 8.363360404968262
+    },
+    {
+      "frame": 6488,
+      "residue": 130,
+      "min_distance": 7.501237869262695
     }
   ],
   "1355": [
@@ -38775,238 +38810,6 @@
       "frame": 6748,
       "residue": 780,
       "min_distance": 5.956531524658203
-    }
-  ],
-  "1400": [
-    {
-      "frame": 6753,
-      "residue": 130,
-      "min_distance": 8.152956008911133
-    },
-    {
-      "frame": 6754,
-      "residue": 423,
-      "min_distance": 7.114089012145996
-    },
-    {
-      "frame": 6755,
-      "residue": 423,
-      "min_distance": 5.510342121124268
-    },
-    {
-      "frame": 6756,
-      "residue": 423,
-      "min_distance": 5.096706867218018
-    },
-    {
-      "frame": 6757,
-      "residue": 423,
-      "min_distance": 5.526371955871582
-    },
-    {
-      "frame": 6758,
-      "residue": 423,
-      "min_distance": 5.33073616027832
-    },
-    {
-      "frame": 6759,
-      "residue": 423,
-      "min_distance": 4.993261814117432
-    },
-    {
-      "frame": 6760,
-      "residue": 423,
-      "min_distance": 5.211358547210693
-    },
-    {
-      "frame": 6761,
-      "residue": 423,
-      "min_distance": 5.44364070892334
-    },
-    {
-      "frame": 6762,
-      "residue": 423,
-      "min_distance": 4.166425704956055
-    },
-    {
-      "frame": 6763,
-      "residue": 423,
-      "min_distance": 5.535279273986816
-    },
-    {
-      "frame": 6764,
-      "residue": 423,
-      "min_distance": 5.297610759735107
-    },
-    {
-      "frame": 6765,
-      "residue": 423,
-      "min_distance": 5.268365859985352
-    },
-    {
-      "frame": 6766,
-      "residue": 423,
-      "min_distance": 5.195233345031738
-    },
-    {
-      "frame": 6767,
-      "residue": 423,
-      "min_distance": 4.84274435043335
-    },
-    {
-      "frame": 6768,
-      "residue": 423,
-      "min_distance": 4.709754943847656
-    },
-    {
-      "frame": 6769,
-      "residue": 455,
-      "min_distance": 5.587139129638672
-    },
-    {
-      "frame": 6770,
-      "residue": 423,
-      "min_distance": 4.597070693969727
-    },
-    {
-      "frame": 6771,
-      "residue": 423,
-      "min_distance": 4.343689441680908
-    },
-    {
-      "frame": 6772,
-      "residue": 423,
-      "min_distance": 4.647156715393066
-    },
-    {
-      "frame": 6773,
-      "residue": 423,
-      "min_distance": 5.214375019073486
-    },
-    {
-      "frame": 6774,
-      "residue": 423,
-      "min_distance": 4.381709575653076
-    },
-    {
-      "frame": 6775,
-      "residue": 423,
-      "min_distance": 5.22590970993042
-    },
-    {
-      "frame": 6776,
-      "residue": 423,
-      "min_distance": 4.456737041473389
-    },
-    {
-      "frame": 6777,
-      "residue": 423,
-      "min_distance": 4.569462299346924
-    },
-    {
-      "frame": 6778,
-      "residue": 423,
-      "min_distance": 4.778100490570068
-    },
-    {
-      "frame": 6779,
-      "residue": 423,
-      "min_distance": 3.940016508102417
-    },
-    {
-      "frame": 6780,
-      "residue": 423,
-      "min_distance": 5.310635089874268
-    },
-    {
-      "frame": 6781,
-      "residue": 423,
-      "min_distance": 5.089674949645996
-    },
-    {
-      "frame": 6782,
-      "residue": 423,
-      "min_distance": 5.248287200927734
-    },
-    {
-      "frame": 6783,
-      "residue": 423,
-      "min_distance": 4.430650234222412
-    },
-    {
-      "frame": 6784,
-      "residue": 423,
-      "min_distance": 3.910327911376953
-    },
-    {
-      "frame": 6785,
-      "residue": 423,
-      "min_distance": 5.614177703857422
-    },
-    {
-      "frame": 6786,
-      "residue": 423,
-      "min_distance": 5.343356609344482
-    },
-    {
-      "frame": 6787,
-      "residue": 423,
-      "min_distance": 5.161159515380859
-    },
-    {
-      "frame": 6788,
-      "residue": 423,
-      "min_distance": 4.378898620605469
-    },
-    {
-      "frame": 6789,
-      "residue": 423,
-      "min_distance": 4.383694648742676
-    },
-    {
-      "frame": 6790,
-      "residue": 423,
-      "min_distance": 4.4976396560668945
-    },
-    {
-      "frame": 6791,
-      "residue": 423,
-      "min_distance": 4.624322891235352
-    },
-    {
-      "frame": 6792,
-      "residue": 423,
-      "min_distance": 4.3984246253967285
-    },
-    {
-      "frame": 6793,
-      "residue": 423,
-      "min_distance": 4.5817551612854
-    },
-    {
-      "frame": 6794,
-      "residue": 423,
-      "min_distance": 4.621940612792969
-    },
-    {
-      "frame": 6795,
-      "residue": 423,
-      "min_distance": 4.363060474395752
-    },
-    {
-      "frame": 6796,
-      "residue": 423,
-      "min_distance": 4.777724266052246
-    },
-    {
-      "frame": 6797,
-      "residue": 423,
-      "min_distance": 4.619060516357422
-    },
-    {
-      "frame": 6798,
-      "residue": 423,
-      "min_distance": 4.479612350463867
     }
   ]
 }

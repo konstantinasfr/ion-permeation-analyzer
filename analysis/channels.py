@@ -102,7 +102,7 @@ class Channel:
 
     def compute_geometry(self, gate_num):
         offset = 1.33  # adjust this value as needed (in Ångströms)
-        offset = 0  # adjust this value as needed (in Ångströms)
+        # offset = 0  # adjust this value as needed (in Ångströms)
         if gate_num == 1:
             upper_sel = self.u.select_atoms(f"resid {' '.join(map(str, self.upper_gate_residues))}")
             self.upper_center = upper_sel.center_of_mass()
