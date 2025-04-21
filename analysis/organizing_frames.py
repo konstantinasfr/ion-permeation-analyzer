@@ -168,7 +168,7 @@ def plot_ion_distance_traces(distance_data, results_dir):
 
     df = pd.DataFrame(records)
 
-    # Create and save one plot per target ion (full timeline + last 15 frames with correct x-axis)
+    # Create and save one plot per target ion (full timeline + last 15 frames per other ion)
     for target_ion in df["target_ion"].unique():
         subset = df[df["target_ion"] == target_ion].sort_values("frame")
 
@@ -184,15 +184,20 @@ def plot_ion_distance_traces(distance_data, results_dir):
         plt.savefig(full_dir / f"{target_ion}.png")
         plt.close()
 
-        # === Last 15 frame plot with correct frame numbers on x-axis ===
-        last_n = subset.sort_values("frame").tail(15)
+        # === Last 15 frame plot per other_ion, then merge ===
+        last_15_frames = (
+            subset.groupby("other_ion", group_keys=False)
+            .apply(lambda x: x.sort_values("frame").tail(15))
+        )
+
         plt.figure(figsize=(10, 6))
-        sns.lineplot(data=last_n, x="frame", y="distance", hue="other_ion", marker="o", palette="tab10")
-        plt.title(f"Distances from Ion {target_ion} (Last {len(last_n)} Frames Before Permeation)")
+        sns.lineplot(data=last_15_frames, x="frame", y="distance", hue="other_ion", marker="o", palette="tab10")
+        plt.title(f"Distances from Ion {target_ion} (Last 15 Frames per Ion Before Permeation)")
         plt.xlabel("Frame")
         plt.ylabel("Distance")
         plt.legend(title="Other Ion")
-        plt.xticks(last_n["frame"].unique())
+        plt.xticks(last_15_frames["frame"].unique())
         plt.tight_layout()
         plt.savefig(last15_dir / f"{target_ion}.png")
         plt.close()
+
