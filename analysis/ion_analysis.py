@@ -205,3 +205,55 @@ class IonPermeationAnalysis:
         print_fixed_channel_results(ch2_fixed)
 
         return ch2_fixed
+    
+
+    def tracking_ion_distances(
+        permeation_events,        # list of dicts: {frame, ions, permeated}
+        frame_data,               # list of dicts: {frame, ions: {ion_id: distance}, ...}
+        ch2_entry_exit_dict       # dict: {ion_id: [{start_frame, exit_frame}, ...]}
+    ):
+        results = []
+
+        # Keep only the latest event per ion from ch2_entry_exit_dict
+        latest_permeation_bounds = {
+            int(ion_id): sorted(ranges, key=lambda x: x['exit_frame'], reverse=True)[0]
+            for ion_id, ranges in ch2_entry_exit_dict.items()
+        }
+
+        for event in permeation_events:
+            target_ion = int(event['permeated'])
+            frame = event['frame']
+
+            if target_ion not in latest_permeation_bounds:
+                continue  # skip if no ch2 window for this ion
+
+            ch2_window = latest_permeation_bounds[target_ion]
+            start_frame = ch2_window['start_frame']
+            end_frame = ch2_window['exit_frame']
+
+            for f in frame_data:
+                if f['frame'] < start_frame or f['frame'] > end_frame:
+                    continue
+
+                if 'ions' not in f:
+                    continue
+
+                ion_positions = f['ions']
+                if str(target_ion) not in ion_positions:
+                    continue
+
+                distances = {}
+                for other_ion, other_dist in ion_positions.items():
+                    if int(other_ion) != target_ion:
+                        # compute absolute distance difference between target and other ion
+                        if str(other_ion) in ion_positions:
+                            d = abs(ion_positions[str(target_ion)] - ion_positions[str(other_ion)])
+                            distances[int(other_ion)] = d
+
+                results.append({
+                    "frame": f['frame'],
+                    "target_ion": target_ion,
+                    "distances": distances
+                })
+
+        return results

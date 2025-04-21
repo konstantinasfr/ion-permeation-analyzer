@@ -9,7 +9,7 @@ from pathlib import Path
 from analysis.channels import Channel
 from analysis.ion_analysis import IonPermeationAnalysis
 from analysis.distance_calc import calculate_distances
-from analysis.organizing_frames import cluster_frames_by_closest_residue
+from analysis.organizing_frames import cluster_frames_by_closest_residue, tracking_ion_distances, plot_ion_distance_traces
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
@@ -44,8 +44,9 @@ def main():
     # end_frame = 5553
     # start_frame = 5000
     # end_frame = 6800
-    start_frame = 6500
+    # start_frame = 6500
     start_frame = 3000
+    end_frame = 4000
     end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)
@@ -117,6 +118,10 @@ def main():
     final_residue_counts = count_last_residues(ch2_permation_residues)
     plot_last_residue_bar_chart(final_residue_counts, results_dir, filename="ch2_permeation_last_residues.png")
 
+    ion_distances = tracking_ion_distances(ch2_permation_residues, total_distances_dict, ch2_permeations)
+    with open(results_dir / "ion_distances.json", "w") as f:
+        json.dump(ion_distances, f, indent=2)
+    plot_ion_distance_traces(ion_distances, results_dir)
 
     # Create an ExcelWriter to hold multiple sheets
     with pd.ExcelWriter(results_dir / "residue_clusters.xlsx") as writer:
