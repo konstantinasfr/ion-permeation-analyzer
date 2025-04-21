@@ -13,7 +13,7 @@ def cluster_frames_by_closest_residue(distance_data):
         min_results_per_frame[ion_id] = []
         not_sf_starting = False
 
-        for frame_data in frame_list:
+        for frame_data in frame_list[:-1]:
             frame = frame_data["frame"]
             residues = frame_data["residues"]
 
