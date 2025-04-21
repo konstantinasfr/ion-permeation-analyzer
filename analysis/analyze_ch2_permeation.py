@@ -56,7 +56,7 @@ def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[st
         # The last frame is considered the permeation frame
         ion_last_frame = max(entry["frame"] for entry in entries if "frame" in entry)
 
-        if ion_last_frame == end_frame:
+        if ion_last_frame == end_frame-1:
             continue
         
         residues_at_frame = get_residues_at_frame(min_results_per_frame, ion_last_frame)
