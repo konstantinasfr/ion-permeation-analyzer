@@ -13,6 +13,7 @@ from analysis.organizing_frames import cluster_frames_by_closest_residue, tracki
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
+from analysis.force_analysis import analyze_permeation_events
 import json
 import pandas as pd
 
@@ -20,10 +21,10 @@ import pandas as pd
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
-    # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
-    parser.add_argument("--top_file", default="../com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../protein.nc")
+    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
+    # parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../protein.nc")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -46,8 +47,9 @@ def main():
     # end_frame = 6800
     # start_frame = 6500
     start_frame = 3000
-    end_frame = 4000
-    end_frame = 6799
+    start_frame = 5300
+    end_frame = 5400
+    # end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)
     ch2 = Channel(u, upper2, lower2, radius=15.0)
@@ -139,6 +141,13 @@ def main():
 
     
     plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
+
+
+    forces_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, cutoff=15.0)
+
+    # Save to JSON
+    with open(results_dir / "permeation_force_results.json", "w") as f:
+        json.dump(forces_results, f, indent=2)
 
 if __name__ == "__main__":
     main()
