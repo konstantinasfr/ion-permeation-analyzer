@@ -21,10 +21,10 @@ import pandas as pd
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
-    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
-    # parser.add_argument("--top_file", default="../com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../protein.nc")
+    # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
+    parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../protein.nc")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -143,7 +143,8 @@ def main():
     plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
 
 
-    forces_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, cutoff=15.0)
+    forces_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, cutoff=15.0, calculate_total_force=True, 
+                                               prmtop_file=args.top_file, nc_file=args.traj_file)
 
     # Save to JSON
     with open(results_dir / "permeation_force_results.json", "w") as f:

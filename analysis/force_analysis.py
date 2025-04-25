@@ -1,5 +1,6 @@
 import numpy as np
 from tqdm import tqdm
+from analysis.calculate_openmm_forces import calculate_ionic_forces_all_frames
 
 # =========================
 # Utility Functions
@@ -76,112 +77,106 @@ def build_charge_map(universe, ion_selection='resname K+'):
 # Analysis Functions
 # =========================
 
-def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, cutoff=10.0):
+def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, cutoff=10.0,
+                  calculate_total_force=False, total_force_data=None):
     """
-    Analyze one frame of a permeation event.
-    Calculates Coulomb forces from surrounding ions, the motion of the permeating ion,
-    and how well the force aligns with the ion's movement direction.
-    
-    Returns a dictionary with all computed quantities.
+    Analyze one frame: compute ionic forces, motion, and optionally total force.
     """
-    
-    # Initialize result dictionary to store outputs for this frame
     result = {
-        "frame": frame,  # Current frame number
-        "net_force": [0.0, 0.0, 0.0],  # Placeholder for net Coulomb force vector
-        "motion_vector": None,  # Ion motion vector (frame to frame+1)
-        "alignment_with_motion": None,  # Dot product of net force and motion direction
-        "alignment_ratio": None,  # How well aligned the force is with motion (cosine of angle)
-        "top_by_magnitude": [],  # All contributing ions sorted by force magnitude
-        "top_by_directional_contribution": []  # All contributing ions sorted by force along motion direction
+        "frame": frame,
+        "ionic_force": [0.0, 0.0, 0.0],
+        "ionic_force_magnitude": None,
+        "total_force": None,
+        "total_force_magnitude": None,
+        "ionic_fraction_of_total": None,
+        "motion_vector": None,
+        "alignment_with_motion": None,
+        "alignment_ratio": None,
+        "top_by_magnitude": [],
+        "top_by_directional_contribution": []
     }
 
-    # Get 3D position of the permeating ion at this frame
-    # print("PERMEATING ION ID", type(permeating_ion_id))
     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
-    print(positions[5331].get(59324))
-    print(positions[5331].keys())
     if permeating_pos is None:
-        print("HEREE")
-        return result  # Exit early if position is missing
-    
-    net_force = np.zeros(3)  # Accumulate total force vector here
-    contributions = []  # Store per-ion force details here
+        return result
 
-    # Loop through all ions in the same frame
+    ionic_force = np.zeros(3)
+    contributions = []
+
     for ion_id, pos in positions.get(frame, {}).items():
         if ion_id == permeating_ion_id or ion_id not in other_ions:
-            continue  # Skip the ion itself or unrelated ions
-
-        # Compute distance between the ion and the permeating ion
+            continue
         distance = compute_distance(permeating_pos, pos)
-        # print(distance)
         if distance <= cutoff:
-            print(f"Analyzing ion {ion_id} at distance {distance:.2f} from permeating ion {permeating_ion_id}")
-            # Compute Coulomb force from this ion on the permeating ion
             force = compute_force(charge_map[permeating_ion_id], charge_map[ion_id], permeating_pos, pos)
-            net_force += force  # Add to total net force
-
-            # Record this ion's force info
+            ionic_force += force
             magnitude = np.linalg.norm(force)
             contributions.append({
                 "ion": int(ion_id),
-                "force": [float(f) for f in force.tolist()],  # ensure elements are native floats
+                "force": [float(f) for f in force.tolist()],
                 "magnitude": float(magnitude),
                 "distance": float(distance)
             })
 
+    result["ionic_force"] = ionic_force.tolist()
+    result["ionic_force_magnitude"] = float(np.linalg.norm(ionic_force))
 
-    # Gather positions at this frame and the next (for motion vector)
     ion_positions_over_time = {
         f: positions.get(f, {}).get(permeating_ion_id) for f in range(frame, frame + 2)
     }
-    
-    # Calculate motion vector from current to next frame
+
     motion_vec = get_motion_vector(ion_positions_over_time, frame)
     if motion_vec is not None:
-        unit_motion = unit_vector(motion_vec)  # Normalize it to unit length
-
-        # Project net force onto motion direction (dot product)
-        alignment = float(np.dot(net_force, unit_motion))
-
-        # Compute ratio: how much of the net force is aligned with motion
-        net_magnitude = np.linalg.norm(net_force)
+        unit_motion = unit_vector(motion_vec)
+        alignment = float(np.dot(ionic_force, unit_motion))
+        net_magnitude = np.linalg.norm(ionic_force)
         alignment_ratio = alignment / net_magnitude if net_magnitude != 0 else 0.0
 
-        # Save motion and alignment data in the result
         result.update({
             "motion_vector": motion_vec.tolist(),
             "alignment_with_motion": alignment,
             "alignment_ratio": alignment_ratio
         })
 
-        # For each contributing ion, calculate how much it helps/hurts motion
         for c in contributions:
             c["directional_contribution"] = float(np.dot(c["force"], unit_motion))
 
-        # Sort all contributors by strength and by alignment with motion
         result["top_by_magnitude"] = sorted(contributions, key=lambda x: -x["magnitude"])
         result["top_by_directional_contribution"] = sorted(contributions, key=lambda x: -x["directional_contribution"])
 
-    # Save total net force (even if motion vector is missing)
-    result["net_force"] = net_force.tolist()
+    # Add total force if requested
+    if calculate_total_force and total_force_data is not None:
+        tf = total_force_data.get((frame, permeating_ion_id))
+        if tf is not None:
+            total_force = np.array(tf)
+            total_mag = float(np.linalg.norm(total_force))
+            ionic_mag = result["ionic_force_magnitude"]
+            fraction = ionic_mag / total_mag if total_mag != 0 else 0.0
+            result.update({
+                "total_force": total_force.tolist(),
+                "total_force_magnitude": total_mag,
+                "ionic_fraction_of_total": fraction
+            })
+
     return result
 
-def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, cutoff=10.0):
+def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, cutoff=10.0,
+                              calculate_total_force=False, prmtop_file=None, nc_file=None):
     """
-    Analyze all permeation events over ±2 frames.
-    Returns structured results for each event.
+    Analyze all permeation events over ±2 frames. If `calculate_total_force=True`, loads forces via OpenMM.
     """
     positions = build_all_positions(universe, start_frame, end_frame)
     charge_map = build_charge_map(universe)
     results = []
 
+    total_force_data = None
+    if calculate_total_force and prmtop_file and nc_file:
+        print("Calculating total forces with OpenMM...")
+        total_force_data = calculate_ionic_forces_all_frames(prmtop_file, nc_file)
 
     for event in ch2_permeation_events:
-        # Only analyze if the permeation frame is in the specified range
         if not (start_frame <= event["frame"] < end_frame):
-            continue  # Skip this event
+            continue
 
         event_result = {
             "frame": event["frame"],
@@ -197,18 +192,18 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
             event["frame"] + 2
         ]
 
-    for frame in frames_to_check:
-        frame_result = analyze_frame(
-            positions=positions,
-            permeating_ion_id=event["permeated"],
-            frame=frame,
-            other_ions=positions.get(frame, {}).keys(),  # ✅ use all ions in this frame
-            # other_ions = event["ions"].keys()
-            charge_map=charge_map,
-            cutoff=cutoff
-        )
-        event_result["analysis"][frame] = frame_result
-
+        for frame in frames_to_check:
+            frame_result = analyze_frame(
+                positions=positions,
+                permeating_ion_id=event["permeated"],
+                frame=frame,
+                other_ions=positions.get(frame, {}).keys(),
+                charge_map=charge_map,
+                cutoff=cutoff,
+                calculate_total_force=calculate_total_force,
+                total_force_data=total_force_data
+            )
+            event_result["analysis"][frame] = frame_result
 
         results.append(event_result)
 
