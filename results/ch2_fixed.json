@@ -1,21 +1,51 @@
 [
   {
-    "ion_id": 1309,
-    "start_frame": 5300,
-    "exit_frame": 5399,
-    "total_time": 100
+    "ion_id": 1308,
+    "start_frame": 5000,
+    "exit_frame": 5269,
+    "total_time": 270
+  },
+  {
+    "ion_id": 1460,
+    "start_frame": 5000,
+    "exit_frame": 5131,
+    "total_time": 132
   },
   {
     "ion_id": 1320,
-    "start_frame": 5300,
+    "start_frame": 5173,
+    "exit_frame": 5224,
+    "total_time": 52
+  },
+  {
+    "ion_id": 1320,
+    "start_frame": 5236,
     "exit_frame": 5399,
-    "total_time": 100
+    "total_time": 164
+  },
+  {
+    "ion_id": 1309,
+    "start_frame": 5213,
+    "exit_frame": 5598,
+    "total_time": 386
+  },
+  {
+    "ion_id": 1309,
+    "start_frame": 5604,
+    "exit_frame": 5604,
+    "total_time": 1
+  },
+  {
+    "ion_id": 1309,
+    "start_frame": 5609,
+    "exit_frame": 5677,
+    "total_time": 69
   },
   {
     "ion_id": 1403,
-    "start_frame": 5302,
+    "start_frame": 5293,
     "exit_frame": 5307,
-    "total_time": 6
+    "total_time": 15
   },
   {
     "ion_id": 1403,
@@ -32,7 +62,55 @@
   {
     "ion_id": 1469,
     "start_frame": 5356,
-    "exit_frame": 5399,
-    "total_time": 44
+    "exit_frame": 5887,
+    "total_time": 532
+  },
+  {
+    "ion_id": 2436,
+    "start_frame": 5415,
+    "exit_frame": 5433,
+    "total_time": 19
+  },
+  {
+    "ion_id": 2434,
+    "start_frame": 5477,
+    "exit_frame": 5619,
+    "total_time": 143
+  },
+  {
+    "ion_id": 2434,
+    "start_frame": 5640,
+    "exit_frame": 5999,
+    "total_time": 360
+  },
+  {
+    "ion_id": 2444,
+    "start_frame": 5576,
+    "exit_frame": 5582,
+    "total_time": 7
+  },
+  {
+    "ion_id": 2443,
+    "start_frame": 5594,
+    "exit_frame": 5999,
+    "total_time": 406
+  },
+  {
+    "ion_id": 1380,
+    "start_frame": 5689,
+    "exit_frame": 5999,
+    "total_time": 311
+  },
+  {
+    "ion_id": 1476,
+    "start_frame": 5891,
+    "exit_frame": 5999,
+    "total_time": 109
+  },
+  {
+    "ion_id": 1355,
+    "start_frame": 5997,
+    "exit_frame": 5999,
+    "total_time": 3
   }
 ]

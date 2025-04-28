@@ -1,4 +1,5 @@
 import os
+import gc
 import numpy as np
 from tqdm import tqdm
 import MDAnalysis as mda
@@ -11,18 +12,13 @@ def calculate_ionic_forces_all_frames(prmtop_path, nc_path, output_dir="./forces
     """
     Calculates and caches total forces from OpenMM only for K+ ions across all frames.
 
-    Parameters:
-        prmtop_path: str - path to the .prmtop file
-        nc_path: str - path to the .nc trajectory
-        output_dir: str - directory to save cached forces
-
     Returns:
         force_data: dict - {frame: {resid: np.array([fx, fy, fz])}}
         atom_index_map: dict - {resid: atom_index}
     """
     os.makedirs(output_dir, exist_ok=True)
-    force_file = os.path.join(output_dir, "ionic_forces.npy")
-    index_map_file = os.path.join(output_dir, "atom_index_map.npy")
+    force_file = os.path.join(output_dir, "ionic_forces_scaled_removeCMMotionF.npy")
+    index_map_file = os.path.join(output_dir, "atom_index_map_scaled_removeCMMotionF.npy")
 
     if os.path.exists(force_file) and os.path.exists(index_map_file):
         print("Loading cached ionic forces...")
@@ -30,9 +26,14 @@ def calculate_ionic_forces_all_frames(prmtop_path, nc_path, output_dir="./forces
 
     u = mda.Universe(prmtop_path, nc_path)
     prmtop = AmberPrmtopFile(prmtop_path)
-    system = prmtop.createSystem(nonbondedMethod=NoCutoff, constraints=None)
+    # system = prmtop.createSystem(nonbondedMethod=NoCutoff, constraints=None)
+    system = prmtop.createSystem(
+        nonbondedMethod=NoCutoff,
+        constraints=None,
+        removeCMMotion=False
+    )
     integrator = LangevinIntegrator(300 * kelvin, 1 / picoseconds, 0.002 * picoseconds)
-    platform = Platform.getPlatformByName("CPU")
+    platform = Platform.getPlatformByName("CUDA")
     simulation = Simulation(prmtop.topology, system, integrator, platform)
 
     atom_index_map = {}
@@ -43,12 +44,15 @@ def calculate_ionic_forces_all_frames(prmtop_path, nc_path, output_dir="./forces
 
     force_data = {}
     for ts in tqdm(u.trajectory, desc="Calculating ionic forces per frame"):
-        simulation.context.setPositions(ts.positions)
+        simulation.context.setPositions(ts.positions * 0.1)  # ✅ Å to nm
         state = simulation.context.getState(getForces=True)
         forces = state.getForces(asNumpy=True)
+        forces = forces * 0.0239  # Convert forces from kJ/mol/nm to kcal/mol/Å
 
         frame_forces = {resid: np.array(forces[idx]) for resid, idx in atom_index_map.items()}
         force_data[ts.frame] = frame_forces
+
+        gc.collect()  # ✅ free memory after every frame
 
     np.save(force_file, force_data)
     np.save(index_map_file, atom_index_map)

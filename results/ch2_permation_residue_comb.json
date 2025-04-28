@@ -1,4 +1,42 @@
 {
+  "130, 455, 780": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      5269
+    ]
+  },
+  "1073, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      1105
+    ],
+    "frames": [
+      5131
+    ]
+  },
+  "130, 1073, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      1105
+    ],
+    "frames": [
+      5399
+    ]
+  },
+  "423, 748, 780, 1073": {
+    "count": 2,
+    "permeated_residues": [
+      780,
+      780
+    ],
+    "frames": [
+      5677,
+      5887
+    ]
+  },
   "423, 1105, 1105": {
     "count": 1,
     "permeated_residues": [
@@ -6,6 +44,24 @@
     ],
     "frames": [
       5331
+    ]
+  },
+  "423, 1073, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      1105
+    ],
+    "frames": [
+      5433
+    ]
+  },
+  "98, 130, 748, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      5582
     ]
   }
 }

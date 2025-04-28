@@ -5,6 +5,7 @@ from tqdm import tqdm
 class IonPermeationAnalysis:
     def __init__(self, universe, ion_selection, start_frame, end_frame, channel1, channel2, channel3):
         self.u = universe
+
         self.ion_selection = ion_selection
         self.start_frame = start_frame
         self.end_frame = end_frame
@@ -256,4 +257,4 @@ class IonPermeationAnalysis:
                     "distances": distances
                 })
 
-        return results
+        return resultsprint

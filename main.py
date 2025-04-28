@@ -47,8 +47,8 @@ def main():
     # end_frame = 6800
     # start_frame = 6500
     start_frame = 3000
-    start_frame = 5300
-    end_frame = 5400
+    start_frame = 5000
+    end_frame = 6000
     # end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)

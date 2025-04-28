@@ -10,7 +10,7 @@ def compute_distance(pos1, pos2):
     """Calculate Euclidean distance between two 3D positions."""
     return np.linalg.norm(pos1 - pos2)
 
-def compute_force(q1, q2, pos1, pos2, k=138.935456):
+def compute_force(q1, q2, pos1, pos2, k=332):
     """
     Compute Coulomb force vector from ion2 to ion1.
     q1, q2: Charges
@@ -81,7 +81,9 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
                   calculate_total_force=False, total_force_data=None):
     """
     Analyze one frame: compute ionic forces, motion, and optionally total force.
+    Also calculates cosine similarities between different vectors.
     """
+
     result = {
         "frame": frame,
         "ionic_force": [0.0, 0.0, 0.0],
@@ -92,6 +94,9 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
         "motion_vector": None,
         "alignment_with_motion": None,
         "alignment_ratio": None,
+        "cosine_ionic_total": None,
+        "cosine_total_motion": None,
+        "cosine_ionic_motion": None,
         "top_by_magnitude": [],
         "top_by_directional_contribution": []
     }
@@ -146,7 +151,7 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
 
     # Add total force if requested
     if calculate_total_force and total_force_data is not None:
-        tf = total_force_data.get((frame, permeating_ion_id))
+        tf = total_force_data[frame].get(permeating_ion_id)
         if tf is not None:
             total_force = np.array(tf)
             total_mag = float(np.linalg.norm(total_force))
@@ -158,7 +163,24 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
                 "ionic_fraction_of_total": fraction
             })
 
+            # ============================
+            # Cosine Similarity Calculations
+            # ============================
+
+            if np.linalg.norm(ionic_force) != 0 and np.linalg.norm(total_force) != 0:
+                cosine_ionic_total = float(np.dot(ionic_force, total_force) / (np.linalg.norm(ionic_force) * np.linalg.norm(total_force)))
+                result["cosine_ionic_total"] = cosine_ionic_total
+
+            if motion_vec is not None and np.linalg.norm(total_force) != 0 and np.linalg.norm(motion_vec) != 0:
+                cosine_total_motion = float(np.dot(total_force, motion_vec) / (np.linalg.norm(total_force) * np.linalg.norm(motion_vec)))
+                result["cosine_total_motion"] = cosine_total_motion
+
+            if motion_vec is not None and np.linalg.norm(ionic_force) != 0 and np.linalg.norm(motion_vec) != 0:
+                cosine_ionic_motion = float(np.dot(ionic_force, motion_vec) / (np.linalg.norm(ionic_force) * np.linalg.norm(motion_vec)))
+                result["cosine_ionic_motion"] = cosine_ionic_motion
+
     return result
+
 
 def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, cutoff=10.0,
                               calculate_total_force=False, prmtop_file=None, nc_file=None):
@@ -172,7 +194,7 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
     total_force_data = None
     if calculate_total_force and prmtop_file and nc_file:
         print("Calculating total forces with OpenMM...")
-        total_force_data = calculate_ionic_forces_all_frames(prmtop_file, nc_file)
+        total_force_data, atom_index_map = calculate_ionic_forces_all_frames(prmtop_file, nc_file)
 
     for event in ch2_permeation_events:
         if not (start_frame <= event["frame"] < end_frame):
