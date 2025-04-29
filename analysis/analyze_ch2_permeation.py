@@ -34,8 +34,24 @@ def get_residues_at_frame(min_results_per_frame: Dict[str, List[Dict[str, Any]]]
 
     return residues_at_frame
 
+def find_smallest_start_frame(events, target_ion_id):
+    """
+    Find the smallest start_frame for a given ion_id.
 
-def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[str, Any]]], end_frame) -> List[Dict[str, Any]]:
+    Args:
+        events (list of dict): List of events, each with 'ion_id', 'start_frame', etc.
+        target_ion_id (int): The ion ID to search for.
+
+    Returns:
+        int or None: The smallest start_frame if found, otherwise None.
+    """
+    start_frames = [event["start_frame"] for event in events if event["ion_id"] == target_ion_id]
+    if not start_frames:
+        return None  # Ion ID not found
+    return min(start_frames)
+
+
+def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[str, Any]]], ch2_permeations, end_frame) -> List[Dict[str, Any]]:
     """
     For each ion, find the frame where it permeates (i.e., its last frame).
     Then collect the residues of all other ions present at that same frame.
@@ -62,6 +78,7 @@ def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[st
         residues_at_frame = get_residues_at_frame(min_results_per_frame, ion_last_frame)
 
         ch2_permation_residues.append({
+            "start_frame": find_smallest_start_frame(ch2_permeations, ion_id),
             "frame": ion_last_frame,
             "ions": residues_at_frame,
             "permeated": int(ion_id)

@@ -1,0 +1,2074 @@
+{
+  "2433": [
+    {
+      "frame": 3399,
+      "cosine_ionic_motion": 0.9913645006514266,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3490,
+      "cosine_ionic_motion": 0.9850336530537555,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3555,
+      "cosine_ionic_motion": 0.9807243340345019,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3213,
+      "cosine_ionic_motion": 0.9801949420071061,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3227,
+      "cosine_ionic_motion": 0.9664561260999471,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3536,
+      "cosine_ionic_motion": 0.9661369605306505,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3609,
+      "cosine_ionic_motion": 0.9505659352136346,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3524,
+      "cosine_ionic_motion": 0.9393128585907718,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3198,
+      "cosine_ionic_motion": 0.9372048718855969,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3235,
+      "cosine_ionic_motion": 0.9365762890253541,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3595,
+      "cosine_ionic_motion": 0.9324826106576292,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3458,
+      "cosine_ionic_motion": 0.9128490667294651,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3342,
+      "cosine_ionic_motion": 0.9071400417766939,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3507,
+      "cosine_ionic_motion": 0.898332869816102,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3359,
+      "cosine_ionic_motion": 0.8942489374999814,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3243,
+      "cosine_ionic_motion": 0.8938317516027523,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3602,
+      "cosine_ionic_motion": 0.8913813025372226,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3221,
+      "cosine_ionic_motion": 0.8854474135634269,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3451,
+      "cosine_ionic_motion": 0.8848710153401904,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3478,
+      "cosine_ionic_motion": 0.8827167805833157,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3194,
+      "cosine_ionic_motion": 0.8815604678031085,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3339,
+      "cosine_ionic_motion": 0.8806157911997069,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3216,
+      "cosine_ionic_motion": 0.8778023359725989,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3630,
+      "cosine_ionic_motion": 0.8685710383610687,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3386,
+      "cosine_ionic_motion": 0.8622290648363408,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3498,
+      "cosine_ionic_motion": 0.8600624732404618,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3612,
+      "cosine_ionic_motion": 0.8580715639883102,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3527,
+      "cosine_ionic_motion": 0.8572443469594055,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3366,
+      "cosine_ionic_motion": 0.8462960795522346,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3471,
+      "cosine_ionic_motion": 0.8321554703297224,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3380,
+      "cosine_ionic_motion": 0.8305834991860325,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3232,
+      "cosine_ionic_motion": 0.82025097228424,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3543,
+      "cosine_ionic_motion": 0.8175777321068032,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3246,
+      "cosine_ionic_motion": 0.8120174778471096,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3518,
+      "cosine_ionic_motion": 0.8102688582821753,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3257,
+      "cosine_ionic_motion": 0.8014611787038904,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3513,
+      "cosine_ionic_motion": 0.798722403111044,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3210,
+      "cosine_ionic_motion": 0.7986072361519804,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3300,
+      "cosine_ionic_motion": 0.7972801733408402,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3287,
+      "cosine_ionic_motion": 0.7869714921406084,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3313,
+      "cosine_ionic_motion": 0.7838910036553591,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3530,
+      "cosine_ionic_motion": 0.7818435094650392,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3466,
+      "cosine_ionic_motion": 0.7791623123600168,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3505,
+      "cosine_ionic_motion": 0.7767271985646427,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3372,
+      "cosine_ionic_motion": 0.7755479301731998,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3631,
+      "cosine_ionic_motion": 0.7699828313986596,
+      "is_permeation_frame": true
+    }
+  ],
+  "1313": [
+    {
+      "frame": 3324,
+      "cosine_ionic_motion": 0.9997192109901553,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3543,
+      "cosine_ionic_motion": 0.9897570586515841,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3627,
+      "cosine_ionic_motion": 0.9894199197574722,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3477,
+      "cosine_ionic_motion": 0.9875977877032605,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3549,
+      "cosine_ionic_motion": 0.9832870632225024,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3487,
+      "cosine_ionic_motion": 0.9656794196690394,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3611,
+      "cosine_ionic_motion": 0.9644592267899692,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3337,
+      "cosine_ionic_motion": 0.9239821916649363,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3345,
+      "cosine_ionic_motion": 0.9180117022436276,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3518,
+      "cosine_ionic_motion": 0.9146184898345707,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3577,
+      "cosine_ionic_motion": 0.9086745914410795,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3568,
+      "cosine_ionic_motion": 0.896979565253502,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3326,
+      "cosine_ionic_motion": 0.8948647231467417,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3582,
+      "cosine_ionic_motion": 0.8820682466930115,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3579,
+      "cosine_ionic_motion": 0.8813237014046562,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3470,
+      "cosine_ionic_motion": 0.8749016024082453,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3466,
+      "cosine_ionic_motion": 0.8740762837921967,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3585,
+      "cosine_ionic_motion": 0.8714025732915719,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3365,
+      "cosine_ionic_motion": 0.8709394135817969,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3564,
+      "cosine_ionic_motion": 0.8546095523021238,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3516,
+      "cosine_ionic_motion": 0.8368904636680254,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3358,
+      "cosine_ionic_motion": 0.8213343583171805,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3464,
+      "cosine_ionic_motion": 0.7970293958841922,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3399,
+      "cosine_ionic_motion": 0.7920386235796906,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3341,
+      "cosine_ionic_motion": 0.7775177842387024,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3509,
+      "cosine_ionic_motion": 0.772197149604193,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3507,
+      "cosine_ionic_motion": 0.7641543660780797,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3625,
+      "cosine_ionic_motion": 0.7586688787995439,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3489,
+      "cosine_ionic_motion": 0.7531921539496039,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3632,
+      "cosine_ionic_motion": 0.7475458317876572,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3646,
+      "cosine_ionic_motion": 0.7212132886214307,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3533,
+      "cosine_ionic_motion": 0.7105364393603089,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3526,
+      "cosine_ionic_motion": 0.708950992396096,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3400,
+      "cosine_ionic_motion": 0.7031115694415481,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3545,
+      "cosine_ionic_motion": 0.7003783343746872,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3550,
+      "cosine_ionic_motion": 0.6983601930855815,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3379,
+      "cosine_ionic_motion": 0.6875674959213991,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3505,
+      "cosine_ionic_motion": 0.6795217489005055,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3496,
+      "cosine_ionic_motion": 0.6737001620668528,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3370,
+      "cosine_ionic_motion": 0.658798575310616,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3484,
+      "cosine_ionic_motion": 0.6514819267453279,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3596,
+      "cosine_ionic_motion": 0.6481336114078363,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3335,
+      "cosine_ionic_motion": 0.627074144131308,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3347,
+      "cosine_ionic_motion": 0.6253710512073722,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3530,
+      "cosine_ionic_motion": 0.6089060561767681,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3589,
+      "cosine_ionic_motion": 0.6057380762051051,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3355,
+      "cosine_ionic_motion": 0.5989883871324465,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3555,
+      "cosine_ionic_motion": 0.5979461637910479,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3557,
+      "cosine_ionic_motion": 0.5889317745961558,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3348,
+      "cosine_ionic_motion": 0.5800291735664432,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3448,
+      "cosine_ionic_motion": 0.576516288705118,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3640,
+      "cosine_ionic_motion": 0.5762247090969097,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3497,
+      "cosine_ionic_motion": 0.5755715445099097,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3659,
+      "cosine_ionic_motion": 0.5744128114132282,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3502,
+      "cosine_ionic_motion": 0.5697668786492905,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3491,
+      "cosine_ionic_motion": 0.5651637626000955,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3574,
+      "cosine_ionic_motion": 0.5580277401304101,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3601,
+      "cosine_ionic_motion": 0.5567121410592936,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3635,
+      "cosine_ionic_motion": 0.5545403335893926,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3610,
+      "cosine_ionic_motion": 0.5416977085990283,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3427,
+      "cosine_ionic_motion": 0.5294083410774958,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3321,
+      "cosine_ionic_motion": 0.5199156061735278,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 3666,
+      "cosine_ionic_motion": 0.5104037772261129,
+      "is_permeation_frame": true
+    }
+  ],
+  "1460": [
+    {
+      "frame": 4596,
+      "cosine_ionic_motion": 0.9964188378256461,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 4670,
+      "cosine_ionic_motion": 0.9935735970331625,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5004,
+      "cosine_ionic_motion": 0.9929279190890427,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 4369,
+      "cosine_ionic_motion": 0.9882122961263466,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 4733,
+      "cosine_ionic_motion": 0.9852857924726962,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5131,
+      "cosine_ionic_motion": 0.9818175087189451,
+      "is_permeation_frame": true
+    }
+  ],
+  "1387": [
+    {
+      "frame": 4415,
+      "cosine_ionic_motion": 0.9145691038902696,
+      "is_permeation_frame": true
+    }
+  ],
+  "1316": [
+    {
+      "frame": 4978,
+      "cosine_ionic_motion": 0.9900004948778921,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 4888,
+      "cosine_ionic_motion": 0.9611970815136864,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 4994,
+      "cosine_ionic_motion": 0.9548863830777687,
+      "is_permeation_frame": true
+    }
+  ],
+  "1308": [
+    {
+      "frame": 5097,
+      "cosine_ionic_motion": 0.9978416204665999,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5253,
+      "cosine_ionic_motion": 0.975319808274094,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5166,
+      "cosine_ionic_motion": 0.967279655935513,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5105,
+      "cosine_ionic_motion": 0.964400022785767,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5247,
+      "cosine_ionic_motion": 0.9578330878516347,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5202,
+      "cosine_ionic_motion": 0.9370685754828174,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5106,
+      "cosine_ionic_motion": 0.9108560246501058,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5115,
+      "cosine_ionic_motion": 0.910829380599598,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5058,
+      "cosine_ionic_motion": 0.8960041231695294,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5208,
+      "cosine_ionic_motion": 0.8902927777132666,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5003,
+      "cosine_ionic_motion": 0.8814315808209459,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5103,
+      "cosine_ionic_motion": 0.8732471405265426,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5239,
+      "cosine_ionic_motion": 0.867953992925517,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5188,
+      "cosine_ionic_motion": 0.8641199344664395,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5081,
+      "cosine_ionic_motion": 0.8539265876307592,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 4997,
+      "cosine_ionic_motion": 0.8234675078649084,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5269,
+      "cosine_ionic_motion": 0.8063306723388634,
+      "is_permeation_frame": true
+    }
+  ],
+  "1320": [
+    {
+      "frame": 5176,
+      "cosine_ionic_motion": 0.9996707091622106,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5188,
+      "cosine_ionic_motion": 0.9886528166637947,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5399,
+      "cosine_ionic_motion": 0.9851156424456512,
+      "is_permeation_frame": true
+    }
+  ],
+  "1309": [
+    {
+      "frame": 5381,
+      "cosine_ionic_motion": 0.9957924216156966,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5666,
+      "cosine_ionic_motion": 0.9946705662665039,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5677,
+      "cosine_ionic_motion": 0.9917189084903139,
+      "is_permeation_frame": true
+    }
+  ],
+  "1403": [
+    {
+      "frame": 5316,
+      "cosine_ionic_motion": 0.9814416458058247,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5318,
+      "cosine_ionic_motion": 0.9782615430679917,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5331,
+      "cosine_ionic_motion": 0.9294237685382462,
+      "is_permeation_frame": true
+    }
+  ],
+  "1469": [
+    {
+      "frame": 5453,
+      "cosine_ionic_motion": 0.9980847818374007,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5844,
+      "cosine_ionic_motion": 0.99691038844108,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5730,
+      "cosine_ionic_motion": 0.9958932352013901,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5484,
+      "cosine_ionic_motion": 0.9936772941958019,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5887,
+      "cosine_ionic_motion": 0.9918104420297268,
+      "is_permeation_frame": true
+    }
+  ],
+  "2436": [
+    {
+      "frame": 5423,
+      "cosine_ionic_motion": 0.9123871441683606,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5433,
+      "cosine_ionic_motion": 0.889221364727531,
+      "is_permeation_frame": true
+    }
+  ],
+  "2434": [
+    {
+      "frame": 5580,
+      "cosine_ionic_motion": 0.9841668512471875,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6009,
+      "cosine_ionic_motion": 0.9784957420060265,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5803,
+      "cosine_ionic_motion": 0.9745758850856001,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5635,
+      "cosine_ionic_motion": 0.9692376970672807,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5677,
+      "cosine_ionic_motion": 0.9674847513483704,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5610,
+      "cosine_ionic_motion": 0.9658430954549729,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5743,
+      "cosine_ionic_motion": 0.9483864479660782,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5956,
+      "cosine_ionic_motion": 0.9380944179380736,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5516,
+      "cosine_ionic_motion": 0.9380037178258165,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5676,
+      "cosine_ionic_motion": 0.9366087971036713,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5839,
+      "cosine_ionic_motion": 0.9339744538457381,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5707,
+      "cosine_ionic_motion": 0.9333114030620517,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5598,
+      "cosine_ionic_motion": 0.9329314780155733,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5974,
+      "cosine_ionic_motion": 0.9290929102501739,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5904,
+      "cosine_ionic_motion": 0.9202057600576897,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5959,
+      "cosine_ionic_motion": 0.9193266158419633,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5711,
+      "cosine_ionic_motion": 0.9166365523555758,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5906,
+      "cosine_ionic_motion": 0.8957844288285586,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5553,
+      "cosine_ionic_motion": 0.893088842011377,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5815,
+      "cosine_ionic_motion": 0.8927655799022266,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5613,
+      "cosine_ionic_motion": 0.8925582559400068,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5871,
+      "cosine_ionic_motion": 0.8836566419481274,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5827,
+      "cosine_ionic_motion": 0.8810444102814441,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5490,
+      "cosine_ionic_motion": 0.8802824710280489,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5987,
+      "cosine_ionic_motion": 0.8796416284346353,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5775,
+      "cosine_ionic_motion": 0.8621273918995643,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5513,
+      "cosine_ionic_motion": 0.8609770730092788,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5768,
+      "cosine_ionic_motion": 0.8601109814642623,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5977,
+      "cosine_ionic_motion": 0.8576307228280311,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5590,
+      "cosine_ionic_motion": 0.8546503730133509,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5878,
+      "cosine_ionic_motion": 0.8503177425535589,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5753,
+      "cosine_ionic_motion": 0.8473184788873461,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5616,
+      "cosine_ionic_motion": 0.8422361199442605,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5892,
+      "cosine_ionic_motion": 0.8407538189929897,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5545,
+      "cosine_ionic_motion": 0.8331831515903786,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5910,
+      "cosine_ionic_motion": 0.8282567194370841,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5730,
+      "cosine_ionic_motion": 0.8271111208312307,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5639,
+      "cosine_ionic_motion": 0.8222534900564894,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5537,
+      "cosine_ionic_motion": 0.8176707381097523,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5751,
+      "cosine_ionic_motion": 0.814382877911,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5942,
+      "cosine_ionic_motion": 0.8125304001688735,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6016,
+      "cosine_ionic_motion": 0.8123674644228325,
+      "is_permeation_frame": true
+    }
+  ],
+  "2444": [
+    {
+      "frame": 5581,
+      "cosine_ionic_motion": 0.7079269250678751,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5582,
+      "cosine_ionic_motion": 0.7049239596112777,
+      "is_permeation_frame": true
+    }
+  ],
+  "2443": [
+    {
+      "frame": 5855,
+      "cosine_ionic_motion": 0.9821342297118094,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5987,
+      "cosine_ionic_motion": 0.9816322264101444,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5986,
+      "cosine_ionic_motion": 0.9787810097155942,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5704,
+      "cosine_ionic_motion": 0.9787208408055966,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5596,
+      "cosine_ionic_motion": 0.976641108636546,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5802,
+      "cosine_ionic_motion": 0.9745499588729526,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6121,
+      "cosine_ionic_motion": 0.9655875526209993,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5944,
+      "cosine_ionic_motion": 0.951325341341391,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6202,
+      "cosine_ionic_motion": 0.9413579276117917,
+      "is_permeation_frame": true
+    }
+  ],
+  "1380": [
+    {
+      "frame": 6366,
+      "cosine_ionic_motion": 0.9970536428254609,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6346,
+      "cosine_ionic_motion": 0.9947961212486172,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5964,
+      "cosine_ionic_motion": 0.9907102908888296,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6020,
+      "cosine_ionic_motion": 0.986673783081822,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5745,
+      "cosine_ionic_motion": 0.9844046599798059,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5828,
+      "cosine_ionic_motion": 0.9840755795685723,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5898,
+      "cosine_ionic_motion": 0.9835599340494784,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5832,
+      "cosine_ionic_motion": 0.9777820025111424,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6059,
+      "cosine_ionic_motion": 0.9730537624884011,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6402,
+      "cosine_ionic_motion": 0.9729400103821157,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6073,
+      "cosine_ionic_motion": 0.9706996898058295,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6334,
+      "cosine_ionic_motion": 0.9693452308334475,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5925,
+      "cosine_ionic_motion": 0.962994348998068,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6171,
+      "cosine_ionic_motion": 0.9564110699924708,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6288,
+      "cosine_ionic_motion": 0.9524155720597384,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6337,
+      "cosine_ionic_motion": 0.952062374085958,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6344,
+      "cosine_ionic_motion": 0.9497864257861405,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5930,
+      "cosine_ionic_motion": 0.9423401950972413,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5968,
+      "cosine_ionic_motion": 0.9408505858901588,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6368,
+      "cosine_ionic_motion": 0.9405723603910675,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6272,
+      "cosine_ionic_motion": 0.939451048430048,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6104,
+      "cosine_ionic_motion": 0.9390297874346887,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6360,
+      "cosine_ionic_motion": 0.9302914754873136,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5775,
+      "cosine_ionic_motion": 0.9281462150797491,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6102,
+      "cosine_ionic_motion": 0.9276256202540899,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6088,
+      "cosine_ionic_motion": 0.9270428764705556,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6363,
+      "cosine_ionic_motion": 0.9229967101033493,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6065,
+      "cosine_ionic_motion": 0.9221929312243748,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6199,
+      "cosine_ionic_motion": 0.9209577346864283,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5735,
+      "cosine_ionic_motion": 0.9203639310158866,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5819,
+      "cosine_ionic_motion": 0.9185068032932048,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6177,
+      "cosine_ionic_motion": 0.9121585887100143,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5838,
+      "cosine_ionic_motion": 0.9113413462945651,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6190,
+      "cosine_ionic_motion": 0.9082650012427402,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6294,
+      "cosine_ionic_motion": 0.9020896360274337,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6385,
+      "cosine_ionic_motion": 0.9013875329116869,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6304,
+      "cosine_ionic_motion": 0.8930599523314686,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6316,
+      "cosine_ionic_motion": 0.8835451548720341,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6301,
+      "cosine_ionic_motion": 0.875992420357097,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5843,
+      "cosine_ionic_motion": 0.8720317198502884,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5691,
+      "cosine_ionic_motion": 0.8716542732504011,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6387,
+      "cosine_ionic_motion": 0.8644454159197776,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5911,
+      "cosine_ionic_motion": 0.8565906108690767,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5778,
+      "cosine_ionic_motion": 0.8557046899313429,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6328,
+      "cosine_ionic_motion": 0.8556176650102655,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6424,
+      "cosine_ionic_motion": 0.8512967972595105,
+      "is_permeation_frame": true
+    }
+  ],
+  "1476": [
+    {
+      "frame": 6134,
+      "cosine_ionic_motion": 0.9968734150613673,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6388,
+      "cosine_ionic_motion": 0.9946323728750794,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6314,
+      "cosine_ionic_motion": 0.9929075123523291,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6480,
+      "cosine_ionic_motion": 0.99127136200491,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6166,
+      "cosine_ionic_motion": 0.9910648880741719,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6026,
+      "cosine_ionic_motion": 0.9873358787495504,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5995,
+      "cosine_ionic_motion": 0.9866865813520103,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6457,
+      "cosine_ionic_motion": 0.9849023431254779,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5924,
+      "cosine_ionic_motion": 0.9764796613097055,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5951,
+      "cosine_ionic_motion": 0.9676250974506282,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6019,
+      "cosine_ionic_motion": 0.9664366734186874,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6161,
+      "cosine_ionic_motion": 0.9540955300377846,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5914,
+      "cosine_ionic_motion": 0.9538612973627287,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6406,
+      "cosine_ionic_motion": 0.9530130820398632,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6149,
+      "cosine_ionic_motion": 0.9435903800828127,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6244,
+      "cosine_ionic_motion": 0.940617285237089,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6173,
+      "cosine_ionic_motion": 0.9367441157965454,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6066,
+      "cosine_ionic_motion": 0.9348803035458624,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6223,
+      "cosine_ionic_motion": 0.9177157968714325,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6002,
+      "cosine_ionic_motion": 0.9146697968821689,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6227,
+      "cosine_ionic_motion": 0.9057211277087733,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5938,
+      "cosine_ionic_motion": 0.8984841562316657,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6310,
+      "cosine_ionic_motion": 0.8922083454651395,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6125,
+      "cosine_ionic_motion": 0.8849681335149975,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6142,
+      "cosine_ionic_motion": 0.8843627365202107,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5912,
+      "cosine_ionic_motion": 0.879006894420516,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6123,
+      "cosine_ionic_motion": 0.8714169852110325,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6452,
+      "cosine_ionic_motion": 0.8706601407377946,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6156,
+      "cosine_ionic_motion": 0.8672115668062396,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6076,
+      "cosine_ionic_motion": 0.8590853905702904,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6177,
+      "cosine_ionic_motion": 0.8542163890464969,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5899,
+      "cosine_ionic_motion": 0.8528839683401198,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6433,
+      "cosine_ionic_motion": 0.8490796708430464,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5891,
+      "cosine_ionic_motion": 0.8390809281841389,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6364,
+      "cosine_ionic_motion": 0.8384559621021215,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6103,
+      "cosine_ionic_motion": 0.8383420958069595,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5967,
+      "cosine_ionic_motion": 0.8373730694359324,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6027,
+      "cosine_ionic_motion": 0.8308441422459069,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6220,
+      "cosine_ionic_motion": 0.8254584493147257,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5934,
+      "cosine_ionic_motion": 0.8200294120148012,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6296,
+      "cosine_ionic_motion": 0.8169337453278186,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6083,
+      "cosine_ionic_motion": 0.813469087126558,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6182,
+      "cosine_ionic_motion": 0.8103722096542724,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6022,
+      "cosine_ionic_motion": 0.8064388749587128,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6170,
+      "cosine_ionic_motion": 0.8002978679646146,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6424,
+      "cosine_ionic_motion": 0.7990262815111739,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6143,
+      "cosine_ionic_motion": 0.7771209121819994,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6255,
+      "cosine_ionic_motion": 0.7735098719774013,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5956,
+      "cosine_ionic_motion": 0.7724442186158389,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6201,
+      "cosine_ionic_motion": 0.7703108469092426,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5982,
+      "cosine_ionic_motion": 0.7683638826303218,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6477,
+      "cosine_ionic_motion": 0.7673683703186811,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6403,
+      "cosine_ionic_motion": 0.7598754730354925,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6041,
+      "cosine_ionic_motion": 0.7523039442838859,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6128,
+      "cosine_ionic_motion": 0.747980118832463,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6399,
+      "cosine_ionic_motion": 0.74478123286895,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5985,
+      "cosine_ionic_motion": 0.7442731836825907,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6249,
+      "cosine_ionic_motion": 0.7426159589063496,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6379,
+      "cosine_ionic_motion": 0.7376127299839107,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5976,
+      "cosine_ionic_motion": 0.7353436297735146,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6323,
+      "cosine_ionic_motion": 0.7331041053307432,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5902,
+      "cosine_ionic_motion": 0.7233805888715068,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6036,
+      "cosine_ionic_motion": 0.7212766433614665,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5970,
+      "cosine_ionic_motion": 0.715987433850418,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5894,
+      "cosine_ionic_motion": 0.708278545868222,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6263,
+      "cosine_ionic_motion": 0.700156679447051,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6200,
+      "cosine_ionic_motion": 0.6991871465258875,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6347,
+      "cosine_ionic_motion": 0.6981079526085896,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6390,
+      "cosine_ionic_motion": 0.6951954226999412,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6048,
+      "cosine_ionic_motion": 0.694794265174448,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6356,
+      "cosine_ionic_motion": 0.6941034769673684,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5986,
+      "cosine_ionic_motion": 0.6867195379348443,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6455,
+      "cosine_ionic_motion": 0.684590191062483,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5978,
+      "cosine_ionic_motion": 0.681966371792731,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6008,
+      "cosine_ionic_motion": 0.6782079009628943,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5959,
+      "cosine_ionic_motion": 0.6769259327835293,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6171,
+      "cosine_ionic_motion": 0.6737227932326632,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5933,
+      "cosine_ionic_motion": 0.6682984020023176,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6117,
+      "cosine_ionic_motion": 0.6653011668995212,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6472,
+      "cosine_ionic_motion": 0.6618300955229187,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6270,
+      "cosine_ionic_motion": 0.6590122055400123,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6208,
+      "cosine_ionic_motion": 0.6558148453434139,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6148,
+      "cosine_ionic_motion": 0.6550730246034844,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6062,
+      "cosine_ionic_motion": 0.6510181321729023,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6096,
+      "cosine_ionic_motion": 0.6508024903366648,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6443,
+      "cosine_ionic_motion": 0.6416640559782787,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6014,
+      "cosine_ionic_motion": 0.6403962358378298,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 5991,
+      "cosine_ionic_motion": 0.6310950683620912,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6290,
+      "cosine_ionic_motion": 0.6271986422907176,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6250,
+      "cosine_ionic_motion": 0.6232275330735741,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6488,
+      "cosine_ionic_motion": 0.6204386761356414,
+      "is_permeation_frame": true
+    }
+  ],
+  "1355": [
+    {
+      "frame": 6114,
+      "cosine_ionic_motion": 0.997372211065269,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6550,
+      "cosine_ionic_motion": 0.9960697903148933,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6495,
+      "cosine_ionic_motion": 0.9959351405198907,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6506,
+      "cosine_ionic_motion": 0.9932212813858294,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6252,
+      "cosine_ionic_motion": 0.9900201077977386,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6440,
+      "cosine_ionic_motion": 0.9890191089382516,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6182,
+      "cosine_ionic_motion": 0.9807400129973463,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6196,
+      "cosine_ionic_motion": 0.9754242538168153,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6462,
+      "cosine_ionic_motion": 0.9655682996612973,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6351,
+      "cosine_ionic_motion": 0.9648038660791258,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6228,
+      "cosine_ionic_motion": 0.9613778635962422,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6147,
+      "cosine_ionic_motion": 0.9598493460165866,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6409,
+      "cosine_ionic_motion": 0.9459298590650184,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6344,
+      "cosine_ionic_motion": 0.9447718714452883,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6414,
+      "cosine_ionic_motion": 0.9416631927597074,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6521,
+      "cosine_ionic_motion": 0.9327396801681683,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6525,
+      "cosine_ionic_motion": 0.9299428452086609,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6366,
+      "cosine_ionic_motion": 0.9280278387539449,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6191,
+      "cosine_ionic_motion": 0.9272862290807428,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6374,
+      "cosine_ionic_motion": 0.923987305540757,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6391,
+      "cosine_ionic_motion": 0.9226031831382716,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6076,
+      "cosine_ionic_motion": 0.9196677952260824,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6083,
+      "cosine_ionic_motion": 0.9168010307247854,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6293,
+      "cosine_ionic_motion": 0.9151102918569886,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6502,
+      "cosine_ionic_motion": 0.9143617635233741,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6239,
+      "cosine_ionic_motion": 0.9090757688107638,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6516,
+      "cosine_ionic_motion": 0.908001224907338,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6105,
+      "cosine_ionic_motion": 0.9078462228357376,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6131,
+      "cosine_ionic_motion": 0.9006565017058098,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6555,
+      "cosine_ionic_motion": 0.8997572950040716,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6266,
+      "cosine_ionic_motion": 0.8982126741259217,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6552,
+      "cosine_ionic_motion": 0.8977594101437688,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6232,
+      "cosine_ionic_motion": 0.8890083092740161,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6500,
+      "cosine_ionic_motion": 0.8855674641722281,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6261,
+      "cosine_ionic_motion": 0.8827694252944297,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6298,
+      "cosine_ionic_motion": 0.8758344609734622,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6008,
+      "cosine_ionic_motion": 0.8671605287776131,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6125,
+      "cosine_ionic_motion": 0.8663632297600379,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6188,
+      "cosine_ionic_motion": 0.8655298523210225,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6385,
+      "cosine_ionic_motion": 0.8629504038335575,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6561,
+      "cosine_ionic_motion": 0.8591867052771691,
+      "is_permeation_frame": true
+    }
+  ],
+  "1443": [
+    {
+      "frame": 6299,
+      "cosine_ionic_motion": 0.9896358301560101,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6328,
+      "cosine_ionic_motion": 0.9887271452615616,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6219,
+      "cosine_ionic_motion": 0.9864195540367583,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6359,
+      "cosine_ionic_motion": 0.962425638348259,
+      "is_permeation_frame": true
+    }
+  ],
+  "1341": [
+    {
+      "frame": 6464,
+      "cosine_ionic_motion": 0.9999677833017746,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6540,
+      "cosine_ionic_motion": 0.9873074179323502,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6682,
+      "cosine_ionic_motion": 0.9831818669870219,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6635,
+      "cosine_ionic_motion": 0.9680318450406893,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6727,
+      "cosine_ionic_motion": 0.9660394274310968,
+      "is_permeation_frame": true
+    }
+  ],
+  "1465": [
+    {
+      "frame": 6599,
+      "cosine_ionic_motion": 0.9932761137665509,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6622,
+      "cosine_ionic_motion": 0.9803215203781046,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6646,
+      "cosine_ionic_motion": 0.9761573162843271,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6670,
+      "cosine_ionic_motion": 0.949370114202696,
+      "is_permeation_frame": true
+    }
+  ],
+  "1374": [
+    {
+      "frame": 6718,
+      "cosine_ionic_motion": 0.9416545980486678,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6732,
+      "cosine_ionic_motion": 0.7389153337148393,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6721,
+      "cosine_ionic_motion": 0.5834653141139671,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6741,
+      "cosine_ionic_motion": 0.5770903254380583,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6746,
+      "cosine_ionic_motion": 0.5494702498313031,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6734,
+      "cosine_ionic_motion": 0.5210392723071953,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6743,
+      "cosine_ionic_motion": 0.4854420284347653,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6724,
+      "cosine_ionic_motion": 0.4636191203107351,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6738,
+      "cosine_ionic_motion": 0.3621881699791981,
+      "is_permeation_frame": false
+    },
+    {
+      "frame": 6748,
+      "cosine_ionic_motion": 0.23388424362663351,
+      "is_permeation_frame": true
+    }
+  ]
+}

@@ -81,24 +81,22 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
                   calculate_total_force=False, total_force_data=None):
     """
     Analyze one frame: compute ionic forces, motion, and optionally total force.
-    Also calculates cosine similarities between different vectors.
+    Also calculates cosine similarities between different vectors and force decomposition.
     """
 
     result = {
         "frame": frame,
         "ionic_force": [0.0, 0.0, 0.0],
         "ionic_force_magnitude": None,
-        "total_force": None,
-        "total_force_magnitude": None,
-        "ionic_fraction_of_total": None,
         "motion_vector": None,
-        "alignment_with_motion": None,
-        "alignment_ratio": None,
-        "cosine_ionic_total": None,
-        "cosine_total_motion": None,
         "cosine_ionic_motion": None,
-        "top_by_magnitude": [],
-        "top_by_directional_contribution": []
+        "ionic_motion_component": None,
+        "ionic_force_x": None,
+        "ionic_force_y": None,
+        "ionic_force_z": None,
+        "axial_force": None,
+        "radial_force": None,
+        "contributions": []
     }
 
     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
@@ -126,6 +124,17 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
     result["ionic_force"] = ionic_force.tolist()
     result["ionic_force_magnitude"] = float(np.linalg.norm(ionic_force))
 
+    # ======== Decompose ionic force into x, y, z components ========
+    Fx, Fy, Fz = ionic_force
+    result.update({
+        "ionic_force_x": float(Fx),
+        "ionic_force_y": float(Fy),
+        "ionic_force_z": float(Fz),
+        "axial_force": float(Fz),  # assuming Z is the pore axis
+        "radial_force": float(np.sqrt(Fx**2 + Fy**2))
+    })
+    # ===============================================================
+
     ion_positions_over_time = {
         f: positions.get(f, {}).get(permeating_ion_id) for f in range(frame, frame + 2)
     }
@@ -133,21 +142,21 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
     motion_vec = get_motion_vector(ion_positions_over_time, frame)
     if motion_vec is not None:
         unit_motion = unit_vector(motion_vec)
-        alignment = float(np.dot(ionic_force, unit_motion))
-        net_magnitude = np.linalg.norm(ionic_force)
-        alignment_ratio = alignment / net_magnitude if net_magnitude != 0 else 0.0
 
-        result.update({
-            "motion_vector": motion_vec.tolist(),
-            "alignment_with_motion": alignment,
-            "alignment_ratio": alignment_ratio
-        })
+        if np.linalg.norm(ionic_force) != 0 and np.linalg.norm(motion_vec) != 0:
+            cosine_ionic_motion = float(np.dot(ionic_force, motion_vec) / (np.linalg.norm(ionic_force) * np.linalg.norm(motion_vec)))
+            ionic_motion_component = cosine_ionic_motion * result["ionic_force_magnitude"]
+
+            result.update({
+                "motion_vector": motion_vec.tolist(),
+                "cosine_ionic_motion": cosine_ionic_motion,
+                "ionic_motion_component": ionic_motion_component
+            })
 
         for c in contributions:
             c["directional_contribution"] = float(np.dot(c["force"], unit_motion))
 
-        result["top_by_magnitude"] = sorted(contributions, key=lambda x: -x["magnitude"])
-        result["top_by_directional_contribution"] = sorted(contributions, key=lambda x: -x["directional_contribution"])
+    result["contributions"] = contributions
 
     # Add total force if requested
     if calculate_total_force and total_force_data is not None:
@@ -157,35 +166,29 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
             total_mag = float(np.linalg.norm(total_force))
             ionic_mag = result["ionic_force_magnitude"]
             fraction = ionic_mag / total_mag if total_mag != 0 else 0.0
+
             result.update({
                 "total_force": total_force.tolist(),
                 "total_force_magnitude": total_mag,
                 "ionic_fraction_of_total": fraction
             })
 
-            # ============================
-            # Cosine Similarity Calculations
-            # ============================
-
+            # Cosine Similarities with total force
             if np.linalg.norm(ionic_force) != 0 and np.linalg.norm(total_force) != 0:
-                cosine_ionic_total = float(np.dot(ionic_force, total_force) / (np.linalg.norm(ionic_force) * np.linalg.norm(total_force)))
-                result["cosine_ionic_total"] = cosine_ionic_total
+                result["cosine_ionic_total"] = float(np.dot(ionic_force, total_force) / (np.linalg.norm(ionic_force) * np.linalg.norm(total_force)))
 
             if motion_vec is not None and np.linalg.norm(total_force) != 0 and np.linalg.norm(motion_vec) != 0:
-                cosine_total_motion = float(np.dot(total_force, motion_vec) / (np.linalg.norm(total_force) * np.linalg.norm(motion_vec)))
-                result["cosine_total_motion"] = cosine_total_motion
-
-            if motion_vec is not None and np.linalg.norm(ionic_force) != 0 and np.linalg.norm(motion_vec) != 0:
-                cosine_ionic_motion = float(np.dot(ionic_force, motion_vec) / (np.linalg.norm(ionic_force) * np.linalg.norm(motion_vec)))
-                result["cosine_ionic_motion"] = cosine_ionic_motion
+                result["cosine_total_motion"] = float(np.dot(total_force, motion_vec) / (np.linalg.norm(total_force) * np.linalg.norm(motion_vec)))
 
     return result
+
 
 
 def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, cutoff=10.0,
                               calculate_total_force=False, prmtop_file=None, nc_file=None):
     """
-    Analyze all permeation events over ±2 frames. If `calculate_total_force=True`, loads forces via OpenMM.
+    Analyze all permeation events from start_frame to permeation frame.
+    If `calculate_total_force=True`, loads forces via OpenMM.
     """
     positions = build_all_positions(universe, start_frame, end_frame)
     charge_map = build_charge_map(universe)
@@ -197,22 +200,19 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
         total_force_data, atom_index_map = calculate_ionic_forces_all_frames(prmtop_file, nc_file)
 
     for event in ch2_permeation_events:
+        # Check if event frame is within analysis window
         if not (start_frame <= event["frame"] < end_frame):
             continue
 
         event_result = {
+            "start_frame": event["start_frame"],
             "frame": event["frame"],
             "permeated_ion": event["permeated"],
             "analysis": {}
         }
 
-        frames_to_check = [
-            event["frame"] - 2,
-            event["frame"] - 1,
-            event["frame"],
-            event["frame"] + 1,
-            event["frame"] + 2
-        ]
+        # Build list of frames to analyze: from start_frame to frame (inclusive)
+        frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
 
         for frame in frames_to_check:
             frame_result = analyze_frame(
@@ -230,3 +230,91 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
         results.append(event_result)
 
     return results
+
+
+def find_top_cosine_frames(event_data, top_n=5):
+    """
+    Find the top N frames with the highest cosine_ionic_motion for each ion.
+    Also report if the frame is the permeation frame.
+
+    Args:
+        event_data: list of event dictionaries (each has 'permeated_ion', 'frame', 'analysis')
+        top_n: number of top frames to return per ion
+
+    Returns:
+        results: dict {ion_id: list of dicts with frame, cosine_ionic_motion, is_permeation_frame}
+    """
+    ion_results = {}
+
+    for event in event_data:
+        permeated_ion = event["permeated_ion"]
+        permeation_frame = event["frame"]
+        analysis = event["analysis"]
+
+        # Collect all frames and their cosine_ionic_motion
+        frame_cosine_list = []
+        for frame, frame_data in analysis.items():
+            cosine = frame_data.get("cosine_ionic_motion")
+            if cosine is not None:
+                frame_cosine_list.append((frame, cosine))
+
+        # Sort by descending cosine value
+        sorted_frames = sorted(frame_cosine_list, key=lambda x: -x[1])
+
+        # Pick top N
+        top_frames = sorted_frames[:top_n]
+
+        # Build the result for this ion
+        top_info = []
+        for frame, cosine in top_frames:
+            top_info.append({
+                "frame": frame,
+                "cosine_ionic_motion": cosine,
+                "is_permeation_frame": (frame == permeation_frame)
+            })
+
+        ion_results[permeated_ion] = top_info
+
+    return ion_results
+
+
+def collect_sorted_cosines_until_permeation(event_data):
+    """
+    For each ion, sort all frames by cosine_ionic_motion (max to min),
+    then collect frames until and including the permeation frame.
+
+    Args:
+        event_data: list of event dictionaries (each has 'permeated_ion', 'frame', 'analysis')
+
+    Returns:
+        results: dict {ion_id: list of dicts with frame, cosine_ionic_motion, is_permeation_frame}
+    """
+    ion_results = {}
+
+    for event in event_data:
+        permeated_ion = event["permeated_ion"]
+        permeation_frame = event["frame"]
+        analysis = event["analysis"]
+
+        frame_cosine_list = []
+        for frame, frame_data in analysis.items():
+            cosine = frame_data.get("cosine_ionic_motion")
+            if cosine is not None:
+                frame_cosine_list.append((frame, cosine))
+
+        # Sort frames by cosine descending (max to min)
+        sorted_frames = sorted(frame_cosine_list, key=lambda x: -x[1])
+
+        collected_frames = []
+        for frame, cosine in sorted_frames:
+            collected_frames.append({
+                "frame": frame,
+                "cosine_ionic_motion": cosine,
+                "is_permeation_frame": (frame == permeation_frame)
+            })
+            if frame == permeation_frame:
+                break  # stop after collecting the permeation frame
+
+        ion_results[permeated_ion] = collected_frames
+
+    return ion_results
