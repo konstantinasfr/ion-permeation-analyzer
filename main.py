@@ -46,10 +46,10 @@ def main():
     # start_frame = 5000
     # end_frame = 6800
     # start_frame = 6500
-    start_frame = 3000
-    # start_frame = 5000
-    # end_frame = 6000
-    end_frame = 6799
+    # start_frame = 3000
+    start_frame = 5000
+    end_frame = 6000
+    # end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)
     ch2 = Channel(u, upper2, lower2, radius=15.0)
@@ -154,7 +154,7 @@ def main():
     forces_df = pd.DataFrame(forces_results)
     forces_df.to_excel(results_dir / "permeation_force_results.xlsx", index=False)
 
-    top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results)
+    top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results, min_results_per_frame)
 
     # Save to JSON
     with open(results_dir / "top_cosine_ionic_motion.json", "w") as f:

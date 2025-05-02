@@ -278,21 +278,11 @@ def find_top_cosine_frames(event_data, top_n=5):
     return ion_results
 
 
-def collect_sorted_cosines_until_permeation(event_data):
-    """
-    For each ion, sort all frames by cosine_ionic_motion (max to min),
-    then collect frames until and including the permeation frame.
-
-    Args:
-        event_data: list of event dictionaries (each has 'permeated_ion', 'frame', 'analysis')
-
-    Returns:
-        results: dict {ion_id: list of dicts with frame, cosine_ionic_motion, is_permeation_frame}
-    """
+def collect_sorted_cosines_until_permeation(event_data, closest_residues_by_ion):
     ion_results = {}
 
     for event in event_data:
-        permeated_ion = event["permeated_ion"]
+        ion_id = str(event["permeated_ion"])  # ensure match with input keys
         permeation_frame = event["frame"]
         analysis = event["analysis"]
 
@@ -302,19 +292,41 @@ def collect_sorted_cosines_until_permeation(event_data):
             if cosine is not None:
                 frame_cosine_list.append((frame, cosine))
 
-        # Sort frames by cosine descending (max to min)
         sorted_frames = sorted(frame_cosine_list, key=lambda x: -x[1])
-
+        residue_track = closest_residues_by_ion.get(int(ion_id),[])
         collected_frames = []
         for frame, cosine in sorted_frames:
+            # Initialize as None in case not found
+            closest_now = None
+            closest_next = None
+
+            # Search for closest residue in current frame
+            for r in residue_track:
+                print(r["frame"], frame)
+                if r["frame"] == frame:
+                    closest_now = r["residue"]
+                    break
+
+            # Search for closest residue in next frame
+            for r in residue_track:
+                if r["frame"] == frame + 1:
+                    closest_next = r["residue"]
+                    break
+
+
             collected_frames.append({
                 "frame": frame,
                 "cosine_ionic_motion": cosine,
-                "is_permeation_frame": (frame == permeation_frame)
+                "is_permeation_frame": (frame == permeation_frame),
+                "radial_force": analysis[frame].get("radial_force"),
+                "axial_force": analysis[frame].get("axial_force"),
+                "closest_residue": closest_now,
+                "next_closest_residue": closest_next,
+                "contributions": analysis[frame].get("contributions", [])
             })
             if frame == permeation_frame:
-                break  # stop after collecting the permeation frame
+                break
 
-        ion_results[permeated_ion] = collected_frames
+        ion_results[ion_id] = collected_frames
 
     return ion_results

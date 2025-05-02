@@ -1,2074 +1,1833 @@
 {
-  "2433": [
-    {
-      "frame": 3399,
-      "cosine_ionic_motion": 0.9913645006514266,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3490,
-      "cosine_ionic_motion": 0.9850336530537555,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3555,
-      "cosine_ionic_motion": 0.9807243340345019,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3213,
-      "cosine_ionic_motion": 0.9801949420071061,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3227,
-      "cosine_ionic_motion": 0.9664561260999471,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3536,
-      "cosine_ionic_motion": 0.9661369605306505,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3609,
-      "cosine_ionic_motion": 0.9505659352136346,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3524,
-      "cosine_ionic_motion": 0.9393128585907718,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3198,
-      "cosine_ionic_motion": 0.9372048718855969,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3235,
-      "cosine_ionic_motion": 0.9365762890253541,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3595,
-      "cosine_ionic_motion": 0.9324826106576292,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3458,
-      "cosine_ionic_motion": 0.9128490667294651,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3342,
-      "cosine_ionic_motion": 0.9071400417766939,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3507,
-      "cosine_ionic_motion": 0.898332869816102,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3359,
-      "cosine_ionic_motion": 0.8942489374999814,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3243,
-      "cosine_ionic_motion": 0.8938317516027523,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3602,
-      "cosine_ionic_motion": 0.8913813025372226,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3221,
-      "cosine_ionic_motion": 0.8854474135634269,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3451,
-      "cosine_ionic_motion": 0.8848710153401904,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3478,
-      "cosine_ionic_motion": 0.8827167805833157,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3194,
-      "cosine_ionic_motion": 0.8815604678031085,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3339,
-      "cosine_ionic_motion": 0.8806157911997069,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3216,
-      "cosine_ionic_motion": 0.8778023359725989,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3630,
-      "cosine_ionic_motion": 0.8685710383610687,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3386,
-      "cosine_ionic_motion": 0.8622290648363408,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3498,
-      "cosine_ionic_motion": 0.8600624732404618,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3612,
-      "cosine_ionic_motion": 0.8580715639883102,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3527,
-      "cosine_ionic_motion": 0.8572443469594055,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3366,
-      "cosine_ionic_motion": 0.8462960795522346,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3471,
-      "cosine_ionic_motion": 0.8321554703297224,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3380,
-      "cosine_ionic_motion": 0.8305834991860325,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3232,
-      "cosine_ionic_motion": 0.82025097228424,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3543,
-      "cosine_ionic_motion": 0.8175777321068032,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3246,
-      "cosine_ionic_motion": 0.8120174778471096,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3518,
-      "cosine_ionic_motion": 0.8102688582821753,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3257,
-      "cosine_ionic_motion": 0.8014611787038904,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3513,
-      "cosine_ionic_motion": 0.798722403111044,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3210,
-      "cosine_ionic_motion": 0.7986072361519804,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3300,
-      "cosine_ionic_motion": 0.7972801733408402,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3287,
-      "cosine_ionic_motion": 0.7869714921406084,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3313,
-      "cosine_ionic_motion": 0.7838910036553591,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3530,
-      "cosine_ionic_motion": 0.7818435094650392,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3466,
-      "cosine_ionic_motion": 0.7791623123600168,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3505,
-      "cosine_ionic_motion": 0.7767271985646427,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3372,
-      "cosine_ionic_motion": 0.7755479301731998,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3631,
-      "cosine_ionic_motion": 0.7699828313986596,
-      "is_permeation_frame": true
-    }
-  ],
-  "1313": [
-    {
-      "frame": 3324,
-      "cosine_ionic_motion": 0.9997192109901553,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3543,
-      "cosine_ionic_motion": 0.9897570586515841,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3627,
-      "cosine_ionic_motion": 0.9894199197574722,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3477,
-      "cosine_ionic_motion": 0.9875977877032605,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3549,
-      "cosine_ionic_motion": 0.9832870632225024,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3487,
-      "cosine_ionic_motion": 0.9656794196690394,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3611,
-      "cosine_ionic_motion": 0.9644592267899692,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3337,
-      "cosine_ionic_motion": 0.9239821916649363,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3345,
-      "cosine_ionic_motion": 0.9180117022436276,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3518,
-      "cosine_ionic_motion": 0.9146184898345707,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3577,
-      "cosine_ionic_motion": 0.9086745914410795,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3568,
-      "cosine_ionic_motion": 0.896979565253502,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3326,
-      "cosine_ionic_motion": 0.8948647231467417,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3582,
-      "cosine_ionic_motion": 0.8820682466930115,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3579,
-      "cosine_ionic_motion": 0.8813237014046562,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3470,
-      "cosine_ionic_motion": 0.8749016024082453,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3466,
-      "cosine_ionic_motion": 0.8740762837921967,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3585,
-      "cosine_ionic_motion": 0.8714025732915719,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3365,
-      "cosine_ionic_motion": 0.8709394135817969,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3564,
-      "cosine_ionic_motion": 0.8546095523021238,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3516,
-      "cosine_ionic_motion": 0.8368904636680254,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3358,
-      "cosine_ionic_motion": 0.8213343583171805,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3464,
-      "cosine_ionic_motion": 0.7970293958841922,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3399,
-      "cosine_ionic_motion": 0.7920386235796906,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3341,
-      "cosine_ionic_motion": 0.7775177842387024,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3509,
-      "cosine_ionic_motion": 0.772197149604193,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3507,
-      "cosine_ionic_motion": 0.7641543660780797,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3625,
-      "cosine_ionic_motion": 0.7586688787995439,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3489,
-      "cosine_ionic_motion": 0.7531921539496039,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3632,
-      "cosine_ionic_motion": 0.7475458317876572,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3646,
-      "cosine_ionic_motion": 0.7212132886214307,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3533,
-      "cosine_ionic_motion": 0.7105364393603089,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3526,
-      "cosine_ionic_motion": 0.708950992396096,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3400,
-      "cosine_ionic_motion": 0.7031115694415481,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3545,
-      "cosine_ionic_motion": 0.7003783343746872,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3550,
-      "cosine_ionic_motion": 0.6983601930855815,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3379,
-      "cosine_ionic_motion": 0.6875674959213991,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3505,
-      "cosine_ionic_motion": 0.6795217489005055,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3496,
-      "cosine_ionic_motion": 0.6737001620668528,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3370,
-      "cosine_ionic_motion": 0.658798575310616,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3484,
-      "cosine_ionic_motion": 0.6514819267453279,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3596,
-      "cosine_ionic_motion": 0.6481336114078363,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3335,
-      "cosine_ionic_motion": 0.627074144131308,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3347,
-      "cosine_ionic_motion": 0.6253710512073722,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3530,
-      "cosine_ionic_motion": 0.6089060561767681,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3589,
-      "cosine_ionic_motion": 0.6057380762051051,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3355,
-      "cosine_ionic_motion": 0.5989883871324465,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3555,
-      "cosine_ionic_motion": 0.5979461637910479,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3557,
-      "cosine_ionic_motion": 0.5889317745961558,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3348,
-      "cosine_ionic_motion": 0.5800291735664432,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3448,
-      "cosine_ionic_motion": 0.576516288705118,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3640,
-      "cosine_ionic_motion": 0.5762247090969097,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3497,
-      "cosine_ionic_motion": 0.5755715445099097,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3659,
-      "cosine_ionic_motion": 0.5744128114132282,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3502,
-      "cosine_ionic_motion": 0.5697668786492905,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3491,
-      "cosine_ionic_motion": 0.5651637626000955,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3574,
-      "cosine_ionic_motion": 0.5580277401304101,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3601,
-      "cosine_ionic_motion": 0.5567121410592936,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3635,
-      "cosine_ionic_motion": 0.5545403335893926,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3610,
-      "cosine_ionic_motion": 0.5416977085990283,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3427,
-      "cosine_ionic_motion": 0.5294083410774958,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3321,
-      "cosine_ionic_motion": 0.5199156061735278,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 3666,
-      "cosine_ionic_motion": 0.5104037772261129,
-      "is_permeation_frame": true
-    }
-  ],
-  "1460": [
-    {
-      "frame": 4596,
-      "cosine_ionic_motion": 0.9964188378256461,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 4670,
-      "cosine_ionic_motion": 0.9935735970331625,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5004,
-      "cosine_ionic_motion": 0.9929279190890427,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 4369,
-      "cosine_ionic_motion": 0.9882122961263466,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 4733,
-      "cosine_ionic_motion": 0.9852857924726962,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5131,
-      "cosine_ionic_motion": 0.9818175087189451,
-      "is_permeation_frame": true
-    }
-  ],
-  "1387": [
-    {
-      "frame": 4415,
-      "cosine_ionic_motion": 0.9145691038902696,
-      "is_permeation_frame": true
-    }
-  ],
-  "1316": [
-    {
-      "frame": 4978,
-      "cosine_ionic_motion": 0.9900004948778921,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 4888,
-      "cosine_ionic_motion": 0.9611970815136864,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 4994,
-      "cosine_ionic_motion": 0.9548863830777687,
-      "is_permeation_frame": true
-    }
-  ],
   "1308": [
     {
       "frame": 5097,
       "cosine_ionic_motion": 0.9978416204665999,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 10.202035343439846,
+      "axial_force": -4.88976776599884,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -1.0885090827941895,
+            -0.5775473713874817,
+            -1.9608451128005981
+          ],
+          "magnitude": 2.3158857822418213,
+          "distance": 11.973206520080566,
+          "directional_contribution": 1.8293253959438474
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -4.588221073150635,
+            -2.673816204071045,
+            -3.8911585807800293
+          ],
+          "magnitude": 6.583477973937988,
+          "distance": 7.1013569831848145,
+          "directional_contribution": 6.032809189304871
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -0.8238130807876587,
+            -4.611489772796631,
+            0.9622359275817871
+          ],
+          "magnitude": 4.782301425933838,
+          "distance": 8.332025527954102,
+          "directional_contribution": 3.4267731255740586
+        }
+      ]
     },
     {
       "frame": 5253,
       "cosine_ionic_motion": 0.975319808274094,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 11.675520321908461,
+      "axial_force": -0.4307851791381836,
+      "closest_residue": 98,
+      "next_closest_residue": 98,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.41724857687950134,
+            2.1161396503448486,
+            3.173159599304199
+          ],
+          "magnitude": 3.8368067741394043,
+          "distance": 9.302165985107422,
+          "directional_contribution": 2.4647972236027016
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -4.895204544067383,
+            2.731416702270508,
+            1.1422078609466553
+          ],
+          "magnitude": 5.720865726470947,
+          "distance": 7.617950916290283,
+          "directional_contribution": 5.306206692701892
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -1.7852593660354614,
+            3.2454051971435547,
+            -3.1073646545410156
+          ],
+          "magnitude": 4.8348236083984375,
+          "distance": 8.28664493560791,
+          "directional_contribution": 3.0203363106263055
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -0.4065975844860077,
+            0.851483941078186,
+            -1.6387879848480225
+          ],
+          "magnitude": 1.8910242319107056,
+          "distance": 13.250141143798828,
+          "directional_contribution": 0.603774270398219
+        }
+      ]
     },
     {
       "frame": 5166,
       "cosine_ionic_motion": 0.967279655935513,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 10.590822733556188,
+      "axial_force": -5.663761258125305,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -1.6867272853851318,
+            -2.0589325428009033,
+            -2.408496141433716
+          ],
+          "magnitude": 3.589582920074463,
+          "distance": 9.617164611816406,
+          "directional_contribution": 3.485145107559113
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -4.512175559997559,
+            -5.212580680847168,
+            -1.3818705081939697
+          ],
+          "magnitude": 7.031379222869873,
+          "distance": 6.871456146240234,
+          "directional_contribution": 6.231506888786171
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -0.648099422454834,
+            -0.8083435893058777,
+            -1.8733946084976196
+          ],
+          "magnitude": 2.14080810546875,
+          "distance": 12.453177452087402,
+          "directional_contribution": 1.9005220866478911
+        }
+      ]
     },
     {
       "frame": 5105,
       "cosine_ionic_motion": 0.964400022785767,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 7.844313496570188,
+      "axial_force": -3.7197209000587463,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -1.011030912399292,
+            -0.6023633480072021,
+            -1.6191811561584473
+          ],
+          "magnitude": 2.001692533493042,
+          "distance": 12.878650665283203,
+          "directional_contribution": 1.5303277291742319
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -3.533073902130127,
+            -2.109323501586914,
+            -2.4906859397888184
+          ],
+          "magnitude": 4.809924602508545,
+          "distance": 8.308065414428711,
+          "directional_contribution": 4.583157577603188
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -0.8738181591033936,
+            -2.960999011993408,
+            0.3901461958885193
+          ],
+          "magnitude": 3.111798048019409,
+          "distance": 10.329120635986328,
+          "directional_contribution": 2.2590165955977586
+        }
+      ]
     },
     {
       "frame": 5247,
       "cosine_ionic_motion": 0.9578330878516347,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 27.166192703110895,
+      "axial_force": 3.7344119548797607,
+      "closest_residue": 98,
+      "next_closest_residue": 98,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -2.400151491165161,
+            3.2643606662750244,
+            2.6939704418182373
+          ],
+          "magnitude": 4.865619659423828,
+          "distance": 8.26037883758545,
+          "directional_contribution": 4.637217146210602
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -16.810619354248047,
+            9.293432235717773,
+            5.3970818519592285
+          ],
+          "magnitude": 19.9522762298584,
+          "distance": 4.079179763793945,
+          "directional_contribution": 18.855999242285264
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -2.5480289459228516,
+            1.9936259984970093,
+            -2.696047782897949
+          ],
+          "magnitude": 4.211373805999756,
+          "distance": 8.87885856628418,
+          "directional_contribution": 2.278741704886883
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -0.7091500759124756,
+            0.719247579574585,
+            -1.6605925559997559
+          ],
+          "magnitude": 1.9436508417129517,
+          "distance": 13.069528579711914,
+          "directional_contribution": 0.4934233895435227
+        }
+      ]
     },
     {
       "frame": 5202,
       "cosine_ionic_motion": 0.9370685754828174,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 6.304401586030822,
+      "axial_force": -7.04107528924942,
+      "closest_residue": 455,
+      "next_closest_residue": 455,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            2.1980197429656982,
+            0.5475004315376282,
+            -4.726112365722656
+          ],
+          "magnitude": 5.240914821624756,
+          "distance": 7.959127902984619,
+          "directional_contribution": 4.919083766392049
+        },
+        {
+          "ion": 1320,
+          "force": [
+            3.1942861080169678,
+            -3.2119216918945312,
+            -0.43542641401290894
+          ],
+          "magnitude": 4.550769329071045,
+          "distance": 8.541352272033691,
+          "directional_contribution": 2.322006619505583
+        },
+        {
+          "ion": 1403,
+          "force": [
+            0.39683660864830017,
+            0.1681622713804245,
+            -1.879536509513855
+          ],
+          "magnitude": 1.9283193349838257,
+          "distance": 13.121381759643555,
+          "directional_contribution": 1.6151851616656971
+        }
+      ]
     },
     {
       "frame": 5106,
       "cosine_ionic_motion": 0.9108560246501058,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 7.671542641603993,
+      "axial_force": -3.6520581245422363,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.9041104912757874,
+            -0.6121124625205994,
+            -1.5238707065582275
+          ],
+          "magnitude": 1.8746411800384521,
+          "distance": 13.307913780212402,
+          "directional_contribution": 1.856006661940759
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -2.7898709774017334,
+            -2.052126407623291,
+            -2.249506950378418
+          ],
+          "magnitude": 4.129755973815918,
+          "distance": 8.966167449951172,
+          "directional_contribution": 3.9277208878605876
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -1.8299773931503296,
+            -2.6591477394104004,
+            0.12131953239440918
+          ],
+          "magnitude": 3.2302634716033936,
+          "distance": 10.137948036193848,
+          "directional_contribution": 1.955338198553946
+        }
+      ]
     },
     {
       "frame": 5115,
       "cosine_ionic_motion": 0.910829380599598,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 7.087451240937242,
+      "axial_force": -4.587999869138002,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.8466641306877136,
+            -1.0018786191940308,
+            -2.0858473777770996
+          ],
+          "magnitude": 2.46401309967041,
+          "distance": 11.607736587524414,
+          "directional_contribution": 1.868517130081064
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -2.2634010314941406,
+            -2.4717183113098145,
+            -2.556062936782837
+          ],
+          "magnitude": 4.214953422546387,
+          "distance": 8.87508773803711,
+          "directional_contribution": 3.494575389094912
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -0.5890233516693115,
+            -2.571955919265747,
+            0.05391044542193413
+          ],
+          "magnitude": 2.6390931606292725,
+          "distance": 11.216094970703125,
+          "directional_contribution": 2.326902725920193
+        }
+      ]
     },
     {
       "frame": 5058,
       "cosine_ionic_motion": 0.8960041231695294,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 4.957071693066861,
+      "axial_force": -4.951510012149811,
+      "closest_residue": 780,
+      "next_closest_residue": 780,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.16190692782402039,
+            -0.6163021326065063,
+            -1.4798015356063843
+          ],
+          "magnitude": 1.6111656427383423,
+          "distance": 14.354859352111816,
+          "directional_contribution": 1.1747124948751955
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -0.6259042024612427,
+            -2.278513193130493,
+            -2.996227741241455
+          ],
+          "magnitude": 3.8158562183380127,
+          "distance": 9.327667236328125,
+          "directional_contribution": 3.2992217492599245
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -0.7808094620704651,
+            -1.8075233697891235,
+            -0.47548073530197144
+          ],
+          "magnitude": 2.0255582332611084,
+          "distance": 12.802556037902832,
+          "directional_contribution": 1.8038527700271842
+        }
+      ]
     },
     {
       "frame": 5208,
       "cosine_ionic_motion": 0.8902927777132666,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 15.305925869926678,
+      "axial_force": -19.50748097896576,
+      "closest_residue": 780,
+      "next_closest_residue": 780,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            8.727119445800781,
+            -2.940622091293335,
+            -12.607416152954102
+          ],
+          "magnitude": 15.612713813781738,
+          "distance": 4.611368656158447,
+          "directional_contribution": 13.878284942871488
+        },
+        {
+          "ion": 1320,
+          "force": [
+            4.485781192779541,
+            -3.9939193725585938,
+            -2.216458559036255
+          ],
+          "magnitude": 6.402055263519287,
+          "distance": 7.2012739181518555,
+          "directional_contribution": 3.6941300285859526
+        },
+        {
+          "ion": 1403,
+          "force": [
+            0.39243870973587036,
+            0.20197851955890656,
+            -3.151628255844116
+          ],
+          "magnitude": 3.1823832988739014,
+          "distance": 10.21392822265625,
+          "directional_contribution": 3.0138180895774065
+        },
+        {
+          "ion": 1469,
+          "force": [
+            0.12977240979671478,
+            -0.021552225574851036,
+            -1.5319780111312866
+          ],
+          "magnitude": 1.5376157760620117,
+          "distance": 14.694172859191895,
+          "directional_contribution": 1.4889566231652025
+        }
+      ]
     },
     {
       "frame": 5003,
       "cosine_ionic_motion": 0.8814315808209459,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 8.467157387059435,
+      "axial_force": -1.4360578060150146,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.6637636423110962,
+            -0.8726678490638733,
+            -1.511733055114746
+          ],
+          "magnitude": 1.8674763441085815,
+          "distance": 13.333417892456055,
+          "directional_contribution": 1.5982341395508683
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -2.242825746536255,
+            -3.0832972526550293,
+            -2.36020565032959
+          ],
+          "magnitude": 4.484145164489746,
+          "distance": 8.604570388793945,
+          "directional_contribution": 4.17781086980186
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -2.2260844707489014,
+            -2.778157949447632,
+            2.4358808994293213
+          ],
+          "magnitude": 4.313598155975342,
+          "distance": 8.773021697998047,
+          "directional_contribution": 1.793754685761428
+        }
+      ]
     },
     {
       "frame": 5103,
       "cosine_ionic_motion": 0.8732471405265426,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 8.025332995105195,
+      "axial_force": -4.359214425086975,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.7951316237449646,
+            -0.5886009931564331,
+            -1.705432653427124
+          ],
+          "magnitude": 1.9715946912765503,
+          "distance": 12.976578712463379,
+          "directional_contribution": 1.2576067079708402
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -3.076622724533081,
+            -2.55605149269104,
+            -3.154618978500366
+          ],
+          "magnitude": 5.094175815582275,
+          "distance": 8.072946548461914,
+          "directional_contribution": 4.440751489776005
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -0.5669516921043396,
+            -3.5414419174194336,
+            0.5008372068405151
+          ],
+          "magnitude": 3.6213371753692627,
+          "distance": 9.574907302856445,
+          "directional_contribution": 2.276866186378836
+        }
+      ]
     },
     {
       "frame": 5239,
       "cosine_ionic_motion": 0.867953992925517,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 10.6442737903377,
+      "axial_force": 0.42072904109954834,
+      "closest_residue": 98,
+      "next_closest_residue": 98,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            4.299147605895996,
+            6.337735652923584,
+            4.5308661460876465
+          ],
+          "magnitude": 8.89822006225586,
+          "distance": 6.108259677886963,
+          "directional_contribution": 7.879151422101888
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -1.9210336208343506,
+            0.9503386616706848,
+            1.1339211463928223
+          ],
+          "magnitude": 2.42472505569458,
+          "distance": 11.701399803161621,
+          "directional_contribution": 0.10879252167571707
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -2.573396682739258,
+            2.659759044647217,
+            -3.5439202785491943
+          ],
+          "magnitude": 5.1240668296813965,
+          "distance": 8.049365997314453,
+          "directional_contribution": 1.0291555695615084
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -0.5801924467086792,
+            0.6681547164916992,
+            -1.700137972831726
+          ],
+          "magnitude": 1.9166436195373535,
+          "distance": 13.161286354064941,
+          "directional_contribution": 0.2288548938415209
+        }
+      ]
     },
     {
       "frame": 5188,
       "cosine_ionic_motion": 0.8641199344664395,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 8.34803381360319,
+      "axial_force": -5.284875243902206,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -3.522272825241089,
+            -3.5099551677703857,
+            -3.717987537384033
+          ],
+          "magnitude": 6.208834171295166,
+          "distance": 7.312468528747559,
+          "directional_contribution": 5.01886721639508
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -0.7558067440986633,
+            -2.0558364391326904,
+            0.4618763029575348
+          ],
+          "magnitude": 2.238534450531006,
+          "distance": 12.178313255310059,
+          "directional_contribution": 2.0723438874548274
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -1.131681203842163,
+            -0.7922078371047974,
+            -2.028764009475708
+          ],
+          "magnitude": 2.454420328140259,
+          "distance": 11.63039779663086,
+          "directional_contribution": 1.4465203142151033
+        }
+      ]
     },
     {
       "frame": 5081,
       "cosine_ionic_motion": 0.8539265876307592,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 4997,
-      "cosine_ionic_motion": 0.8234675078649084,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 6.7706563606381485,
+      "axial_force": -4.231583122164011,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -1.0061960220336914,
+            -0.6503045558929443,
+            -1.6232364177703857
+          ],
+          "magnitude": 2.017479419708252,
+          "distance": 12.828163146972656,
+          "directional_contribution": 1.3694108008317656
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -3.306666135787964,
+            -2.1896309852600098,
+            -2.665861129760742
+          ],
+          "magnitude": 4.7786335945129395,
+          "distance": 8.335222244262695,
+          "directional_contribution": 4.142195793337777
+        },
+        {
+          "ion": 1460,
+          "force": [
+            -0.9498096108436584,
+            -1.419885277748108,
+            0.05751442536711693
+          ],
+          "magnitude": 1.7092455625534058,
+          "distance": 13.936920166015625,
+          "directional_contribution": 1.3063479268924127
+        }
+      ]
     },
     {
       "frame": 5269,
       "cosine_ionic_motion": 0.8063306723388634,
-      "is_permeation_frame": true
+      "is_permeation_frame": true,
+      "radial_force": 5.446934212269578,
+      "axial_force": -12.931617259979248,
+      "closest_residue": 130,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -2.9148778915405273,
+            -2.9359593391418457,
+            -3.625190496444702
+          ],
+          "magnitude": 5.50076150894165,
+          "distance": 7.768866062164307,
+          "directional_contribution": 3.6428366128690968
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -1.0187950134277344,
+            6.049768924713135,
+            -6.9975690841674805
+          ],
+          "magnitude": 9.306106567382812,
+          "distance": 5.972897052764893,
+          "directional_contribution": 5.528173576817856
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -0.3197493553161621,
+            0.288761705160141,
+            -2.3088576793670654
+          ],
+          "magnitude": 2.3487117290496826,
+          "distance": 11.889242172241211,
+          "directional_contribution": 2.143387431225561
+        }
+      ]
+    }
+  ],
+  "1460": [
+    {
+      "frame": 5004,
+      "cosine_ionic_motion": 0.9929279190890427,
+      "is_permeation_frame": false,
+      "radial_force": 3.279673554546743,
+      "axial_force": -3.6872697472572327,
+      "closest_residue": 780,
+      "next_closest_residue": 780,
+      "contributions": [
+        {
+          "ion": 1308,
+          "force": [
+            1.8947232961654663,
+            1.0016815662384033,
+            -0.9906793236732483
+          ],
+          "magnitude": 2.3610990047454834,
+          "distance": 11.858014106750488,
+          "directional_contribution": 1.9596001123170819
+        },
+        {
+          "ion": 1320,
+          "force": [
+            1.3273308277130127,
+            -0.38961470127105713,
+            -2.6965904235839844
+          ],
+          "magnitude": 3.030710458755493,
+          "distance": 10.466387748718262,
+          "directional_contribution": 2.940297074507561
+        }
+      ]
+    },
+    {
+      "frame": 5131,
+      "cosine_ionic_motion": 0.9818175087189451,
+      "is_permeation_frame": true,
+      "radial_force": 1.6981944776143032,
+      "axial_force": -4.168585538864136,
+      "closest_residue": 1105,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1308,
+          "force": [
+            1.0612798929214478,
+            1.444498062133789,
+            -2.4021823406219482
+          ],
+          "magnitude": 2.9972269535064697,
+          "distance": 10.524687767028809,
+          "directional_contribution": 2.713012736925825
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -0.10016888380050659,
+            -0.04445159435272217,
+            -1.7664031982421875
+          ],
+          "magnitude": 1.7697994709014893,
+          "distance": 13.696418762207031,
+          "directional_contribution": 1.7063625740516983
+        }
+      ]
     }
   ],
   "1320": [
     {
       "frame": 5176,
       "cosine_ionic_motion": 0.9996707091622106,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 6.0098804547881945,
+      "axial_force": -4.997504740953445,
+      "closest_residue": 98,
+      "next_closest_residue": 98,
+      "contributions": [
+        {
+          "ion": 1308,
+          "force": [
+            0.5721141695976257,
+            2.9097232818603516,
+            -0.24224546551704407
+          ],
+          "magnitude": 2.9753129482269287,
+          "distance": 10.563375473022461,
+          "directional_contribution": 2.242052118813529
+        },
+        {
+          "ion": 1309,
+          "force": [
+            -1.1644694805145264,
+            2.285262107849121,
+            -3.060650587081909
+          ],
+          "magnitude": 3.99324369430542,
+          "distance": 9.11813735961914,
+          "directional_contribution": 3.863040438722315
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -0.3820814788341522,
+            0.7353717684745789,
+            -1.6946086883544922
+          ],
+          "magnitude": 1.8863871097564697,
+          "distance": 13.266416549682617,
+          "directional_contribution": 1.708580390070872
+        }
+      ]
     },
     {
       "frame": 5188,
       "cosine_ionic_motion": 0.9886528166637947,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 5.37966625834586,
+      "axial_force": -4.232802301645279,
+      "closest_residue": 130,
+      "next_closest_residue": 130,
+      "contributions": [
+        {
+          "ion": 1308,
+          "force": [
+            0.7558067440986633,
+            2.0558364391326904,
+            -0.4618763029575348
+          ],
+          "magnitude": 2.238534450531006,
+          "distance": 12.178313255310059,
+          "directional_contribution": 1.975650853246151
+        },
+        {
+          "ion": 1309,
+          "force": [
+            -0.012659800238907337,
+            2.442432165145874,
+            -2.3873846530914307
+          ],
+          "magnitude": 3.4154415130615234,
+          "distance": 9.859289169311523,
+          "directional_contribution": 3.3168027721633653
+        },
+        {
+          "ion": 1403,
+          "force": [
+            -0.14270053803920746,
+            0.8477835059165955,
+            -1.3835413455963135
+          ],
+          "magnitude": 1.6288913488388062,
+          "distance": 14.276540756225586,
+          "directional_contribution": 1.4751202866299886
+        }
+      ]
     },
     {
       "frame": 5399,
       "cosine_ionic_motion": 0.9851156424456512,
-      "is_permeation_frame": true
+      "is_permeation_frame": true,
+      "radial_force": 0.6660759929791944,
+      "axial_force": -8.384076476097107,
+      "closest_residue": 1105,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.98553866147995,
+            -3.2337822914123535,
+            -1.1632522344589233
+          ],
+          "magnitude": 3.575162887573242,
+          "distance": 9.636539459228516,
+          "directional_contribution": 1.5595109336639525
+        },
+        {
+          "ion": 1469,
+          "force": [
+            2.148010492324829,
+            3.888089656829834,
+            -3.9567387104034424
+          ],
+          "magnitude": 5.948694705963135,
+          "distance": 7.470646381378174,
+          "directional_contribution": 3.458867802443282
+        },
+        {
+          "ion": 2436,
+          "force": [
+            -0.5522236227989197,
+            -0.3873722553253174,
+            -3.264085531234741
+          ],
+          "magnitude": 3.3330559730529785,
+          "distance": 9.980395317077637,
+          "directional_contribution": 3.2669295057374788
+        }
+      ]
     }
   ],
   "1309": [
     {
       "frame": 5381,
       "cosine_ionic_motion": 0.9957924216156966,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 9.986869631883824,
+      "axial_force": -2.138105422258377,
+      "closest_residue": 130,
+      "next_closest_residue": 130,
+      "contributions": [
+        {
+          "ion": 1320,
+          "force": [
+            -3.988502264022827,
+            3.765899896621704,
+            6.304061412811279
+          ],
+          "magnitude": 8.356514930725098,
+          "distance": 6.3031325340271,
+          "directional_contribution": 2.8229489943653854
+        },
+        {
+          "ion": 1469,
+          "force": [
+            2.623460531234741,
+            2.8258814811706543,
+            -0.4180668890476227
+          ],
+          "magnitude": 3.8785219192504883,
+          "distance": 9.252006530761719,
+          "directional_contribution": 2.8102970782249845
+        },
+        {
+          "ion": 2434,
+          "force": [
+            0.1002153679728508,
+            0.5098060965538025,
+            -1.9836078882217407
+          ],
+          "magnitude": 2.050523281097412,
+          "distance": 12.724381446838379,
+          "directional_contribution": 0.8063475614131157
+        },
+        {
+          "ion": 2436,
+          "force": [
+            0.3577270805835724,
+            2.844001293182373,
+            -6.040492057800293
+          ],
+          "magnitude": 6.686094284057617,
+          "distance": 7.046651363372803,
+          "directional_contribution": 3.7306142211045183
+        }
+      ]
     },
     {
       "frame": 5666,
       "cosine_ionic_motion": 0.9946705662665039,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 12.628948605023174,
+      "axial_force": -2.9752616360783577,
+      "closest_residue": 130,
+      "next_closest_residue": 98,
+      "contributions": [
+        {
+          "ion": 1380,
+          "force": [
+            -0.2580564022064209,
+            4.312021255493164,
+            -1.806426763534546
+          ],
+          "magnitude": 4.68223237991333,
+          "distance": 8.420591354370117,
+          "directional_contribution": 4.40087753266824
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -0.6448568105697632,
+            1.5648897886276245,
+            -0.11349637061357498
+          ],
+          "magnitude": 1.6963495016098022,
+          "distance": 13.989795684814453,
+          "directional_contribution": 1.680254140191794
+        },
+        {
+          "ion": 1476,
+          "force": [
+            -0.13605839014053345,
+            1.7930546998977661,
+            -2.098022699356079
+          ],
+          "magnitude": 2.7631967067718506,
+          "distance": 10.961326599121094,
+          "directional_contribution": 2.11037347431645
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -2.7684473991394043,
+            2.9392387866973877,
+            1.229708194732666
+          ],
+          "magnitude": 4.22085428237915,
+          "distance": 8.868882179260254,
+          "directional_contribution": 3.40852470075869
+        },
+        {
+          "ion": 2443,
+          "force": [
+            0.5370069742202759,
+            1.5889407396316528,
+            -0.18702399730682373
+          ],
+          "magnitude": 1.6876276731491089,
+          "distance": 14.025899887084961,
+          "directional_contribution": 1.305509976485471
+        }
+      ]
     },
     {
       "frame": 5677,
       "cosine_ionic_motion": 0.9917189084903139,
-      "is_permeation_frame": true
+      "is_permeation_frame": true,
+      "radial_force": 0.9116724501931796,
+      "axial_force": -13.132537484169006,
+      "closest_residue": 780,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1380,
+          "force": [
+            0.2080385684967041,
+            -0.2713145911693573,
+            -4.193719387054443
+          ],
+          "magnitude": 4.207633018493652,
+          "distance": 8.882804870605469,
+          "directional_contribution": 4.190613588897197
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -2.146965980529785,
+            2.0441834926605225,
+            -3.3131890296936035
+          ],
+          "magnitude": 4.445826053619385,
+          "distance": 8.641572952270508,
+          "directional_contribution": 3.1642916264383114
+        },
+        {
+          "ion": 1476,
+          "force": [
+            0.016993116587400436,
+            -0.13155724108219147,
+            -1.6357070207595825
+          ],
+          "magnitude": 1.641076922416687,
+          "distance": 14.223437309265137,
+          "directional_contribution": 1.6287261604187653
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -0.8504688143730164,
+            -1.9593597650527954,
+            -1.6954710483551025
+          ],
+          "magnitude": 2.727088212966919,
+          "distance": 11.033656120300293,
+          "directional_contribution": 1.5817235257638274
+        },
+        {
+          "ion": 2443,
+          "force": [
+            2.2294209003448486,
+            1.050384759902954,
+            -2.2944509983062744
+          ],
+          "magnitude": 3.3672142028808594,
+          "distance": 9.929643630981445,
+          "directional_contribution": 2.4897757954743494
+        }
+      ]
     }
   ],
   "1403": [
     {
       "frame": 5316,
       "cosine_ionic_motion": 0.9814416458058247,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 11.965143568626067,
+      "axial_force": -15.618502497673035,
+      "closest_residue": "SF",
+      "next_closest_residue": "SF",
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -1.1511693000793457,
+            -4.0106306076049805,
+            0.9726828336715698
+          ],
+          "magnitude": 4.2844438552856445,
+          "distance": 8.80281925201416,
+          "directional_contribution": 1.2476004088355062
+        },
+        {
+          "ion": 1320,
+          "force": [
+            5.6856689453125,
+            -1.988126516342163,
+            10.163335800170898
+          ],
+          "magnitude": 11.814096450805664,
+          "distance": 5.30113410949707,
+          "directional_contribution": -8.113038165455393
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -2.813703775405884,
+            -5.7387566566467285,
+            -22.967845916748047
+          ],
+          "magnitude": 23.840559005737305,
+          "distance": 3.7317354679107666,
+          "directional_contribution": 22.86262740742002
+        },
+        {
+          "ion": 2436,
+          "force": [
+            0.0345078706741333,
+            -0.09817671030759811,
+            -3.786675214767456
+          ],
+          "magnitude": 3.788105010986328,
+          "distance": 9.361771583557129,
+          "directional_contribution": 3.3125910751450642
+        }
+      ]
     },
     {
       "frame": 5318,
       "cosine_ionic_motion": 0.9782615430679917,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 5.130613839901526,
+      "axial_force": -10.96111798286438,
+      "closest_residue": "SF",
+      "next_closest_residue": 780,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.9033969044685364,
+            -3.438693046569824,
+            1.1628429889678955
+          ],
+          "magnitude": 3.7407138347625732,
+          "distance": 9.420886993408203,
+          "directional_contribution": 0.6182525025727679
+        },
+        {
+          "ion": 1320,
+          "force": [
+            0.8172289729118347,
+            0.9615076184272766,
+            7.869882106781006
+          ],
+          "magnitude": 7.970407962799072,
+          "distance": 6.4539971351623535,
+          "directional_contribution": -7.498754460052293
+        },
+        {
+          "ion": 1469,
+          "force": [
+            0.9927124381065369,
+            -2.2097842693328857,
+            -16.332483291625977
+          ],
+          "magnitude": 16.511167526245117,
+          "distance": 4.484150409698486,
+          "directional_contribution": 15.348707947360236
+        },
+        {
+          "ion": 2436,
+          "force": [
+            0.17558953166007996,
+            -0.32822564244270325,
+            -3.6613597869873047
+          ],
+          "magnitude": 3.6802337169647217,
+          "distance": 9.497982025146484,
+          "directional_contribution": 3.371155934222421
+        }
+      ]
     },
     {
       "frame": 5331,
       "cosine_ionic_motion": 0.9294237685382462,
-      "is_permeation_frame": true
+      "is_permeation_frame": true,
+      "radial_force": 0.9174157180545093,
+      "axial_force": -5.696695804595947,
+      "closest_residue": 1105,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.5008364319801331,
+            -1.207638144493103,
+            -1.198835849761963
+          ],
+          "magnitude": 1.773819088935852,
+          "distance": 13.680891036987305,
+          "directional_contribution": 1.0259050877299867
+        },
+        {
+          "ion": 1320,
+          "force": [
+            1.4149909019470215,
+            1.8132896423339844,
+            -2.7240469455718994
+          ],
+          "magnitude": 3.565199851989746,
+          "distance": 9.649994850158691,
+          "directional_contribution": 2.8008792644006775
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -0.1614212542772293,
+            -0.08120483160018921,
+            -1.773813009262085
+          ],
+          "magnitude": 1.7829928398132324,
+          "distance": 13.645649909973145,
+          "directional_contribution": 1.5360788279912971
+        }
+      ]
     }
   ],
   "1469": [
     {
       "frame": 5453,
       "cosine_ionic_motion": 0.9980847818374007,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 9.891331705144193,
+      "axial_force": -6.803891457617283,
+      "closest_residue": 1073,
+      "next_closest_residue": 1105,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.7141703367233276,
+            -1.3261983394622803,
+            -0.08479324728250504
+          ],
+          "magnitude": 1.5086520910263062,
+          "distance": 14.834553718566895,
+          "directional_contribution": 1.2626728732007724
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -4.182459831237793,
+            -3.9540066719055176,
+            -2.867689371109009
+          ],
+          "magnitude": 6.43045711517334,
+          "distance": 7.185352802276611,
+          "directional_contribution": 6.321518219301652
+        },
+        {
+          "ion": 2443,
+          "force": [
+            -0.5379666686058044,
+            -0.6055211424827576,
+            -1.4717546701431274
+          ],
+          "magnitude": 1.6799184083938599,
+          "distance": 14.058045387268066,
+          "directional_contribution": 1.505087335160308
+        },
+        {
+          "ion": 2444,
+          "force": [
+            -1.3609856367111206,
+            -1.3016587495803833,
+            -2.3796541690826416
+          ],
+          "magnitude": 3.034691333770752,
+          "distance": 10.45952033996582,
+          "directional_contribution": 2.8932011453117568
+        }
+      ]
     },
     {
       "frame": 5844,
       "cosine_ionic_motion": 0.99691038844108,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 19.070163778412365,
+      "axial_force": -2.3403311520814896,
+      "closest_residue": 748,
+      "next_closest_residue": 748,
+      "contributions": [
+        {
+          "ion": 1355,
+          "force": [
+            1.1064202785491943,
+            -1.2326381206512451,
+            -2.2367372512817383
+          ],
+          "magnitude": 2.783263683319092,
+          "distance": 10.921741485595703,
+          "directional_contribution": 1.5894733129684582
+        },
+        {
+          "ion": 1380,
+          "force": [
+            3.5998194217681885,
+            0.2158268243074417,
+            -0.6362907290458679
+          ],
+          "magnitude": 3.661986827850342,
+          "distance": 9.521615982055664,
+          "directional_contribution": 3.5602360783542495
+        },
+        {
+          "ion": 1476,
+          "force": [
+            3.2380008697509766,
+            -3.4951460361480713,
+            -2.7322092056274414
+          ],
+          "magnitude": 5.492327690124512,
+          "distance": 7.7748284339904785,
+          "directional_contribution": 4.126986903572394
+        },
+        {
+          "ion": 2434,
+          "force": [
+            0.40595561265945435,
+            -1.9392380714416504,
+            -0.24526990950107574
+          ],
+          "magnitude": 1.9963971376419067,
+          "distance": 12.895719528198242,
+          "directional_contribution": 0.7642795082006
+        },
+        {
+          "ion": 2443,
+          "force": [
+            10.108025550842285,
+            1.6589937210083008,
+            3.510175943374634
+          ],
+          "magnitude": 10.828008651733398,
+          "distance": 5.537258148193359,
+          "directional_contribution": 9.112894947743428
+        }
+      ]
     },
     {
       "frame": 5730,
       "cosine_ionic_motion": 0.9958932352013901,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 16.93212648022126,
+      "axial_force": -7.3285914324223995,
+      "closest_residue": 748,
+      "next_closest_residue": 748,
+      "contributions": [
+        {
+          "ion": 1355,
+          "force": [
+            1.3753671646118164,
+            -1.2158477306365967,
+            -2.2069811820983887
+          ],
+          "magnitude": 2.870659589767456,
+          "distance": 10.754201889038086,
+          "directional_contribution": 2.5271724991307423
+        },
+        {
+          "ion": 1380,
+          "force": [
+            2.728692054748535,
+            -0.2118261754512787,
+            -0.10232707113027573
+          ],
+          "magnitude": 2.738813877105713,
+          "distance": 11.010011672973633,
+          "directional_contribution": 2.0177670838414397
+        },
+        {
+          "ion": 1443,
+          "force": [
+            0.5873788595199585,
+            -0.4889259934425354,
+            -1.3585827350616455
+          ],
+          "magnitude": 1.5587846040725708,
+          "distance": 14.59405517578125,
+          "directional_contribution": 1.2156349063649152
+        },
+        {
+          "ion": 1476,
+          "force": [
+            8.031929969787598,
+            -3.6272339820861816,
+            -3.740936756134033
+          ],
+          "magnitude": 9.574097633361816,
+          "distance": 5.888709545135498,
+          "directional_contribution": 9.132453562477878
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -0.39223548769950867,
+            -3.5366954803466797,
+            -0.04687008634209633
+          ],
+          "magnitude": 3.558688163757324,
+          "distance": 9.658820152282715,
+          "directional_contribution": 1.9972788568423887
+        },
+        {
+          "ion": 2443,
+          "force": [
+            1.0511659383773804,
+            -1.293042540550232,
+            0.12710639834403992
+          ],
+          "magnitude": 1.6712465286254883,
+          "distance": 14.094470977783203,
+          "directional_contribution": 1.4839948976969524
+        }
+      ]
     },
     {
       "frame": 5484,
       "cosine_ionic_motion": 0.9936772941958019,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 9.084358457150042,
+      "axial_force": -1.919602245092392,
+      "closest_residue": 1073,
+      "next_closest_residue": 1073,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.4294154644012451,
+            -2.3840699195861816,
+            0.19332531094551086
+          ],
+          "magnitude": 2.430136203765869,
+          "distance": 11.688364028930664,
+          "directional_contribution": 2.091826917868482
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -1.2880535125732422,
+            -2.27970814704895,
+            1.8271305561065674
+          ],
+          "magnitude": 3.1928915977478027,
+          "distance": 10.19710636138916,
+          "directional_contribution": 2.131983480432986
+        },
+        {
+          "ion": 2443,
+          "force": [
+            -0.6798075437545776,
+            -0.8507069945335388,
+            -1.5815538167953491
+          ],
+          "magnitude": 1.9201960563659668,
+          "distance": 13.149106979370117,
+          "directional_contribution": 1.412002612868708
+        },
+        {
+          "ion": 2444,
+          "force": [
+            -2.0065908432006836,
+            -2.4310495853424072,
+            -2.358504295349121
+          ],
+          "magnitude": 3.936870813369751,
+          "distance": 9.183187484741211,
+          "directional_contribution": 3.590438902314446
+        }
+      ]
     },
     {
       "frame": 5887,
       "cosine_ionic_motion": 0.9918104420297268,
-      "is_permeation_frame": true
+      "is_permeation_frame": true,
+      "radial_force": 0.5075468011903285,
+      "axial_force": -9.122485280036926,
+      "closest_residue": 780,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1380,
+          "force": [
+            1.6709095239639282,
+            0.2382316142320633,
+            -1.9508068561553955
+          ],
+          "magnitude": 2.5796008110046387,
+          "distance": 11.344694137573242,
+          "directional_contribution": 2.0832717418677995
+        },
+        {
+          "ion": 1476,
+          "force": [
+            0.1602437049150467,
+            -0.41130489110946655,
+            -2.2435944080352783
+          ],
+          "magnitude": 2.2866055965423584,
+          "distance": 12.04962158203125,
+          "directional_contribution": 2.251481462417558
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -0.808508574962616,
+            -1.3590866327285767,
+            -1.6529823541641235
+          ],
+          "magnitude": 2.2876086235046387,
+          "distance": 12.046979904174805,
+          "directional_contribution": 1.5868669552284673
+        },
+        {
+          "ion": 2443,
+          "force": [
+            -1.3809603452682495,
+            1.1726969480514526,
+            -3.275101661682129
+          ],
+          "magnitude": 3.7428011894226074,
+          "distance": 9.418259620666504,
+          "directional_contribution": 3.1401487072542023
+        }
+      ]
     }
   ],
   "2436": [
     {
       "frame": 5423,
       "cosine_ionic_motion": 0.9123871441683606,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 13.048598663535078,
+      "axial_force": -3.873266875743866,
+      "closest_residue": 98,
+      "next_closest_residue": 98,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -7.53367280960083,
+            -0.03545748442411423,
+            1.090088963508606
+          ],
+          "magnitude": 7.612212181091309,
+          "distance": 6.604099273681641,
+          "directional_contribution": 3.219313426221046
+        },
+        {
+          "ion": 1469,
+          "force": [
+            3.078547954559326,
+            6.243687152862549,
+            0.9668325781822205
+          ],
+          "magnitude": 7.0282182693481445,
+          "distance": 6.873001575469971,
+          "directional_contribution": 4.45866631981975
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -2.2350199222564697,
+            3.7992143630981445,
+            -4.083253383636475
+          ],
+          "magnitude": 6.008519172668457,
+          "distance": 7.4333624839782715,
+          "directional_contribution": 3.9318091657978513
+        },
+        {
+          "ion": 2444,
+          "force": [
+            -0.5043797492980957,
+            0.8785443902015686,
+            -1.8469350337982178
+          ],
+          "magnitude": 2.106515645980835,
+          "distance": 12.554132461547852,
+          "directional_contribution": 0.8090074727170524
+        }
+      ]
     },
     {
       "frame": 5433,
       "cosine_ionic_motion": 0.889221364727531,
-      "is_permeation_frame": true
-    }
-  ],
-  "2434": [
-    {
-      "frame": 5580,
-      "cosine_ionic_motion": 0.9841668512471875,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6009,
-      "cosine_ionic_motion": 0.9784957420060265,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5803,
-      "cosine_ionic_motion": 0.9745758850856001,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5635,
-      "cosine_ionic_motion": 0.9692376970672807,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5677,
-      "cosine_ionic_motion": 0.9674847513483704,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5610,
-      "cosine_ionic_motion": 0.9658430954549729,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5743,
-      "cosine_ionic_motion": 0.9483864479660782,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5956,
-      "cosine_ionic_motion": 0.9380944179380736,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5516,
-      "cosine_ionic_motion": 0.9380037178258165,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5676,
-      "cosine_ionic_motion": 0.9366087971036713,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5839,
-      "cosine_ionic_motion": 0.9339744538457381,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5707,
-      "cosine_ionic_motion": 0.9333114030620517,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5598,
-      "cosine_ionic_motion": 0.9329314780155733,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5974,
-      "cosine_ionic_motion": 0.9290929102501739,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5904,
-      "cosine_ionic_motion": 0.9202057600576897,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5959,
-      "cosine_ionic_motion": 0.9193266158419633,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5711,
-      "cosine_ionic_motion": 0.9166365523555758,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5906,
-      "cosine_ionic_motion": 0.8957844288285586,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5553,
-      "cosine_ionic_motion": 0.893088842011377,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5815,
-      "cosine_ionic_motion": 0.8927655799022266,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5613,
-      "cosine_ionic_motion": 0.8925582559400068,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5871,
-      "cosine_ionic_motion": 0.8836566419481274,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5827,
-      "cosine_ionic_motion": 0.8810444102814441,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5490,
-      "cosine_ionic_motion": 0.8802824710280489,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5987,
-      "cosine_ionic_motion": 0.8796416284346353,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5775,
-      "cosine_ionic_motion": 0.8621273918995643,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5513,
-      "cosine_ionic_motion": 0.8609770730092788,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5768,
-      "cosine_ionic_motion": 0.8601109814642623,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5977,
-      "cosine_ionic_motion": 0.8576307228280311,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5590,
-      "cosine_ionic_motion": 0.8546503730133509,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5878,
-      "cosine_ionic_motion": 0.8503177425535589,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5753,
-      "cosine_ionic_motion": 0.8473184788873461,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5616,
-      "cosine_ionic_motion": 0.8422361199442605,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5892,
-      "cosine_ionic_motion": 0.8407538189929897,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5545,
-      "cosine_ionic_motion": 0.8331831515903786,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5910,
-      "cosine_ionic_motion": 0.8282567194370841,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5730,
-      "cosine_ionic_motion": 0.8271111208312307,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5639,
-      "cosine_ionic_motion": 0.8222534900564894,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5537,
-      "cosine_ionic_motion": 0.8176707381097523,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5751,
-      "cosine_ionic_motion": 0.814382877911,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5942,
-      "cosine_ionic_motion": 0.8125304001688735,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6016,
-      "cosine_ionic_motion": 0.8123674644228325,
-      "is_permeation_frame": true
+      "is_permeation_frame": true,
+      "radial_force": 0.5734073807338883,
+      "axial_force": -4.841521263122559,
+      "closest_residue": 1105,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            -0.640687882900238,
+            -1.2333738803863525,
+            -1.1129107475280762
+          ],
+          "magnitude": 1.7805230617523193,
+          "distance": 13.655111312866211,
+          "directional_contribution": 0.551246759031236
+        },
+        {
+          "ion": 1320,
+          "force": [
+            -0.537470281124115,
+            0.01673593558371067,
+            1.5264745950698853
+          ],
+          "magnitude": 1.6184186935424805,
+          "distance": 14.322657585144043,
+          "directional_contribution": -1.525210077137657
+        },
+        {
+          "ion": 1469,
+          "force": [
+            1.1431920528411865,
+            1.02493155002594,
+            -3.420396089553833
+          ],
+          "magnitude": 3.749197483062744,
+          "distance": 9.410222053527832,
+          "directional_contribution": 3.722558026865098
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -0.40666353702545166,
+            -0.174024760723114,
+            -1.8346890211105347
+          ],
+          "magnitude": 1.8872582912445068,
+          "distance": 13.263354301452637,
+          "directional_contribution": 1.586678610431468
+        }
+      ]
     }
   ],
   "2444": [
     {
       "frame": 5581,
       "cosine_ionic_motion": 0.7079269250678751,
-      "is_permeation_frame": false
+      "is_permeation_frame": false,
+      "radial_force": 1.8450761096022505,
+      "axial_force": -8.483844637870789,
+      "closest_residue": 1105,
+      "next_closest_residue": 130,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            1.5847398042678833,
+            1.608560562133789,
+            -3.1895318031311035
+          ],
+          "magnitude": 3.907938003540039,
+          "distance": 9.217119216918945,
+          "directional_contribution": 3.5886770553587723
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -1.8289650678634644,
+            1.3348606824874878,
+            -1.9141175746917725
+          ],
+          "magnitude": 2.964930534362793,
+          "distance": 10.581854820251465,
+          "directional_contribution": 1.7069941852641577
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -0.5441734194755554,
+            -1.361169457435608,
+            -1.2634094953536987
+          ],
+          "magnitude": 1.9352288246154785,
+          "distance": 13.097936630249023,
+          "directional_contribution": -0.35273069138135327
+        },
+        {
+          "ion": 2443,
+          "force": [
+            -0.267902672290802,
+            -0.0694618821144104,
+            -2.116785764694214
+          ],
+          "magnitude": 2.1348018646240234,
+          "distance": 12.470683097839355,
+          "directional_contribution": 1.203395432897583
+        }
+      ]
     },
     {
       "frame": 5582,
       "cosine_ionic_motion": 0.7049239596112777,
-      "is_permeation_frame": true
-    }
-  ],
-  "2443": [
-    {
-      "frame": 5855,
-      "cosine_ionic_motion": 0.9821342297118094,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5987,
-      "cosine_ionic_motion": 0.9816322264101444,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5986,
-      "cosine_ionic_motion": 0.9787810097155942,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5704,
-      "cosine_ionic_motion": 0.9787208408055966,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5596,
-      "cosine_ionic_motion": 0.976641108636546,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5802,
-      "cosine_ionic_motion": 0.9745499588729526,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6121,
-      "cosine_ionic_motion": 0.9655875526209993,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5944,
-      "cosine_ionic_motion": 0.951325341341391,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6202,
-      "cosine_ionic_motion": 0.9413579276117917,
-      "is_permeation_frame": true
-    }
-  ],
-  "1380": [
-    {
-      "frame": 6366,
-      "cosine_ionic_motion": 0.9970536428254609,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6346,
-      "cosine_ionic_motion": 0.9947961212486172,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5964,
-      "cosine_ionic_motion": 0.9907102908888296,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6020,
-      "cosine_ionic_motion": 0.986673783081822,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5745,
-      "cosine_ionic_motion": 0.9844046599798059,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5828,
-      "cosine_ionic_motion": 0.9840755795685723,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5898,
-      "cosine_ionic_motion": 0.9835599340494784,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5832,
-      "cosine_ionic_motion": 0.9777820025111424,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6059,
-      "cosine_ionic_motion": 0.9730537624884011,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6402,
-      "cosine_ionic_motion": 0.9729400103821157,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6073,
-      "cosine_ionic_motion": 0.9706996898058295,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6334,
-      "cosine_ionic_motion": 0.9693452308334475,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5925,
-      "cosine_ionic_motion": 0.962994348998068,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6171,
-      "cosine_ionic_motion": 0.9564110699924708,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6288,
-      "cosine_ionic_motion": 0.9524155720597384,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6337,
-      "cosine_ionic_motion": 0.952062374085958,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6344,
-      "cosine_ionic_motion": 0.9497864257861405,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5930,
-      "cosine_ionic_motion": 0.9423401950972413,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5968,
-      "cosine_ionic_motion": 0.9408505858901588,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6368,
-      "cosine_ionic_motion": 0.9405723603910675,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6272,
-      "cosine_ionic_motion": 0.939451048430048,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6104,
-      "cosine_ionic_motion": 0.9390297874346887,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6360,
-      "cosine_ionic_motion": 0.9302914754873136,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5775,
-      "cosine_ionic_motion": 0.9281462150797491,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6102,
-      "cosine_ionic_motion": 0.9276256202540899,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6088,
-      "cosine_ionic_motion": 0.9270428764705556,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6363,
-      "cosine_ionic_motion": 0.9229967101033493,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6065,
-      "cosine_ionic_motion": 0.9221929312243748,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6199,
-      "cosine_ionic_motion": 0.9209577346864283,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5735,
-      "cosine_ionic_motion": 0.9203639310158866,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5819,
-      "cosine_ionic_motion": 0.9185068032932048,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6177,
-      "cosine_ionic_motion": 0.9121585887100143,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5838,
-      "cosine_ionic_motion": 0.9113413462945651,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6190,
-      "cosine_ionic_motion": 0.9082650012427402,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6294,
-      "cosine_ionic_motion": 0.9020896360274337,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6385,
-      "cosine_ionic_motion": 0.9013875329116869,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6304,
-      "cosine_ionic_motion": 0.8930599523314686,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6316,
-      "cosine_ionic_motion": 0.8835451548720341,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6301,
-      "cosine_ionic_motion": 0.875992420357097,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5843,
-      "cosine_ionic_motion": 0.8720317198502884,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5691,
-      "cosine_ionic_motion": 0.8716542732504011,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6387,
-      "cosine_ionic_motion": 0.8644454159197776,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5911,
-      "cosine_ionic_motion": 0.8565906108690767,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5778,
-      "cosine_ionic_motion": 0.8557046899313429,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6328,
-      "cosine_ionic_motion": 0.8556176650102655,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6424,
-      "cosine_ionic_motion": 0.8512967972595105,
-      "is_permeation_frame": true
-    }
-  ],
-  "1476": [
-    {
-      "frame": 6134,
-      "cosine_ionic_motion": 0.9968734150613673,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6388,
-      "cosine_ionic_motion": 0.9946323728750794,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6314,
-      "cosine_ionic_motion": 0.9929075123523291,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6480,
-      "cosine_ionic_motion": 0.99127136200491,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6166,
-      "cosine_ionic_motion": 0.9910648880741719,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6026,
-      "cosine_ionic_motion": 0.9873358787495504,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5995,
-      "cosine_ionic_motion": 0.9866865813520103,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6457,
-      "cosine_ionic_motion": 0.9849023431254779,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5924,
-      "cosine_ionic_motion": 0.9764796613097055,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5951,
-      "cosine_ionic_motion": 0.9676250974506282,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6019,
-      "cosine_ionic_motion": 0.9664366734186874,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6161,
-      "cosine_ionic_motion": 0.9540955300377846,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5914,
-      "cosine_ionic_motion": 0.9538612973627287,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6406,
-      "cosine_ionic_motion": 0.9530130820398632,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6149,
-      "cosine_ionic_motion": 0.9435903800828127,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6244,
-      "cosine_ionic_motion": 0.940617285237089,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6173,
-      "cosine_ionic_motion": 0.9367441157965454,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6066,
-      "cosine_ionic_motion": 0.9348803035458624,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6223,
-      "cosine_ionic_motion": 0.9177157968714325,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6002,
-      "cosine_ionic_motion": 0.9146697968821689,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6227,
-      "cosine_ionic_motion": 0.9057211277087733,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5938,
-      "cosine_ionic_motion": 0.8984841562316657,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6310,
-      "cosine_ionic_motion": 0.8922083454651395,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6125,
-      "cosine_ionic_motion": 0.8849681335149975,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6142,
-      "cosine_ionic_motion": 0.8843627365202107,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5912,
-      "cosine_ionic_motion": 0.879006894420516,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6123,
-      "cosine_ionic_motion": 0.8714169852110325,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6452,
-      "cosine_ionic_motion": 0.8706601407377946,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6156,
-      "cosine_ionic_motion": 0.8672115668062396,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6076,
-      "cosine_ionic_motion": 0.8590853905702904,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6177,
-      "cosine_ionic_motion": 0.8542163890464969,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5899,
-      "cosine_ionic_motion": 0.8528839683401198,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6433,
-      "cosine_ionic_motion": 0.8490796708430464,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5891,
-      "cosine_ionic_motion": 0.8390809281841389,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6364,
-      "cosine_ionic_motion": 0.8384559621021215,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6103,
-      "cosine_ionic_motion": 0.8383420958069595,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5967,
-      "cosine_ionic_motion": 0.8373730694359324,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6027,
-      "cosine_ionic_motion": 0.8308441422459069,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6220,
-      "cosine_ionic_motion": 0.8254584493147257,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5934,
-      "cosine_ionic_motion": 0.8200294120148012,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6296,
-      "cosine_ionic_motion": 0.8169337453278186,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6083,
-      "cosine_ionic_motion": 0.813469087126558,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6182,
-      "cosine_ionic_motion": 0.8103722096542724,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6022,
-      "cosine_ionic_motion": 0.8064388749587128,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6170,
-      "cosine_ionic_motion": 0.8002978679646146,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6424,
-      "cosine_ionic_motion": 0.7990262815111739,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6143,
-      "cosine_ionic_motion": 0.7771209121819994,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6255,
-      "cosine_ionic_motion": 0.7735098719774013,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5956,
-      "cosine_ionic_motion": 0.7724442186158389,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6201,
-      "cosine_ionic_motion": 0.7703108469092426,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5982,
-      "cosine_ionic_motion": 0.7683638826303218,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6477,
-      "cosine_ionic_motion": 0.7673683703186811,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6403,
-      "cosine_ionic_motion": 0.7598754730354925,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6041,
-      "cosine_ionic_motion": 0.7523039442838859,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6128,
-      "cosine_ionic_motion": 0.747980118832463,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6399,
-      "cosine_ionic_motion": 0.74478123286895,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5985,
-      "cosine_ionic_motion": 0.7442731836825907,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6249,
-      "cosine_ionic_motion": 0.7426159589063496,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6379,
-      "cosine_ionic_motion": 0.7376127299839107,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5976,
-      "cosine_ionic_motion": 0.7353436297735146,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6323,
-      "cosine_ionic_motion": 0.7331041053307432,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5902,
-      "cosine_ionic_motion": 0.7233805888715068,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6036,
-      "cosine_ionic_motion": 0.7212766433614665,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5970,
-      "cosine_ionic_motion": 0.715987433850418,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5894,
-      "cosine_ionic_motion": 0.708278545868222,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6263,
-      "cosine_ionic_motion": 0.700156679447051,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6200,
-      "cosine_ionic_motion": 0.6991871465258875,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6347,
-      "cosine_ionic_motion": 0.6981079526085896,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6390,
-      "cosine_ionic_motion": 0.6951954226999412,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6048,
-      "cosine_ionic_motion": 0.694794265174448,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6356,
-      "cosine_ionic_motion": 0.6941034769673684,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5986,
-      "cosine_ionic_motion": 0.6867195379348443,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6455,
-      "cosine_ionic_motion": 0.684590191062483,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5978,
-      "cosine_ionic_motion": 0.681966371792731,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6008,
-      "cosine_ionic_motion": 0.6782079009628943,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5959,
-      "cosine_ionic_motion": 0.6769259327835293,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6171,
-      "cosine_ionic_motion": 0.6737227932326632,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5933,
-      "cosine_ionic_motion": 0.6682984020023176,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6117,
-      "cosine_ionic_motion": 0.6653011668995212,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6472,
-      "cosine_ionic_motion": 0.6618300955229187,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6270,
-      "cosine_ionic_motion": 0.6590122055400123,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6208,
-      "cosine_ionic_motion": 0.6558148453434139,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6148,
-      "cosine_ionic_motion": 0.6550730246034844,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6062,
-      "cosine_ionic_motion": 0.6510181321729023,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6096,
-      "cosine_ionic_motion": 0.6508024903366648,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6443,
-      "cosine_ionic_motion": 0.6416640559782787,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6014,
-      "cosine_ionic_motion": 0.6403962358378298,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 5991,
-      "cosine_ionic_motion": 0.6310950683620912,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6290,
-      "cosine_ionic_motion": 0.6271986422907176,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6250,
-      "cosine_ionic_motion": 0.6232275330735741,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6488,
-      "cosine_ionic_motion": 0.6204386761356414,
-      "is_permeation_frame": true
-    }
-  ],
-  "1355": [
-    {
-      "frame": 6114,
-      "cosine_ionic_motion": 0.997372211065269,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6550,
-      "cosine_ionic_motion": 0.9960697903148933,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6495,
-      "cosine_ionic_motion": 0.9959351405198907,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6506,
-      "cosine_ionic_motion": 0.9932212813858294,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6252,
-      "cosine_ionic_motion": 0.9900201077977386,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6440,
-      "cosine_ionic_motion": 0.9890191089382516,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6182,
-      "cosine_ionic_motion": 0.9807400129973463,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6196,
-      "cosine_ionic_motion": 0.9754242538168153,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6462,
-      "cosine_ionic_motion": 0.9655682996612973,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6351,
-      "cosine_ionic_motion": 0.9648038660791258,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6228,
-      "cosine_ionic_motion": 0.9613778635962422,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6147,
-      "cosine_ionic_motion": 0.9598493460165866,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6409,
-      "cosine_ionic_motion": 0.9459298590650184,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6344,
-      "cosine_ionic_motion": 0.9447718714452883,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6414,
-      "cosine_ionic_motion": 0.9416631927597074,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6521,
-      "cosine_ionic_motion": 0.9327396801681683,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6525,
-      "cosine_ionic_motion": 0.9299428452086609,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6366,
-      "cosine_ionic_motion": 0.9280278387539449,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6191,
-      "cosine_ionic_motion": 0.9272862290807428,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6374,
-      "cosine_ionic_motion": 0.923987305540757,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6391,
-      "cosine_ionic_motion": 0.9226031831382716,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6076,
-      "cosine_ionic_motion": 0.9196677952260824,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6083,
-      "cosine_ionic_motion": 0.9168010307247854,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6293,
-      "cosine_ionic_motion": 0.9151102918569886,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6502,
-      "cosine_ionic_motion": 0.9143617635233741,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6239,
-      "cosine_ionic_motion": 0.9090757688107638,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6516,
-      "cosine_ionic_motion": 0.908001224907338,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6105,
-      "cosine_ionic_motion": 0.9078462228357376,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6131,
-      "cosine_ionic_motion": 0.9006565017058098,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6555,
-      "cosine_ionic_motion": 0.8997572950040716,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6266,
-      "cosine_ionic_motion": 0.8982126741259217,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6552,
-      "cosine_ionic_motion": 0.8977594101437688,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6232,
-      "cosine_ionic_motion": 0.8890083092740161,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6500,
-      "cosine_ionic_motion": 0.8855674641722281,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6261,
-      "cosine_ionic_motion": 0.8827694252944297,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6298,
-      "cosine_ionic_motion": 0.8758344609734622,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6008,
-      "cosine_ionic_motion": 0.8671605287776131,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6125,
-      "cosine_ionic_motion": 0.8663632297600379,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6188,
-      "cosine_ionic_motion": 0.8655298523210225,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6385,
-      "cosine_ionic_motion": 0.8629504038335575,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6561,
-      "cosine_ionic_motion": 0.8591867052771691,
-      "is_permeation_frame": true
-    }
-  ],
-  "1443": [
-    {
-      "frame": 6299,
-      "cosine_ionic_motion": 0.9896358301560101,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6328,
-      "cosine_ionic_motion": 0.9887271452615616,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6219,
-      "cosine_ionic_motion": 0.9864195540367583,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6359,
-      "cosine_ionic_motion": 0.962425638348259,
-      "is_permeation_frame": true
-    }
-  ],
-  "1341": [
-    {
-      "frame": 6464,
-      "cosine_ionic_motion": 0.9999677833017746,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6540,
-      "cosine_ionic_motion": 0.9873074179323502,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6682,
-      "cosine_ionic_motion": 0.9831818669870219,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6635,
-      "cosine_ionic_motion": 0.9680318450406893,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6727,
-      "cosine_ionic_motion": 0.9660394274310968,
-      "is_permeation_frame": true
-    }
-  ],
-  "1465": [
-    {
-      "frame": 6599,
-      "cosine_ionic_motion": 0.9932761137665509,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6622,
-      "cosine_ionic_motion": 0.9803215203781046,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6646,
-      "cosine_ionic_motion": 0.9761573162843271,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6670,
-      "cosine_ionic_motion": 0.949370114202696,
-      "is_permeation_frame": true
-    }
-  ],
-  "1374": [
-    {
-      "frame": 6718,
-      "cosine_ionic_motion": 0.9416545980486678,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6732,
-      "cosine_ionic_motion": 0.7389153337148393,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6721,
-      "cosine_ionic_motion": 0.5834653141139671,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6741,
-      "cosine_ionic_motion": 0.5770903254380583,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6746,
-      "cosine_ionic_motion": 0.5494702498313031,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6734,
-      "cosine_ionic_motion": 0.5210392723071953,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6743,
-      "cosine_ionic_motion": 0.4854420284347653,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6724,
-      "cosine_ionic_motion": 0.4636191203107351,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6738,
-      "cosine_ionic_motion": 0.3621881699791981,
-      "is_permeation_frame": false
-    },
-    {
-      "frame": 6748,
-      "cosine_ionic_motion": 0.23388424362663351,
-      "is_permeation_frame": true
+      "is_permeation_frame": true,
+      "radial_force": 0.6980585281904539,
+      "axial_force": -7.061962246894836,
+      "closest_residue": 130,
+      "next_closest_residue": null,
+      "contributions": [
+        {
+          "ion": 1309,
+          "force": [
+            0.9512708783149719,
+            0.9681544303894043,
+            -2.003573179244995
+          ],
+          "magnitude": 2.420029878616333,
+          "distance": 11.71274471282959,
+          "directional_contribution": 1.384350614990204
+        },
+        {
+          "ion": 1469,
+          "force": [
+            -1.059220314025879,
+            0.999154806137085,
+            -1.5712475776672363
+          ],
+          "magnitude": 2.1422131061553955,
+          "distance": 12.449092864990234,
+          "directional_contribution": 0.30377723401855405
+        },
+        {
+          "ion": 2434,
+          "force": [
+            -0.2705686688423157,
+            -1.578347086906433,
+            -1.934159755706787
+          ],
+          "magnitude": 2.511047840118408,
+          "distance": 11.498509407043457,
+          "directional_contribution": 2.218055772580776
+        },
+        {
+          "ion": 2443,
+          "force": [
+            -0.07851993292570114,
+            0.13867592811584473,
+            -1.5529817342758179
+          ],
+          "magnitude": 1.5611369609832764,
+          "distance": 14.58305549621582,
+          "directional_contribution": 1.096223878320914
+        }
+      ]
     }
   ]
 }
