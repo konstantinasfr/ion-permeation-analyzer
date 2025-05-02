@@ -302,7 +302,6 @@ def collect_sorted_cosines_until_permeation(event_data, closest_residues_by_ion)
 
             # Search for closest residue in current frame
             for r in residue_track:
-                print(r["frame"], frame)
                 if r["frame"] == frame:
                     closest_now = r["residue"]
                     break
