@@ -220,3 +220,54 @@ def plot_last_residue_bar_chart(residue_counts: Dict[str, int], results_dir: Pat
     print(f"✅ Plot saved to: {output_path}")
     plt.close()
 
+def find_all_pre_permeation_patterns(permeation_events, residue_track_dict):
+    """
+    For each permeation event, checks whether the full residue pattern at the permeation frame
+    exists in any earlier frame (from start_frame to frame - 1).
+
+    Args:
+        permeation_events: list of dicts with keys 'start_frame', 'frame', 'ions', 'permeated'
+        residue_track_dict: dict of ion_id -> list of dicts with 'frame', 'residue'
+
+    Returns:
+        List of results:
+            [
+                {
+                    'permeated': ion_id,
+                    'pattern': {ion_id: residue_id, ...},
+                    'match_frames': [list of frames where pattern matched]
+                },
+                ...
+            ]
+    """
+    results = []
+
+    for event in permeation_events:
+        start_frame = event["start_frame"]
+        permeation_frame = event["frame"]
+        ion_residue_pattern = event["ions"]  # e.g., {"2433": 130, "1313": 780}
+
+        match_frames = []
+
+        for frame in range(start_frame, permeation_frame):
+            all_match = True
+            for ion_id, expected_residue in ion_residue_pattern.items():
+                print(f"Checking ion {ion_id} at frame {frame}")
+                ion_history = residue_track_dict.get(int(ion_id), [])
+                # print(ion_history)
+                this_frame_entry = next((d for d in ion_history if d["frame"] == frame), None)
+                if this_frame_entry is None or this_frame_entry["residue"] != expected_residue:
+                    all_match = False
+                    break
+            if all_match:
+                match_frames.append(frame)
+
+        results.append({
+            "permeated": event["permeated"],
+            "start_frame": start_frame,
+            "frame": permeation_frame,
+            "pattern": ion_residue_pattern,
+            "match_frames": match_frames
+        })
+
+    return results

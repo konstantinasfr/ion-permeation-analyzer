@@ -11,7 +11,7 @@ from analysis.ion_analysis import IonPermeationAnalysis
 from analysis.distance_calc import calculate_distances
 from analysis.organizing_frames import cluster_frames_by_closest_residue, tracking_ion_distances, plot_ion_distance_traces
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
-from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates
+from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
 from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation
 import json
@@ -68,10 +68,10 @@ def main():
 
     total_distances_dict_ca = {}
                        
-    for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
-                       desc="Calculating Distances", unit="ion"):
-        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=True)
-        total_distances_dict_ca.update(temp_distances_dict)
+    # for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
+    #                    desc="Calculating Distances", unit="ion"):
+    #     temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=True)
+    #     total_distances_dict_ca.update(temp_distances_dict)
 
 
     # Create 'results' directory if it doesn't exist
@@ -94,9 +94,9 @@ def main():
     with open(results_dir / "distances.json", "w") as f:
         json.dump(total_distances_dict, f, indent=2)
 
-        # Save total_distances_dict to JSON
-    with open(results_dir / "distances_ca.json", "w") as f:
-        json.dump(total_distances_dict_ca, f, indent=2)
+    #     # Save total_distances_dict to JSON
+    # with open(results_dir / "distances_ca.json", "w") as f:
+    #     json.dump(total_distances_dict_ca, f, indent=2)
 
     residue_clusters, min_results_per_frame = cluster_frames_by_closest_residue(total_distances_dict)
 
@@ -149,6 +149,12 @@ def main():
             df = pd.DataFrame(intervals)
             df.insert(0, "residue", df.pop("residue"))
             df.to_excel(writer, sheet_name=str(ion_id), index=False)
+
+
+    pre_permeation_pattern_results = find_all_pre_permeation_patterns(ch2_permation_residues, min_results_per_frame)
+
+    with open(results_dir / "pre_permeation_patterns.json", "w") as f:
+        json.dump(pre_permeation_pattern_results, f, indent=2)
 
     
     plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
