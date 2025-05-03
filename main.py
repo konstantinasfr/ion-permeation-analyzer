@@ -63,8 +63,15 @@ def main():
                        
     for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
                        desc="Calculating Distances", unit="ion"):
-        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer)
+        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=False)
         total_distances_dict.update(temp_distances_dict)
+
+    total_distances_dict_ca = {}
+                       
+    for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
+                       desc="Calculating Distances", unit="ion"):
+        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=True)
+        total_distances_dict_ca.update(temp_distances_dict)
 
 
     # Create 'results' directory if it doesn't exist
@@ -86,6 +93,10 @@ def main():
     # Save total_distances_dict to JSON
     with open(results_dir / "distances.json", "w") as f:
         json.dump(total_distances_dict, f, indent=2)
+
+        # Save total_distances_dict to JSON
+    with open(results_dir / "distances_ca.json", "w") as f:
+        json.dump(total_distances_dict_ca, f, indent=2)
 
     residue_clusters, min_results_per_frame = cluster_frames_by_closest_residue(total_distances_dict)
 

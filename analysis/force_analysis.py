@@ -94,8 +94,8 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
         "ionic_force_x": None,
         "ionic_force_y": None,
         "ionic_force_z": None,
-        "axial_force": None,
         "radial_force": None,
+        "axial_force": None,
         "contributions": []
     }
 
@@ -299,6 +299,7 @@ def collect_sorted_cosines_until_permeation(event_data, closest_residues_by_ion)
             # Initialize as None in case not found
             closest_now = None
             closest_next = None
+            closest_before = None
 
             # Search for closest residue in current frame
             for r in residue_track:
@@ -312,13 +313,23 @@ def collect_sorted_cosines_until_permeation(event_data, closest_residues_by_ion)
                     closest_next = r["residue"]
                     break
 
+            # Search for closest residue in next frame
+            for r in residue_track:
+                if r["frame"] == frame - 1:
+                    closest_before = r["residue"]
+                    break
+
 
             collected_frames.append({
                 "frame": frame,
+                "ionic_force": analysis[frame].get("ionic_force"),
+                "ionic_force_magnitude": analysis[frame].get("ionic_force_magnitude"),
+                "ionic_motion_component": analysis[frame].get("ionic_motion_component"),
                 "cosine_ionic_motion": cosine,
                 "is_permeation_frame": (frame == permeation_frame),
                 "radial_force": analysis[frame].get("radial_force"),
                 "axial_force": analysis[frame].get("axial_force"),
+                "before_closest_residue": closest_before,
                 "closest_residue": closest_now,
                 "next_closest_residue": closest_next,
                 "contributions": analysis[frame].get("contributions", [])
