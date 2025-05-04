@@ -340,3 +340,39 @@ def collect_sorted_cosines_until_permeation(event_data, closest_residues_by_ion)
         ion_results[ion_id] = collected_frames
 
     return ion_results
+
+
+import json
+import pandas as pd
+
+def extract_permeation_frames(data):
+    """
+    Extracts permeation frame information for each ion from the given JSON file.
+
+    Parameters:
+        json_path (str): Path to the top_cosine_ionic.json file.
+
+    Returns:
+        pd.DataFrame: DataFrame containing permeation frame data per ion.
+    """
+    rows = []
+    for ion_id, entries in data.items():
+        for entry in entries:
+            if entry.get("is_permeation_frame", False):
+                rows.append({
+                    "ion_id": ion_id,
+                    "frame": entry["frame"],
+                    "ionic_force": entry["ionic_force"],
+                    "ionic_force_magnitude": entry["ionic_force_magnitude"],
+                    "ionic_motion_component": entry["ionic_motion_component"],
+                    "cosine_ionic_motion": entry["cosine_ionic_motion"],
+                    "radial_force": entry["radial_force"],
+                    "axial_force": entry["axial_force"],
+                    "before_closest_residue": entry["before_closest_residue"],
+                    "closest_residue": entry["closest_residue"],
+                    "next_closest_residue": entry["next_closest_residue"],
+                    "contributions": entry["contributions"]
+                })
+                break  # Only take one permeation frame per ion
+
+    return pd.DataFrame(rows)

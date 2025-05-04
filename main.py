@@ -13,7 +13,7 @@ from analysis.organizing_frames import cluster_frames_by_closest_residue, tracki
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
-from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation
+from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation, extract_permeation_frames
 import json
 import pandas as pd
 
@@ -46,10 +46,10 @@ def main():
     # start_frame = 5000
     # end_frame = 6800
     # start_frame = 6500
-    start_frame = 3000
-    # start_frame = 5000
-    # end_frame = 6000
-    end_frame = 6799
+    # start_frame = 3000
+    start_frame = 5000
+    end_frame = 6000
+    # end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, radius=11)
     ch2 = Channel(u, upper2, lower2, radius=15.0)
@@ -159,24 +159,29 @@ def main():
     
     plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
 
+    force_results_dir = Path("results/forces")
+    force_results_dir.mkdir(exist_ok=True)
 
     forces_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, cutoff=15.0, calculate_total_force=False, 
                                                prmtop_file=args.top_file, nc_file=args.traj_file)
 
     # Save to JSON
-    with open(results_dir / "permeation_force_results.json", "w") as f:
+    with open(force_results_dir / "permeation_force_results.json", "w") as f:
         json.dump(forces_results, f, indent=2)
 
     # Save the forces results to an Excel file
     forces_df = pd.DataFrame(forces_results)
-    forces_df.to_excel(results_dir / "permeation_force_results.xlsx", index=False)
+    forces_df.to_excel(force_results_dir / "permeation_force_results.xlsx", index=False)
 
     top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results, min_results_per_frame)
 
     # Save to JSON
-    with open(results_dir / "top_cosine_ionic_motion.json", "w") as f:
+    with open(force_results_dir / "top_cosine_ionic_motion.json", "w") as f:
         json.dump(top_cosine_ionic_motion, f, indent=2)
 
+    df_permeation_frames_forces = extract_permeation_frames(top_cosine_ionic_motion)
+    df_permeation_frames_forces.to_csv(force_results_dir / "permeation_frames.csv", index=False)
+    df_permeation_frames_forces.to_excel(force_results_dir/ "permeation_frames.xlsx", index=False)
 
 
     print("Saved forces results to results/permeation_force_results.json and results/permeation_force_results.xlsx")
