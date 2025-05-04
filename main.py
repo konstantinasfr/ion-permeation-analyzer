@@ -166,12 +166,12 @@ def main():
                                                prmtop_file=args.top_file, nc_file=args.traj_file)
 
     # Save to JSON
-    with open(force_results_dir / "permeation_force_results.json", "w") as f:
+    with open(force_results_dir / "force_results.json", "w") as f:
         json.dump(forces_results, f, indent=2)
 
     # Save the forces results to an Excel file
     forces_df = pd.DataFrame(forces_results)
-    forces_df.to_excel(force_results_dir / "permeation_force_results.xlsx", index=False)
+    forces_df.to_excel(force_results_dir / "force_results.xlsx", index=False)
 
     top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results, min_results_per_frame)
 
@@ -180,8 +180,8 @@ def main():
         json.dump(top_cosine_ionic_motion, f, indent=2)
 
     df_permeation_frames_forces = extract_permeation_frames(top_cosine_ionic_motion)
-    df_permeation_frames_forces.to_csv(force_results_dir / "permeation_frames.csv", index=False)
-    df_permeation_frames_forces.to_excel(force_results_dir/ "permeation_frames.xlsx", index=False)
+    df_permeation_frames_forces.to_csv(force_results_dir / "permeation_frames_forces.csv", index=False)
+    df_permeation_frames_forces.to_excel(force_results_dir/ "permeation_frames_forces.xlsx", index=False)
 
 
     print("Saved forces results to results/permeation_force_results.json and results/permeation_force_results.xlsx")
