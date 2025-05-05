@@ -154,7 +154,19 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map, c
             })
 
         for c in contributions:
-            c["directional_contribution"] = float(np.dot(c["force"], unit_motion))
+            force_vec = np.array(c["force"])
+            force_mag = np.linalg.norm(force_vec)
+
+            if force_mag != 0:
+                cosine = float(np.dot(force_vec, unit_motion) / force_mag)
+                projection = cosine * force_mag
+            else:
+                cosine = 0.0
+                projection = 0.0
+
+            c["cosine_with_motion"] = cosine
+            c["motion_component"] = projection
+
 
     result["contributions"] = contributions
 
@@ -342,24 +354,24 @@ def collect_sorted_cosines_until_permeation(event_data, closest_residues_by_ion)
     return ion_results
 
 
-import json
 import pandas as pd
 
 def extract_permeation_frames(data):
     """
-    Extracts permeation frame information for each ion from the given JSON file.
-
-    Parameters:
-        json_path (str): Path to the top_cosine_ionic.json file.
+    Extracts permeation frame information for each ion from the JSON dict.
+    Returns both a detailed contributor-expanded DataFrame and a summary DataFrame.
 
     Returns:
-        pd.DataFrame: DataFrame containing permeation frame data per ion.
+        tuple of pd.DataFrame: (df_expanded, df_summary)
     """
-    rows = []
+    expanded_rows = []
+    summary_rows = []
+
     for ion_id, entries in data.items():
         for entry in entries:
             if entry.get("is_permeation_frame", False):
-                rows.append({
+                # --- Summary row (no contributions) ---
+                summary_rows.append({
                     "ion_id": ion_id,
                     "frame": entry["frame"],
                     "ionic_force": entry["ionic_force"],
@@ -370,9 +382,38 @@ def extract_permeation_frames(data):
                     "axial_force": entry["axial_force"],
                     "before_closest_residue": entry["before_closest_residue"],
                     "closest_residue": entry["closest_residue"],
-                    "next_closest_residue": entry["next_closest_residue"],
-                    "contributions": entry["contributions"]
+                    "next_closest_residue": entry["next_closest_residue"]
                 })
-                break  # Only take one permeation frame per ion
 
-    return pd.DataFrame(rows)
+                # --- Expanded rows (one per contributor) ---
+                contributions = entry.get("contributions", [])
+                contributions.sort(key=lambda c: c.get("cosine_with_motion", -1), reverse=True)
+
+                for c in contributions:
+                    expanded_rows.append({
+                        "ion_id": ion_id,
+                        "frame": entry["frame"],
+                        "ionic_force": entry["ionic_force"],
+                        "ionic_force_magnitude": entry["ionic_force_magnitude"],
+                        "ionic_motion_component": entry["ionic_motion_component"],
+                        "cosine_ionic_motion": entry["cosine_ionic_motion"],
+                        "radial_force": entry["radial_force"],
+                        "axial_force": entry["axial_force"],
+                        "before_closest_residue": entry["before_closest_residue"],
+                        "closest_residue": entry["closest_residue"],
+                        "next_closest_residue": entry["next_closest_residue"],
+                        # Contributor details
+                        "contributing_ion": c.get("ion"),
+                        "contrib_force": c.get("force"),
+                        "contrib_magnitude": c.get("magnitude"),
+                        "contrib_distance": c.get("distance"),
+                        "contrib_cosine_with_motion": c.get("cosine_with_motion"),
+                        "contrib_motion_component": c.get("motion_component")
+                    })
+                break  # Only one permeation frame per ion
+
+    df_expanded = pd.DataFrame(expanded_rows)
+    df_summary = pd.DataFrame(summary_rows)
+
+    return df_expanded, df_summary
+

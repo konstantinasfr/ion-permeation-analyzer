@@ -179,9 +179,12 @@ def main():
     with open(force_results_dir / "top_cosine_ionic_motion.json", "w") as f:
         json.dump(top_cosine_ionic_motion, f, indent=2)
 
-    df_permeation_frames_forces = extract_permeation_frames(top_cosine_ionic_motion)
+    df_permeation_frames_forces_with_ions, df_permeation_frames_forces = extract_permeation_frames(top_cosine_ionic_motion)
     df_permeation_frames_forces.to_csv(force_results_dir / "permeation_frames_forces.csv", index=False)
     df_permeation_frames_forces.to_excel(force_results_dir/ "permeation_frames_forces.xlsx", index=False)
+
+    df_permeation_frames_forces_with_ions.to_csv(force_results_dir / "permeation_frames_forces_with_ions.csv", index=False)
+    df_permeation_frames_forces_with_ions.to_excel(force_results_dir/ "permeation_frames_forces_with_ions.xlsx", index=False)
 
 
     print("Saved forces results to results/permeation_force_results.json and results/permeation_force_results.xlsx")
