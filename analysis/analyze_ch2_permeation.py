@@ -252,7 +252,7 @@ def find_all_pre_permeation_patterns(permeation_events, residue_track_dict):
         for frame in range(start_frame, permeation_frame):
             all_match = True
             for ion_id, expected_residue in ion_residue_pattern.items():
-                print(f"Checking ion {ion_id} at frame {frame}")
+                # print(f"Checking ion {ion_id} at frame {frame}")
                 ion_history = residue_track_dict.get(int(ion_id), [])
                 # print(ion_history)
                 this_frame_entry = next((d for d in ion_history if d["frame"] == frame), None)
@@ -265,7 +265,7 @@ def find_all_pre_permeation_patterns(permeation_events, residue_track_dict):
         results.append({
             "permeated": event["permeated"],
             "start_frame": start_frame,
-            "frame": permeation_frame,
+            "permeation_frame": permeation_frame,
             "pattern": ion_residue_pattern,
             "match_frames": match_frames
         })
