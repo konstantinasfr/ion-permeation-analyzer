@@ -47,7 +47,7 @@ def main():
     # end_frame = 6800
     # start_frame = 6500
     start_frame = 3000
-    # start_frame = 5000
+    # start_frame = 5550
     # end_frame = 6000
     end_frame = 6799
 
@@ -162,9 +162,10 @@ def main():
     force_results_dir = Path("results/forces")
     force_results_dir.mkdir(exist_ok=True)
 
-    forces_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, cutoff=15.0, calculate_total_force=False, 
+    forces_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,cutoff=15.0, calculate_total_force=False, 
                                                prmtop_file=args.top_file, nc_file=args.traj_file)
 
+    
     # Save to JSON
     with open(force_results_dir / "force_results.json", "w") as f:
         json.dump(forces_results, f, indent=2)
@@ -173,13 +174,13 @@ def main():
     forces_df = pd.DataFrame(forces_results)
     forces_df.to_excel(force_results_dir / "force_results.xlsx", index=False)
 
-    top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results, min_results_per_frame)
+    top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results)
 
     # Save to JSON
     with open(force_results_dir / "top_cosine_ionic_motion.json", "w") as f:
         json.dump(top_cosine_ionic_motion, f, indent=2)
 
-    df_permeation_frames_forces_with_ions, df_permeation_frames_forces = extract_permeation_frames(top_cosine_ionic_motion)
+    df_permeation_frames_forces_with_ions, df_permeation_frames_forces = extract_permeation_frames(forces_results, offset_from_end=1)
     df_permeation_frames_forces.to_csv(force_results_dir / "permeation_frames_forces.csv", index=False)
     df_permeation_frames_forces.to_excel(force_results_dir/ "permeation_frames_forces.xlsx", index=False)
 
