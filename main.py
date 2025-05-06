@@ -13,7 +13,7 @@ from analysis.organizing_frames import cluster_frames_by_closest_residue, tracki
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
-from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation, extract_permeation_frames
+from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation, extract_permeation_frames, analyze_cosine_significance
 import json
 import pandas as pd
 
@@ -187,6 +187,7 @@ def main():
     df_permeation_frames_forces_with_ions.to_csv(force_results_dir / "permeation_frames_forces_with_ions.csv", index=False)
     df_permeation_frames_forces_with_ions.to_excel(force_results_dir/ "permeation_frames_forces_with_ions.xlsx", index=False)
 
+    cosine_significance, wilcoxon_results = analyze_cosine_significance(forces_results, force_results_dir)
 
     print("Saved forces results to results/permeation_force_results.json and results/permeation_force_results.xlsx")
 if __name__ == "__main__":

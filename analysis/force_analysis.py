@@ -415,3 +415,100 @@ def extract_permeation_frames(event_data, offset_from_end=1):
     df_summary = pd.DataFrame(summary_rows)
 
     return df_expanded, df_summary
+
+
+
+import os
+import json
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import wilcoxon
+from pathlib import Path
+
+def analyze_cosine_significance(force_results, force_results_dir):
+    """
+    Analyzes cosine similarity between ionic force and motion vector.
+    
+    For each permeating ion:
+      - Calculates the cosine at the permeation frame
+      - Compares it empirically to the non-permeation frames of the same ion
+      - Stores the result and also collects all cosine values for global plotting
+
+    Saves:
+      - A CSV file with per-ion results
+      - A histogram plot showing the global distribution
+    
+    All outputs are saved in a folder called 'cosine_analysis'.
+
+    Parameters:
+    - force_results_path (str): Path to the force_results.json file
+
+    Returns:
+    - df (pd.DataFrame): DataFrame of per-ion cosine statistics
+    """
+
+    # Make output directory
+    output_dir = f"{force_results_dir}/cosine_analysis"
+    os.makedirs(output_dir, exist_ok=True)
+
+
+    results = []
+    permeation_cosines = []
+    avg_nonpermeation_cosines = []
+
+    for event in force_results:
+        ion_id = str(event["permeated_ion"])
+        permeation_frame = event["frame"]
+        analysis = event["analysis"]
+
+        cosines = []
+        permeation_cosine = None
+
+        for frame_data in analysis.values():
+            if frame_data["frame"] == permeation_frame:
+                permeation_cosine = frame_data["cosine_ionic_motion"]
+            else:
+                cosines.append(frame_data["cosine_ionic_motion"])
+
+        if permeation_cosine is None or len(cosines) == 0:
+            continue
+
+        permeation_cosines.append(permeation_cosine)
+        avg_nonpermeation_cosines.append(np.mean(cosines))
+
+        count_extreme = sum(1 for c in cosines if abs(c) >= abs(permeation_cosine))
+        empirical_p = (count_extreme + 1) / (len(cosines) + 1)
+
+        results.append({
+            "ion_id": ion_id,
+            "permeation_frame": permeation_frame,
+            "permeation_cosine": permeation_cosine,
+            "avg_nonpermeation_cosine": np.mean(cosines),
+            "empirical_p": empirical_p
+        })
+
+    df = pd.DataFrame(results)
+    df_path =  f"{output_dir}/cosine_significance_results.csv"
+    df.to_csv(df_path, index=False)
+
+    # Histogram
+    plt.figure()
+    plt.hist(avg_nonpermeation_cosines, bins=20, alpha=0.7, label='Avg Non-Permeation Cosines')
+    plt.axvline(np.mean(permeation_cosines), color='red', linestyle='dashed', linewidth=2, label='Mean Permeation Cosine')
+    plt.xlabel("Cosine Value")
+    plt.ylabel("Frequency")
+    plt.title("Cosine Distribution: Non-Permeation vs Permeation")
+    plt.legend()
+    plt.tight_layout()
+    plot_path = f"{output_dir}/cosine_distribution_histogram.png"
+    plt.savefig(plot_path)
+    plt.close()
+
+    # Wilcoxon test
+    stat, p_value = wilcoxon(permeation_cosines, avg_nonpermeation_cosines)
+    wilcoxon_results_path = f"{output_dir}/wilcoxon_test_results.txt"
+    with open(wilcoxon_results_path, "w") as f:
+        f.write(f"Wilcoxon signed-rank test result:\nStatistic = {stat}\nP-value = {p_value}\n")
+
+    return df_path, wilcoxon_results_path
