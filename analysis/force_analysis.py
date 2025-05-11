@@ -480,10 +480,12 @@ def analyze_cosine_significance(force_results, force_results_dir):
 
         results.append({
             "ion_id": ion_id,
+            "start_frame": event["start_frame"],
             "permeation_frame": permeation_frame,
-            "permeation_cosine": round(permeation_cosine,2),
-            "avg_nonpermeation_cosine": round(np.mean([c for f, c in zip(frames, cosines) if f != permeation_frame]),2),
-            "empirical_p": round(empirical_p,2),
+            "permeation_cosine": round(permeation_cosine,3),
+            "avg_nonpermeation_cosine": round(np.mean([c for f, c in zip(frames, cosines) if f != permeation_frame]),3),
+            "empirical_p": round(empirical_p,3),
+            "total_cosines": len(cosines),
         })
 
         # Plot frame-by-frame cosine values
