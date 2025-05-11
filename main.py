@@ -113,6 +113,7 @@ def main():
 
     print("Saved residue clustering to results/residue_clusters.json")
 
+    # ch2_permation_residues, frame here is the last frame before the permeation
     ch2_permation_residues = analyze_ch2_permation_residues(min_results_per_frame, ch2_permeations, end_frame)
 
     ch2_permation_residue_comb = count_residue_combinations_with_duplicates(ch2_permation_residues)

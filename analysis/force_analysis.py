@@ -419,12 +419,11 @@ def extract_permeation_frames(event_data, offset_from_end=1):
 
 
 import os
-import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import wilcoxon
-from pathlib import Path
+from tqdm import tqdm
 
 def analyze_cosine_significance(force_results, force_results_dir):
     """
@@ -433,66 +432,95 @@ def analyze_cosine_significance(force_results, force_results_dir):
     For each permeating ion:
       - Calculates the cosine at the permeation frame
       - Compares it empirically to the non-permeation frames of the same ion
-      - Stores the result and also collects all cosine values for global plotting
-
-    Saves:
-      - A CSV file with per-ion results
-      - A histogram plot showing the global distribution
-    
-    All outputs are saved in a folder called 'cosine_analysis'.
+      - Plots frame-by-frame cosines, highlighting the permeation frame
+      - Stores results and plots in 'cosine_analysis/' directory
 
     Parameters:
-    - force_results_path (str): Path to the force_results.json file
+    - force_results (list): List of permeation event dictionaries
+    - force_results_dir (str): Directory to save results
 
     Returns:
-    - df (pd.DataFrame): DataFrame of per-ion cosine statistics
+    - df_path (str): Path to CSV with cosine stats
+    - wilcoxon_results_path (str): Path to Wilcoxon test result file
     """
 
-    # Make output directory
-    output_dir = f"{force_results_dir}/cosine_analysis"
+    output_dir = os.path.join(force_results_dir, "cosine_analysis")
     os.makedirs(output_dir, exist_ok=True)
-
 
     results = []
     permeation_cosines = []
     avg_nonpermeation_cosines = []
 
-    for event in force_results:
+    for event in tqdm(force_results, desc="Analyzing Cosine Significance"):
         ion_id = str(event["permeated_ion"])
         permeation_frame = event["frame"]
         analysis = event["analysis"]
 
         cosines = []
+        frames = []
         permeation_cosine = None
 
-        for frame_data in analysis.values():
-            if frame_data["frame"] == permeation_frame:
-                permeation_cosine = frame_data["cosine_ionic_motion"]
-            else:
-                cosines.append(frame_data["cosine_ionic_motion"])
+        for frame_data in sorted(analysis.values(), key=lambda x: x["frame"]):
+            frame = frame_data["frame"]
+            cosine = frame_data["cosine_ionic_motion"]
+            frames.append(frame)
+            cosines.append(cosine)
+            if frame == permeation_frame:
+                permeation_cosine = cosine
 
-        if permeation_cosine is None or len(cosines) == 0:
+        if permeation_cosine is None or len(cosines) <= 1:
             continue
 
         permeation_cosines.append(permeation_cosine)
-        avg_nonpermeation_cosines.append(np.mean(cosines))
+        avg_nonpermeation_cosines.append(np.mean([c for f, c in zip(frames, cosines) if f != permeation_frame]))
 
-        count_extreme = sum(1 for c in cosines if abs(c) >= abs(permeation_cosine))
+        # Empirical p-value
+        count_extreme = sum(1 for c in cosines if c >= permeation_cosine)
         empirical_p = (count_extreme + 1) / (len(cosines) + 1)
 
         results.append({
             "ion_id": ion_id,
             "permeation_frame": permeation_frame,
             "permeation_cosine": permeation_cosine,
-            "avg_nonpermeation_cosine": np.mean(cosines),
+            "avg_nonpermeation_cosine": np.mean([c for f, c in zip(frames, cosines) if f != permeation_frame]),
             "empirical_p": empirical_p
         })
 
+        # Plot frame-by-frame cosine values
+        os.makedirs(f"{output_dir}/cosine_trace_ion", exist_ok=True)
+        plt.figure(figsize=(8, 4))
+        plt.plot(frames, cosines, label="Cosine Ionic–Motion", color='blue')
+        plt.axvline(permeation_frame, color='red', linestyle='--', label='Permeation Frame')
+        plt.axhline(permeation_cosine, color='green', linestyle='--', label='Permeation Cosine')
+        plt.title(f"Ion {ion_id} – Cosine Trajectory")
+        plt.xlabel("Frame")
+        plt.ylabel("Cosine(Ionic Force, Motion)")
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/cosine_trace_ion/{ion_id}.png")
+        plt.close()
+
+        # Histogram of cosine values with permeation cosine marked
+        os.makedirs(f"{output_dir}/cosine_histogram", exist_ok=True)
+        plt.figure(figsize=(6, 4))
+        non_perm_cosines = [c for f, c in zip(frames, cosines) if f != permeation_frame]
+        plt.hist(non_perm_cosines, bins=50, alpha=0.7, color='gray', edgecolor='black')
+        plt.axvline(permeation_cosine, color='red', linestyle='--', linewidth=2, label='Permeation Cosine')
+        plt.title(f"Ion {ion_id} – Cosine Histogram - Permeating cosine: {permeation_cosine:.2f}")
+        plt.xlabel("Cosine Value")
+        plt.ylabel("Frequency")
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/cosine_histogram/{ion_id}.png")
+        plt.close()
+
+
+    # Save results to CSV
     df = pd.DataFrame(results)
-    df_path =  f"{output_dir}/cosine_significance_results.csv"
+    df_path = os.path.join(output_dir, "cosine_significance_results.csv")
     df.to_csv(df_path, index=False)
 
-    # Histogram
+    # Global histogram
     plt.figure()
     plt.hist(avg_nonpermeation_cosines, bins=20, alpha=0.7, label='Avg Non-Permeation Cosines')
     plt.axvline(np.mean(permeation_cosines), color='red', linestyle='dashed', linewidth=2, label='Mean Permeation Cosine')
@@ -501,14 +529,28 @@ def analyze_cosine_significance(force_results, force_results_dir):
     plt.title("Cosine Distribution: Non-Permeation vs Permeation")
     plt.legend()
     plt.tight_layout()
-    plot_path = f"{output_dir}/cosine_distribution_histogram.png"
+    plot_path = os.path.join(output_dir, "cosine_distribution_histogram.png")
     plt.savefig(plot_path)
     plt.close()
 
-    # Wilcoxon test
+    # Wilcoxon signed-rank test
     stat, p_value = wilcoxon(permeation_cosines, avg_nonpermeation_cosines)
-    wilcoxon_results_path = f"{output_dir}/wilcoxon_test_results.txt"
+    wilcoxon_results_path = os.path.join(output_dir, "wilcoxon_test_results.txt")
     with open(wilcoxon_results_path, "w") as f:
         f.write(f"Wilcoxon signed-rank test result:\nStatistic = {stat}\nP-value = {p_value}\n")
+
+    # Save table with only ion ID, average non-permeation cosine, and permeation cosine
+    simplified_results = []
+    for row in results:
+        simplified_results.append({
+            "ion_id": row["ion_id"],
+            "avg_nonpermeation_cosine": row["avg_nonpermeation_cosine"],
+            "permeation_cosine": row["permeation_cosine"]
+        })
+
+    simplified_df = pd.DataFrame(simplified_results)
+    simplified_path = os.path.join(output_dir, "cosine_summary_table.csv")
+    simplified_df.to_csv(simplified_path, index=False)
+
 
     return df_path, wilcoxon_results_path

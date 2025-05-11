@@ -119,7 +119,7 @@ class Channel:
             upper_atoms = self.u.atoms[atom_indices]
             self.upper_center = upper_atoms.center_of_mass()
         
-        if gate_num == 2:
+        if gate_num == 2 or gate_num == 3:
             self.upper_center[2] -= offset
 
         if gate_num == 1:
@@ -138,6 +138,7 @@ class Channel:
 
             lowest_atoms = self.u.atoms[atom_indices]
             self.lower_center = lowest_atoms.center_of_mass()
+            self.lower_center[2] -= offset
         else:
             atom_indices = []
             for resid in self.lower_gate_residues:
