@@ -114,7 +114,7 @@ def main():
     print("Saved residue clustering to results/residue_clusters.json")
 
     # ch2_permation_residues, frame here is the last frame before the permeation
-    ch2_permation_residues = analyze_ch2_permation_residues(min_results_per_frame, ch2_permeations, end_frame)
+    ch2_permation_residues,  ch2_permation_residues_pdb = analyze_ch2_permation_residues(min_results_per_frame, ch2_permeations, end_frame)
 
     ch2_permation_residue_comb = count_residue_combinations_with_duplicates(ch2_permation_residues)
 
@@ -124,12 +124,15 @@ def main():
     with open(results_dir / "ch2_permation_residues.json", "w") as f:
         json.dump(ch2_permation_residues, f, indent=2)
 
+    with open(results_dir / "ch2_permation_residues_pdb.json", "w") as f:
+        json.dump(ch2_permation_residues_pdb, f, indent=2)
+
     with open(results_dir / "ch2_permation_residue_comb.json", "w") as f:
         json.dump(ch2_permation_residue_comb, f, indent=2)
     save_residue_combination_summary_to_excel(ch2_permation_residue_comb, results_dir)
 
 
-    final_residue_counts = count_last_residues(ch2_permation_residues)
+    final_residue_counts = count_last_residues(ch2_permation_residues_pdb)
     plot_last_residue_bar_chart(final_residue_counts, results_dir, filename="ch2_permeation_last_residues.png")
 
     ion_distances = tracking_ion_distances(ch2_permation_residues, total_distances_dict, ch2_permeations)

@@ -12,7 +12,19 @@ This script identifies which ions are present and what residues they are closest
 at the exact frame where another ion permeates (i.e., exits the channel).
 """
 
-def get_residues_at_frame(min_results_per_frame: Dict[str, List[Dict[str, Any]]], target_frame: int) -> Dict[int, int]:
+def convert_to_pdb_numbering(residue_id: int) -> str:
+    """
+    Converts a residue ID to a PDB-style numbering.
+    """
+    if residue_id != "SF":
+        chain_number = int(residue_id)//325
+        chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
+        pdb_number = residue_id-325*chain_number+49
+        return f"{pdb_number}.{chain_dict[chain_number]}"
+    else:
+        return "SF"
+
+def get_residues_at_frame(min_results_per_frame: Dict[str, List[Dict[str, Any]]], target_frame: int, pdb_format:bool) -> Dict[int, int]:
     """
     Returns a dictionary of ions and their closest residue at a specific frame.
     Only includes ions that have data at that frame.
@@ -29,7 +41,10 @@ def get_residues_at_frame(min_results_per_frame: Dict[str, List[Dict[str, Any]]]
     for ion_id, entries in min_results_per_frame.items():
         for entry in entries:
             if entry.get("frame") == target_frame:
-                residues_at_frame[int(ion_id)] = entry["residue"]
+                if pdb_format:
+                    residues_at_frame[int(ion_id)] = convert_to_pdb_numbering(entry["residue"])
+                else:
+                    residues_at_frame[int(ion_id)] = entry["residue"]
                 break
 
     return residues_at_frame
@@ -64,6 +79,7 @@ def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[st
     }
     """
     ch2_permation_residues = []
+    ch2_permation_residues_pdb = []
 
     for ion_id, entries in min_results_per_frame.items():
         if not entries:
@@ -75,7 +91,7 @@ def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[st
         if ion_last_frame == end_frame-1:
             continue
         
-        residues_at_frame = get_residues_at_frame(min_results_per_frame, ion_last_frame)
+        residues_at_frame = get_residues_at_frame(min_results_per_frame, ion_last_frame, False)
 
         ch2_permation_residues.append({
             "start_frame": find_smallest_start_frame(ch2_permeations, ion_id),
@@ -84,7 +100,16 @@ def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[st
             "permeated": int(ion_id)
         })
 
-    return ch2_permation_residues
+        residues_at_frame = get_residues_at_frame(min_results_per_frame, ion_last_frame, True)
+        ch2_permation_residues_pdb.append({
+            "start_frame": find_smallest_start_frame(ch2_permeations, ion_id),
+            "frame": ion_last_frame,
+            "ions": residues_at_frame,
+            "permeated": int(ion_id)
+        })
+
+
+    return ch2_permation_residues, ch2_permation_residues_pdb
 
 from collections import defaultdict
 from typing import List, Dict, Any, Union
@@ -182,6 +207,7 @@ def count_last_residues(permeation_events: List[Dict[str, Any]]) -> Dict[str, in
 import matplotlib.pyplot as plt
 from pathlib import Path
 from typing import Dict
+
 
 def plot_last_residue_bar_chart(residue_counts: Dict[str, int], results_dir: Path, filename: str = "last_residues_barplot.png"):
     """
