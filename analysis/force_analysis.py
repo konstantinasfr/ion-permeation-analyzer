@@ -481,9 +481,9 @@ def analyze_cosine_significance(force_results, force_results_dir):
         results.append({
             "ion_id": ion_id,
             "permeation_frame": permeation_frame,
-            "permeation_cosine": permeation_cosine,
-            "avg_nonpermeation_cosine": np.mean([c for f, c in zip(frames, cosines) if f != permeation_frame]),
-            "empirical_p": empirical_p
+            "permeation_cosine": round(permeation_cosine,2),
+            "avg_nonpermeation_cosine": round(np.mean([c for f, c in zip(frames, cosines) if f != permeation_frame]),2),
+            "empirical_p": round(empirical_p,2),
         })
 
         # Plot frame-by-frame cosine values
@@ -544,8 +544,8 @@ def analyze_cosine_significance(force_results, force_results_dir):
     for row in results:
         simplified_results.append({
             "ion_id": row["ion_id"],
-            "avg_nonpermeation_cosine": row["avg_nonpermeation_cosine"],
-            "permeation_cosine": row["permeation_cosine"]
+            "avg_nonpermeation_cosine": round(row["avg_nonpermeation_cosine"],2),
+            "permeation_cosine": round(row["permeation_cosine"],2)
         })
 
     simplified_df = pd.DataFrame(simplified_results)
