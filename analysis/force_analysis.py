@@ -383,6 +383,7 @@ def extract_permeation_frames(event_data, offset_from_end=1):
             "cosine_ionic_motion": entry.get("cosine_ionic_motion"),
             "radial_force": entry.get("radial_force"),
             "axial_force": entry.get("axial_force"),
+            "motion_vector": entry.get("motion_vector"),
         })
 
         # --- Expanded contributor rows ---
@@ -399,6 +400,7 @@ def extract_permeation_frames(event_data, offset_from_end=1):
                 "cosine_ionic_motion": entry.get("cosine_ionic_motion"),
                 "radial_force": entry.get("radial_force"),
                 "axial_force": entry.get("axial_force"),
+                "motion_vector": entry.get("motion_vector"),
                 # Contributor-specific
                 "contributing_ion": c.get("ion"),
                 "contrib_force": c.get("force"),
