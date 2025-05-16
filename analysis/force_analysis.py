@@ -43,13 +43,13 @@ def unit_vector(v):
 # Data Preparation
 # =========================
 
-def build_all_positions(universe, start_frame=0, stop_frame=None, ion_selection='resname K+'):
+def build_all_positions(universe, start_frame=0, stop_frame=None, ion_selection='resname K+ K'):
     """
     Extract ion positions from trajectory within a frame range.
 
     Parameters:
         universe (MDAnalysis.Universe): MDAnalysis trajectory object
-        ion_selection (str): Atom selection string (default: 'resname K+')
+        ion_selection (str): Atom selection string (default: 'resname K+ K')
         start_frame (int): Starting frame index
         stop_frame (int or None): Last frame index (exclusive). If None, reads to the end.
 
@@ -68,7 +68,7 @@ def build_all_positions(universe, start_frame=0, stop_frame=None, ion_selection=
     return all_positions
 
 
-def build_charge_map(universe, ion_selection='resname K+'):
+def build_charge_map(universe, ion_selection='resname K+ K'):
     """Return {ion_id: +1.0} for all selected ions."""
     ions = universe.select_atoms(ion_selection)
     return {ion.resid: 1.0 for ion in ions}
@@ -275,6 +275,12 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
         frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
 
         for frame in frames_to_check:
+            # Skip if residue is close to SF
+            residue_track = closest_residues_by_ion.get(event["permeated"], [])
+            is_sf = any(entry["frame"] == frame and entry["residue"] == "SF" for entry in residue_track)
+            if is_sf:
+                continue
+
             frame_result = analyze_forces(
                 positions=positions,
                 permeating_ion_id=event["permeated"],
@@ -595,3 +601,122 @@ def analyze_cosine_significance(force_results, force_results_dir):
 
 
     return df_path, wilcoxon_results_path
+
+
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+from scipy.stats import wilcoxon
+
+def analyze_radial_significance(radial_results, ch2_permeation_characteristics):
+    """
+    Analyzes radial distances at permeation frames compared to all other frames.
+
+    Parameters:
+    - radial_results (list): List of event dicts with keys: start_frame, frame (permeation), permeated_ion, analysis
+    - results_dir (str): Directory where output will be saved
+
+    Returns:
+    - summary_csv_path (str)
+    - wilcoxon_results_path (str)
+    """
+
+    output_dir = os.path.join(ch2_permeation_characteristics, "radial_analysis")
+    os.makedirs(output_dir, exist_ok=True)
+
+    results = []
+    permeation_radials = []
+    avg_nonpermeation_radials = []
+
+    for event in tqdm(radial_results, desc="Analyzing Radial Significance"):
+        ion_id = str(event["permeated_ion"])
+        permeation_frame = int(event["frame"])
+        analysis = event["analysis"]
+
+        # Convert keys to int in case they're strings
+        analysis = {int(k): v for k, v in analysis.items()}
+
+        frames = sorted(analysis.keys())
+        radial_values = [analysis[f] for f in frames]
+
+        if permeation_frame not in analysis:
+            continue
+
+        perm_radial = analysis[permeation_frame]
+        non_perm_radials = [v for f, v in analysis.items() if f != permeation_frame]
+
+        if not non_perm_radials:
+            continue
+
+        permeation_radials.append(perm_radial)
+        avg_nonpermeation_radials.append(np.mean(non_perm_radials))
+
+        # Empirical p-value
+        count_extreme = sum(1 for v in non_perm_radials if v >= perm_radial)
+        empirical_p = (count_extreme + 1) / (len(non_perm_radials) + 1)
+
+        results.append({
+            "ion_id": ion_id,
+            "start_frame": event["start_frame"],
+            "permeation_frame": permeation_frame,
+            "permeation_radial": round(perm_radial, 3),
+            "avg_nonpermeation_radial": round(np.mean(non_perm_radials), 3),
+            "empirical_p": round(empirical_p, 3),
+            "total_frames": len(frames),
+        })
+
+        # Line plot
+        os.makedirs(f"{output_dir}/radial_trace_ion", exist_ok=True)
+        plt.figure(figsize=(8, 4))
+        plt.plot(frames, radial_values, label="Radial Distance", color='blue')
+        plt.axvline(permeation_frame, color='red', linestyle='--', label='Permeation Frame')
+        plt.axhline(perm_radial, color='green', linestyle='--', label='Permeation Radial')
+        plt.title(f"Ion {ion_id} – Radial Distance Trace")
+        plt.xlabel("Frame")
+        plt.ylabel("Radial Distance (Å)")
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/radial_trace_ion/{ion_id}.png")
+        plt.close()
+
+        # Histogram
+        os.makedirs(f"{output_dir}/radial_histogram", exist_ok=True)
+        plt.figure(figsize=(6, 4))
+        plt.hist(non_perm_radials, bins=50, alpha=0.7, color='gray', edgecolor='black')
+        plt.axvline(perm_radial, color='red', linestyle='--', linewidth=2, label='Permeation Radial')
+        plt.title(f"Ion {ion_id} – Radial Histogram – Permeation: {perm_radial:.2f}")
+        plt.xlabel("Radial Distance (Å)")
+        plt.ylabel("Frequency")
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(f"{output_dir}/radial_histogram/{ion_id}.png")
+        plt.close()
+
+    # Summary CSV
+    df = pd.DataFrame(results)
+    summary_csv_path = os.path.join(output_dir, "radial_significance_results.csv")
+    df.to_csv(summary_csv_path, index=False)
+
+    # Global histogram comparison
+    plt.figure()
+    plt.hist(avg_nonpermeation_radials, bins=20, alpha=0.7, label='Avg Non-Permeation Radials')
+    plt.axvline(np.mean(permeation_radials), color='red', linestyle='--', label='Mean Permeation Radial')
+    plt.xlabel("Radial Distance (Å)")
+    plt.ylabel("Frequency")
+    plt.title("Radial Distance Distribution")
+    plt.legend()
+    plt.tight_layout()
+    global_plot_path = os.path.join(output_dir, "radial_distribution_histogram.png")
+    plt.savefig(global_plot_path)
+    plt.close()
+
+    # Wilcoxon test
+    stat, p_value = wilcoxon(permeation_radials, avg_nonpermeation_radials)
+    wilcoxon_results_path = os.path.join(output_dir, "wilcoxon_test_results.txt")
+    with open(wilcoxon_results_path, "w") as f:
+        f.write(f"Wilcoxon signed-rank test result:\nStatistic = {stat}\nP-value = {p_value}\n")
+
+    return summary_csv_path, wilcoxon_results_path
+
