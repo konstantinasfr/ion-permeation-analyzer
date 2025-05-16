@@ -57,7 +57,7 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True):
         residue_atoms = {resid: u.select_atoms(f"resid {resid}") for resid in all_residues}
 
     # Select the ion
-    ion = u.select_atoms(f"resname K+ and resid {ion_id}")
+    ion = u.select_atoms(f"resname K+ K and resid {ion_id}")
     if len(ion) != 1:
         print(f"Warning: Ion resid {ion_id} not found uniquely.")
         return
@@ -91,7 +91,7 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True):
 
         # Distances to overlapping ions
         for ion_to_test in ions_to_test:
-            other_ion = u.select_atoms(f"resname K+ and resid {ion_to_test}")
+            other_ion = u.select_atoms(f"resname K+ K and resid {ion_to_test}")
             if len(other_ion) == 1:
                 other_pos = other_ion.positions[0]
                 dist = float(np.linalg.norm(ion_pos - other_pos))
