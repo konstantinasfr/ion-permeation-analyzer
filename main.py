@@ -54,7 +54,7 @@ def main():
     # start_frame = 6500
     start_frame = 3000
     # start_frame = 5550
-    start_frame = 6000
+    # start_frame = 6500
     end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, num=1, radius=11)
@@ -180,13 +180,16 @@ def main():
     force_results_dir = Path("results/forces")
     force_results_dir.mkdir(exist_ok=True)
 
-    forces_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,cutoff=15.0, calculate_total_force=False, 
+    forces_results, radial_distances_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,ch2, cutoff=15.0, calculate_total_force=False, 
                                                prmtop_file=args.top_file, nc_file=args.traj_file)
 
     
     # Save to JSON
     with open(force_results_dir / "force_results.json", "w") as f:
         json.dump(forces_results, f, indent=2)
+
+    with open(force_results_dir / "radial_distances_results.json", "w") as f:
+        json.dump(radial_distances_results, f, indent=2)
 
     # Save the forces results to an Excel file
     forces_df = pd.DataFrame(forces_results)
@@ -208,6 +211,8 @@ def main():
     cosine_significance, wilcoxon_results = analyze_cosine_significance(forces_results, force_results_dir)
 
     print("Saved forces results to results/permeation_force_results.json and results/permeation_force_results.xlsx")
+
+
 if __name__ == "__main__":
     main()
 

@@ -77,7 +77,7 @@ def build_charge_map(universe, ion_selection='resname K+'):
 # Analysis Functions
 # =========================
 
-def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map,
+def analyze_forces(positions, permeating_ion_id, frame, other_ions, charge_map,
                   closest_residues_by_ion, cutoff=10.0,
                   calculate_total_force=False, total_force_data=None):
     """
@@ -214,9 +214,29 @@ def analyze_frame(positions, permeating_ion_id, frame, other_ions, charge_map,
 
     return result
 
+import numpy as np
+
+def analyze_radial_distances(positions, frame, permeating_ion_id, channel):
+    ion_pos = positions.get(frame, {}).get(permeating_ion_id)
+    channel_center = channel.channel_center
+    channel_axis = channel.channel_axis
+
+    # Step 1: Vector from channel center to ion
+    rel_vector = ion_pos - channel_center
+
+    # Step 2: Project that vector onto the channel axis
+    proj_on_axis = np.dot(rel_vector, channel_axis) * channel_axis
+
+    # Step 3: Subtract to get the radial component (perpendicular to axis)
+    radial_vector = rel_vector - proj_on_axis
+
+    # Step 4: Radial distance is just the norm of that perpendicular component
+    radial_distance = np.linalg.norm(radial_vector)
+
+    return radial_distance
 
 
-def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, closest_residues_by_ion, cutoff=10.0,
+def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, closest_residues_by_ion, ch2, cutoff=10.0,
                               calculate_total_force=False, prmtop_file=None, nc_file=None):
     """
     Analyze all permeation events from start_frame to permeation frame.
@@ -224,7 +244,8 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
     """
     positions = build_all_positions(universe, start_frame, end_frame)
     charge_map = build_charge_map(universe)
-    results = []
+    force_results = []
+    radial_distances_results = []
 
     total_force_data = None
     if calculate_total_force and prmtop_file and nc_file:
@@ -236,7 +257,14 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
         if not (start_frame <= event["frame"] < end_frame):
             continue
 
-        event_result = {
+        event_force_results = {
+            "start_frame": event["start_frame"],
+            "frame": event["frame"],
+            "permeated_ion": event["permeated"],
+            "analysis": {}
+        }
+
+        event_radial_distances_results = {
             "start_frame": event["start_frame"],
             "frame": event["frame"],
             "permeated_ion": event["permeated"],
@@ -247,7 +275,7 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
         frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
 
         for frame in frames_to_check:
-            frame_result = analyze_frame(
+            frame_result = analyze_forces(
                 positions=positions,
                 permeating_ion_id=event["permeated"],
                 frame=frame,
@@ -258,11 +286,20 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
                 calculate_total_force=calculate_total_force,
                 total_force_data=total_force_data
             )
-            event_result["analysis"][frame] = frame_result
+            event_force_results["analysis"][frame] = frame_result
 
-        results.append(event_result)
+            radial_distances_result = analyze_radial_distances(
+                positions=positions,
+                permeating_ion_id=event["permeated"],
+                frame=frame,
+                channel=ch2
+            )
+            event_radial_distances_results["analysis"][frame] = radial_distances_result
 
-    return results
+        force_results.append(event_force_results)
+        radial_distances_results.append(event_radial_distances_results)
+
+    return force_results, radial_distances_results
 
 
 def find_top_cosine_frames(event_data, top_n=5):
