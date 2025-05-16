@@ -13,7 +13,8 @@ from analysis.organizing_frames import cluster_frames_by_closest_residue, tracki
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
-from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation, extract_permeation_frames, analyze_cosine_significance
+from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation
+from analysis.force_analysis import extract_permeation_frames, analyze_cosine_significance, analyze_radial_significance
 import json
 import pandas as pd
 
@@ -21,10 +22,10 @@ import pandas as pd
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
-    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
-    # parser.add_argument("--top_file", default="../com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../protein.nc")
+    # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
+    parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../protein.nc")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -179,6 +180,8 @@ def main():
 
     force_results_dir = Path("results/forces")
     force_results_dir.mkdir(exist_ok=True)
+    ch2_permeation_characteristics_dir = Path("results/ch2_permeation_characteristics")
+    ch2_permeation_characteristics_dir.mkdir(exist_ok=True)
 
     forces_results, radial_distances_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,ch2, cutoff=15.0, calculate_total_force=False, 
                                                prmtop_file=args.top_file, nc_file=args.traj_file)
@@ -188,7 +191,7 @@ def main():
     with open(force_results_dir / "force_results.json", "w") as f:
         json.dump(forces_results, f, indent=2)
 
-    with open(force_results_dir / "radial_distances_results.json", "w") as f:
+    with open(ch2_permeation_characteristics_dir / "radial_distances_results.json", "w") as f:
         json.dump(radial_distances_results, f, indent=2)
 
     # Save the forces results to an Excel file
@@ -209,6 +212,7 @@ def main():
     df_permeation_frames_forces_with_ions.to_excel(force_results_dir/ "permeation_frames_forces_with_ions.xlsx", index=False)
 
     cosine_significance, wilcoxon_results = analyze_cosine_significance(forces_results, force_results_dir)
+    radial_significance, radial_wilcoxon_results = analyze_radial_significance(radial_distances_results, ch2_permeation_characteristics_dir)
 
     print("Saved forces results to results/permeation_force_results.json and results/permeation_force_results.xlsx")
 
