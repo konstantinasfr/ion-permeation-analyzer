@@ -21,10 +21,10 @@ import pandas as pd
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
-    # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
-    parser.add_argument("--top_file", default="../com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../protein.nc")
+    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
+    # parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../protein.nc")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -41,6 +41,12 @@ def main():
     upper3 = [130, 455, 780, 1105]
     lower3 = [138, 463, 788, 1113]
 
+    upper4 = [138, 463, 788, 1113]
+    lower4 = [265, 590, 915 ,1240]
+
+    upper5 = [265, 590, 915 ,1240]
+    lower5 = [259, 584, 909, 1234]
+
     # start_frame = 5414
     # end_frame = 5553
     # start_frame = 5000
@@ -48,14 +54,16 @@ def main():
     # start_frame = 6500
     start_frame = 3000
     # start_frame = 5550
-    # end_frame = 6000
+    start_frame = 6000
     end_frame = 6799
 
-    ch1 = Channel(u, upper1, lower1, radius=11)
-    ch2 = Channel(u, upper2, lower2, radius=15.0)
-    ch3 = Channel(u, upper3, lower3, radius=15.0)
+    ch1 = Channel(u, upper1, lower1, num=1, radius=11)
+    ch2 = Channel(u, upper2, lower2, num=2, radius=15.0)
+    ch3 = Channel(u, upper3, lower3, num=3, radius=15.0)
+    ch4 = Channel(u, upper4, lower4, num=4, radius=15.0)
+    ch5 = Channel(u, upper5, lower5, num=5, radius=20.0)
 
-    analyzer = IonPermeationAnalysis(u, ion_selection="resname K+", start_frame=start_frame, end_frame=end_frame, channel1=ch1, channel2=ch2, channel3=ch3)
+    analyzer = IonPermeationAnalysis(u, ion_selection="resname K+ K", start_frame=start_frame, end_frame=end_frame, channel1=ch1, channel2=ch2, channel3=ch3, channel4=ch4, channel5=ch5)
     analyzer.run_analysis()
     analyzer.print_results()
 
@@ -89,6 +97,12 @@ def main():
 
     with open(results_dir / "ch3.json", "w") as f:
         json.dump(analyzer.permeation_events3, f, indent=2)
+
+    with open(results_dir / "ch4.json", "w") as f:
+        json.dump(analyzer.permeation_events4, f, indent=2)
+
+    with open(results_dir / "ch5.json", "w") as f:
+        json.dump(analyzer.permeation_events5, f, indent=2)
 
     # Save total_distances_dict to JSON
     with open(results_dir / "distances.json", "w") as f:

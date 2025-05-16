@@ -1,69 +1,9 @@
 [
   {
-    "ion_id": 2433,
-    "start_frame": 3632,
-    "exit_frame": 3633,
-    "total_time": 1
-  },
-  {
-    "ion_id": 1313,
-    "start_frame": 3667,
-    "exit_frame": 3675,
-    "total_time": 8
-  },
-  {
-    "ion_id": 1387,
-    "start_frame": 4416,
-    "exit_frame": 4417,
-    "total_time": 1
-  },
-  {
-    "ion_id": 1316,
-    "start_frame": 4995,
-    "exit_frame": 4996,
-    "total_time": 1
-  },
-  {
-    "ion_id": 1308,
-    "start_frame": 5270,
-    "exit_frame": 5271,
-    "total_time": 1
-  },
-  {
-    "ion_id": 1403,
-    "start_frame": 5332,
-    "exit_frame": 5335,
-    "total_time": 3
-  },
-  {
-    "ion_id": 1320,
-    "start_frame": 5400,
-    "exit_frame": 5402,
-    "total_time": 2
-  },
-  {
-    "ion_id": 2436,
-    "start_frame": 5434,
-    "exit_frame": 5438,
-    "total_time": 4
-  },
-  {
-    "ion_id": 2444,
-    "start_frame": 5583,
-    "exit_frame": 5588,
-    "total_time": 5
-  },
-  {
-    "ion_id": 1309,
-    "start_frame": 5678,
-    "exit_frame": 5679,
-    "total_time": 1
-  },
-  {
     "ion_id": 2434,
     "start_frame": 6017,
-    "exit_frame": 6018,
-    "total_time": 1
+    "exit_frame": 6021,
+    "total_time": 4
   },
   {
     "ion_id": 2443,
@@ -74,32 +14,32 @@
   {
     "ion_id": 1443,
     "start_frame": 6360,
-    "exit_frame": 6362,
-    "total_time": 2
+    "exit_frame": 6384,
+    "total_time": 24
   },
   {
     "ion_id": 1380,
     "start_frame": 6425,
-    "exit_frame": 6430,
-    "total_time": 5
+    "exit_frame": 6436,
+    "total_time": 11
   },
   {
     "ion_id": 1476,
-    "start_frame": 6489,
-    "exit_frame": 6492,
-    "total_time": 3
+    "start_frame": 6488,
+    "exit_frame": 6513,
+    "total_time": 25
   },
   {
     "ion_id": 1355,
     "start_frame": 6562,
-    "exit_frame": 6566,
-    "total_time": 4
+    "exit_frame": 6568,
+    "total_time": 6
   },
   {
     "ion_id": 1465,
     "start_frame": 6671,
-    "exit_frame": 6687,
-    "total_time": 16
+    "exit_frame": 6688,
+    "total_time": 17
   },
   {
     "ion_id": 1374,
