@@ -1,21 +1,21 @@
 [
   {
-    "ion_id": 1306,
-    "start_frame": 3000,
-    "exit_frame": 5553,
-    "total_time": 2553
+    "ion_id": 1307,
+    "start_frame": 7,
+    "exit_frame": 5179,
+    "total_time": 5172
   },
   {
-    "ion_id": 1307,
-    "start_frame": 3000,
-    "exit_frame": 5179,
-    "total_time": 2179
+    "ion_id": 1306,
+    "start_frame": 473,
+    "exit_frame": 5553,
+    "total_time": 5080
   },
   {
     "ion_id": 1305,
-    "start_frame": 3014,
+    "start_frame": 1248,
     "exit_frame": 3172,
-    "total_time": 158
+    "total_time": 1924
   },
   {
     "ion_id": 2433,

@@ -1,27 +1,33 @@
 [
   {
     "ion_id": 1305,
-    "start_frame": 3000,
-    "exit_frame": 3014,
-    "total_time": 14
+    "start_frame": 0,
+    "exit_frame": 1248,
+    "total_time": 1248
   },
   {
-    "ion_id": 1313,
-    "start_frame": 3000,
-    "exit_frame": 3242,
-    "total_time": 242
-  },
-  {
-    "ion_id": 2433,
-    "start_frame": 3000,
-    "exit_frame": 3141,
-    "total_time": 141
+    "ion_id": 1306,
+    "start_frame": 0,
+    "exit_frame": 473,
+    "total_time": 473
   },
   {
     "ion_id": 1307,
-    "start_frame": 3009,
-    "exit_frame": 3010,
-    "total_time": 1
+    "start_frame": 0,
+    "exit_frame": 2,
+    "total_time": 2
+  },
+  {
+    "ion_id": 2433,
+    "start_frame": 1,
+    "exit_frame": 3141,
+    "total_time": 3140
+  },
+  {
+    "ion_id": 1313,
+    "start_frame": 747,
+    "exit_frame": 3242,
+    "total_time": 2495
   },
   {
     "ion_id": 1460,
@@ -34,12 +40,6 @@
     "start_frame": 3184,
     "exit_frame": 4335,
     "total_time": 1151
-  },
-  {
-    "ion_id": 1306,
-    "start_frame": 3291,
-    "exit_frame": 3292,
-    "total_time": 1
   },
   {
     "ion_id": 1316,
