@@ -14,49 +14,74 @@ def get_overlapping_ions(ion_id, target_start, target_end, event_list):
             overlapping_ions.append(int(event['ion_id']))
     return overlapping_ions
 
-def calculate_distances(ion_permeated, analyzer, use_ca_only=True):
+def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_distances=False, use_charges=False):
     """
     Calculates the distances between a given ion and selected residues across relevant frames.
+    Depending on the flags, uses CA atoms, all atoms (min), or functional atom-based charge centers.
+
     Args:
         ion_permeated: dictionary with 'ion_id'
         analyzer: object with trajectory and permeation event lists
-        use_ca_only: if True, uses only CA atoms; if False, uses all atoms (min distance)
+        use_ca_only: if True, uses only CA atoms
+        use_min_distances: if True, uses all atoms and takes min distance
+        use_charges: if True, uses midpoint of charged/polar atoms (OE1/OE2 for Glu, OD1/ND2 for Asn)
+
     Returns:
         Dictionary of distances per frame for that ion
     """
 
     u = analyzer.u
-    ch1 = analyzer.permeation_events1
-    ch2 = analyzer.permeation_events2
-    ch3 = analyzer.permeation_events3
+    ch1, ch2, ch3 = analyzer.permeation_events1, analyzer.permeation_events2, analyzer.permeation_events3
 
     ion_id = int(ion_permeated['ion_id'])
 
-    # Get the start/exit frame from ch2 (the source event)
+    # Get start/exit frame for this ion from Channel 2 event list
     start_frame, exit_frame = next(
-        (event['start_frame'], event['exit_frame'])
-        for event in ch2 if event['ion_id'] == ion_id
+        (event['start_frame'], event['exit_frame']) for event in ch2 if event['ion_id'] == ion_id
     )
 
-    temp_distances_dict = {}
-    ions_to_test = []
-    ions_to_test += get_overlapping_ions(ion_id, start_frame, exit_frame, ch1)
-    ions_to_test += get_overlapping_ions(ion_id, start_frame, exit_frame, ch2)
-    ions_to_test += get_overlapping_ions(ion_id, start_frame, exit_frame, ch3)
+    temp_distances_dict = {ion_id: []}
+    ions_to_test = get_overlapping_ions(ion_id, start_frame, exit_frame, ch1) + \
+                   get_overlapping_ions(ion_id, start_frame, exit_frame, ch2) + \
+                   get_overlapping_ions(ion_id, start_frame, exit_frame, ch3)
 
-    temp_distances_dict[ion_id] = []
+    # Residue definitions
+    glu_residues = [98, 423, 748, 1073]
+    asn_residues = [130, 455, 780, 1105]
+    sf_residues = [100, 425, 750, 1075]
+    all_residues = glu_residues + asn_residues + sf_residues
 
-    residue_ids = [98, 423, 748, 1073, 130, 455, 780, 1105]
-    sf_residues = [100, 425, 750, 1075]  # Selectivity filter residues
-    all_residues = residue_ids + sf_residues
+    residue_atoms = {}
+    charge_centers = {}
 
-    # Select either CA atoms or all atoms
-    if use_ca_only:
-        residue_atoms = {resid: u.select_atoms(f"resid {resid} and name CA") for resid in all_residues}
-    else:
-        residue_atoms = {resid: u.select_atoms(f"resid {resid}") for resid in all_residues}
+    for resid in all_residues:
+        if use_ca_only:
+            residue_atoms[resid] = u.select_atoms(f"resid {resid} and name CA")
 
-    # Select the ion
+        elif use_min_distances:
+            residue_atoms[resid] = u.select_atoms(f"resid {resid}")
+
+        elif use_charges:
+            if resid in glu_residues:
+                atoms = u.select_atoms(f"resid {resid} and name OE1 OE2")
+                if atoms.n_atoms == 2:
+                    charge_centers[resid] = 0.5 * (atoms.positions[0] + atoms.positions[1])
+                else:
+                    print(f"Glu {resid} missing OE1 or OE2")
+                    charge_centers[resid] = None
+
+            elif resid in asn_residues:
+                atoms = u.select_atoms(f"resid {resid} and name OD1 ND2")
+                if atoms.n_atoms == 2:
+                    charge_centers[resid] = 0.5 * (atoms.positions[0] + atoms.positions[1])
+                else:
+                    print(f"Asn {resid} missing OD1 or ND2")
+                    charge_centers[resid] = None
+
+            elif resid in sf_residues:
+                residue_atoms[resid] = u.select_atoms(f"resid {resid}")
+
+    # Select the ion of interest
     ion = u.select_atoms(f"resname K+ K and resid {ion_id}")
     if len(ion) != 1:
         print(f"Warning: Ion resid {ion_id} not found uniquely.")
@@ -66,28 +91,35 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True):
         frame_data = {'frame': ts.frame, 'residues': {}, 'ions': {}}
         ion_pos = ion.positions[0]
 
-        # Distances to selected residues
-        for resid in residue_ids:
-            atomgroup = residue_atoms[resid]
+        for resid in glu_residues + asn_residues:
+            if use_ca_only or use_min_distances:
+                atomgroup = residue_atoms[resid]
+                if use_ca_only:
+                    dist = float(np.linalg.norm(ion_pos - atomgroup.positions[0]))
+                else:
+                    dists = np.linalg.norm(atomgroup.positions - ion_pos, axis=1)
+                    dist = float(np.min(dists))
+
+            elif use_charges:
+                if charge_centers.get(resid) is not None:
+                    dist = float(np.linalg.norm(ion_pos - charge_centers[resid]))
+                else:
+                    dist = float('nan')  # Could not compute distance
+
+            frame_data['residues'][resid] = dist
+
+        # Selectivity filter residues (always use atom-based min distance)
+        sf_distances = []
+        for sf_resid in sf_residues:
+            atomgroup = residue_atoms[sf_resid]
             if use_ca_only:
                 dist = float(np.linalg.norm(ion_pos - atomgroup.positions[0]))
             else:
                 dists = np.linalg.norm(atomgroup.positions - ion_pos, axis=1)
                 dist = float(np.min(dists))
-            frame_data['residues'][resid] = dist
-
-        # Selectivity filter: average of min distances
-        sf_distances = []
-        for sf_resid in sf_residues:
-            sf_atoms = residue_atoms[sf_resid]
-            if use_ca_only:
-                dist = float(np.linalg.norm(ion_pos - sf_atoms.positions[0]))
-            else:
-                dists = np.linalg.norm(sf_atoms.positions - ion_pos, axis=1)
-                dist = float(np.min(dists))
             sf_distances.append(dist)
 
-        frame_data['residues']["SF"] = float(np.mean(sf_distances))
+        frame_data['residues']['SF'] = float(np.mean(sf_distances))
 
         # Distances to overlapping ions
         for ion_to_test in ions_to_test:
