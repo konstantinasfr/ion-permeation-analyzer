@@ -107,20 +107,22 @@ class IonPermeationAnalysis:
         hbc_residues = [138, 463, 788, 1113]
         diagonal_pairs = [(138, 788), (463, 1113)]
 
-        # Select CA atoms for each HBC residue
-        atoms = {resid: self.u.select_atoms(f"resid {resid} and name CA")[0] for resid in hbc_residues}
+        # Select all atoms for each HBC residue
+        atoms = {resid: self.u.select_atoms(f"resid {resid}") for resid in hbc_residues}
 
         self.hbc_diameters = []
 
         for ts in tqdm(self.u.trajectory[self.start_frame:self.end_frame+1],
-                       total=(self.end_frame - self.start_frame),
-                       desc="Processing Frames", unit="frame"):
-            
+                    total=(self.end_frame - self.start_frame),
+                    desc="Processing Frames", unit="frame"):
+
             distances = []
             for res1, res2 in diagonal_pairs:
-                pos1 = atoms[res1].position
-                pos2 = atoms[res2].position
-                dist = np.linalg.norm(pos1 - pos2)
+                pos1 = atoms[res1].positions
+                pos2 = atoms[res2].positions
+                # Compute all pairwise distances and take the minimum
+                pairwise_dists = np.linalg.norm(pos1[:, None, :] - pos2[None, :, :], axis=2)
+                dist = np.min(pairwise_dists)
                 distances.append(dist)
 
             mean_diameter = np.mean(distances)
@@ -130,6 +132,7 @@ class IonPermeationAnalysis:
                 "138_788": float(distances[0]),
                 "463_1113": float(distances[1])
             })
+
 
 
             # if ts.frame>self.start_frame+1:
