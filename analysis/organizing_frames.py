@@ -90,6 +90,120 @@ def cluster_frames_by_closest_residue(distance_data):
 
     return clustered_results, min_results_per_frame, close_contacts_dict
 
+
+import os
+import matplotlib.pyplot as plt
+from collections import Counter
+import pandas as pd
+
+import os
+import matplotlib.pyplot as plt
+from collections import Counter
+import pandas as pd
+
+def close_contact_residues_analysis(data, results_dir, max_bar_number=20):
+    """
+    For each ion, plots and saves a bar chart of residue combinations (unordered)
+    that are close during trajectory frames, and writes full CSV summary.
+
+    Parameters:
+        data (dict): ion_id → frame_id → list of close residues
+        results_dir (str): directory where two subfolders will be created:
+                           - close_contact_residues/plots
+                           - close_contact_residues/csv
+        max_bar_number (int): max number of bars in each plot
+    """
+
+    main_path = os.path.join(results_dir, "close_contact_residues")
+    plot_dir = os.path.join(results_dir, "close_contact_residues/plots")
+    csv_dir = os.path.join(results_dir, "close_contact_residues/csv")
+    os.makedirs(plot_dir, exist_ok=True)
+    os.makedirs(csv_dir, exist_ok=True)
+
+    def normalize_combo(combo):
+        return tuple(sorted(combo))
+
+    total_combo_counts = Counter()
+
+    for ion_id, frames in data.items():
+        combo_counts = Counter()
+
+        for frame, residues in frames.items():
+            if residues != ["SF"] and residues != ["no_close_residues"]:
+                norm_combo = normalize_combo(residues)
+                combo_counts[norm_combo] += 1
+                total_combo_counts[norm_combo] += 1
+
+        if not combo_counts:
+            continue
+
+        combo_data = [{"residue_combination": '+'.join(map(str, combo)), "count": count}
+                      for combo, count in combo_counts.items()]
+        df = pd.DataFrame(combo_data).sort_values(by="count", ascending=False)
+        csv_path = os.path.join(csv_dir, f"{ion_id}.csv")
+        df.to_csv(csv_path, index=False)
+
+        top_combos = combo_counts.most_common(max_bar_number)
+        labels = ['_'.join(map(str, combo)) for combo, _ in top_combos]
+        counts = [count for _, count in top_combos]
+
+        plt.figure(figsize=(8, 4))
+        bars = plt.bar(labels, counts)
+
+        for bar, count in zip(bars, counts):
+            height = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width() / 2, height + 0.5,
+                     str(count), ha='center', va='bottom', fontsize=9)
+
+        plt.title(f"Ion {ion_id} — Top {max_bar_number} combos")
+        plt.xlabel("Residue combination (unordered)")
+        plt.ylabel("Frequency")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+
+        plot_path = os.path.join(plot_dir, f"{ion_id}.png")
+        plt.savefig(plot_path)
+        plt.close()
+
+        print(f"✅ Ion {ion_id}: plot saved to {plot_path}, data to {csv_path}")
+
+    # Global summary across all ions
+    if total_combo_counts:
+        total_combo_data = [{"residue_combination": '_'.join(map(str, combo)), "count": count}
+                            for combo, count in total_combo_counts.items()]
+        df_total = pd.DataFrame(total_combo_data).sort_values(by="count", ascending=False)
+        total_csv_path = os.path.join(main_path, "ALL_ions_combined.csv")
+        df_total.to_csv(total_csv_path, index=False)
+
+        top_total_combos = total_combo_counts.most_common(max_bar_number)
+        labels = ['_'.join(map(str, combo)) for combo, _ in top_total_combos]
+        counts = [count for _, count in top_total_combos]
+
+        plt.figure(figsize=(10, 5))
+        bars = plt.bar(labels, counts)
+
+        for bar, count in zip(bars, counts):
+            height = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width() / 2, height + 0.5,
+                     str(count), ha='center', va='bottom', fontsize=9)
+
+        plt.title(f"All Ions — Top {max_bar_number} Residue Combinations")
+        plt.xlabel("Residue combination (unordered)")
+        plt.ylabel("Total Frequency")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+
+        total_plot_path = os.path.join(main_path, "ALL_ions_combined.png")
+        plt.savefig(total_plot_path)
+        plt.close()
+
+        print(f"📊 Combined plot saved to {total_plot_path}, data to {total_csv_path}")
+
+
+        
+
+
+
 def get_ions_for_frame(data, target_frame):
     for frame_info in data:
         if frame_info["frame"] == target_frame:

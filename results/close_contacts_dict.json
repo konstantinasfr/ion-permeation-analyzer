@@ -13715,7 +13715,7 @@
       "SF"
     ],
     "3549": [
-      "center"
+      "no_close_residues"
     ],
     "3550": [
       1105
@@ -16570,7 +16570,7 @@
       455
     ],
     "4309": [
-      "center"
+      "no_close_residues"
     ],
     "4310": [
       1105,
@@ -16615,7 +16615,7 @@
       130
     ],
     "4321": [
-      "center"
+      "no_close_residues"
     ],
     "4322": [
       1105,
@@ -17150,7 +17150,7 @@
       98
     ],
     "4465": [
-      "center"
+      "no_close_residues"
     ],
     "4466": [
       130,
@@ -17224,10 +17224,10 @@
       1105
     ],
     "4487": [
-      "center"
+      "no_close_residues"
     ],
     "4488": [
-      "center"
+      "no_close_residues"
     ],
     "4489": [
       1105
@@ -19195,7 +19195,7 @@
       423
     ],
     "5033": [
-      "center"
+      "no_close_residues"
     ],
     "5034": [
       130,
@@ -19618,7 +19618,7 @@
       455
     ],
     "5157": [
-      "center"
+      "no_close_residues"
     ],
     "5158": [
       130,
@@ -19632,7 +19632,7 @@
       780
     ],
     "5161": [
-      "center"
+      "no_close_residues"
     ],
     "5162": [
       98,
@@ -26307,13 +26307,13 @@
       1105
     ],
     "2407": [
-      "center"
+      "no_close_residues"
     ],
     "2408": [
       780
     ],
     "2409": [
-      "center"
+      "no_close_residues"
     ],
     "2410": [
       1105,
@@ -26476,7 +26476,7 @@
       1105
     ],
     "2451": [
-      "center"
+      "no_close_residues"
     ],
     "2452": [
       780
@@ -26795,7 +26795,7 @@
       780
     ],
     "2538": [
-      "center"
+      "no_close_residues"
     ],
     "2539": [
       780
@@ -26839,7 +26839,7 @@
       780
     ],
     "2550": [
-      "center"
+      "no_close_residues"
     ],
     "2551": [
       780
@@ -26932,7 +26932,7 @@
       1105
     ],
     "2576": [
-      "center"
+      "no_close_residues"
     ],
     "2577": [
       780
@@ -26963,7 +26963,7 @@
       780
     ],
     "2585": [
-      "center"
+      "no_close_residues"
     ],
     "2586": [
       780,
@@ -27042,7 +27042,7 @@
       780
     ],
     "2607": [
-      "center"
+      "no_close_residues"
     ],
     "2608": [
       1105,
@@ -27066,7 +27066,7 @@
       780
     ],
     "2614": [
-      "center"
+      "no_close_residues"
     ],
     "2615": [
       1105,
@@ -28139,7 +28139,7 @@
       780
     ],
     "2911": [
-      "center"
+      "no_close_residues"
     ],
     "2912": [
       780
@@ -28158,7 +28158,7 @@
       780
     ],
     "2917": [
-      "center"
+      "no_close_residues"
     ],
     "2918": [
       780
@@ -28167,7 +28167,7 @@
       780
     ],
     "2920": [
-      "center"
+      "no_close_residues"
     ],
     "2921": [
       780
@@ -28183,7 +28183,7 @@
       780
     ],
     "2925": [
-      "center"
+      "no_close_residues"
     ],
     "2926": [
       780,
@@ -28395,7 +28395,7 @@
       780
     ],
     "2984": [
-      "center"
+      "no_close_residues"
     ],
     "2985": [
       780,
@@ -29230,7 +29230,7 @@
       780
     ],
     "3226": [
-      "center"
+      "no_close_residues"
     ],
     "3227": [
       780,
@@ -29485,7 +29485,7 @@
       130
     ],
     "3298": [
-      "center"
+      "no_close_residues"
     ],
     "3299": [
       780
@@ -29505,10 +29505,10 @@
       130
     ],
     "3304": [
-      "center"
+      "no_close_residues"
     ],
     "3305": [
-      "center"
+      "no_close_residues"
     ],
     "3306": [
       "SF"
@@ -30901,23 +30901,23 @@
       748
     ],
     "3663": [
-      "center"
+      "no_close_residues"
     ],
     "3664": [
-      "center"
+      "no_close_residues"
     ],
     "3665": [
       780,
       1105
     ],
     "3666": [
-      "center"
+      "no_close_residues"
     ],
     "3667": [
       780
     ],
     "3668": [
-      "center"
+      "no_close_residues"
     ],
     "3669": [
       780,
@@ -30957,10 +30957,10 @@
       780
     ],
     "3680": [
-      "center"
+      "no_close_residues"
     ],
     "3681": [
-      "center"
+      "no_close_residues"
     ],
     "3682": [
       748
@@ -31313,7 +31313,7 @@
       780
     ],
     "3780": [
-      "center"
+      "no_close_residues"
     ],
     "3781": [
       780
@@ -31328,19 +31328,19 @@
       780
     ],
     "3785": [
-      "center"
+      "no_close_residues"
     ],
     "3786": [
       780
     ],
     "3787": [
-      "center"
+      "no_close_residues"
     ],
     "3788": [
-      "center"
+      "no_close_residues"
     ],
     "3789": [
-      "center"
+      "no_close_residues"
     ],
     "3790": [
       780,
@@ -31587,7 +31587,7 @@
       780
     ],
     "3865": [
-      "center"
+      "no_close_residues"
     ],
     "3866": [
       780,
@@ -31691,7 +31691,7 @@
       780
     ],
     "3895": [
-      "center"
+      "no_close_residues"
     ],
     "3896": [
       780
@@ -31725,7 +31725,7 @@
       780
     ],
     "3906": [
-      "center"
+      "no_close_residues"
     ],
     "3907": [
       780
@@ -31737,7 +31737,7 @@
       780
     ],
     "3910": [
-      "center"
+      "no_close_residues"
     ],
     "3911": [
       780
@@ -33321,7 +33321,7 @@
       780
     ],
     "4323": [
-      "center"
+      "no_close_residues"
     ],
     "4324": [
       780
@@ -35528,7 +35528,7 @@
       98
     ],
     "4894": [
-      "center"
+      "no_close_residues"
     ],
     "4895": [
       130
@@ -35544,7 +35544,7 @@
       423
     ],
     "4899": [
-      "center"
+      "no_close_residues"
     ],
     "4900": [
       455,
@@ -35590,7 +35590,7 @@
       130
     ],
     "4911": [
-      "center"
+      "no_close_residues"
     ],
     "4912": [
       130,
@@ -35790,7 +35790,7 @@
       455
     ],
     "4966": [
-      "center"
+      "no_close_residues"
     ],
     "4967": [
       "SF"
@@ -36003,7 +36003,7 @@
       780
     ],
     "5029": [
-      "center"
+      "no_close_residues"
     ],
     "5030": [
       748,
@@ -36948,7 +36948,7 @@
       780
     ],
     "5277": [
-      "center"
+      "no_close_residues"
     ],
     "5278": [
       780,
@@ -37019,7 +37019,7 @@
       748
     ],
     "5297": [
-      "center"
+      "no_close_residues"
     ],
     "5298": [
       748,
@@ -41331,32 +41331,32 @@
       1105
     ],
     "3321": [
-      "center"
+      "no_close_residues"
     ],
     "3322": [
-      "center"
+      "no_close_residues"
     ],
     "3323": [
-      "center"
+      "no_close_residues"
     ],
     "3324": [
-      "center"
+      "no_close_residues"
     ],
     "3325": [
       780,
       1105
     ],
     "3326": [
-      "center"
+      "no_close_residues"
     ],
     "3327": [
-      "center"
+      "no_close_residues"
     ],
     "3328": [
-      "center"
+      "no_close_residues"
     ],
     "3329": [
-      "center"
+      "no_close_residues"
     ],
     "3330": [
       780
@@ -41762,7 +41762,7 @@
       130
     ],
     "3453": [
-      "center"
+      "no_close_residues"
     ],
     "3454": [
       "SF"
@@ -42635,7 +42635,7 @@
       1105
     ],
     "3395": [
-      "center"
+      "no_close_residues"
     ],
     "3396": [
       780,
@@ -42746,67 +42746,67 @@
       780
     ],
     "3428": [
-      "center"
+      "no_close_residues"
     ],
     "3429": [
-      "center"
+      "no_close_residues"
     ],
     "3430": [
-      "center"
+      "no_close_residues"
     ],
     "3431": [
-      "center"
+      "no_close_residues"
     ],
     "3432": [
-      "center"
+      "no_close_residues"
     ],
     "3433": [
-      "center"
+      "no_close_residues"
     ],
     "3434": [
-      "center"
+      "no_close_residues"
     ],
     "3435": [
-      "center"
+      "no_close_residues"
     ],
     "3436": [
-      "center"
+      "no_close_residues"
     ],
     "3437": [
       780
     ],
     "3438": [
-      "center"
+      "no_close_residues"
     ],
     "3439": [
       780
     ],
     "3440": [
-      "center"
+      "no_close_residues"
     ],
     "3441": [
-      "center"
+      "no_close_residues"
     ],
     "3442": [
-      "center"
+      "no_close_residues"
     ],
     "3443": [
-      "center"
+      "no_close_residues"
     ],
     "3444": [
-      "center"
+      "no_close_residues"
     ],
     "3445": [
-      "center"
+      "no_close_residues"
     ],
     "3446": [
-      "center"
+      "no_close_residues"
     ],
     "3447": [
-      "center"
+      "no_close_residues"
     ],
     "3448": [
-      "center"
+      "no_close_residues"
     ],
     "3449": [
       780
@@ -42886,7 +42886,7 @@
       1105
     ],
     "3473": [
-      "center"
+      "no_close_residues"
     ],
     "3474": [
       780
@@ -42899,13 +42899,13 @@
       1105
     ],
     "3477": [
-      "center"
+      "no_close_residues"
     ],
     "3478": [
       780
     ],
     "3479": [
-      "center"
+      "no_close_residues"
     ],
     "3480": [
       780
@@ -43107,7 +43107,7 @@
       780
     ],
     "3539": [
-      "center"
+      "no_close_residues"
     ],
     "3540": [
       1105
@@ -43280,13 +43280,13 @@
       1105
     ],
     "3590": [
-      "center"
+      "no_close_residues"
     ],
     "3591": [
-      "center"
+      "no_close_residues"
     ],
     "3592": [
-      "center"
+      "no_close_residues"
     ],
     "3593": [
       1105,
@@ -43362,7 +43362,7 @@
       748
     ],
     "3614": [
-      "center"
+      "no_close_residues"
     ],
     "3615": [
       780
@@ -44474,10 +44474,10 @@
       1105
     ],
     "4568": [
-      "center"
+      "no_close_residues"
     ],
     "4569": [
-      "center"
+      "no_close_residues"
     ],
     "4570": [
       780,
@@ -44612,7 +44612,7 @@
       130
     ],
     "4606": [
-      "center"
+      "no_close_residues"
     ],
     "4607": [
       1105,
@@ -44823,7 +44823,7 @@
       423
     ],
     "4665": [
-      "center"
+      "no_close_residues"
     ],
     "4666": [
       98
@@ -45007,7 +45007,7 @@
       455
     ],
     "4717": [
-      "center"
+      "no_close_residues"
     ],
     "4718": [
       130,
@@ -45396,7 +45396,7 @@
       130
     ],
     "4834": [
-      "center"
+      "no_close_residues"
     ],
     "4835": [
       455,
@@ -45451,7 +45451,7 @@
       130
     ],
     "4851": [
-      "center"
+      "no_close_residues"
     ],
     "4852": [
       98
@@ -45942,7 +45942,7 @@
       455
     ],
     "4997": [
-      "center"
+      "no_close_residues"
     ],
     "4998": [
       455
@@ -46167,7 +46167,7 @@
       423
     ],
     "5059": [
-      "center"
+      "no_close_residues"
     ],
     "5060": [
       98
@@ -46221,7 +46221,7 @@
       423
     ],
     "5074": [
-      "center"
+      "no_close_residues"
     ],
     "5075": [
       98
@@ -46391,7 +46391,7 @@
       455
     ],
     "5125": [
-      "center"
+      "no_close_residues"
     ],
     "5126": [
       98,
@@ -46491,7 +46491,7 @@
       98
     ],
     "4870": [
-      "center"
+      "no_close_residues"
     ],
     "4871": [
       130,
@@ -47823,7 +47823,7 @@
       130
     ],
     "5236": [
-      "center"
+      "no_close_residues"
     ],
     "5237": [
       98
@@ -48343,10 +48343,10 @@
       423
     ],
     "5291": [
-      "center"
+      "no_close_residues"
     ],
     "5292": [
-      "center"
+      "no_close_residues"
     ],
     "5293": [
       130,
@@ -48585,7 +48585,7 @@
       1105
     ],
     "5362": [
-      "center"
+      "no_close_residues"
     ],
     "5363": [
       1105
@@ -48700,7 +48700,7 @@
       748
     ],
     "5395": [
-      "center"
+      "no_close_residues"
     ],
     "5396": [
       455
@@ -48978,7 +48978,7 @@
       130
     ],
     "5281": [
-      "center"
+      "no_close_residues"
     ],
     "5282": [
       455,
@@ -49128,7 +49128,7 @@
       423
     ],
     "5325": [
-      "center"
+      "no_close_residues"
     ],
     "5326": [
       455,
@@ -49320,7 +49320,7 @@
       "SF"
     ],
     "5382": [
-      "center"
+      "no_close_residues"
     ],
     "5383": [
       455
@@ -49375,7 +49375,7 @@
       423
     ],
     "5399": [
-      "center"
+      "no_close_residues"
     ],
     "5400": [
       98
@@ -49811,7 +49811,7 @@
       130
     ],
     "5523": [
-      "center"
+      "no_close_residues"
     ],
     "5524": [
       98,
@@ -49887,7 +49887,7 @@
       1105
     ],
     "5544": [
-      "center"
+      "no_close_residues"
     ],
     "5545": [
       1105
@@ -50158,7 +50158,7 @@
       "SF"
     ],
     "5623": [
-      "center"
+      "no_close_residues"
     ],
     "5624": [
       748
@@ -50167,7 +50167,7 @@
       455
     ],
     "5626": [
-      "center"
+      "no_close_residues"
     ],
     "5627": [
       455
@@ -50200,7 +50200,7 @@
       780
     ],
     "5635": [
-      "center"
+      "no_close_residues"
     ],
     "5636": [
       455,
@@ -50210,7 +50210,7 @@
       455
     ],
     "5638": [
-      "center"
+      "no_close_residues"
     ],
     "5639": [
       "SF"
@@ -50238,7 +50238,7 @@
       455
     ],
     "5647": [
-      "center"
+      "no_close_residues"
     ],
     "5648": [
       455
@@ -50256,7 +50256,7 @@
       455
     ],
     "5653": [
-      "center"
+      "no_close_residues"
     ],
     "5654": [
       98
@@ -50266,7 +50266,7 @@
       98
     ],
     "5656": [
-      "center"
+      "no_close_residues"
     ],
     "5657": [
       98
@@ -51526,10 +51526,10 @@
       748
     ],
     "5624": [
-      "center"
+      "no_close_residues"
     ],
     "5625": [
-      "center"
+      "no_close_residues"
     ],
     "5626": [
       1105,
@@ -52563,7 +52563,7 @@
       130
     ],
     "5885": [
-      "center"
+      "no_close_residues"
     ],
     "5886": [
       130,
@@ -52994,7 +52994,7 @@
       423
     ],
     "5582": [
-      "center"
+      "no_close_residues"
     ],
     "5583": [
       423
@@ -53073,7 +53073,7 @@
       423
     ],
     "5606": [
-      "center"
+      "no_close_residues"
     ],
     "5607": [
       130
@@ -53234,7 +53234,7 @@
       780
     ],
     "5653": [
-      "center"
+      "no_close_residues"
     ],
     "5654": [
       748
@@ -54022,7 +54022,7 @@
       455
     ],
     "5862": [
-      "center"
+      "no_close_residues"
     ],
     "5863": [
       423,
@@ -54583,7 +54583,7 @@
       455
     ],
     "6012": [
-      "center"
+      "no_close_residues"
     ],
     "6013": [
       "SF"
@@ -54779,10 +54779,10 @@
       98
     ],
     "5645": [
-      "center"
+      "no_close_residues"
     ],
     "5646": [
-      "center"
+      "no_close_residues"
     ],
     "5647": [
       98
@@ -55443,7 +55443,7 @@
       1073
     ],
     "5838": [
-      "center"
+      "no_close_residues"
     ],
     "5839": [
       130
@@ -55540,7 +55540,7 @@
       455
     ],
     "5868": [
-      "center"
+      "no_close_residues"
     ],
     "5869": [
       455
@@ -55711,7 +55711,7 @@
       748
     ],
     "5918": [
-      "center"
+      "no_close_residues"
     ],
     "5919": [
       780,
@@ -55776,7 +55776,7 @@
       748
     ],
     "5935": [
-      "center"
+      "no_close_residues"
     ],
     "5936": [
       780,
@@ -56784,10 +56784,10 @@
       98
     ],
     "6201": [
-      "center"
+      "no_close_residues"
     ],
     "6202": [
-      "center"
+      "no_close_residues"
     ]
   },
   "1380": {
@@ -57516,7 +57516,7 @@
       1073
     ],
     "5889": [
-      "center"
+      "no_close_residues"
     ],
     "5890": [
       1105,
@@ -59678,7 +59678,7 @@
       "SF"
     ],
     "5897": [
-      "center"
+      "no_close_residues"
     ],
     "5898": [
       98
@@ -60801,7 +60801,7 @@
       780
     ],
     "6198": [
-      "center"
+      "no_close_residues"
     ],
     "6199": [
       780
@@ -61358,7 +61358,7 @@
       748
     ],
     "6339": [
-      "center"
+      "no_close_residues"
     ],
     "6340": [
       780
@@ -61376,10 +61376,10 @@
       780
     ],
     "6345": [
-      "center"
+      "no_close_residues"
     ],
     "6346": [
-      "center"
+      "no_close_residues"
     ],
     "6347": [
       780
@@ -61723,10 +61723,10 @@
       780
     ],
     "6448": [
-      "center"
+      "no_close_residues"
     ],
     "6449": [
-      "center"
+      "no_close_residues"
     ],
     "6450": [
       "SF"
@@ -61767,7 +61767,7 @@
       780
     ],
     "6462": [
-      "center"
+      "no_close_residues"
     ],
     "6463": [
       780
@@ -61776,7 +61776,7 @@
       455
     ],
     "6465": [
-      "center"
+      "no_close_residues"
     ],
     "6466": [
       455
@@ -61791,7 +61791,7 @@
       "SF"
     ],
     "6470": [
-      "center"
+      "no_close_residues"
     ],
     "6471": [
       780
@@ -61861,10 +61861,10 @@
   },
   "1355": {
     "5997": [
-      "center"
+      "no_close_residues"
     ],
     "5998": [
-      "center"
+      "no_close_residues"
     ],
     "5999": [
       455
@@ -62877,7 +62877,7 @@
       1105
     ],
     "6303": [
-      "center"
+      "no_close_residues"
     ],
     "6304": [
       1073
@@ -62895,7 +62895,7 @@
       "SF"
     ],
     "6309": [
-      "center"
+      "no_close_residues"
     ],
     "6310": [
       1073,
@@ -62905,7 +62905,7 @@
       1073
     ],
     "6312": [
-      "center"
+      "no_close_residues"
     ],
     "6313": [
       130
@@ -63271,7 +63271,7 @@
       130
     ],
     "6421": [
-      "center"
+      "no_close_residues"
     ],
     "6422": [
       455
@@ -63813,7 +63813,7 @@
       780
     ],
     "6164": [
-      "center"
+      "no_close_residues"
     ],
     "6165": [
       780
@@ -63823,7 +63823,7 @@
       455
     ],
     "6167": [
-      "center"
+      "no_close_residues"
     ],
     "6168": [
       780
@@ -65560,26 +65560,26 @@
       98
     ],
     "6704": [
-      "center"
+      "no_close_residues"
     ],
     "6705": [
       98
     ],
     "6706": [
-      "center"
+      "no_close_residues"
     ],
     "6707": [
-      "center"
+      "no_close_residues"
     ],
     "6708": [
       98,
       130
     ],
     "6709": [
-      "center"
+      "no_close_residues"
     ],
     "6710": [
-      "center"
+      "no_close_residues"
     ],
     "6711": [
       "SF"
@@ -65591,7 +65591,7 @@
       98
     ],
     "6714": [
-      "center"
+      "no_close_residues"
     ],
     "6715": [
       98
@@ -65723,20 +65723,20 @@
       98
     ],
     "6750": [
-      "center"
+      "no_close_residues"
     ],
     "6751": [
-      "center"
+      "no_close_residues"
     ],
     "6752": [
       98,
       130
     ],
     "6753": [
-      "center"
+      "no_close_residues"
     ],
     "6754": [
-      "center"
+      "no_close_residues"
     ],
     "6755": [
       98
@@ -65769,7 +65769,7 @@
       455
     ],
     "6764": [
-      "center"
+      "no_close_residues"
     ],
     "6765": [
       780,
@@ -65783,7 +65783,7 @@
       1105
     ],
     "6768": [
-      "center"
+      "no_close_residues"
     ],
     "6769": [
       780
@@ -66449,19 +66449,19 @@
       748
     ],
     "6609": [
-      "center"
+      "no_close_residues"
     ],
     "6610": [
-      "center"
+      "no_close_residues"
     ],
     "6611": [
       780
     ],
     "6612": [
-      "center"
+      "no_close_residues"
     ],
     "6613": [
-      "center"
+      "no_close_residues"
     ],
     "6614": [
       130
@@ -66739,7 +66739,7 @@
       455
     ],
     "6687": [
-      "center"
+      "no_close_residues"
     ],
     "6688": [
       780
@@ -66748,7 +66748,7 @@
       455
     ],
     "6690": [
-      "center"
+      "no_close_residues"
     ],
     "6691": [
       455
@@ -66766,13 +66766,13 @@
       455
     ],
     "6696": [
-      "center"
+      "no_close_residues"
     ],
     "6697": [
       455
     ],
     "6698": [
-      "center"
+      "no_close_residues"
     ],
     "6699": [
       748
@@ -66795,7 +66795,7 @@
       780
     ],
     "6705": [
-      "center"
+      "no_close_residues"
     ],
     "6706": [
       780
@@ -66852,7 +66852,7 @@
       780
     ],
     "6723": [
-      "center"
+      "no_close_residues"
     ],
     "6724": [
       780
@@ -66915,7 +66915,7 @@
       "SF"
     ],
     "6521": [
-      "center"
+      "no_close_residues"
     ],
     "6522": [
       780,
@@ -67074,7 +67074,7 @@
       423
     ],
     "6567": [
-      "center"
+      "no_close_residues"
     ],
     "6568": [
       130,
@@ -68102,7 +68102,7 @@
       1105
     ],
     "6634": [
-      "center"
+      "no_close_residues"
     ],
     "6635": [
       780
@@ -68127,13 +68127,13 @@
       780
     ],
     "6642": [
-      "center"
+      "no_close_residues"
     ],
     "6643": [
       455
     ],
     "6644": [
-      "center"
+      "no_close_residues"
     ],
     "6645": [
       780
@@ -68145,13 +68145,13 @@
       455
     ],
     "6648": [
-      "center"
+      "no_close_residues"
     ],
     "6649": [
       455
     ],
     "6650": [
-      "center"
+      "no_close_residues"
     ],
     "6651": [
       455
@@ -68180,7 +68180,7 @@
       455
     ],
     "6659": [
-      "center"
+      "no_close_residues"
     ],
     "6660": [
       455
@@ -68207,13 +68207,13 @@
       "SF"
     ],
     "6668": [
-      "center"
+      "no_close_residues"
     ],
     "6669": [
-      "center"
+      "no_close_residues"
     ],
     "6670": [
-      "center"
+      "no_close_residues"
     ]
   },
   "1359": {
@@ -68467,14 +68467,14 @@
       "SF"
     ],
     "6763": [
-      "center"
+      "no_close_residues"
     ],
     "6764": [
       1105,
       780
     ],
     "6765": [
-      "center"
+      "no_close_residues"
     ],
     "6766": [
       780,
@@ -68533,7 +68533,7 @@
       455
     ],
     "6782": [
-      "center"
+      "no_close_residues"
     ],
     "6783": [
       455
@@ -68545,13 +68545,13 @@
       455
     ],
     "6786": [
-      "center"
+      "no_close_residues"
     ],
     "6787": [
       455
     ],
     "6788": [
-      "center"
+      "no_close_residues"
     ],
     "6789": [
       455,
@@ -68590,7 +68590,7 @@
   },
   "1374": {
     "6716": [
-      "center"
+      "no_close_residues"
     ],
     "6717": [
       455,
@@ -68650,7 +68650,7 @@
       "SF"
     ],
     "6735": [
-      "center"
+      "no_close_residues"
     ],
     "6736": [
       780
@@ -68693,7 +68693,7 @@
       780
     ],
     "6748": [
-      "center"
+      "no_close_residues"
     ]
   },
   "1400": {

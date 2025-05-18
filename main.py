@@ -10,6 +10,7 @@ from analysis.channels import Channel
 from analysis.ion_analysis import IonPermeationAnalysis
 from analysis.distance_calc import calculate_distances
 from analysis.organizing_frames import cluster_frames_by_closest_residue, tracking_ion_distances, plot_ion_distance_traces
+from analysis.organizing_frames import close_contact_residues_analysis
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
@@ -114,6 +115,8 @@ def main():
     #     json.dump(total_distances_dict_ca, f, indent=2)
 
     residue_clusters, min_results_per_frame, close_contacts_dict = cluster_frames_by_closest_residue(total_distances_dict)
+
+    close_contact_residues_analysis(close_contacts_dict, results_dir, max_bar_number=20)
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
