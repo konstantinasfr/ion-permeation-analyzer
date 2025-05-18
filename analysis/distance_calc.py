@@ -54,60 +54,52 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
     if sum([use_ca_only, use_min_distances, use_charges]) != 1:
         raise ValueError("You must set exactly one of use_ca_only, use_min_distances, or use_charges to True.")
 
-    residue_atoms = {}
-    charge_centers = {}
-
-    for resid in all_residues:
-        if use_ca_only:
-            residue_atoms[resid] = u.select_atoms(f"resid {resid} and name CA")
-
-        elif use_min_distances:
-            residue_atoms[resid] = u.select_atoms(f"resid {resid}")
-
-        elif use_charges:
-            if resid in glu_residues:
-                atoms = u.select_atoms(f"resid {resid} and name OE1 OE2")
-                if atoms.n_atoms == 2:
-                    charge_centers[resid] = 0.5 * (atoms.positions[0] + atoms.positions[1])
-                else:
-                    print(f"Glu {resid} missing OE1 or OE2")
-                    charge_centers[resid] = None
-
-            elif resid in asn_residues:
-                atoms = u.select_atoms(f"resid {resid} and name OD1 ND2")
-                if atoms.n_atoms == 2:
-                    charge_centers[resid] = 0.5 * (atoms.positions[0] + atoms.positions[1])
-                else:
-                    print(f"Asn {resid} missing OD1 or ND2")
-                    charge_centers[resid] = None
-
-            elif resid in sf_residues:
-                residue_atoms[resid] = u.select_atoms(f"resid {resid}")
-
-    # Select the ion of interest
-    ion = u.select_atoms(f"resname K+ K and resid {ion_id}")
-    if len(ion) != 1:
-        print(f"Warning: Ion resid {ion_id} not found uniquely.")
-        return
-
     for ts in u.trajectory[start_frame:exit_frame + 1]:
         frame_data = {'frame': ts.frame, 'residues': {}, 'ions': {}}
+
+        ion = u.select_atoms(f"resname K+ K and resid {ion_id}")
+        if len(ion) != 1:
+            print(f"Warning: Ion resid {ion_id} not found uniquely.")
+            continue
+
         ion_pos = ion.positions[0]
 
         for resid in glu_residues + asn_residues:
-            if use_ca_only or use_min_distances:
-                atomgroup = residue_atoms[resid]
-                if use_ca_only:
-                    dist = float(np.linalg.norm(ion_pos - atomgroup.positions[0]))
-                else:
-                    dists = np.linalg.norm(atomgroup.positions - ion_pos, axis=1)
-                    dist = float(np.min(dists))
+            if use_charges:
+                if resid in glu_residues:
+                    atoms = u.select_atoms(f"resid {resid} and name OE1 OE2")
+                    if atoms.n_atoms == 2:
+                        center = 0.5 * (atoms.positions[0] + atoms.positions[1])
+                        dist = float(np.linalg.norm(ion_pos - center))
+                    else:
+                        print(f"Glu {resid} missing OE1 or OE2 at frame {ts.frame}")
+                        dist = float('nan')
 
-            elif use_charges:
-                if resid in charge_centers and charge_centers[resid] is not None:
-                    dist = float(np.linalg.norm(ion_pos - charge_centers[resid]))
+                elif resid in asn_residues:
+                    atoms = u.select_atoms(f"resid {resid} and name OD1 ND2")
+                    if atoms.n_atoms == 2:
+                        center = 0.5 * (atoms.positions[0] + atoms.positions[1])
+                        dist = float(np.linalg.norm(ion_pos - center))
+                    else:
+                        print(f"Asn {resid} missing OD1 or ND2 at frame {ts.frame}")
+                        dist = float('nan')
+                # if ts.frame <10:
+                #     print(f"Resid {resid} not found uniquely at frame {ts.frame}")
+                #     print(float(np.linalg.norm(ion_pos - atoms.positions[0])))
+                #     print(float(np.linalg.norm(ion_pos - atoms.positions[1])))
+                #     print(dist)
+            elif use_ca_only:
+                atoms = u.select_atoms(f"resid {resid} and name CA")
+                if atoms.n_atoms == 1:
+                    dist = float(np.linalg.norm(ion_pos - atoms.positions[0]))
                 else:
-                    print(f"Skipping resid {resid} due to missing charge center. {ts}")
+                    dist = float('nan')
+            elif use_min_distances:
+                atoms = u.select_atoms(f"resid {resid}")
+                if atoms.n_atoms > 0:
+                    dists = np.linalg.norm(atoms.positions - ion_pos, axis=1)
+                    dist = float(np.min(dists))
+                else:
                     dist = float('nan')
 
             frame_data['residues'][resid] = dist
@@ -115,12 +107,12 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
         # Selectivity filter residues (always use atom-based min distance)
         sf_distances = []
         for sf_resid in sf_residues:
-            atomgroup = residue_atoms[sf_resid]
-            if use_ca_only:
-                dist = float(np.linalg.norm(ion_pos - atomgroup.positions[0]))
-            else:
-                dists = np.linalg.norm(atomgroup.positions - ion_pos, axis=1)
+            atoms = u.select_atoms(f"resid {sf_resid}")
+            if atoms.n_atoms > 0:
+                dists = np.linalg.norm(atoms.positions - ion_pos, axis=1)
                 dist = float(np.min(dists))
+            else:
+                dist = float('nan')
             sf_distances.append(dist)
 
         frame_data['residues']['SF'] = float(np.mean(sf_distances))

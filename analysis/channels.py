@@ -75,7 +75,7 @@ class Channel:
     def compute_geometry(self, gate_num):
         offset = 1.33  # adjust this value as needed (in Ångströms)
         # offset = 0  # adjust this value as needed (in Ångströms)
-
+        print(f"Computing geometry for gate {gate_num} at frame {self.u.trajectory.frame}")
         atom_indices = []
         for resid in self.upper_gate_residues:
             residue_atoms = self.u.select_atoms(f"resid {resid}")
