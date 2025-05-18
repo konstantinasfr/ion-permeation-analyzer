@@ -74,12 +74,11 @@ class IonPermeationAnalysis:
                         for resid in channel.lower_gate_residues:  # should be [130, 455, 780, 1105]
                             od1 = self.u.select_atoms(f"resid {resid} and name OD1")
                             nd2 = self.u.select_atoms(f"resid {resid} and name ND2")
-                            print("HEREEE ", self.u.trajectory.frame, od1, nd2)
 
                             if len(od1) == 1 and len(nd2) == 1:
                                 dipole_center = 0.5 * (od1.positions[0] + nd2.positions[0])
                                 distance = np.linalg.norm(ion_pos - dipole_center)
-                                if distance < 7.0:
+                                if distance < 6.0:
                                     close_to_dipole = True
                                     break
 

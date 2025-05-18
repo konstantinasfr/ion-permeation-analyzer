@@ -113,7 +113,7 @@ def main():
     # with open(results_dir / "distances_ca.json", "w") as f:
     #     json.dump(total_distances_dict_ca, f, indent=2)
 
-    residue_clusters, min_results_per_frame = cluster_frames_by_closest_residue(total_distances_dict)
+    residue_clusters, min_results_per_frame, close_contacts_dict = cluster_frames_by_closest_residue(total_distances_dict)
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
@@ -125,6 +125,9 @@ def main():
 
     with open(results_dir / "min_results_per_frame.json", "w") as f:
         json.dump(min_results_per_frame, f, indent=2)
+
+    with open(results_dir / "close_contacts_dict.json", "w") as f:
+        json.dump(close_contacts_dict, f, indent=2)
 
     print("Saved residue clustering to results/residue_clusters.json")
 
@@ -183,7 +186,8 @@ def main():
     ch2_permeation_characteristics_dir = Path("results/ch2_permeation_characteristics")
     ch2_permeation_characteristics_dir.mkdir(exist_ok=True)
 
-    forces_results, radial_distances_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,ch2, cutoff=15.0, calculate_total_force=False, 
+    forces_results, radial_distances_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,ch2, 
+                                                                         cutoff=15.0, calculate_total_force=False, 
                                                prmtop_file=args.top_file, nc_file=args.traj_file)
 
     

@@ -16745,9 +16745,9 @@
     {
       "residue": 130,
       "start": 4414,
-      "end": 4416,
-      "frames": 3,
-      "mean_distance": 4.35412859916687
+      "end": 4415,
+      "frames": 2,
+      "mean_distance": 3.486270308494568
     }
   ],
   "1316": [
@@ -17100,13 +17100,6 @@
       "end": 4994,
       "frames": 1,
       "mean_distance": 3.588582992553711
-    },
-    {
-      "residue": 130,
-      "start": 4995,
-      "end": 4995,
-      "frames": 1,
-      "mean_distance": 6.928303241729736
     }
   ],
   "1308": [
@@ -17846,13 +17839,6 @@
       "end": 5399,
       "frames": 1,
       "mean_distance": 4.330647945404053
-    },
-    {
-      "residue": 130,
-      "start": 5400,
-      "end": 5400,
-      "frames": 1,
-      "mean_distance": 6.5827460289001465
     }
   ],
   "1309": [
@@ -20485,9 +20471,9 @@
     {
       "residue": 130,
       "start": 6016,
-      "end": 6017,
-      "frames": 2,
-      "mean_distance": 5.0720374584198
+      "end": 6016,
+      "frames": 1,
+      "mean_distance": 3.5351548194885254
     }
   ],
   "2444": [
@@ -23004,9 +22990,9 @@
     {
       "residue": 130,
       "start": 6424,
-      "end": 6427,
-      "frames": 4,
-      "mean_distance": 5.401465058326721
+      "end": 6426,
+      "frames": 3,
+      "mean_distance": 5.150159517923991
     }
   ],
   "1476": [
@@ -24497,9 +24483,9 @@
     {
       "residue": 130,
       "start": 6488,
-      "end": 6489,
-      "frames": 2,
-      "mean_distance": 5.720654010772705
+      "end": 6488,
+      "frames": 1,
+      "mean_distance": 5.260415554046631
     }
   ],
   "1355": [
@@ -25458,9 +25444,9 @@
     {
       "residue": 130,
       "start": 6560,
-      "end": 6562,
-      "frames": 3,
-      "mean_distance": 4.4338226318359375
+      "end": 6561,
+      "frames": 2,
+      "mean_distance": 3.4217793941497803
     }
   ],
   "1443": [

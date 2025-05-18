@@ -4,12 +4,14 @@ import numpy as np
 def cluster_frames_by_closest_residue(distance_data):
     clustered_results = {}
     min_results_per_frame = {}
+    close_contacts_dict = {}
 
     for ion_id, frame_list in distance_data.items():
         clusters = []
         prev_residue = None
         start_frame = None
         distances = []
+        close_contacts_dict[ion_id] = {}
         min_results_per_frame[ion_id] = []
         not_sf_starting = False
 
@@ -28,9 +30,33 @@ def cluster_frames_by_closest_residue(distance_data):
                 })
                 not_sf_starting = True
 
-            
+                ######### find close contact residues, filter residues with distance < 6 #####################################3
+                sorted_close_contacts = dict(
+                                                sorted(
+                                                    {resid: dist for resid, dist in residues.items() if dist < 6}.items(),
+                                                    key=lambda item: item[1]
+                                                )
+                                            )
+                close_residues = []
+                no_close_contacts = True
+                for resid, dist in sorted_close_contacts.items():
+                    no_close_contacts = False
+                    if resid == "SF":
+                        # if closest is SF then we consider that ion is still in SF
+                        if not close_residues:
+                            close_residues.append(resid)
+                            break
+                        else:
+                            continue
+                    else:
+                        close_residues.append(resid)
 
+                if no_close_contacts:
+                    close_residues.append("no_close_residues")
 
+                close_contacts_dict[ion_id][frame] = close_residues
+
+                ################################## Cluster creation per residue########################
                 if closest_residue != prev_residue:
                     # If ending a previous cluster, store it
                     if prev_residue is not None:
@@ -62,7 +88,7 @@ def cluster_frames_by_closest_residue(distance_data):
 
         clustered_results[ion_id] = clusters
 
-    return clustered_results, min_results_per_frame
+    return clustered_results, min_results_per_frame, close_contacts_dict
 
 def get_ions_for_frame(data, target_frame):
     for frame_info in data:

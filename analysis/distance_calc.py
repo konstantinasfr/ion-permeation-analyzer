@@ -83,11 +83,7 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
                     else:
                         print(f"Asn {resid} missing OD1 or ND2 at frame {ts.frame}")
                         dist = float('nan')
-                # if ts.frame <10:
-                #     print(f"Resid {resid} not found uniquely at frame {ts.frame}")
-                #     print(float(np.linalg.norm(ion_pos - atoms.positions[0])))
-                #     print(float(np.linalg.norm(ion_pos - atoms.positions[1])))
-                #     print(dist)
+
             elif use_ca_only:
                 atoms = u.select_atoms(f"resid {resid} and name CA")
                 if atoms.n_atoms == 1:

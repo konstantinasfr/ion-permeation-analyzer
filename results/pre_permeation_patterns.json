@@ -155,10 +155,10 @@
   {
     "permeated": 1387,
     "start_frame": 4408,
-    "permeation_frame": 4416,
+    "permeation_frame": 4415,
     "pattern": {
       "1307": 98,
-      "1306": 455,
+      "1306": "SF",
       "1460": 1073,
       "1387": 130
     },
@@ -167,12 +167,12 @@
   {
     "permeated": 1316,
     "start_frame": 4857,
-    "permeation_frame": 4995,
+    "permeation_frame": 4994,
     "pattern": {
       "1307": "SF",
       "1306": 423,
       "1460": "SF",
-      "1316": 130,
+      "1316": 1105,
       "1308": 1073
     },
     "match_frames": []
@@ -192,14 +192,16 @@
   {
     "permeated": 1320,
     "start_frame": 5173,
-    "permeation_frame": 5400,
+    "permeation_frame": 5399,
     "pattern": {
       "1306": 748,
-      "1320": 130,
-      "1309": 98,
+      "1320": 1105,
+      "1309": 130,
       "1469": 1073
     },
-    "match_frames": []
+    "match_frames": [
+      5378
+    ]
   },
   {
     "permeated": 1309,
@@ -263,13 +265,13 @@
   {
     "permeated": 2434,
     "start_frame": 5477,
-    "permeation_frame": 6017,
+    "permeation_frame": 6016,
     "pattern": {
       "2434": 130,
       "2443": 748,
       "1380": 1073,
       "1476": 98,
-      "1355": 780
+      "1355": 455
     },
     "match_frames": []
   },
@@ -301,35 +303,33 @@
   {
     "permeated": 1380,
     "start_frame": 5689,
-    "permeation_frame": 6427,
+    "permeation_frame": 6426,
     "pattern": {
       "1380": 130,
       "1476": 423,
-      "1355": 98
+      "1355": 130
     },
     "match_frames": []
   },
   {
     "permeated": 1476,
     "start_frame": 5891,
-    "permeation_frame": 6489,
+    "permeation_frame": 6488,
     "pattern": {
       "1476": 130,
       "1355": 98,
       "1327": 1073,
-      "1341": 455
+      "1341": 748
     },
-    "match_frames": [
-      6473
-    ]
+    "match_frames": []
   },
   {
     "permeated": 1355,
     "start_frame": 5997,
-    "permeation_frame": 6562,
+    "permeation_frame": 6561,
     "pattern": {
       "1355": 130,
-      "1327": 1073,
+      "1327": 1105,
       "1341": 780,
       "1330": 455
     },
