@@ -72,7 +72,7 @@ def main():
                        
     for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
                        desc="Calculating Distances", unit="ion"):
-        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=False)
+        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=False, use_min_distances=False, use_charges=True)
         total_distances_dict.update(temp_distances_dict)
 
     total_distances_dict_ca = {}

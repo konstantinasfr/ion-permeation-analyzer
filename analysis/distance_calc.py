@@ -51,6 +51,9 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
     sf_residues = [100, 425, 750, 1075]
     all_residues = glu_residues + asn_residues + sf_residues
 
+    if sum([use_ca_only, use_min_distances, use_charges]) != 1:
+        raise ValueError("You must set exactly one of use_ca_only, use_min_distances, or use_charges to True.")
+
     residue_atoms = {}
     charge_centers = {}
 
@@ -101,10 +104,11 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
                     dist = float(np.min(dists))
 
             elif use_charges:
-                if charge_centers.get(resid) is not None:
+                if resid in charge_centers and charge_centers[resid] is not None:
                     dist = float(np.linalg.norm(ion_pos - charge_centers[resid]))
                 else:
-                    dist = float('nan')  # Could not compute distance
+                    print(f"Skipping resid {resid} due to missing charge center. {ts}")
+                    dist = float('nan')
 
             frame_data['residues'][resid] = dist
 
