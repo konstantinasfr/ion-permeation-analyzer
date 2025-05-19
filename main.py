@@ -15,9 +15,10 @@ from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
 from analysis.force_analysis import analyze_permeation_events, collect_sorted_cosines_until_permeation
-from analysis.force_analysis import extract_permeation_frames, analyze_cosine_significance, analyze_radial_significance
+from analysis.force_analysis import extract_permeation_frames
 import json
 import pandas as pd
+from analysis.permation_profile_creator import FrameAnalyzer
 
 
 
@@ -56,7 +57,7 @@ def main():
     # start_frame = 6500
     start_frame = 0
     # start_frame = 5550
-    # start_frame = 6500
+    start_frame = 6500
     end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, num=1, radius=11)
@@ -221,10 +222,21 @@ def main():
     df_permeation_frames_forces_with_ions.to_csv(force_results_dir / "permeation_frames_forces_with_ions.csv", index=False)
     df_permeation_frames_forces_with_ions.to_excel(force_results_dir/ "permeation_frames_forces_with_ions.xlsx", index=False)
 
-    cosine_significance, wilcoxon_results = analyze_cosine_significance(forces_results, force_results_dir)
-    radial_significance, radial_wilcoxon_results = analyze_radial_significance(radial_distances_results, ch2_permeation_characteristics_dir)
-
     print("Saved forces results to results/permeation_force_results.json and results/permeation_force_results.xlsx")
+
+
+    # Initialize the analyzer with the first event
+    permeation_profile = FrameAnalyzer(
+        close_residues_results=close_residues_results,
+        force_results=forces_results,
+        radial_results=radial_distances_results,
+        output_base_dir=ch2_permeation_characteristics_dir
+    )
+
+    # Get last frame analysis
+    # result = permeation_profile.analyze_radial_significance(-1, use_pdb_format=True)
+    permeation_profile.analyze_cosine_significance(force_results_dir)
+    permeation_profile.analyze_radial_significance(ch2_permeation_characteristics_dir)
 
 
 if __name__ == "__main__":
