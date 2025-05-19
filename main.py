@@ -189,8 +189,8 @@ def main():
     ch2_permeation_characteristics_dir = Path("results/ch2_permeation_characteristics")
     ch2_permeation_characteristics_dir.mkdir(exist_ok=True)
 
-    forces_results, radial_distances_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,ch2, 
-                                                                         cutoff=15.0, calculate_total_force=False, 
+    forces_results, radial_distances_results, close_residues_results = analyze_permeation_events(ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,ch2, 
+                                                                    close_contacts_dict,cutoff=15.0, calculate_total_force=False, 
                                                prmtop_file=args.top_file, nc_file=args.traj_file)
 
     
@@ -200,6 +200,9 @@ def main():
 
     with open(ch2_permeation_characteristics_dir / "radial_distances_results.json", "w") as f:
         json.dump(radial_distances_results, f, indent=2)
+
+    with open(ch2_permeation_characteristics_dir / "close_residues_results.json", "w") as f:
+        json.dump(close_residues_results, f, indent=2)
 
     # Save the forces results to an Excel file
     forces_df = pd.DataFrame(forces_results)

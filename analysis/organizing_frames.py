@@ -168,7 +168,7 @@ def close_contact_residues_analysis(data, results_dir, max_bar_number=20):
                      str(count), ha='center', va='bottom', fontsize=9)
 
         plt.title(f"Ion {ion_id} — Top {max_bar_number} combos")
-        plt.xlabel("Residue combination (unordered)")
+        plt.xlabel("Residue combination")
         plt.ylabel("Frequency")
         plt.xticks(rotation=45)
         plt.tight_layout()
@@ -200,7 +200,7 @@ def close_contact_residues_analysis(data, results_dir, max_bar_number=20):
                      str(count), ha='center', va='bottom', fontsize=9)
 
         plt.title(f"All Ions — Top {max_bar_number} Residue Combinations")
-        plt.xlabel("Residue combination (unordered)")
+        plt.xlabel("Residue combination")
         plt.ylabel("Total Frequency")
         plt.xticks(rotation=45)
         plt.tight_layout()

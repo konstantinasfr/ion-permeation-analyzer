@@ -235,8 +235,37 @@ def analyze_radial_distances(positions, frame, permeating_ion_id, channel):
 
     return radial_distance
 
+def analyze_close_residues(positions, permeating_ion_id, frame, other_ions,
+                  close_contacts_dict, cutoff=15.0):
+    """
+    Analyze one frame: compute ionic forces, motion, and optionally total force.
+    Also calculates cosine similarities between different vectors and force decomposition.
+    """
+    result = {
+        permeating_ion_id: None
+    }
 
-def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, closest_residues_by_ion, ch2, cutoff=10.0,
+    permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
+    if permeating_pos is None:
+        return result
+
+    for ion_id, pos in positions.get(frame, {}).items():
+        # if ion_id == permeating_ion_id or ion_id not in other_ions:
+        #     continue
+        distance = compute_distance(permeating_pos, pos)
+
+
+        if distance <= cutoff:
+            if ion_id not in close_contacts_dict:
+                result[int(ion_id)] = ["SF"]
+            elif frame not in close_contacts_dict[ion_id]:
+                result[int(ion_id)] = ["SF"]
+            else:
+                result[int(ion_id)] = close_contacts_dict[ion_id][frame]
+
+    return result
+
+def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, closest_residues_by_ion, ch2, close_contacts_dict, cutoff=15.0,
                               calculate_total_force=False, prmtop_file=None, nc_file=None):
     """
     Analyze all permeation events from start_frame to permeation frame.
@@ -246,6 +275,7 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
     charge_map = build_charge_map(universe)
     force_results = []
     radial_distances_results = []
+    close_residues_results = []
 
     total_force_data = None
     if calculate_total_force and prmtop_file and nc_file:
@@ -256,6 +286,7 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
         # Check if event frame is within analysis window
         if not (start_frame <= event["frame"] < end_frame):
             continue
+               
 
         event_force_results = {
             "start_frame": event["start_frame"],
@@ -265,6 +296,13 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
         }
 
         event_radial_distances_results = {
+            "start_frame": event["start_frame"],
+            "frame": event["frame"],
+            "permeated_ion": event["permeated"],
+            "analysis": {}
+        }
+
+        event_close_residues_results = {
             "start_frame": event["start_frame"],
             "frame": event["frame"],
             "permeated_ion": event["permeated"],
@@ -302,10 +340,21 @@ def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_
             )
             event_radial_distances_results["analysis"][frame] = radial_distances_result
 
+            close_residues_result = analyze_close_residues(
+                positions=positions,
+                permeating_ion_id=event["permeated"],
+                frame=frame,
+                other_ions=positions.get(frame, {}).keys(),
+                close_contacts_dict=close_contacts_dict,
+                cutoff=cutoff
+            )
+            event_close_residues_results["analysis"][int(frame)] = close_residues_result
+
         force_results.append(event_force_results)
         radial_distances_results.append(event_radial_distances_results)
+        close_residues_results.append(event_close_residues_results)
 
-    return force_results, radial_distances_results
+    return force_results, radial_distances_results, close_residues_results
 
 
 def find_top_cosine_frames(event_data, top_n=5):
