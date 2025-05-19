@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from scipy.stats import wilcoxon
+import json
 
 class FrameAnalyzer:
     def __init__(self, close_residues_results=None, radial_results=None, force_results=None, output_base_dir=None):
@@ -28,29 +29,26 @@ class FrameAnalyzer:
         else:
             return residue_id
     
-    def get_last_nth_frame_close_residues(self, n=-1, use_pdb_format=False, sort_residues=True):
+    def get_last_nth_frame_close_residues(self, event, n=-1, use_pdb_format=False, sort_residues=True):
         """
-        Returns the analysis data for the n-th frame from the end.
-
-        - Residue lists are concatenated using underscores.
-        - Optionally applies PDB-style numbering.
-        - Optionally sorts residue lists before joining.
+        Extract close residues at the n-th frame from the end of a single permeation event.
 
         Parameters:
-        - n (int): Frame index from the end (e.g., -1 = last frame)
-        - use_pdb_format (bool): If True, applies convert_to_pdb_numbering()
-        - sort_residues (bool): If True, sorts residue list before joining
+        - event (dict): single permeation event with 'analysis'
+        - n (int): frame index from the end
+        - use_pdb_format (bool): apply PDB-style numbering
+        - sort_residues (bool): sort residues before joining
 
         Returns:
-        - dict: {frame_key: {ion_id: "res1_res2_..."}}
+        - dict: {frame_number: {ion_id: "res1_res2_..."}}
         """
-        frames = sorted(self.close_residues_results["analysis"].keys(), key=lambda x: int(x))
+        frames = sorted(event["analysis"].keys(), key=lambda x: int(x))
 
         if abs(n) > len(frames):
             raise ValueError(f"Frame index {n} is out of range. Only {len(frames)} frames available.")
 
         selected_frame_key = frames[n]
-        original_data = self.close_residues_results["analysis"][selected_frame_key]
+        original_data = event["analysis"][selected_frame_key]
 
         converted_data = {}
         for ion_id, residues in original_data.items():
@@ -64,6 +62,53 @@ class FrameAnalyzer:
             converted_data[ion_id] = "_".join(formatted_residues)
 
         return {selected_frame_key: converted_data}
+    
+    def closest_residues_comb_before_permeation(self, n=-1, use_pdb_format=False, sort_residues=True):
+        """
+        Loop through all permeation events and apply get_last_nth_frame_close_residues.
+
+        Parameters:
+        - all_events (list): list of event dicts
+        - n (int): frame index from end
+        - use_pdb_format (bool): apply PDB-style numbering
+        - sort_residues (bool): sort residues before joining
+
+        Returns:
+        - list of dicts: each dict is the formatted output per event
+        """
+        self.output_dir = os.path.join(self.output_base_dir, "closest_residues_comb")
+        os.makedirs(self.output_dir, exist_ok=True)
+
+        summary = []
+        for i, event in enumerate(self.close_residues_results):
+            try:
+                frame_data = self.get_last_nth_frame_close_residues(
+                    event, n=n, use_pdb_format=use_pdb_format, sort_residues=sort_residues
+                )
+                summary.append(frame_data)
+            except Exception as e:
+                print(f"Skipping event {i} due to error: {e}")
+
+
+        with open(os.path.join(self.output_dir, f"closest_residues_n_{n}.json"), "w") as f:
+            json.dump(summary, f, indent=2)
+
+        flat_rows = []
+        for event_summary in summary:
+            for frame, ion_data in event_summary.items():
+                for ion_id, residue_str in ion_data.items():
+                    flat_rows.append({
+                        "frame": frame,
+                        "ion_id": ion_id,
+                        "residues": residue_str
+                    })
+
+        df = pd.DataFrame(flat_rows)
+        df.to_csv(os.path.join(self.output_dir, f"closest_residues_n_{n}.csv"), index=False)
+
+        # return summary
+
+
 
     
 

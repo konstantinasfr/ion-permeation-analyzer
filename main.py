@@ -234,9 +234,9 @@ def main():
     )
 
     # Get last frame analysis
-    # result = permeation_profile.analyze_radial_significance(-1, use_pdb_format=True)
+    permeation_profile.closest_residues_comb_before_permeation(n=-1, use_pdb_format=False, sort_residues=True)
     permeation_profile.analyze_cosine_significance(force_results_dir)
-    permeation_profile.analyze_radial_significance(ch2_permeation_characteristics_dir)
+    permeation_profile.analyze_radial_significance()
 
 
 if __name__ == "__main__":
