@@ -1,152 +1,11 @@
 {
-  "98, 130, 748, 1073": {
-    "count": 3,
-    "permeated_residues": [
-      130,
-      130,
-      130
-    ],
-    "frames": [
-      5178,
-      5582,
-      6488
-    ]
-  },
-  "98, 455, 780, 1105": {
-    "count": 1,
-    "permeated_residues": [
-      780
-    ],
-    "frames": [
-      5552
-    ]
-  },
-  "130, 780, 780": {
+  "98, 130, 130, 455, 780": {
     "count": 1,
     "permeated_residues": [
       130
     ],
     "frames": [
-      3171
-    ]
-  },
-  "98, 130, 748, 780": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      3631
-    ]
-  },
-  "98, 780, 1105": {
-    "count": 1,
-    "permeated_residues": [
-      780
-    ],
-    "frames": [
-      3666
-    ]
-  },
-  "130, 455, 748, 1073": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      5131
-    ]
-  },
-  "98, 130, 1073, SF": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      4415
-    ]
-  },
-  "423, 1073, 1105, SF, SF": {
-    "count": 1,
-    "permeated_residues": [
-      1105
-    ],
-    "frames": [
-      4994
-    ]
-  },
-  "130, 455, 748, 780": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      5269
-    ]
-  },
-  "130, 748, 1073, 1105": {
-    "count": 1,
-    "permeated_residues": [
-      1105
-    ],
-    "frames": [
-      5399
-    ]
-  },
-  "423, 748, 780, 1073": {
-    "count": 1,
-    "permeated_residues": [
-      780
-    ],
-    "frames": [
-      5677
-    ]
-  },
-  "423, 748, 1073, 1105": {
-    "count": 2,
-    "permeated_residues": [
-      1105,
-      1105
-    ],
-    "frames": [
-      5331,
-      5433
-    ]
-  },
-  "130, 423, 748, 1073": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      5886
-    ]
-  },
-  "98, 130, 455, 748, 1073": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      6016
-    ]
-  },
-  "130, 423, 748, 1073, SF": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      6202
-    ]
-  },
-  "130, 130, 423": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      6426
+      6727
     ]
   },
   "130, 455, 780, 1105": {
@@ -156,24 +15,6 @@
     ],
     "frames": [
       6561
-    ]
-  },
-  "98, 780, 780, 1105": {
-    "count": 1,
-    "permeated_residues": [
-      780
-    ],
-    "frames": [
-      6359
-    ]
-  },
-  "98, 130, 130, 455, 780": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      6727
     ]
   },
   "130, 130, 423, 1073": {

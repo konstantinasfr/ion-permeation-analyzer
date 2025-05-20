@@ -1,6 +1,6 @@
 import numpy as np
 from tqdm import tqdm
-from analysis.calculate_openmm_forces import calculate_ionic_forces_all_frames
+import pandas as pd
 
 # =========================
 # Utility Functions
@@ -38,40 +38,6 @@ def unit_vector(v):
     """Return unit vector in direction of v."""
     norm = np.linalg.norm(v)
     return v / norm if norm != 0 else np.zeros_like(v)
-
-# =========================
-# Data Preparation
-# =========================
-
-def build_all_positions(universe, start_frame=0, stop_frame=None, ion_selection='resname K+ K'):
-    """
-    Extract ion positions from trajectory within a frame range.
-
-    Parameters:
-        universe (MDAnalysis.Universe): MDAnalysis trajectory object
-        ion_selection (str): Atom selection string (default: 'resname K+ K')
-        start_frame (int): Starting frame index
-        stop_frame (int or None): Last frame index (exclusive). If None, reads to the end.
-
-    Returns:
-        dict: {frame: {ion_id: np.array([x, y, z])}}
-    """
-    all_positions = {}
-    ions = universe.select_atoms(ion_selection)
-    # Limit frames with slicing
-    trajectory_slice = universe.trajectory[start_frame:stop_frame]
-
-    for ts in tqdm(trajectory_slice, desc=f"Extracting positions ({start_frame}:{stop_frame})"):
-        # print("Frame", ts.frame, type(ions[-1].id))
-        frame_dict = {ion.resid: ion.position.copy() for ion in ions}
-        all_positions[ts.frame] = frame_dict
-    return all_positions
-
-
-def build_charge_map(universe, ion_selection='resname K+ K'):
-    """Return {ion_id: +1.0} for all selected ions."""
-    ions = universe.select_atoms(ion_selection)
-    return {ion.resid: 1.0 for ion in ions}
 
 # =========================
 # Analysis Functions
@@ -214,148 +180,6 @@ def analyze_forces(positions, permeating_ion_id, frame, other_ions, charge_map,
 
     return result
 
-import numpy as np
-
-def analyze_radial_distances(positions, frame, permeating_ion_id, channel):
-    ion_pos = positions.get(frame, {}).get(permeating_ion_id)
-    channel_center = channel.channel_center
-    channel_axis = channel.channel_axis
-
-    # Step 1: Vector from channel center to ion
-    rel_vector = ion_pos - channel_center
-
-    # Step 2: Project that vector onto the channel axis
-    proj_on_axis = np.dot(rel_vector, channel_axis) * channel_axis
-
-    # Step 3: Subtract to get the radial component (perpendicular to axis)
-    radial_vector = rel_vector - proj_on_axis
-
-    # Step 4: Radial distance is just the norm of that perpendicular component
-    radial_distance = np.linalg.norm(radial_vector)
-
-    return radial_distance
-
-def analyze_close_residues(positions, permeating_ion_id, frame, other_ions,
-                  close_contacts_dict, cutoff=15.0):
-    """
-    Analyze one frame: compute ionic forces, motion, and optionally total force.
-    Also calculates cosine similarities between different vectors and force decomposition.
-    """
-    result = {
-        permeating_ion_id: None
-    }
-
-    permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
-    if permeating_pos is None:
-        return result
-
-    for ion_id, pos in positions.get(frame, {}).items():
-        # if ion_id == permeating_ion_id or ion_id not in other_ions:
-        #     continue
-        distance = compute_distance(permeating_pos, pos)
-
-
-        if distance <= cutoff:
-            if ion_id not in close_contacts_dict:
-                result[int(ion_id)] = ["SF"]
-            elif frame not in close_contacts_dict[ion_id]:
-                result[int(ion_id)] = ["SF"]
-            else:
-                result[int(ion_id)] = close_contacts_dict[ion_id][frame]
-
-    return result
-
-def analyze_permeation_events(ch2_permeation_events, universe, start_frame, end_frame, closest_residues_by_ion, ch2, close_contacts_dict, cutoff=15.0,
-                              calculate_total_force=False, prmtop_file=None, nc_file=None):
-    """
-    Analyze all permeation events from start_frame to permeation frame.
-    If `calculate_total_force=True`, loads forces via OpenMM.
-    """
-    positions = build_all_positions(universe, start_frame, end_frame)
-    charge_map = build_charge_map(universe)
-    force_results = []
-    radial_distances_results = []
-    close_residues_results = []
-
-    total_force_data = None
-    if calculate_total_force and prmtop_file and nc_file:
-        print("Calculating total forces with OpenMM...")
-        total_force_data, atom_index_map = calculate_ionic_forces_all_frames(prmtop_file, nc_file)
-
-    for event in ch2_permeation_events:
-        # Check if event frame is within analysis window
-        if not (start_frame <= event["frame"] < end_frame):
-            continue
-               
-
-        event_force_results = {
-            "start_frame": event["start_frame"],
-            "frame": event["frame"],
-            "permeated_ion": event["permeated"],
-            "analysis": {}
-        }
-
-        event_radial_distances_results = {
-            "start_frame": event["start_frame"],
-            "frame": event["frame"],
-            "permeated_ion": event["permeated"],
-            "analysis": {}
-        }
-
-        event_close_residues_results = {
-            "start_frame": event["start_frame"],
-            "frame": event["frame"],
-            "permeated_ion": event["permeated"],
-            "analysis": {}
-        }
-
-        # Build list of frames to analyze: from start_frame to frame (inclusive)
-        frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
-
-        for frame in frames_to_check:
-            # Skip if residue is close to SF
-            residue_track = closest_residues_by_ion.get(event["permeated"], [])
-            is_sf = any(entry["frame"] == frame and entry["residue"] == "SF" for entry in residue_track)
-            if is_sf:
-                continue
-
-            frame_result = analyze_forces(
-                positions=positions,
-                permeating_ion_id=event["permeated"],
-                frame=frame,
-                other_ions=positions.get(frame, {}).keys(),
-                charge_map=charge_map,
-                closest_residues_by_ion=closest_residues_by_ion,
-                cutoff=cutoff,
-                calculate_total_force=calculate_total_force,
-                total_force_data=total_force_data
-            )
-            event_force_results["analysis"][frame] = frame_result
-
-            radial_distances_result = analyze_radial_distances(
-                positions=positions,
-                permeating_ion_id=event["permeated"],
-                frame=frame,
-                channel=ch2
-            )
-            event_radial_distances_results["analysis"][frame] = radial_distances_result
-
-            close_residues_result = analyze_close_residues(
-                positions=positions,
-                permeating_ion_id=event["permeated"],
-                frame=frame,
-                other_ions=positions.get(frame, {}).keys(),
-                close_contacts_dict=close_contacts_dict,
-                cutoff=cutoff
-            )
-            event_close_residues_results["analysis"][int(frame)] = close_residues_result
-
-        force_results.append(event_force_results)
-        radial_distances_results.append(event_radial_distances_results)
-        close_residues_results.append(event_close_residues_results)
-
-    return force_results, radial_distances_results, close_residues_results
-
 
 def find_top_cosine_frames(event_data, top_n=5):
     """
@@ -432,8 +256,6 @@ def collect_sorted_cosines_until_permeation(event_data):
 
     return ion_results
 
-
-import pandas as pd
 
 def extract_permeation_frames(event_data, offset_from_end=1):
     """

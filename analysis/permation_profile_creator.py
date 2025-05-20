@@ -5,120 +5,182 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from scipy.stats import wilcoxon
 import json
+from analysis.calculate_openmm_forces import calculate_ionic_forces_all_frames
+from analysis.force_analysis import analyze_forces
+from analysis.radial_distance_analysis import analyze_radial_distances
+from analysis.close_residues_analysis import analyze_close_residues, get_last_nth_frame_close_residues
 
-class FrameAnalyzer:
-    def __init__(self, close_residues_results=None, radial_results=None, force_results=None, output_base_dir=None):
+class PermeationAnalyzer:
+    def __init__(self, ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,
+                 ch2, close_contacts_dict, cutoff=15.0, calculate_total_force=False,
+                 prmtop_file=None, nc_file=None,output_base_dir=None):
         """
-        Initialize FrameAnalyzer with optional data.
+        Initializes the analyzer with all necessary inputs and automatically
+        runs the analysis, storing the results as attributes.
         """
-        self.close_residues_results = close_residues_results
-        self.radial_results = radial_results
-        self.force_results = force_results
+        self.ch2_permation_residues = ch2_permation_residues
+        self.u = u
+        self.start_frame = start_frame
+        self.end_frame = end_frame
+        self.min_results_per_frame = min_results_per_frame
+        self.ch2 = ch2
+        self.close_contacts_dict = close_contacts_dict
+        self.cutoff = cutoff
+        self.calculate_total_force = calculate_total_force
+        self.prmtop_file = prmtop_file
+        self.nc_file = nc_file
         self.output_base_dir = output_base_dir
+        self.force_results = []
+        self.radial_distances_results = []
+        self.close_residues_results = []
 
-    @staticmethod
-    def convert_to_pdb_numbering(residue_id: int) -> str:
+    def _build_all_positions(self, ion_selection='resname K+ K'):
         """
-        Converts a residue ID to a PDB-style numbering.
-        """
-        if not isinstance(residue_id, int):
-            chain_number = int(residue_id)//325
-            chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
-            pdb_number = residue_id-325*chain_number+49
-            return f"{pdb_number}.{chain_dict[chain_number]}"
-        else:
-            return residue_id
-    
-    def get_last_nth_frame_close_residues(self, event, n=-1, use_pdb_format=False, sort_residues=True):
-        """
-        Extract close residues at the n-th frame from the end of a single permeation event.
-
-        Parameters:
-        - event (dict): single permeation event with 'analysis'
-        - n (int): frame index from the end
-        - use_pdb_format (bool): apply PDB-style numbering
-        - sort_residues (bool): sort residues before joining
-
+        Extract ion positions from trajectory within a frame range.
         Returns:
-        - dict: {frame_number: {ion_id: "res1_res2_..."}}
+            dict: {frame: {ion_id: np.array([x, y, z])}}
         """
-        frames = sorted(event["analysis"].keys(), key=lambda x: int(x))
+        all_positions = {}
+        ions = self.u.select_atoms(ion_selection)
+        trajectory_slice = self.u.trajectory[self.start_frame:self.end_frame]
 
-        if abs(n) > len(frames):
-            raise ValueError(f"Frame index {n} is out of range. Only {len(frames)} frames available.")
+        for ts in tqdm(trajectory_slice, desc=f"Extracting positions ({self.start_frame}:{self.end_frame})"):
+            frame_dict = {ion.resid: ion.position.copy() for ion in ions}
+            all_positions[ts.frame] = frame_dict
+        return all_positions
 
-        selected_frame_key = frames[n]
-        original_data = event["analysis"][selected_frame_key]
+    def _build_charge_map(self, ion_selection='resname K+ K'):
+        """
+        Return a charge map {ion_id: charge}. Assumes K+ ions have charge +1.
+        """
+        ions = self.u.select_atoms(ion_selection)
+        return {ion.resid: 1.0 for ion in ions}
 
-        converted_data = {}
-        for ion_id, residues in original_data.items():
-            if sort_residues:
-                residues = sorted(residues, key=lambda r: str(r))
 
-            formatted_residues = [
-                self.convert_to_pdb_numbering(res) if use_pdb_format else str(res)
-                for res in residues
-            ]
-            converted_data[ion_id] = "_".join(formatted_residues)
+    def run_permeation_analysis(self):
+        """
+        Runs permeation analysis for all events in self.ch2_permation_residues.
+        Returns:
+        - force_results (list)
+        - radial_distances_results (list)
+        - close_residues_results (list)
+        """
+        # Build positions and charge map once
+        positions = self._build_all_positions()
+        charge_map = self._build_charge_map()
 
-        return {selected_frame_key: converted_data}
+        # Optional total force calculation via OpenMM
+        total_force_data = None
+        if self.calculate_total_force and self.prmtop_file and self.nc_file:
+            print("Calculating total forces with OpenMM...")
+            total_force_data, atom_index_map = calculate_ionic_forces_all_frames(
+                self.prmtop_file, self.nc_file
+            )
+
+        for event in self.ch2_permation_residues:
+            if not (self.start_frame <= event["frame"] < self.end_frame):
+                continue
+
+            event_force_results = {
+                "start_frame": event["start_frame"],
+                "frame": event["frame"],
+                "permeated_ion": event["permeated"],
+                "analysis": {}
+            }
+
+            event_radial_distances_results = {
+                "start_frame": event["start_frame"],
+                "frame": event["frame"],
+                "permeated_ion": event["permeated"],
+                "analysis": {}
+            }
+
+            event_close_residues_results = {
+                "start_frame": event["start_frame"],
+                "frame": event["frame"],
+                "permeated_ion": event["permeated"],
+                "analysis": {}
+            }
+
+            frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
+
+            for frame in frames_to_check:
+                # Skip if ion is near SF in this frame
+                residue_track = self.min_results_per_frame.get(event["permeated"], [])
+                is_sf = any(entry["frame"] == frame and entry["residue"] == "SF" for entry in residue_track)
+                if is_sf:
+                    continue
+
+                # Force analysis
+                frame_result = analyze_forces(
+                    positions=positions,
+                    permeating_ion_id=event["permeated"],
+                    frame=frame,
+                    other_ions=positions.get(frame, {}).keys(),
+                    charge_map=charge_map,
+                    closest_residues_by_ion=self.min_results_per_frame,
+                    cutoff=self.cutoff,
+                    calculate_total_force=self.calculate_total_force,
+                    total_force_data=total_force_data
+                )
+                event_force_results["analysis"][frame] = frame_result
+
+                # Radial distance analysis
+                radial_distances_result = analyze_radial_distances(
+                    positions=positions,
+                    permeating_ion_id=event["permeated"],
+                    frame=frame,
+                    channel=self.ch2
+                )
+                event_radial_distances_results["analysis"][frame] = radial_distances_result
+
+                # Closest residues analysis
+                close_residues_result = analyze_close_residues(
+                    positions=positions,
+                    permeating_ion_id=event["permeated"],
+                    frame=frame,
+                    other_ions=positions.get(frame, {}).keys(),
+                    close_contacts_dict=self.close_contacts_dict,
+                    cutoff=self.cutoff
+                )
+                event_close_residues_results["analysis"][frame] = close_residues_result
+
+            # Append results per event
+            self.force_results.append(event_force_results)
+            self.radial_distances_results.append(event_radial_distances_results)
+            self.close_residues_results.append(event_close_residues_results)
+
+        return self.force_results, self.radial_distances_results, self.close_residues_results
     
     def closest_residues_comb_before_permeation(self, n=-1, use_pdb_format=False, sort_residues=True):
         """
         Loop through all permeation events and apply get_last_nth_frame_close_residues.
-
-        Parameters:
-        - all_events (list): list of event dicts
-        - n (int): frame index from end
-        - use_pdb_format (bool): apply PDB-style numbering
-        - sort_residues (bool): sort residues before joining
-
-        Returns:
-        - list of dicts: each dict is the formatted output per event
+        Saves both JSON and CSV outputs.
         """
-        self.output_dir = os.path.join(self.output_base_dir, "closest_residues_comb")
-        os.makedirs(self.output_dir, exist_ok=True)
+        output_dir = os.path.join(self.output_base_dir, "closest_residues_comb")
+        os.makedirs(output_dir, exist_ok=True)
 
         summary = []
         for i, event in enumerate(self.close_residues_results):
             try:
-                frame_data = self.get_last_nth_frame_close_residues(
+                frame_data = get_last_nth_frame_close_residues(
                     event, n=n, use_pdb_format=use_pdb_format, sort_residues=sort_residues
                 )
                 summary.append(frame_data)
             except Exception as e:
                 print(f"Skipping event {i} due to error: {e}")
 
-
-        with open(os.path.join(self.output_dir, f"closest_residues_n_{n}.json"), "w") as f:
+        # Save JSON
+        with open(os.path.join(output_dir, f"closest_residues_n_{n}.json"), "w") as f:
             json.dump(summary, f, indent=2)
-
-        flat_rows = []
-        for event_summary in summary:
-            for frame, ion_data in event_summary.items():
-                for ion_id, residue_str in ion_data.items():
-                    flat_rows.append({
-                        "frame": frame,
-                        "ion_id": ion_id,
-                        "residues": residue_str
-                    })
-
-        df = pd.DataFrame(flat_rows)
-        df.to_csv(os.path.join(self.output_dir, f"closest_residues_n_{n}.csv"), index=False)
-
-        # return summary
-
-
-
-    
 
     
     def analyze_radial_significance(self):
         """
-        Requires self.radial_results to be set.
+        Requires self.radial_distances_results to be set.
         """
-        if self.radial_results is None:
-            raise ValueError("radial_results not set in FrameAnalyzer.")
+        if self.radial_distances_results is None:
+            raise ValueError("radial_distances_results not set in FrameAnalyzer.")
 
         self.output_dir = os.path.join(self.output_base_dir, "radial_analysis")
         os.makedirs(self.output_dir, exist_ok=True)
@@ -127,7 +189,7 @@ class FrameAnalyzer:
         permeation_radials = []
         avg_nonpermeation_radials = []
 
-        for event in tqdm(self.radial_results, desc="Analyzing Radial Significance"):
+        for event in tqdm(self.radial_distances_results, desc="Analyzing Radial Significance"):
             ion_id = str(event["permeated_ion"])
             permeation_frame = int(event["frame"])
             analysis = {int(k): v for k, v in event["analysis"].items()}
@@ -169,6 +231,7 @@ class FrameAnalyzer:
         stat, p_value = wilcoxon(permeation_radials, avg_nonpermeation_radials)
         with open(os.path.join(self.output_dir, "wilcoxon_test_results.txt"), "w") as f:
             f.write(f"Wilcoxon signed-rank test result:\nStatistic = {stat}\nP-value = {p_value}\n")
+
 
     def analyze_cosine_significance(self, force_dir):
         """
