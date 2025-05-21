@@ -68,7 +68,7 @@ def cluster_frames_by_closest_residue(distance_data):
 
                 close_contacts_dict[ion_id][frame] = close_residues
 
-                ################################## Cluster creation per residue########################
+                ################################## Cluster creation per residue ########################
                 if closest_residue != prev_residue:
                     # If ending a previous cluster, store it
                     if prev_residue is not None:

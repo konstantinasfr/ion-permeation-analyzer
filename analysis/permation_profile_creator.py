@@ -33,6 +33,7 @@ class PermeationAnalyzer:
         self.force_results = []
         self.radial_distances_results = []
         self.close_residues_results = []
+        self.close_residues_result_per_frame = {}
 
     def _build_all_positions(self, ion_selection='resname K+ K'):
         """
@@ -144,13 +145,18 @@ class PermeationAnalyzer:
                     cutoff=self.cutoff
                 )
                 event_close_residues_results["analysis"][frame] = close_residues_result
+                if frame not in  self.close_residues_result_per_frame:
+                    data = get_last_nth_frame_close_residues(event_close_residues_results, n=frame,use_pdb_format=True, sort_residues=True)
+                    frame_key = list(data.keys())[0]
+                    ion_dict = data[frame_key]
+                    self.close_residues_result_per_frame[frame_key] = ion_dict
 
             # Append results per event
             self.force_results.append(event_force_results)
             self.radial_distances_results.append(event_radial_distances_results)
             self.close_residues_results.append(event_close_residues_results)
 
-        return self.force_results, self.radial_distances_results, self.close_residues_results
+        return self.force_results, self.radial_distances_results, self.close_residues_results, self.close_residues_result_per_frame
     
     def closest_residues_comb_before_permeation(self, n=-1, use_pdb_format=False, sort_residues=True):
         """

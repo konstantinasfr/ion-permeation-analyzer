@@ -47,7 +47,7 @@ def convert_to_pdb_numbering(residue_id: int) -> str:
     """
     Converts a residue ID to a PDB-style numbering.
     """
-    if not isinstance(residue_id, int):
+    if isinstance(residue_id, int):
         chain_dict = {0: "A", 1: "B", 2: "C", 3: "D"}
         chain_number = int(residue_id) // 325
         pdb_number = residue_id - 325 * chain_number + 49
@@ -56,16 +56,34 @@ def convert_to_pdb_numbering(residue_id: int) -> str:
         return residue_id
 
 
-def get_last_nth_frame_close_residues(event, n=-1, use_pdb_format=False, sort_residues=True):
+def get_last_nth_frame_close_residues(event, n=-1, use_pdb_format=True, sort_residues=True):
     """
-    Extract close residues at the n-th frame from the end of a single permeation event.
+    Extract close residues at a specific frame from a permeation event.
+
+    Behavior:
+    - If n < 0: counts from the end of the sorted frame list (e.g., -1 = last, -2 = second-last)
+    - If n >= 0: directly uses frame number `n` as a key in event["analysis"]
+
+    Parameters:
+        event (dict): Contains 'analysis' with frame: {ion_id: residues}
+        n (int): Frame position or frame number depending on sign
+        use_pdb_format (bool): Whether to convert residues to PDB-style notation
+        sort_residues (bool): Whether to sort residues alphabetically
+
+    Returns:
+        dict: {frame_number: {ion_id: "res1_res2_..."}}
     """
     frames = sorted(event["analysis"].keys(), key=lambda x: int(x))
 
-    if abs(n) > len(frames):
-        raise ValueError(f"Frame index {n} is out of range. Only {len(frames)} frames available.")
+    if n < 0:
+        if abs(n) > len(frames):
+            raise ValueError(f"Frame index {n} is out of range. Event has {len(frames)} frames.")
+        selected_frame_key = frames[n]
+    else:
+        if int(n) not in event["analysis"]:
+            raise ValueError(f"Frame {n} not found in event['analysis'].")
+        selected_frame_key = int(n)
 
-    selected_frame_key = frames[n]
     original_data = event["analysis"][selected_frame_key]
 
     converted_data = {}
@@ -80,6 +98,7 @@ def get_last_nth_frame_close_residues(event, n=-1, use_pdb_format=False, sort_re
         converted_data[ion_id] = "_".join(formatted_residues)
 
     return {selected_frame_key: converted_data}
+
 
 
 # def closest_residues_comb_before_permeation(close_residues_results, output_base_dir, n=-1, use_pdb_format=False, sort_residues=True):

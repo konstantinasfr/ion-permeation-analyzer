@@ -57,7 +57,7 @@ def main():
     # start_frame = 6500
     start_frame = 0
     # start_frame = 5550
-    # start_frame = 6500
+    start_frame = 6500
     end_frame = 6799
 
     ch1 = Channel(u, upper1, lower1, num=1, radius=11)
@@ -206,7 +206,7 @@ def main():
         output_base_dir=ch2_permeation_characteristics_dir
     )
 
-    forces_results, radial_distances_results, close_residues_results = permeation_analysis.run_permeation_analysis()
+    forces_results, radial_distances_results, close_residues_results, close_residues_result_per_frame = permeation_analysis.run_permeation_analysis()
     
     # Save to JSON
     with open(force_results_dir / "force_results.json", "w") as f:
@@ -217,6 +217,9 @@ def main():
 
     with open(ch2_permeation_characteristics_dir / "close_residues_results.json", "w") as f:
         json.dump(close_residues_results, f, indent=2)
+
+    with open(ch2_permeation_characteristics_dir / "close_residues_result_per_frame.json", "w") as f:
+        json.dump(close_residues_result_per_frame, f, indent=2)
 
     # Save the forces results to an Excel file
     forces_df = pd.DataFrame(forces_results)
@@ -239,7 +242,7 @@ def main():
 
 
     # Get last frame analysis
-    permeation_analysis.closest_residues_comb_before_permeation(n=-1, use_pdb_format=False, sort_residues=True)
+    permeation_analysis.closest_residues_comb_before_permeation(n=-1, use_pdb_format=True, sort_residues=True)
     permeation_analysis.analyze_cosine_significance(force_results_dir)
     permeation_analysis.analyze_radial_significance()
 
