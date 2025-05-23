@@ -5,14 +5,16 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from scipy.stats import wilcoxon
 import json
+import matplotlib.pyplot as plt
+from collections import Counter
 from analysis.calculate_openmm_forces import calculate_ionic_forces_all_frames
 from analysis.force_analysis import analyze_forces
 from analysis.radial_distance_analysis import analyze_radial_distances
-from analysis.close_residues_analysis import analyze_close_residues, get_last_nth_frame_close_residues
+from analysis.close_residues_analysis import analyze_close_residues, get_last_nth_frame_close_residues, plot_residue_counts, analyze_residue_combinations
 
 class PermeationAnalyzer:
     def __init__(self, ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,
-                 ch2, close_contacts_dict, cutoff=15.0, calculate_total_force=False,
+                 ch2, close_contacts_dict, total_residue_comb_over_all_frames, cutoff=15.0, calculate_total_force=False,
                  prmtop_file=None, nc_file=None,output_base_dir=None):
         """
         Initializes the analyzer with all necessary inputs and automatically
@@ -25,6 +27,7 @@ class PermeationAnalyzer:
         self.min_results_per_frame = min_results_per_frame
         self.ch2 = ch2
         self.close_contacts_dict = close_contacts_dict
+        self.total_residue_comb_over_all_frames = total_residue_comb_over_all_frames
         self.cutoff = cutoff
         self.calculate_total_force = calculate_total_force
         self.prmtop_file = prmtop_file
@@ -145,18 +148,13 @@ class PermeationAnalyzer:
                     cutoff=self.cutoff
                 )
                 event_close_residues_results["analysis"][frame] = close_residues_result
-                if frame not in  self.close_residues_result_per_frame:
-                    data = get_last_nth_frame_close_residues(event_close_residues_results, n=frame,use_pdb_format=True, sort_residues=True)
-                    frame_key = list(data.keys())[0]
-                    ion_dict = data[frame_key]
-                    self.close_residues_result_per_frame[frame_key] = ion_dict
 
             # Append results per event
             self.force_results.append(event_force_results)
             self.radial_distances_results.append(event_radial_distances_results)
             self.close_residues_results.append(event_close_residues_results)
 
-        return self.force_results, self.radial_distances_results, self.close_residues_results, self.close_residues_result_per_frame
+        return self.force_results, self.radial_distances_results, self.close_residues_results
     
     def closest_residues_comb_before_permeation(self, n=-1, use_pdb_format=False, sort_residues=True):
         """
@@ -166,13 +164,15 @@ class PermeationAnalyzer:
         output_dir = os.path.join(self.output_base_dir, "closest_residues_comb")
         os.makedirs(output_dir, exist_ok=True)
 
-        summary = []
+        summary = {}
         for i, event in enumerate(self.close_residues_results):
             try:
                 frame_data = get_last_nth_frame_close_residues(
                     event, n=n, use_pdb_format=use_pdb_format, sort_residues=sort_residues
                 )
-                summary.append(frame_data)
+                frame_key = list(frame_data.keys())[0]
+                ion_dict = frame_data[frame_key]
+                summary[frame_key] = ion_dict
             except Exception as e:
                 print(f"Skipping event {i} due to error: {e}")
 
@@ -180,7 +180,10 @@ class PermeationAnalyzer:
         with open(os.path.join(output_dir, f"closest_residues_n_{n}.json"), "w") as f:
             json.dump(summary, f, indent=2)
 
-    
+        # bar plot of residue occurrences in this frame over all ions
+        plot_residue_counts(summary, output_dir, filename=f"residue_counts_{n}.png", exclude=(), duplicates=False)
+        analyze_residue_combinations(summary, output_dir, top_n_plot=20)
+
     def analyze_radial_significance(self):
         """
         Requires self.radial_distances_results to be set.

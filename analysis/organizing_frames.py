@@ -113,7 +113,7 @@ import matplotlib.pyplot as plt
 from collections import Counter
 import pandas as pd
 
-def close_contact_residues_analysis(data, results_dir, max_bar_number=20):
+def close_contact_residues_analysis(data, main_path, max_bar_number=20):
     """
     For each ion, plots and saves a bar chart of residue combinations (unordered)
     that are close during trajectory frames, and writes full CSV summary.
@@ -126,11 +126,12 @@ def close_contact_residues_analysis(data, results_dir, max_bar_number=20):
         max_bar_number (int): max number of bars in each plot
     """
 
-    main_path = os.path.join(results_dir, "close_contact_residues")
-    plot_dir = os.path.join(results_dir, "close_contact_residues/plots")
-    csv_dir = os.path.join(results_dir, "close_contact_residues/csv")
+    main_path = os.path.join(main_path, "")
+    plot_dir = os.path.join(main_path, "plots")
+    csv_dir = os.path.join(main_path, "csv")
     os.makedirs(plot_dir, exist_ok=True)
     os.makedirs(csv_dir, exist_ok=True)
+    total_residue_comb_over_all_frames = {}
 
     def normalize_combo(combo):
         return tuple(sorted(combo))
@@ -141,10 +142,13 @@ def close_contact_residues_analysis(data, results_dir, max_bar_number=20):
         combo_counts = Counter()
 
         for frame, residues in frames.items():
+            if frame not in total_residue_comb_over_all_frames:
+                total_residue_comb_over_all_frames[frame] = {}
             if residues != ["SF"] and residues != ["no_close_residues"]:
                 norm_combo = normalize_combo(residues)
                 combo_counts[norm_combo] += 1
                 total_combo_counts[norm_combo] += 1
+                total_residue_comb_over_all_frames[frame][ion_id] = '_'.join(map(convert_to_pdb_numbering, norm_combo))
 
         if not combo_counts:
             continue
@@ -211,7 +215,7 @@ def close_contact_residues_analysis(data, results_dir, max_bar_number=20):
 
         print(f"📊 Combined plot saved to {total_plot_path}, data to {total_csv_path}")
 
-
+    return total_residue_comb_over_all_frames
         
 
 

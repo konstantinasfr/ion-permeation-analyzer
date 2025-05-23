@@ -19,6 +19,7 @@ from analysis.force_analysis import extract_permeation_frames
 import json
 import pandas as pd
 from analysis.permation_profile_creator import PermeationAnalyzer
+from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations
 
 
 
@@ -57,8 +58,9 @@ def main():
     # start_frame = 6500
     start_frame = 0
     # start_frame = 5550
-    start_frame = 6500
+    # start_frame = 6500
     end_frame = 6799
+    # end_frame = 6562
 
     ch1 = Channel(u, upper1, lower1, num=1, radius=11)
     ch2 = Channel(u, upper2, lower2, num=2, radius=15.0)
@@ -88,6 +90,13 @@ def main():
     # Create 'results' directory if it doesn't exist
     results_dir = Path("results")
     results_dir.mkdir(exist_ok=True)
+    force_results_dir = Path("results/forces")
+    force_results_dir.mkdir(exist_ok=True)
+    ch2_permeation_characteristics_dir = Path("results/ch2_permeation_characteristics")
+    ch2_permeation_characteristics_dir.mkdir(exist_ok=True)
+    close_contact_residues_dir = Path("results/close_contact_residues")
+    close_contact_residues_dir.mkdir(exist_ok=True)
+
 
     with open(results_dir / "hbc_diameters.json", "w") as f:
         json.dump(analyzer.hbc_diameters, f, indent=2)
@@ -117,7 +126,12 @@ def main():
 
     residue_clusters, min_results_per_frame, close_contacts_dict = cluster_frames_by_closest_residue(total_distances_dict)
 
-    close_contact_residues_analysis(close_contacts_dict, results_dir, max_bar_number=20)
+    total_residue_comb_over_all_frames = close_contact_residues_analysis(close_contacts_dict, close_contact_residues_dir, max_bar_number=20)
+    plot_residue_counts(total_residue_comb_over_all_frames, close_contact_residues_dir, filename=f"residue_counts_all_frames.png", exclude=(), duplicates=False)
+    analyze_residue_combinations(total_residue_comb_over_all_frames, close_contact_residues_dir, top_n_plot=20)
+
+    with open(close_contact_residues_dir / "total_residue_comb_over_all_frames.json", "w") as f:
+        json.dump(total_residue_comb_over_all_frames, f, indent=2)
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
@@ -184,12 +198,6 @@ def main():
 
     
     plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
-
-    force_results_dir = Path("results/forces")
-    force_results_dir.mkdir(exist_ok=True)
-    ch2_permeation_characteristics_dir = Path("results/ch2_permeation_characteristics")
-    ch2_permeation_characteristics_dir.mkdir(exist_ok=True)
-
     
     permeation_analysis = PermeationAnalyzer(
         ch2_permation_residues=ch2_permation_residues,
@@ -199,6 +207,7 @@ def main():
         min_results_per_frame=min_results_per_frame,
         ch2=ch2,
         close_contacts_dict=close_contacts_dict,
+        total_residue_comb_over_all_frames=total_residue_comb_over_all_frames,
         cutoff=15.0,
         calculate_total_force=False,
         prmtop_file=args.top_file,
@@ -206,7 +215,7 @@ def main():
         output_base_dir=ch2_permeation_characteristics_dir
     )
 
-    forces_results, radial_distances_results, close_residues_results, close_residues_result_per_frame = permeation_analysis.run_permeation_analysis()
+    forces_results, radial_distances_results, close_residues_results = permeation_analysis.run_permeation_analysis()
     
     # Save to JSON
     with open(force_results_dir / "force_results.json", "w") as f:
@@ -217,9 +226,6 @@ def main():
 
     with open(ch2_permeation_characteristics_dir / "close_residues_results.json", "w") as f:
         json.dump(close_residues_results, f, indent=2)
-
-    with open(ch2_permeation_characteristics_dir / "close_residues_result_per_frame.json", "w") as f:
-        json.dump(close_residues_result_per_frame, f, indent=2)
 
     # Save the forces results to an Excel file
     forces_df = pd.DataFrame(forces_results)
