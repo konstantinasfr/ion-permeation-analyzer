@@ -1,0 +1,38 @@
+{
+  "98, 130, 130, 455, 780": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6727
+    ]
+  },
+  "130, 455, 780, 1105": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6561
+    ]
+  },
+  "130, 130, 423, 1073": {
+    "count": 1,
+    "permeated_residues": [
+      130
+    ],
+    "frames": [
+      6670
+    ]
+  },
+  "98, 98, 455, 455": {
+    "count": 1,
+    "permeated_residues": [
+      455
+    ],
+    "frames": [
+      6748
+    ]
+  }
+}

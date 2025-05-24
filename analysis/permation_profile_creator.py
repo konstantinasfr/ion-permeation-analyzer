@@ -33,6 +33,8 @@ class PermeationAnalyzer:
         self.prmtop_file = prmtop_file
         self.nc_file = nc_file
         self.output_base_dir = output_base_dir
+        self.glu_residues = [98, 423, 748, 1073]
+        self.asn_residues = [130, 455, 780, 1105]
         self.force_results = []
         self.radial_distances_results = []
         self.close_residues_results = []
@@ -55,10 +57,38 @@ class PermeationAnalyzer:
 
     def _build_charge_map(self, ion_selection='resname K+ K'):
         """
-        Return a charge map {ion_id: charge}. Assumes K+ ions have charge +1.
+        Return a charge map {atom_id: charge}.
+        - Assigns +1.0 to selected ions (e.g., K+)
+        - Assigns fixed partial charges to GLU and ASN atoms
         """
+
+        charge_map = {}
+
+        # Add ion charges
         ions = self.u.select_atoms(ion_selection)
-        return {ion.resid: 1.0 for ion in ions}
+        for ion in ions:
+            charge_map[ion.resid] = 1.0  # atom index, not resid
+
+        # Add ASN atoms (CG, OD1, ND2, HD21, HD22)
+        for atom in self.u.select_atoms("resname ASN and name CG OD1 ND2 HD21 HD22"):
+            if atom.name == "CG":
+                charge_map[atom.name] = 0.7130
+            elif atom.name == "OD1":
+                charge_map[atom.name] = -0.5931
+            elif atom.name == "ND2":
+                charge_map[atom.name] = -0.9191
+            elif atom.name in {"HD21", "HD22"}:
+                charge_map[atom.name] = 0.4196
+
+        # Add GLU atoms (CD, OE1, OE2)
+        for atom in self.u.select_atoms("resname GLU and name CD OE1 OE2"):
+            if atom.name == "CD":
+                charge_map[atom.name] = 0.8054
+            elif atom.name in {"OE1", "OE2"}:
+                charge_map[atom.name] = -0.8188
+
+        return charge_map
+
 
 
     def run_permeation_analysis(self):
@@ -117,16 +147,19 @@ class PermeationAnalyzer:
 
                 # Force analysis
                 frame_result = analyze_forces(
-                    positions=positions,
-                    permeating_ion_id=event["permeated"],
-                    frame=frame,
-                    other_ions=positions.get(frame, {}).keys(),
-                    charge_map=charge_map,
-                    closest_residues_by_ion=self.min_results_per_frame,
-                    cutoff=self.cutoff,
-                    calculate_total_force=self.calculate_total_force,
-                    total_force_data=total_force_data
-                )
+                        u=self.u,
+                        positions=positions,
+                        permeating_ion_id=event["permeated"],
+                        frame=frame,
+                        other_ions=positions.get(frame, {}).keys(),
+                        charge_map=charge_map,
+                        closest_residues_by_ion=self.min_results_per_frame,
+                        glu_residues=self.glu_residues,        # <-- new
+                        asn_residues=self.asn_residues,        # <-- new
+                        cutoff=self.cutoff,
+                        calculate_total_force=self.calculate_total_force,
+                        total_force_data=total_force_data
+                    )
                 event_force_results["analysis"][frame] = frame_result
 
                 # Radial distance analysis

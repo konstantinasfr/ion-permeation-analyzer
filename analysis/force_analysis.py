@@ -43,47 +43,184 @@ def unit_vector(v):
 # Analysis Functions
 # =========================
 
-def analyze_forces(positions, permeating_ion_id, frame, other_ions, charge_map,
-                  closest_residues_by_ion, cutoff=10.0,
+# def analyze_forces(positions, permeating_ion_id, frame, other_ions, charge_map,
+#                   closest_residues_by_ion, cutoff=10.0,
+#                   calculate_total_force=False, total_force_data=None):
+#     """
+#     Analyze one frame: compute ionic forces, motion, and optionally total force.
+#     Also calculates cosine similarities between different vectors and force decomposition.
+#     """
+#     result = {
+#         "frame": frame,
+#         "ionic_force": [0.0, 0.0, 0.0],
+#         "ionic_force_magnitude": None,
+#         "motion_vector": None,
+#         "cosine_ionic_motion": None,
+#         "ionic_motion_component": None,
+#         "ionic_force_x": None,
+#         "ionic_force_y": None,
+#         "ionic_force_z": None,
+#         "radial_force": None,
+#         "axial_force": None,
+#         "before_closest_residue": None,
+#         "closest_residue": None,
+#         "next_closest_residue": None
+#     }
+
+#     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
+#     if permeating_pos is None:
+#         return result
+
+#     # Add closest residues for permeating ion
+#     residue_track = closest_residues_by_ion.get(permeating_ion_id, [])
+#     for r in residue_track:
+#         if r["frame"] == frame - 1:
+#             result["before_closest_residue"] = r["residue"]
+#         elif r["frame"] == frame:
+#             result["closest_residue"] = r["residue"]
+#         elif r["frame"] == frame + 1:
+#             result["next_closest_residue"] = r["residue"]
+
+#     ionic_force = np.zeros(3)
+#     contributions = []
+
+#     for ion_id, pos in positions.get(frame, {}).items():
+#         if ion_id == permeating_ion_id or ion_id not in other_ions:
+#             continue
+#         distance = compute_distance(permeating_pos, pos)
+#         if distance <= cutoff:
+#             force = compute_force(charge_map[permeating_ion_id], charge_map[ion_id], permeating_pos, pos)
+#             ionic_force += force
+#             magnitude = np.linalg.norm(force)
+
+#             c = {
+#                 "ion": int(ion_id),
+#                 "force": [float(f) for f in force.tolist()],
+#                 "magnitude": float(magnitude),
+#                 "distance": float(distance),
+#                 "before_closest_residue": None,
+#                 "closest_residue": None,
+#                 "next_closest_residue": None
+#             }
+
+#             contrib_track = closest_residues_by_ion.get(int(ion_id), [])
+#             for r in contrib_track:
+#                 if r["frame"] == frame - 1:
+#                     c["before_closest_residue"] = r["residue"]
+#                 elif r["frame"] == frame:
+#                     c["closest_residue"] = r["residue"]
+#                 elif r["frame"] == frame + 1:
+#                     c["next_closest_residue"] = r["residue"]
+
+#             contributions.append(c)
+
+#     result["ionic_force"] = ionic_force.tolist()
+#     result["ionic_force_magnitude"] = float(np.linalg.norm(ionic_force))
+
+#     Fx, Fy, Fz = ionic_force
+#     result.update({
+#         "ionic_force_x": float(Fx),
+#         "ionic_force_y": float(Fy),
+#         "ionic_force_z": float(Fz),
+#         "axial_force": float(Fz),  # assuming Z is the pore axis
+#         "radial_force": float(np.sqrt(Fx**2 + Fy**2))
+#     })
+
+#     ion_positions_over_time = {
+#         f: positions.get(f, {}).get(permeating_ion_id) for f in range(frame, frame + 2)
+#     }
+
+#     motion_vec = get_motion_vector(ion_positions_over_time, frame)
+#     if motion_vec is not None:
+#         unit_motion = unit_vector(motion_vec)
+#         if np.linalg.norm(ionic_force) != 0 and np.linalg.norm(motion_vec) != 0:
+#             cosine_ionic_motion = float(np.dot(ionic_force, motion_vec) / (np.linalg.norm(ionic_force) * np.linalg.norm(motion_vec)))
+#             ionic_motion_component = cosine_ionic_motion * result["ionic_force_magnitude"]
+
+#             result.update({
+#                 "motion_vector": motion_vec.tolist(),
+#                 "cosine_ionic_motion": cosine_ionic_motion,
+#                 "ionic_motion_component": ionic_motion_component
+#             })
+
+#         for c in contributions:
+#             force_vec = np.array(c["force"])
+#             force_mag = np.linalg.norm(force_vec)
+#             if force_mag != 0:
+#                 cosine = float(np.dot(force_vec, unit_motion) / force_mag)
+#                 projection = cosine * force_mag
+#             else:
+#                 cosine = 0.0
+#                 projection = 0.0
+
+#             c["cosine_with_motion"] = cosine
+#             c["motion_component"] = projection
+
+#     result["contributions"] = contributions
+
+#     if calculate_total_force and total_force_data is not None:
+#         tf = total_force_data[frame].get(permeating_ion_id)
+#         if tf is not None:
+#             total_force = np.array(tf)
+#             total_mag = float(np.linalg.norm(total_force))
+#             ionic_mag = result["ionic_force_magnitude"]
+#             fraction = ionic_mag / total_mag if total_mag != 0 else 0.0
+
+#             result.update({
+#                 "total_force": total_force.tolist(),
+#                 "total_force_magnitude": total_mag,
+#                 "ionic_fraction_of_total": fraction
+#             })
+
+#             if np.linalg.norm(ionic_force) != 0 and np.linalg.norm(total_force) != 0:
+#                 result["cosine_ionic_total"] = float(np.dot(ionic_force, total_force) / (np.linalg.norm(ionic_force) * np.linalg.norm(total_force)))
+
+#             if motion_vec is not None and np.linalg.norm(total_force) != 0 and np.linalg.norm(motion_vec) != 0:
+#                 result["cosine_total_motion"] = float(np.dot(total_force, motion_vec) / (np.linalg.norm(total_force) * np.linalg.norm(motion_vec)))
+
+#     return result
+def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_map,
+                  closest_residues_by_ion, glu_residues, asn_residues, cutoff=10.0,
                   calculate_total_force=False, total_force_data=None):
     """
-    Analyze one frame: compute ionic forces, motion, and optionally total force.
-    Also calculates cosine similarities between different vectors and force decomposition.
+    Analyze one frame: compute ionic, residue, and optionally total forces.
+    Also calculates motion and cosine similarities.
     """
     result = {
         "frame": frame,
         "ionic_force": [0.0, 0.0, 0.0],
         "ionic_force_magnitude": None,
         "motion_vector": None,
-        "cosine_ionic_motion": None,
-        "ionic_motion_component": None,
         "ionic_force_x": None,
         "ionic_force_y": None,
         "ionic_force_z": None,
         "radial_force": None,
         "axial_force": None,
-        "before_closest_residue": None,
-        "closest_residue": None,
-        "next_closest_residue": None
+        "glu_force": [0.0, 0.0, 0.0],
+        "glu_force_magnitude": None,
+        "asn_force": [0.0, 0.0, 0.0],
+        "asn_force_magnitude": None,
+        "residue_force": [0.0, 0.0, 0.0],
+        "residue_force_magnitude": None,
+        "total_force": [0.0, 0.0, 0.0],
+        "total_force_magnitude": None,
+        "motion_component_total": None,
+        "cosine_total_motion": None,
+        "cosine_glu_motion": None,
+        "cosine_asn_motion": None,
+        "cosine_residue_motion": None,
+        "cosine_ionic_motion": None,
+        "motion_component_glu": None,
+        "motion_component_asn": None,
+        "motion_component_residue": None,
+        "motion_component_ionic": None
     }
 
     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
     if permeating_pos is None:
         return result
 
-    # Add closest residues for permeating ion
-    residue_track = closest_residues_by_ion.get(permeating_ion_id, [])
-    for r in residue_track:
-        if r["frame"] == frame - 1:
-            result["before_closest_residue"] = r["residue"]
-        elif r["frame"] == frame:
-            result["closest_residue"] = r["residue"]
-        elif r["frame"] == frame + 1:
-            result["next_closest_residue"] = r["residue"]
-
     ionic_force = np.zeros(3)
-    contributions = []
-
     for ion_id, pos in positions.get(frame, {}).items():
         if ion_id == permeating_ion_id or ion_id not in other_ions:
             continue
@@ -91,94 +228,168 @@ def analyze_forces(positions, permeating_ion_id, frame, other_ions, charge_map,
         if distance <= cutoff:
             force = compute_force(charge_map[permeating_ion_id], charge_map[ion_id], permeating_pos, pos)
             ionic_force += force
-            magnitude = np.linalg.norm(force)
-
-            c = {
-                "ion": int(ion_id),
-                "force": [float(f) for f in force.tolist()],
-                "magnitude": float(magnitude),
-                "distance": float(distance),
-                "before_closest_residue": None,
-                "closest_residue": None,
-                "next_closest_residue": None
-            }
-
-            contrib_track = closest_residues_by_ion.get(int(ion_id), [])
-            for r in contrib_track:
-                if r["frame"] == frame - 1:
-                    c["before_closest_residue"] = r["residue"]
-                elif r["frame"] == frame:
-                    c["closest_residue"] = r["residue"]
-                elif r["frame"] == frame + 1:
-                    c["next_closest_residue"] = r["residue"]
-
-            contributions.append(c)
 
     result["ionic_force"] = ionic_force.tolist()
     result["ionic_force_magnitude"] = float(np.linalg.norm(ionic_force))
-
     Fx, Fy, Fz = ionic_force
     result.update({
         "ionic_force_x": float(Fx),
         "ionic_force_y": float(Fy),
         "ionic_force_z": float(Fz),
-        "axial_force": float(Fz),  # assuming Z is the pore axis
+        "axial_force": float(Fz),
         "radial_force": float(np.sqrt(Fx**2 + Fy**2))
     })
 
     ion_positions_over_time = {
         f: positions.get(f, {}).get(permeating_ion_id) for f in range(frame, frame + 2)
     }
-
     motion_vec = get_motion_vector(ion_positions_over_time, frame)
-    if motion_vec is not None:
+    result["motion_vector"] = motion_vec.tolist() if motion_vec is not None else None
+
+    # Add residue forces (GLU + ASN)
+    residue_result = analyze_residue_forces(
+        u, positions, permeating_ion_id, frame, charge_map,
+        glu_residues, asn_residues, cutoff=6
+    )
+
+    glu_force = np.array(residue_result["glu_force"])
+    asn_force = np.array(residue_result["asn_force"])
+    residue_force = np.array(residue_result["residue_force"])
+    total_force = ionic_force + residue_force
+
+    result["glu_force"] = glu_force.tolist()
+    result["glu_force_magnitude"] = float(np.linalg.norm(glu_force))
+    result["asn_force"] = asn_force.tolist()
+    result["asn_force_magnitude"] = float(np.linalg.norm(asn_force))
+    result["residue_force"] = residue_force.tolist()
+    result["residue_force_magnitude"] = float(np.linalg.norm(residue_force))
+    result["total_force"] = total_force.tolist()
+    result["total_force_magnitude"] = float(np.linalg.norm(total_force))
+
+    if motion_vec is not None and np.linalg.norm(motion_vec) > 0:
         unit_motion = unit_vector(motion_vec)
-        if np.linalg.norm(ionic_force) != 0 and np.linalg.norm(motion_vec) != 0:
-            cosine_ionic_motion = float(np.dot(ionic_force, motion_vec) / (np.linalg.norm(ionic_force) * np.linalg.norm(motion_vec)))
-            ionic_motion_component = cosine_ionic_motion * result["ionic_force_magnitude"]
-
-            result.update({
-                "motion_vector": motion_vec.tolist(),
-                "cosine_ionic_motion": cosine_ionic_motion,
-                "ionic_motion_component": ionic_motion_component
-            })
-
-        for c in contributions:
-            force_vec = np.array(c["force"])
-            force_mag = np.linalg.norm(force_vec)
-            if force_mag != 0:
-                cosine = float(np.dot(force_vec, unit_motion) / force_mag)
-                projection = cosine * force_mag
-            else:
-                cosine = 0.0
-                projection = 0.0
-
-            c["cosine_with_motion"] = cosine
-            c["motion_component"] = projection
-
-    result["contributions"] = contributions
-
-    if calculate_total_force and total_force_data is not None:
-        tf = total_force_data[frame].get(permeating_ion_id)
-        if tf is not None:
-            total_force = np.array(tf)
-            total_mag = float(np.linalg.norm(total_force))
-            ionic_mag = result["ionic_force_magnitude"]
-            fraction = ionic_mag / total_mag if total_mag != 0 else 0.0
-
-            result.update({
-                "total_force": total_force.tolist(),
-                "total_force_magnitude": total_mag,
-                "ionic_fraction_of_total": fraction
-            })
-
-            if np.linalg.norm(ionic_force) != 0 and np.linalg.norm(total_force) != 0:
-                result["cosine_ionic_total"] = float(np.dot(ionic_force, total_force) / (np.linalg.norm(ionic_force) * np.linalg.norm(total_force)))
-
-            if motion_vec is not None and np.linalg.norm(total_force) != 0 and np.linalg.norm(motion_vec) != 0:
-                result["cosine_total_motion"] = float(np.dot(total_force, motion_vec) / (np.linalg.norm(total_force) * np.linalg.norm(motion_vec)))
+        for key, vec in zip(
+            ["ionic", "glu", "asn", "residue", "total"],
+            [ionic_force, glu_force, asn_force, residue_force, total_force]
+        ):
+            norm = np.linalg.norm(vec)
+            if norm > 0:
+                cosine = float(np.dot(vec, unit_motion) / norm)
+                component = float(np.dot(vec, unit_motion))
+                result[f"cosine_{key}_motion"] = cosine
+                result[f"motion_component_{key}"] = component
 
     return result
+
+def analyze_residue_forces(
+    u,
+    positions,
+    permeating_ion_id,
+    frame,
+    charge_map,
+    glu_residues,
+    asn_residues,
+    cutoff=6.0
+):
+    """
+    Calculate electrostatic forces from GLU and ASN side chains on the ion.
+
+    Returns:
+    - dict with GLU, ASN, and total residue force vectors, magnitudes, and per-atom contributions
+    """
+    import numpy as np
+
+    # u = globals().get("u")  # assumes MDAnalysis Universe is globally accessible
+    ion_pos = positions[frame][permeating_ion_id]
+
+    total_force = np.zeros(3)
+    glu_force = np.zeros(3)
+    asn_force = np.zeros(3)
+    contributions = []
+    glu_contributions = []
+    asn_contributions = []
+
+    close_residues = glu_residues + asn_residues
+
+    for resid in close_residues:
+        residue = u.select_atoms(f"resid {resid}")
+        if len(residue) == 0:
+            print(f"Warning: Resid {resid} not found in frame {frame}.")
+            continue
+
+        resname = residue.residues[0].resname
+        if resname == "GLU":
+            atom_names = ["CD", "OE1", "OE2"]
+        elif resname == "ASN":
+            atom_names = ["CG", "OD1", "ND2", "HD21", "HD22"]
+        else:
+            print(f"Warning: Resid {resid} is not GLU or ASN (found {resname}).")
+            continue
+
+        for atom_name in atom_names:
+            sel = u.select_atoms(f"resid {resid} and name {atom_name}")
+            if len(sel) != 1:
+                print(f"Warning: Atom {atom_name} not found in resid {resid} at frame {frame}.")
+                continue
+
+            atom = sel[0]
+            atom_pos = atom.position
+            atom_id = atom.index
+            if atom_name not in charge_map:
+                print(f"Warning: Charge not found for atom {atom_name} (ID {atom_id}) in resid {resid}.")
+                continue
+            charge = charge_map[atom_name]
+
+            r_vec = ion_pos - atom_pos
+            r = np.linalg.norm(r_vec)
+            if r > cutoff:
+                continue
+
+            unit_vec = r_vec / r
+            force = (332 * (1.0 * charge) / r**2) * unit_vec  # kcal/mol/Å
+
+            total_force += force
+            if resname == "GLU":
+                glu_force += force
+                glu_contributions.append({
+                    "resid": resid,
+                    "resname": resname,
+                    "atom": atom_name,
+                    "charge": charge,
+                    "distance": r,
+                    "force": force.tolist()
+                })
+            elif resname == "ASN":
+                asn_force += force
+                asn_contributions.append({
+                    "resid": resid,
+                    "resname": resname,
+                    "atom": atom_name,
+                    "charge": charge,
+                    "distance": r,
+                    "force": force.tolist()
+                })
+
+            contributions.append({
+                "resid": resid,
+                "resname": resname,
+                "atom": atom_name,
+                "charge": charge,
+                "distance": r,
+                "force": force.tolist()
+            })
+
+    return {
+        "residue_force": total_force.tolist(),
+        "residue_force_magnitude": float(np.linalg.norm(total_force)),
+        "glu_force": glu_force.tolist(),
+        "glu_force_magnitude": float(np.linalg.norm(glu_force)),
+        "asn_force": asn_force.tolist(),
+        "asn_force_magnitude": float(np.linalg.norm(asn_force)),
+        "contributions": contributions,
+        "glu_contributions": glu_contributions,
+        "asn_contributions": asn_contributions
+    }
 
 
 def find_top_cosine_frames(event_data, top_n=5):
@@ -293,7 +504,7 @@ def extract_permeation_frames(event_data, offset_from_end=1):
             "frame": selected_frame_int,
             "ionic_force": entry.get("ionic_force"),
             "ionic_force_magnitude": entry.get("ionic_force_magnitude"),
-            "ionic_motion_component": entry.get("ionic_motion_component"),
+            "motion_component_ionic": entry.get("motion_component_ionic"),
             "cosine_ionic_motion": entry.get("cosine_ionic_motion"),
             "radial_force": entry.get("radial_force"),
             "axial_force": entry.get("axial_force"),
@@ -310,7 +521,7 @@ def extract_permeation_frames(event_data, offset_from_end=1):
                 "frame": selected_frame_int,
                 "ionic_force": entry.get("ionic_force"),
                 "ionic_force_magnitude": entry.get("ionic_force_magnitude"),
-                "ionic_motion_component": entry.get("ionic_motion_component"),
+                "motion_component_ionic": entry.get("motion_component_ionic"),
                 "cosine_ionic_motion": entry.get("cosine_ionic_motion"),
                 "radial_force": entry.get("radial_force"),
                 "axial_force": entry.get("axial_force"),

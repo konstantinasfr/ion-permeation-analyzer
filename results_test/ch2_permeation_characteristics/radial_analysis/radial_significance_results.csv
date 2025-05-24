@@ -1,0 +1,5 @@
+ion_id,start_frame,permeation_frame,permeation_radial,avg_nonpermeation_radial,empirical_p,total_frames
+1341,6500,6727,1.443,5.999,0.981,214
+1355,6500,6561,1.674,7.009,1.0,62
+1465,6569,6670,2.531,5.279,0.892,65
+1374,6716,6748,1.96,5.909,1.0,31
