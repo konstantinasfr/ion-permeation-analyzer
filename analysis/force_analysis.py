@@ -179,6 +179,7 @@ def unit_vector(v):
 #                 result["cosine_total_motion"] = float(np.dot(total_force, motion_vec) / (np.linalg.norm(total_force) * np.linalg.norm(motion_vec)))
 
 #     return result
+
 def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_map,
                   closest_residues_by_ion, glu_residues, asn_residues, cutoff=10.0,
                   calculate_total_force=False, total_force_data=None):
@@ -213,7 +214,10 @@ def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_ma
         "motion_component_glu": None,
         "motion_component_asn": None,
         "motion_component_residue": None,
-        "motion_component_ionic": None
+        "motion_component_ionic": None,
+        "ionic_contributions": [],
+        "glu_contributions": [],
+        "asn_contributions": []
     }
 
     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
@@ -221,6 +225,7 @@ def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_ma
         return result
 
     ionic_force = np.zeros(3)
+    ionic_contributions = []
     for ion_id, pos in positions.get(frame, {}).items():
         if ion_id == permeating_ion_id or ion_id not in other_ions:
             continue
@@ -228,9 +233,16 @@ def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_ma
         if distance <= cutoff:
             force = compute_force(charge_map[permeating_ion_id], charge_map[ion_id], permeating_pos, pos)
             ionic_force += force
+            ionic_contributions.append({
+                "ion_id": int(ion_id),
+                "distance": float(distance),
+                "force": force.tolist(),
+                "magnitude": float(np.linalg.norm(force))
+            })
 
     result["ionic_force"] = ionic_force.tolist()
     result["ionic_force_magnitude"] = float(np.linalg.norm(ionic_force))
+    result["ionic_contributions"] = ionic_contributions
     Fx, Fy, Fz = ionic_force
     result.update({
         "ionic_force_x": float(Fx),
@@ -265,6 +277,8 @@ def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_ma
     result["residue_force_magnitude"] = float(np.linalg.norm(residue_force))
     result["total_force"] = total_force.tolist()
     result["total_force_magnitude"] = float(np.linalg.norm(total_force))
+    result["glu_contributions"] = residue_result["glu_contributions"]
+    result["asn_contributions"] = residue_result["asn_contributions"]
 
     if motion_vec is not None and np.linalg.norm(motion_vec) > 0:
         unit_motion = unit_vector(motion_vec)
@@ -299,13 +313,11 @@ def analyze_residue_forces(
     """
     import numpy as np
 
-    # u = globals().get("u")  # assumes MDAnalysis Universe is globally accessible
     ion_pos = positions[frame][permeating_ion_id]
 
     total_force = np.zeros(3)
     glu_force = np.zeros(3)
     asn_force = np.zeros(3)
-    contributions = []
     glu_contributions = []
     asn_contributions = []
 
@@ -352,32 +364,25 @@ def analyze_residue_forces(
             if resname == "GLU":
                 glu_force += force
                 glu_contributions.append({
-                    "resid": resid,
+                    "resid": int(resid),
                     "resname": resname,
                     "atom": atom_name,
-                    "charge": charge,
-                    "distance": r,
-                    "force": force.tolist()
+                    "charge": float(charge),
+                    "distance": float(r),
+                    "force": force.tolist(),
+                    "magnitude": float(np.linalg.norm(force))
                 })
             elif resname == "ASN":
                 asn_force += force
                 asn_contributions.append({
-                    "resid": resid,
+                    "resid": int(resid),
                     "resname": resname,
                     "atom": atom_name,
-                    "charge": charge,
-                    "distance": r,
-                    "force": force.tolist()
+                    "charge": float(charge),
+                    "distance": float(r),
+                    "force": force.tolist(),
+                    "magnitude": float(np.linalg.norm(force))
                 })
-
-            contributions.append({
-                "resid": resid,
-                "resname": resname,
-                "atom": atom_name,
-                "charge": charge,
-                "distance": r,
-                "force": force.tolist()
-            })
 
     return {
         "residue_force": total_force.tolist(),
@@ -386,7 +391,6 @@ def analyze_residue_forces(
         "glu_force_magnitude": float(np.linalg.norm(glu_force)),
         "asn_force": asn_force.tolist(),
         "asn_force_magnitude": float(np.linalg.norm(asn_force)),
-        "contributions": contributions,
         "glu_contributions": glu_contributions,
         "asn_contributions": asn_contributions
     }
