@@ -72,15 +72,25 @@ class IonPermeationAnalysis:
                     close_to_dipole = False
                     if channel_number == 2:
                         for resid in channel.lower_gate_residues:  # should be [130, 455, 780, 1105]
-                            od1 = self.u.select_atoms(f"resid {resid} and name OD1")
-                            nd2 = self.u.select_atoms(f"resid {resid} and name ND2")
+                            # Select the five key atoms in the ASN side chain that contribute to electrostatic interactions
+                            asn_atoms = self.u.select_atoms(
+                                f"resid {resid} and name CG OD1 ND2 HD21 HD22"
+                            )
 
-                            if len(od1) == 1 and len(nd2) == 1:
-                                dipole_center = 0.5 * (od1.positions[0] + nd2.positions[0])
+                            # Ensure that all 5 atoms are present (sometimes an atom might be missing in a corrupted frame)
+                            if len(asn_atoms) == 5:
+                                # Calculate the geometric center (average position) of the selected atoms
+                                # This serves as an approximate "center of interaction" for the ASN side chain
+                                dipole_center = asn_atoms.positions.mean(axis=0)
+
+                                # Compute the distance between the ion and the ASN side chain's interaction center
                                 distance = np.linalg.norm(ion_pos - dipole_center)
+
+                                # If the ion is within 6 Å of this center, consider ASN as close enough to potentially interact
                                 if distance < 6.0:
-                                    close_to_dipole = True
-                                    break
+                                    close_to_dipole = True  # Flag this residue as relevant for force calculation
+                                    break  # No need to check more residues — one nearby ASN is enough for this case
+
 
                     if not close_to_dipole or channel.channel_number != 2:
                         states[ion_id]['lower_flag'] = 1

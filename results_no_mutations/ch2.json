@@ -1,0 +1,14 @@
+[
+  {
+    "ion_id": 1307,
+    "start_frame": 30,
+    "exit_frame": 6799,
+    "total_time": 6769
+  },
+  {
+    "ion_id": 1306,
+    "start_frame": 1612,
+    "exit_frame": 6799,
+    "total_time": 5187
+  }
+]

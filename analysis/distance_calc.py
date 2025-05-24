@@ -67,22 +67,25 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
         for resid in glu_residues + asn_residues:
             if use_charges:
                 if resid in glu_residues:
-                    atoms = u.select_atoms(f"resid {resid} and name OE1 OE2")
-                    if atoms.n_atoms == 2:
-                        center = 0.5 * (atoms.positions[0] + atoms.positions[1])
+                    # Select CD, OE1, OE2 for GLU – these are the key electrostatic atoms
+                    atoms = u.select_atoms(f"resid {resid} and name CD OE1 OE2")
+                    if atoms.n_atoms == 3:
+                        center = atoms.positions.mean(axis=0)  # Geometric center of GLU side chain
                         dist = float(np.linalg.norm(ion_pos - center))
                     else:
-                        print(f"Glu {resid} missing OE1 or OE2 at frame {ts.frame}")
+                        print(f"Glu {resid} missing CD, OE1, or OE2 at frame {ts.frame}")
                         dist = float('nan')
 
                 elif resid in asn_residues:
-                    atoms = u.select_atoms(f"resid {resid} and name OD1 ND2")
-                    if atoms.n_atoms == 2:
-                        center = 0.5 * (atoms.positions[0] + atoms.positions[1])
+                    # Select CG, OD1, ND2, HD21, HD22 for ASN – full electrostatic group
+                    atoms = u.select_atoms(f"resid {resid} and name CG OD1 ND2 HD21 HD22")
+                    if atoms.n_atoms == 5:
+                        center = atoms.positions.mean(axis=0)  # Geometric center of ASN side chain
                         dist = float(np.linalg.norm(ion_pos - center))
                     else:
-                        print(f"Asn {resid} missing OD1 or ND2 at frame {ts.frame}")
+                        print(f"Asn {resid} missing CG, OD1, ND2, HD21, or HD22 at frame {ts.frame}")
                         dist = float('nan')
+
 
             elif use_ca_only:
                 atoms = u.select_atoms(f"resid {resid} and name CA")
