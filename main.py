@@ -27,10 +27,10 @@ def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
-    # parser.add_argument("--top_file", default="../com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../protein.nc")
-    parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
+    parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../protein.nc")
+    # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -60,7 +60,7 @@ def main():
     # start_frame = 6500
     start_frame = 0
     # start_frame = 5550
-    # start_frame = 6500
+    start_frame = 6500
     end_frame = 6799
     # end_frame = 6562
 
@@ -90,7 +90,8 @@ def main():
 
 
     # Create 'results' directory if it doesn't exist
-    results_dir = Path("results_no_mutations")
+    # results_dir = Path("results_no_mutations")
+    results_dir = Path("results_test")
     results_dir.mkdir(exist_ok=True)
     force_results_dir = Path(f"{results_dir}/forces")
     force_results_dir.mkdir(exist_ok=True)

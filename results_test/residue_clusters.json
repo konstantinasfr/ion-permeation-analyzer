@@ -1,0 +1,2720 @@
+{
+  "1327": [
+    {
+      "residue": 1105,
+      "start": 6500,
+      "end": 6500,
+      "frames": 1,
+      "mean_distance": 3.1434569358825684
+    },
+    {
+      "residue": 1073,
+      "start": 6501,
+      "end": 6502,
+      "frames": 2,
+      "mean_distance": 3.0965659618377686
+    },
+    {
+      "residue": 1105,
+      "start": 6503,
+      "end": 6504,
+      "frames": 2,
+      "mean_distance": 3.066848874092102
+    },
+    {
+      "residue": 1073,
+      "start": 6505,
+      "end": 6509,
+      "frames": 5,
+      "mean_distance": 3.108920955657959
+    },
+    {
+      "residue": 1105,
+      "start": 6510,
+      "end": 6511,
+      "frames": 2,
+      "mean_distance": 2.973770499229431
+    },
+    {
+      "residue": 1073,
+      "start": 6512,
+      "end": 6514,
+      "frames": 3,
+      "mean_distance": 3.0144997437795005
+    },
+    {
+      "residue": 1105,
+      "start": 6515,
+      "end": 6515,
+      "frames": 1,
+      "mean_distance": 2.862576484680176
+    },
+    {
+      "residue": 1073,
+      "start": 6516,
+      "end": 6517,
+      "frames": 2,
+      "mean_distance": 3.130493402481079
+    },
+    {
+      "residue": 1105,
+      "start": 6518,
+      "end": 6518,
+      "frames": 1,
+      "mean_distance": 2.9997265338897705
+    },
+    {
+      "residue": 1073,
+      "start": 6519,
+      "end": 6520,
+      "frames": 2,
+      "mean_distance": 2.997066020965576
+    },
+    {
+      "residue": 1105,
+      "start": 6521,
+      "end": 6521,
+      "frames": 1,
+      "mean_distance": 4.178511142730713
+    },
+    {
+      "residue": 1073,
+      "start": 6522,
+      "end": 6522,
+      "frames": 1,
+      "mean_distance": 2.9961166381835938
+    },
+    {
+      "residue": 1105,
+      "start": 6523,
+      "end": 6524,
+      "frames": 2,
+      "mean_distance": 3.0617746114730835
+    },
+    {
+      "residue": 1073,
+      "start": 6525,
+      "end": 6525,
+      "frames": 1,
+      "mean_distance": 3.044403076171875
+    },
+    {
+      "residue": 1105,
+      "start": 6526,
+      "end": 6526,
+      "frames": 1,
+      "mean_distance": 3.0009281635284424
+    },
+    {
+      "residue": 1073,
+      "start": 6527,
+      "end": 6528,
+      "frames": 2,
+      "mean_distance": 3.347186326980591
+    },
+    {
+      "residue": 1105,
+      "start": 6529,
+      "end": 6529,
+      "frames": 1,
+      "mean_distance": 3.1121928691864014
+    },
+    {
+      "residue": 1073,
+      "start": 6530,
+      "end": 6530,
+      "frames": 1,
+      "mean_distance": 3.1063344478607178
+    },
+    {
+      "residue": 1105,
+      "start": 6531,
+      "end": 6531,
+      "frames": 1,
+      "mean_distance": 3.177992582321167
+    },
+    {
+      "residue": 1073,
+      "start": 6532,
+      "end": 6532,
+      "frames": 1,
+      "mean_distance": 3.084468126296997
+    },
+    {
+      "residue": 1105,
+      "start": 6533,
+      "end": 6533,
+      "frames": 1,
+      "mean_distance": 3.0632455348968506
+    },
+    {
+      "residue": 1073,
+      "start": 6534,
+      "end": 6534,
+      "frames": 1,
+      "mean_distance": 2.857672929763794
+    },
+    {
+      "residue": 1105,
+      "start": 6535,
+      "end": 6535,
+      "frames": 1,
+      "mean_distance": 3.1172845363616943
+    },
+    {
+      "residue": 1073,
+      "start": 6536,
+      "end": 6536,
+      "frames": 1,
+      "mean_distance": 3.1147780418395996
+    },
+    {
+      "residue": 1105,
+      "start": 6537,
+      "end": 6543,
+      "frames": 7,
+      "mean_distance": 3.0602801527295793
+    },
+    {
+      "residue": 1073,
+      "start": 6544,
+      "end": 6544,
+      "frames": 1,
+      "mean_distance": 3.0869574546813965
+    },
+    {
+      "residue": 1105,
+      "start": 6545,
+      "end": 6547,
+      "frames": 3,
+      "mean_distance": 3.160207748413086
+    },
+    {
+      "residue": 1073,
+      "start": 6548,
+      "end": 6548,
+      "frames": 1,
+      "mean_distance": 2.752561092376709
+    },
+    {
+      "residue": 1105,
+      "start": 6549,
+      "end": 6549,
+      "frames": 1,
+      "mean_distance": 3.0062975883483887
+    },
+    {
+      "residue": 1073,
+      "start": 6550,
+      "end": 6551,
+      "frames": 2,
+      "mean_distance": 2.806145668029785
+    },
+    {
+      "residue": 1105,
+      "start": 6552,
+      "end": 6553,
+      "frames": 2,
+      "mean_distance": 3.0105807781219482
+    },
+    {
+      "residue": 780,
+      "start": 6554,
+      "end": 6555,
+      "frames": 2,
+      "mean_distance": 4.426959753036499
+    },
+    {
+      "residue": 1105,
+      "start": 6556,
+      "end": 6556,
+      "frames": 1,
+      "mean_distance": 5.722033977508545
+    },
+    {
+      "residue": "SF",
+      "start": 6557,
+      "end": 6558,
+      "frames": 2,
+      "mean_distance": 4.783477634191513
+    },
+    {
+      "residue": 1105,
+      "start": 6559,
+      "end": 6561,
+      "frames": 3,
+      "mean_distance": 2.9894822438557944
+    },
+    {
+      "residue": 1073,
+      "start": 6562,
+      "end": 6562,
+      "frames": 1,
+      "mean_distance": 3.2292938232421875
+    },
+    {
+      "residue": 1105,
+      "start": 6563,
+      "end": 6563,
+      "frames": 1,
+      "mean_distance": 3.0648369789123535
+    },
+    {
+      "residue": 1073,
+      "start": 6564,
+      "end": 6564,
+      "frames": 1,
+      "mean_distance": 3.4646036624908447
+    },
+    {
+      "residue": 1105,
+      "start": 6565,
+      "end": 6570,
+      "frames": 6,
+      "mean_distance": 3.0894541343053183
+    },
+    {
+      "residue": 1073,
+      "start": 6571,
+      "end": 6572,
+      "frames": 2,
+      "mean_distance": 2.8782858848571777
+    },
+    {
+      "residue": 1105,
+      "start": 6573,
+      "end": 6573,
+      "frames": 1,
+      "mean_distance": 2.860105514526367
+    },
+    {
+      "residue": 1073,
+      "start": 6574,
+      "end": 6576,
+      "frames": 3,
+      "mean_distance": 2.9109202226003013
+    },
+    {
+      "residue": 1105,
+      "start": 6577,
+      "end": 6579,
+      "frames": 3,
+      "mean_distance": 3.2723495165506997
+    },
+    {
+      "residue": 1073,
+      "start": 6580,
+      "end": 6581,
+      "frames": 2,
+      "mean_distance": 2.975241541862488
+    },
+    {
+      "residue": 1105,
+      "start": 6582,
+      "end": 6582,
+      "frames": 1,
+      "mean_distance": 3.4510843753814697
+    },
+    {
+      "residue": 1073,
+      "start": 6583,
+      "end": 6589,
+      "frames": 7,
+      "mean_distance": 2.954169886452811
+    },
+    {
+      "residue": 1105,
+      "start": 6590,
+      "end": 6595,
+      "frames": 6,
+      "mean_distance": 3.9480656385421753
+    },
+    {
+      "residue": 1073,
+      "start": 6596,
+      "end": 6596,
+      "frames": 1,
+      "mean_distance": 3.3187549114227295
+    },
+    {
+      "residue": 1105,
+      "start": 6597,
+      "end": 6602,
+      "frames": 6,
+      "mean_distance": 3.0450978676478067
+    },
+    {
+      "residue": 1073,
+      "start": 6603,
+      "end": 6603,
+      "frames": 1,
+      "mean_distance": 3.2098207473754883
+    },
+    {
+      "residue": 1105,
+      "start": 6604,
+      "end": 6604,
+      "frames": 1,
+      "mean_distance": 3.2388079166412354
+    },
+    {
+      "residue": 1073,
+      "start": 6605,
+      "end": 6606,
+      "frames": 2,
+      "mean_distance": 3.2011609077453613
+    },
+    {
+      "residue": 1105,
+      "start": 6607,
+      "end": 6613,
+      "frames": 7,
+      "mean_distance": 3.164237771715437
+    },
+    {
+      "residue": 1073,
+      "start": 6614,
+      "end": 6622,
+      "frames": 9,
+      "mean_distance": 3.164738416671753
+    },
+    {
+      "residue": 1105,
+      "start": 6623,
+      "end": 6623,
+      "frames": 1,
+      "mean_distance": 3.245182752609253
+    },
+    {
+      "residue": 1073,
+      "start": 6624,
+      "end": 6625,
+      "frames": 2,
+      "mean_distance": 3.4180532693862915
+    },
+    {
+      "residue": 1105,
+      "start": 6626,
+      "end": 6631,
+      "frames": 6,
+      "mean_distance": 3.4783968528111777
+    },
+    {
+      "residue": 1073,
+      "start": 6632,
+      "end": 6635,
+      "frames": 4,
+      "mean_distance": 3.8263624906539917
+    },
+    {
+      "residue": 1105,
+      "start": 6636,
+      "end": 6639,
+      "frames": 4,
+      "mean_distance": 3.881644368171692
+    },
+    {
+      "residue": 1073,
+      "start": 6640,
+      "end": 6645,
+      "frames": 6,
+      "mean_distance": 2.941109538078308
+    },
+    {
+      "residue": 1105,
+      "start": 6646,
+      "end": 6647,
+      "frames": 2,
+      "mean_distance": 3.1510175466537476
+    },
+    {
+      "residue": 1073,
+      "start": 6648,
+      "end": 6651,
+      "frames": 4,
+      "mean_distance": 2.644757926464081
+    },
+    {
+      "residue": 1105,
+      "start": 6652,
+      "end": 6661,
+      "frames": 10,
+      "mean_distance": 3.131873869895935
+    },
+    {
+      "residue": 1073,
+      "start": 6662,
+      "end": 6662,
+      "frames": 1,
+      "mean_distance": 2.6328344345092773
+    },
+    {
+      "residue": 1105,
+      "start": 6663,
+      "end": 6663,
+      "frames": 1,
+      "mean_distance": 3.0499415397644043
+    },
+    {
+      "residue": 1073,
+      "start": 6664,
+      "end": 6668,
+      "frames": 5,
+      "mean_distance": 3.205386829376221
+    },
+    {
+      "residue": 1105,
+      "start": 6669,
+      "end": 6669,
+      "frames": 1,
+      "mean_distance": 3.3018393516540527
+    },
+    {
+      "residue": 1073,
+      "start": 6670,
+      "end": 6670,
+      "frames": 1,
+      "mean_distance": 3.0357744693756104
+    },
+    {
+      "residue": 1105,
+      "start": 6671,
+      "end": 6671,
+      "frames": 1,
+      "mean_distance": 3.0504417419433594
+    },
+    {
+      "residue": 1073,
+      "start": 6672,
+      "end": 6672,
+      "frames": 1,
+      "mean_distance": 3.237114429473877
+    },
+    {
+      "residue": 1105,
+      "start": 6673,
+      "end": 6673,
+      "frames": 1,
+      "mean_distance": 3.1994874477386475
+    },
+    {
+      "residue": 1073,
+      "start": 6674,
+      "end": 6675,
+      "frames": 2,
+      "mean_distance": 3.10671865940094
+    },
+    {
+      "residue": 1105,
+      "start": 6676,
+      "end": 6676,
+      "frames": 1,
+      "mean_distance": 3.121062994003296
+    },
+    {
+      "residue": 1073,
+      "start": 6677,
+      "end": 6678,
+      "frames": 2,
+      "mean_distance": 2.772096872329712
+    },
+    {
+      "residue": 1105,
+      "start": 6679,
+      "end": 6679,
+      "frames": 1,
+      "mean_distance": 3.0746536254882812
+    },
+    {
+      "residue": 1073,
+      "start": 6680,
+      "end": 6697,
+      "frames": 18,
+      "mean_distance": 3.1219850513670178
+    },
+    {
+      "residue": 1105,
+      "start": 6698,
+      "end": 6700,
+      "frames": 3,
+      "mean_distance": 4.611826499303182
+    },
+    {
+      "residue": 130,
+      "start": 6701,
+      "end": 6701,
+      "frames": 1,
+      "mean_distance": 4.837108135223389
+    },
+    {
+      "residue": "SF",
+      "start": 6702,
+      "end": 6702,
+      "frames": 1,
+      "mean_distance": 4.614274322986603
+    },
+    {
+      "residue": 98,
+      "start": 6703,
+      "end": 6706,
+      "frames": 4,
+      "mean_distance": 5.961785435676575
+    },
+    {
+      "residue": "SF",
+      "start": 6707,
+      "end": 6707,
+      "frames": 1,
+      "mean_distance": 6.178668022155762
+    },
+    {
+      "residue": 130,
+      "start": 6708,
+      "end": 6708,
+      "frames": 1,
+      "mean_distance": 5.71370267868042
+    },
+    {
+      "residue": 98,
+      "start": 6709,
+      "end": 6710,
+      "frames": 2,
+      "mean_distance": 6.323061466217041
+    },
+    {
+      "residue": "SF",
+      "start": 6711,
+      "end": 6712,
+      "frames": 2,
+      "mean_distance": 5.875488460063934
+    },
+    {
+      "residue": 98,
+      "start": 6713,
+      "end": 6713,
+      "frames": 1,
+      "mean_distance": 5.811629772186279
+    },
+    {
+      "residue": "SF",
+      "start": 6714,
+      "end": 6714,
+      "frames": 1,
+      "mean_distance": 6.240473568439484
+    },
+    {
+      "residue": 98,
+      "start": 6715,
+      "end": 6715,
+      "frames": 1,
+      "mean_distance": 5.881603240966797
+    },
+    {
+      "residue": 130,
+      "start": 6716,
+      "end": 6716,
+      "frames": 1,
+      "mean_distance": 5.731177806854248
+    },
+    {
+      "residue": 98,
+      "start": 6717,
+      "end": 6717,
+      "frames": 1,
+      "mean_distance": 5.681881904602051
+    },
+    {
+      "residue": 130,
+      "start": 6718,
+      "end": 6720,
+      "frames": 3,
+      "mean_distance": 4.535770575205485
+    },
+    {
+      "residue": 98,
+      "start": 6721,
+      "end": 6722,
+      "frames": 2,
+      "mean_distance": 5.551069498062134
+    },
+    {
+      "residue": 130,
+      "start": 6723,
+      "end": 6723,
+      "frames": 1,
+      "mean_distance": 5.174888610839844
+    },
+    {
+      "residue": 98,
+      "start": 6724,
+      "end": 6724,
+      "frames": 1,
+      "mean_distance": 5.301418304443359
+    },
+    {
+      "residue": 130,
+      "start": 6725,
+      "end": 6729,
+      "frames": 5,
+      "mean_distance": 4.788568210601807
+    },
+    {
+      "residue": 98,
+      "start": 6730,
+      "end": 6731,
+      "frames": 2,
+      "mean_distance": 5.576685190200806
+    },
+    {
+      "residue": 130,
+      "start": 6732,
+      "end": 6735,
+      "frames": 4,
+      "mean_distance": 4.836306691169739
+    },
+    {
+      "residue": 98,
+      "start": 6736,
+      "end": 6738,
+      "frames": 3,
+      "mean_distance": 5.312127908070882
+    },
+    {
+      "residue": 130,
+      "start": 6739,
+      "end": 6743,
+      "frames": 5,
+      "mean_distance": 4.781620693206787
+    },
+    {
+      "residue": 98,
+      "start": 6744,
+      "end": 6744,
+      "frames": 1,
+      "mean_distance": 5.106168270111084
+    },
+    {
+      "residue": 130,
+      "start": 6745,
+      "end": 6746,
+      "frames": 2,
+      "mean_distance": 4.535968542098999
+    },
+    {
+      "residue": 98,
+      "start": 6747,
+      "end": 6750,
+      "frames": 4,
+      "mean_distance": 5.74546480178833
+    },
+    {
+      "residue": "SF",
+      "start": 6751,
+      "end": 6751,
+      "frames": 1,
+      "mean_distance": 6.358066976070404
+    },
+    {
+      "residue": 98,
+      "start": 6752,
+      "end": 6753,
+      "frames": 2,
+      "mean_distance": 5.965667247772217
+    },
+    {
+      "residue": 130,
+      "start": 6754,
+      "end": 6754,
+      "frames": 1,
+      "mean_distance": 6.0628252029418945
+    },
+    {
+      "residue": 98,
+      "start": 6755,
+      "end": 6756,
+      "frames": 2,
+      "mean_distance": 5.544332981109619
+    },
+    {
+      "residue": 130,
+      "start": 6757,
+      "end": 6757,
+      "frames": 1,
+      "mean_distance": 4.589949131011963
+    },
+    {
+      "residue": "SF",
+      "start": 6758,
+      "end": 6758,
+      "frames": 1,
+      "mean_distance": 4.196510314941406
+    },
+    {
+      "residue": 455,
+      "start": 6759,
+      "end": 6759,
+      "frames": 1,
+      "mean_distance": 4.772214889526367
+    },
+    {
+      "residue": 780,
+      "start": 6760,
+      "end": 6760,
+      "frames": 1,
+      "mean_distance": 4.262467384338379
+    },
+    {
+      "residue": 455,
+      "start": 6761,
+      "end": 6761,
+      "frames": 1,
+      "mean_distance": 5.940964221954346
+    },
+    {
+      "residue": 780,
+      "start": 6762,
+      "end": 6762,
+      "frames": 1,
+      "mean_distance": 4.102194786071777
+    },
+    {
+      "residue": 455,
+      "start": 6763,
+      "end": 6763,
+      "frames": 1,
+      "mean_distance": 4.858366966247559
+    },
+    {
+      "residue": 780,
+      "start": 6764,
+      "end": 6765,
+      "frames": 2,
+      "mean_distance": 6.014710903167725
+    },
+    {
+      "residue": "SF",
+      "start": 6766,
+      "end": 6766,
+      "frames": 1,
+      "mean_distance": 4.896786689758301
+    },
+    {
+      "residue": 780,
+      "start": 6767,
+      "end": 6767,
+      "frames": 1,
+      "mean_distance": 4.0775251388549805
+    },
+    {
+      "residue": 1105,
+      "start": 6768,
+      "end": 6768,
+      "frames": 1,
+      "mean_distance": 7.345347881317139
+    },
+    {
+      "residue": 780,
+      "start": 6769,
+      "end": 6771,
+      "frames": 3,
+      "mean_distance": 4.790492614110311
+    },
+    {
+      "residue": 1105,
+      "start": 6772,
+      "end": 6772,
+      "frames": 1,
+      "mean_distance": 5.429879188537598
+    },
+    {
+      "residue": "SF",
+      "start": 6773,
+      "end": 6773,
+      "frames": 1,
+      "mean_distance": 5.397637605667114
+    },
+    {
+      "residue": 1105,
+      "start": 6774,
+      "end": 6775,
+      "frames": 2,
+      "mean_distance": 4.401873707771301
+    },
+    {
+      "residue": 1073,
+      "start": 6776,
+      "end": 6798,
+      "frames": 23,
+      "mean_distance": 3.576289011084515
+    }
+  ],
+  "1330": [
+    {
+      "residue": 780,
+      "start": 6507,
+      "end": 6509,
+      "frames": 3,
+      "mean_distance": 4.246997038523356
+    },
+    {
+      "residue": "SF",
+      "start": 6510,
+      "end": 6511,
+      "frames": 2,
+      "mean_distance": 5.530795216560364
+    },
+    {
+      "residue": 780,
+      "start": 6512,
+      "end": 6512,
+      "frames": 1,
+      "mean_distance": 5.39926290512085
+    },
+    {
+      "residue": "SF",
+      "start": 6513,
+      "end": 6513,
+      "frames": 1,
+      "mean_distance": 4.576365053653717
+    },
+    {
+      "residue": 780,
+      "start": 6514,
+      "end": 6518,
+      "frames": 5,
+      "mean_distance": 5.113029289245605
+    },
+    {
+      "residue": 130,
+      "start": 6519,
+      "end": 6521,
+      "frames": 3,
+      "mean_distance": 5.2827192942301435
+    },
+    {
+      "residue": 780,
+      "start": 6522,
+      "end": 6524,
+      "frames": 3,
+      "mean_distance": 3.4936622778574624
+    },
+    {
+      "residue": "SF",
+      "start": 6525,
+      "end": 6525,
+      "frames": 1,
+      "mean_distance": 5.316037535667419
+    },
+    {
+      "residue": 780,
+      "start": 6526,
+      "end": 6533,
+      "frames": 8,
+      "mean_distance": 4.1367838978767395
+    },
+    {
+      "residue": "SF",
+      "start": 6534,
+      "end": 6535,
+      "frames": 2,
+      "mean_distance": 4.442494332790375
+    },
+    {
+      "residue": 455,
+      "start": 6536,
+      "end": 6536,
+      "frames": 1,
+      "mean_distance": 4.051765441894531
+    },
+    {
+      "residue": 780,
+      "start": 6537,
+      "end": 6537,
+      "frames": 1,
+      "mean_distance": 4.066985130310059
+    },
+    {
+      "residue": 455,
+      "start": 6538,
+      "end": 6538,
+      "frames": 1,
+      "mean_distance": 4.952179908752441
+    },
+    {
+      "residue": 780,
+      "start": 6539,
+      "end": 6539,
+      "frames": 1,
+      "mean_distance": 4.276254653930664
+    },
+    {
+      "residue": 455,
+      "start": 6540,
+      "end": 6540,
+      "frames": 1,
+      "mean_distance": 3.5300700664520264
+    },
+    {
+      "residue": 780,
+      "start": 6541,
+      "end": 6542,
+      "frames": 2,
+      "mean_distance": 3.763080358505249
+    },
+    {
+      "residue": 130,
+      "start": 6543,
+      "end": 6543,
+      "frames": 1,
+      "mean_distance": 3.4895870685577393
+    },
+    {
+      "residue": "SF",
+      "start": 6544,
+      "end": 6544,
+      "frames": 1,
+      "mean_distance": 5.077166438102722
+    },
+    {
+      "residue": 130,
+      "start": 6545,
+      "end": 6545,
+      "frames": 1,
+      "mean_distance": 4.409523963928223
+    },
+    {
+      "residue": 780,
+      "start": 6546,
+      "end": 6547,
+      "frames": 2,
+      "mean_distance": 4.9397993087768555
+    },
+    {
+      "residue": 1105,
+      "start": 6548,
+      "end": 6548,
+      "frames": 1,
+      "mean_distance": 5.613748550415039
+    },
+    {
+      "residue": "SF",
+      "start": 6549,
+      "end": 6549,
+      "frames": 1,
+      "mean_distance": 5.376284241676331
+    },
+    {
+      "residue": 780,
+      "start": 6550,
+      "end": 6551,
+      "frames": 2,
+      "mean_distance": 4.063623547554016
+    },
+    {
+      "residue": 455,
+      "start": 6552,
+      "end": 6552,
+      "frames": 1,
+      "mean_distance": 4.263916969299316
+    },
+    {
+      "residue": 780,
+      "start": 6553,
+      "end": 6553,
+      "frames": 1,
+      "mean_distance": 4.2547607421875
+    },
+    {
+      "residue": 130,
+      "start": 6554,
+      "end": 6554,
+      "frames": 1,
+      "mean_distance": 5.712610721588135
+    },
+    {
+      "residue": 455,
+      "start": 6555,
+      "end": 6557,
+      "frames": 3,
+      "mean_distance": 4.508088906606038
+    },
+    {
+      "residue": 423,
+      "start": 6558,
+      "end": 6558,
+      "frames": 1,
+      "mean_distance": 5.007504940032959
+    },
+    {
+      "residue": 455,
+      "start": 6559,
+      "end": 6559,
+      "frames": 1,
+      "mean_distance": 3.7368762493133545
+    },
+    {
+      "residue": 423,
+      "start": 6560,
+      "end": 6560,
+      "frames": 1,
+      "mean_distance": 4.771219730377197
+    },
+    {
+      "residue": 455,
+      "start": 6561,
+      "end": 6562,
+      "frames": 2,
+      "mean_distance": 4.137788653373718
+    },
+    {
+      "residue": 423,
+      "start": 6563,
+      "end": 6565,
+      "frames": 3,
+      "mean_distance": 4.677369276682536
+    },
+    {
+      "residue": 455,
+      "start": 6566,
+      "end": 6567,
+      "frames": 2,
+      "mean_distance": 5.533022880554199
+    },
+    {
+      "residue": 130,
+      "start": 6568,
+      "end": 6568,
+      "frames": 1,
+      "mean_distance": 5.139086723327637
+    },
+    {
+      "residue": 98,
+      "start": 6569,
+      "end": 6581,
+      "frames": 13,
+      "mean_distance": 3.566381784585806
+    },
+    {
+      "residue": "SF",
+      "start": 6582,
+      "end": 6582,
+      "frames": 1,
+      "mean_distance": 5.918922543525696
+    },
+    {
+      "residue": 130,
+      "start": 6583,
+      "end": 6583,
+      "frames": 1,
+      "mean_distance": 4.6702656745910645
+    },
+    {
+      "residue": 98,
+      "start": 6584,
+      "end": 6585,
+      "frames": 2,
+      "mean_distance": 5.687764883041382
+    },
+    {
+      "residue": 130,
+      "start": 6586,
+      "end": 6586,
+      "frames": 1,
+      "mean_distance": 5.593026161193848
+    },
+    {
+      "residue": 455,
+      "start": 6587,
+      "end": 6588,
+      "frames": 2,
+      "mean_distance": 4.097108960151672
+    },
+    {
+      "residue": 130,
+      "start": 6589,
+      "end": 6592,
+      "frames": 4,
+      "mean_distance": 4.500698208808899
+    },
+    {
+      "residue": 455,
+      "start": 6593,
+      "end": 6594,
+      "frames": 2,
+      "mean_distance": 4.920234560966492
+    },
+    {
+      "residue": 98,
+      "start": 6595,
+      "end": 6595,
+      "frames": 1,
+      "mean_distance": 5.947354793548584
+    },
+    {
+      "residue": 423,
+      "start": 6596,
+      "end": 6598,
+      "frames": 3,
+      "mean_distance": 4.335182507832845
+    },
+    {
+      "residue": 455,
+      "start": 6599,
+      "end": 6599,
+      "frames": 1,
+      "mean_distance": 5.218281269073486
+    },
+    {
+      "residue": 423,
+      "start": 6600,
+      "end": 6614,
+      "frames": 15,
+      "mean_distance": 4.566224575042725
+    },
+    {
+      "residue": 455,
+      "start": 6615,
+      "end": 6615,
+      "frames": 1,
+      "mean_distance": 5.342720985412598
+    },
+    {
+      "residue": 423,
+      "start": 6616,
+      "end": 6673,
+      "frames": 58,
+      "mean_distance": 2.805087286850502
+    },
+    {
+      "residue": 455,
+      "start": 6674,
+      "end": 6677,
+      "frames": 4,
+      "mean_distance": 3.663630485534668
+    },
+    {
+      "residue": "SF",
+      "start": 6678,
+      "end": 6678,
+      "frames": 1,
+      "mean_distance": 5.878191232681274
+    },
+    {
+      "residue": 455,
+      "start": 6679,
+      "end": 6679,
+      "frames": 1,
+      "mean_distance": 4.937920570373535
+    },
+    {
+      "residue": 98,
+      "start": 6680,
+      "end": 6694,
+      "frames": 15,
+      "mean_distance": 3.834557469685872
+    },
+    {
+      "residue": 130,
+      "start": 6695,
+      "end": 6695,
+      "frames": 1,
+      "mean_distance": 5.241695880889893
+    },
+    {
+      "residue": 98,
+      "start": 6696,
+      "end": 6698,
+      "frames": 3,
+      "mean_distance": 4.520358959833781
+    },
+    {
+      "residue": "SF",
+      "start": 6699,
+      "end": 6699,
+      "frames": 1,
+      "mean_distance": 5.523512125015259
+    },
+    {
+      "residue": 98,
+      "start": 6700,
+      "end": 6700,
+      "frames": 1,
+      "mean_distance": 5.642752647399902
+    },
+    {
+      "residue": 455,
+      "start": 6701,
+      "end": 6701,
+      "frames": 1,
+      "mean_distance": 4.543504238128662
+    },
+    {
+      "residue": 98,
+      "start": 6702,
+      "end": 6702,
+      "frames": 1,
+      "mean_distance": 4.293157577514648
+    },
+    {
+      "residue": 130,
+      "start": 6703,
+      "end": 6703,
+      "frames": 1,
+      "mean_distance": 3.333691358566284
+    },
+    {
+      "residue": 98,
+      "start": 6704,
+      "end": 6705,
+      "frames": 2,
+      "mean_distance": 3.148512840270996
+    },
+    {
+      "residue": 130,
+      "start": 6706,
+      "end": 6707,
+      "frames": 2,
+      "mean_distance": 3.1439054012298584
+    },
+    {
+      "residue": 98,
+      "start": 6708,
+      "end": 6741,
+      "frames": 34,
+      "mean_distance": 3.076800626866958
+    },
+    {
+      "residue": 130,
+      "start": 6742,
+      "end": 6742,
+      "frames": 1,
+      "mean_distance": 3.451633930206299
+    },
+    {
+      "residue": 98,
+      "start": 6743,
+      "end": 6750,
+      "frames": 8,
+      "mean_distance": 3.1692833304405212
+    },
+    {
+      "residue": 130,
+      "start": 6751,
+      "end": 6751,
+      "frames": 1,
+      "mean_distance": 3.3445842266082764
+    },
+    {
+      "residue": 98,
+      "start": 6752,
+      "end": 6757,
+      "frames": 6,
+      "mean_distance": 3.237255096435547
+    },
+    {
+      "residue": 130,
+      "start": 6758,
+      "end": 6758,
+      "frames": 1,
+      "mean_distance": 3.0164713859558105
+    },
+    {
+      "residue": 98,
+      "start": 6759,
+      "end": 6760,
+      "frames": 2,
+      "mean_distance": 3.218234896659851
+    },
+    {
+      "residue": 130,
+      "start": 6761,
+      "end": 6761,
+      "frames": 1,
+      "mean_distance": 3.270068645477295
+    },
+    {
+      "residue": 98,
+      "start": 6762,
+      "end": 6762,
+      "frames": 1,
+      "mean_distance": 2.785008192062378
+    },
+    {
+      "residue": 130,
+      "start": 6763,
+      "end": 6770,
+      "frames": 8,
+      "mean_distance": 3.3316662907600403
+    },
+    {
+      "residue": 98,
+      "start": 6771,
+      "end": 6771,
+      "frames": 1,
+      "mean_distance": 3.7594943046569824
+    },
+    {
+      "residue": 130,
+      "start": 6772,
+      "end": 6774,
+      "frames": 3,
+      "mean_distance": 3.3566668033599854
+    },
+    {
+      "residue": 98,
+      "start": 6775,
+      "end": 6775,
+      "frames": 1,
+      "mean_distance": 3.693402051925659
+    },
+    {
+      "residue": 130,
+      "start": 6776,
+      "end": 6777,
+      "frames": 2,
+      "mean_distance": 3.4615366458892822
+    },
+    {
+      "residue": 98,
+      "start": 6778,
+      "end": 6778,
+      "frames": 1,
+      "mean_distance": 3.4563510417938232
+    },
+    {
+      "residue": 130,
+      "start": 6779,
+      "end": 6780,
+      "frames": 2,
+      "mean_distance": 3.1147650480270386
+    },
+    {
+      "residue": 98,
+      "start": 6781,
+      "end": 6783,
+      "frames": 3,
+      "mean_distance": 3.22098700205485
+    },
+    {
+      "residue": 130,
+      "start": 6784,
+      "end": 6784,
+      "frames": 1,
+      "mean_distance": 3.101886749267578
+    },
+    {
+      "residue": 98,
+      "start": 6785,
+      "end": 6789,
+      "frames": 5,
+      "mean_distance": 3.215707540512085
+    },
+    {
+      "residue": 130,
+      "start": 6790,
+      "end": 6790,
+      "frames": 1,
+      "mean_distance": 3.2624611854553223
+    },
+    {
+      "residue": 98,
+      "start": 6791,
+      "end": 6798,
+      "frames": 8,
+      "mean_distance": 2.9674172699451447
+    }
+  ],
+  "1341": [
+    {
+      "residue": 423,
+      "start": 6500,
+      "end": 6501,
+      "frames": 2,
+      "mean_distance": 4.433923959732056
+    },
+    {
+      "residue": 455,
+      "start": 6502,
+      "end": 6504,
+      "frames": 3,
+      "mean_distance": 4.726492245992024
+    },
+    {
+      "residue": 423,
+      "start": 6505,
+      "end": 6533,
+      "frames": 29,
+      "mean_distance": 3.5073349229220687
+    },
+    {
+      "residue": 455,
+      "start": 6534,
+      "end": 6539,
+      "frames": 6,
+      "mean_distance": 4.0488154490788775
+    },
+    {
+      "residue": 130,
+      "start": 6540,
+      "end": 6542,
+      "frames": 3,
+      "mean_distance": 4.27868111928304
+    },
+    {
+      "residue": 455,
+      "start": 6543,
+      "end": 6543,
+      "frames": 1,
+      "mean_distance": 5.049886226654053
+    },
+    {
+      "residue": 423,
+      "start": 6544,
+      "end": 6544,
+      "frames": 1,
+      "mean_distance": 4.6284613609313965
+    },
+    {
+      "residue": 455,
+      "start": 6545,
+      "end": 6551,
+      "frames": 7,
+      "mean_distance": 4.406422478812082
+    },
+    {
+      "residue": "SF",
+      "start": 6552,
+      "end": 6553,
+      "frames": 2,
+      "mean_distance": 5.563199877738953
+    },
+    {
+      "residue": 130,
+      "start": 6554,
+      "end": 6554,
+      "frames": 1,
+      "mean_distance": 3.9293735027313232
+    },
+    {
+      "residue": 1105,
+      "start": 6555,
+      "end": 6555,
+      "frames": 1,
+      "mean_distance": 4.980245113372803
+    },
+    {
+      "residue": 130,
+      "start": 6556,
+      "end": 6557,
+      "frames": 2,
+      "mean_distance": 4.308658123016357
+    },
+    {
+      "residue": 780,
+      "start": 6558,
+      "end": 6573,
+      "frames": 16,
+      "mean_distance": 3.993642434477806
+    },
+    {
+      "residue": "SF",
+      "start": 6574,
+      "end": 6574,
+      "frames": 1,
+      "mean_distance": 4.846173286437988
+    },
+    {
+      "residue": 780,
+      "start": 6575,
+      "end": 6576,
+      "frames": 2,
+      "mean_distance": 3.5105249881744385
+    },
+    {
+      "residue": "SF",
+      "start": 6577,
+      "end": 6578,
+      "frames": 2,
+      "mean_distance": 5.1800322234630585
+    },
+    {
+      "residue": 780,
+      "start": 6579,
+      "end": 6581,
+      "frames": 3,
+      "mean_distance": 3.955968141555786
+    },
+    {
+      "residue": "SF",
+      "start": 6582,
+      "end": 6582,
+      "frames": 1,
+      "mean_distance": 4.776350498199463
+    },
+    {
+      "residue": 780,
+      "start": 6583,
+      "end": 6583,
+      "frames": 1,
+      "mean_distance": 3.7418055534362793
+    },
+    {
+      "residue": 748,
+      "start": 6584,
+      "end": 6596,
+      "frames": 13,
+      "mean_distance": 2.9172469836014967
+    },
+    {
+      "residue": 780,
+      "start": 6597,
+      "end": 6597,
+      "frames": 1,
+      "mean_distance": 3.5257461071014404
+    },
+    {
+      "residue": 748,
+      "start": 6598,
+      "end": 6607,
+      "frames": 10,
+      "mean_distance": 3.1804802656173705
+    },
+    {
+      "residue": 780,
+      "start": 6608,
+      "end": 6608,
+      "frames": 1,
+      "mean_distance": 3.983473777770996
+    },
+    {
+      "residue": 1105,
+      "start": 6609,
+      "end": 6609,
+      "frames": 1,
+      "mean_distance": 6.912704944610596
+    },
+    {
+      "residue": 748,
+      "start": 6610,
+      "end": 6610,
+      "frames": 1,
+      "mean_distance": 7.092642307281494
+    },
+    {
+      "residue": 780,
+      "start": 6611,
+      "end": 6611,
+      "frames": 1,
+      "mean_distance": 3.534660816192627
+    },
+    {
+      "residue": "SF",
+      "start": 6612,
+      "end": 6613,
+      "frames": 2,
+      "mean_distance": 6.154284834861755
+    },
+    {
+      "residue": 130,
+      "start": 6614,
+      "end": 6614,
+      "frames": 1,
+      "mean_distance": 4.8480353355407715
+    },
+    {
+      "residue": "SF",
+      "start": 6615,
+      "end": 6615,
+      "frames": 1,
+      "mean_distance": 5.559303641319275
+    },
+    {
+      "residue": 130,
+      "start": 6616,
+      "end": 6617,
+      "frames": 2,
+      "mean_distance": 5.124021530151367
+    },
+    {
+      "residue": 98,
+      "start": 6618,
+      "end": 6621,
+      "frames": 4,
+      "mean_distance": 3.483504354953766
+    },
+    {
+      "residue": 130,
+      "start": 6622,
+      "end": 6622,
+      "frames": 1,
+      "mean_distance": 2.823411703109741
+    },
+    {
+      "residue": 98,
+      "start": 6623,
+      "end": 6626,
+      "frames": 4,
+      "mean_distance": 2.8707727193832397
+    },
+    {
+      "residue": 130,
+      "start": 6627,
+      "end": 6627,
+      "frames": 1,
+      "mean_distance": 5.210566997528076
+    },
+    {
+      "residue": "SF",
+      "start": 6628,
+      "end": 6628,
+      "frames": 1,
+      "mean_distance": 3.887872338294983
+    },
+    {
+      "residue": 130,
+      "start": 6629,
+      "end": 6631,
+      "frames": 3,
+      "mean_distance": 5.388750712076823
+    },
+    {
+      "residue": 1105,
+      "start": 6632,
+      "end": 6632,
+      "frames": 1,
+      "mean_distance": 5.57460880279541
+    },
+    {
+      "residue": 455,
+      "start": 6633,
+      "end": 6633,
+      "frames": 1,
+      "mean_distance": 4.970486164093018
+    },
+    {
+      "residue": "SF",
+      "start": 6634,
+      "end": 6635,
+      "frames": 2,
+      "mean_distance": 4.42107093334198
+    },
+    {
+      "residue": 130,
+      "start": 6636,
+      "end": 6637,
+      "frames": 2,
+      "mean_distance": 3.0320541858673096
+    },
+    {
+      "residue": 98,
+      "start": 6638,
+      "end": 6639,
+      "frames": 2,
+      "mean_distance": 3.0373564958572388
+    },
+    {
+      "residue": 130,
+      "start": 6640,
+      "end": 6647,
+      "frames": 8,
+      "mean_distance": 3.0506658256053925
+    },
+    {
+      "residue": 98,
+      "start": 6648,
+      "end": 6648,
+      "frames": 1,
+      "mean_distance": 2.7789645195007324
+    },
+    {
+      "residue": 130,
+      "start": 6649,
+      "end": 6649,
+      "frames": 1,
+      "mean_distance": 2.9719033241271973
+    },
+    {
+      "residue": 98,
+      "start": 6650,
+      "end": 6650,
+      "frames": 1,
+      "mean_distance": 3.205594778060913
+    },
+    {
+      "residue": 130,
+      "start": 6651,
+      "end": 6653,
+      "frames": 3,
+      "mean_distance": 3.1391266187032065
+    },
+    {
+      "residue": 98,
+      "start": 6654,
+      "end": 6659,
+      "frames": 6,
+      "mean_distance": 2.7651830911636353
+    },
+    {
+      "residue": "SF",
+      "start": 6660,
+      "end": 6660,
+      "frames": 1,
+      "mean_distance": 4.813065707683563
+    },
+    {
+      "residue": 130,
+      "start": 6661,
+      "end": 6665,
+      "frames": 5,
+      "mean_distance": 3.0424389362335207
+    },
+    {
+      "residue": 98,
+      "start": 6666,
+      "end": 6666,
+      "frames": 1,
+      "mean_distance": 3.281862735748291
+    },
+    {
+      "residue": 130,
+      "start": 6667,
+      "end": 6670,
+      "frames": 4,
+      "mean_distance": 3.267527937889099
+    },
+    {
+      "residue": 98,
+      "start": 6671,
+      "end": 6672,
+      "frames": 2,
+      "mean_distance": 2.937009572982788
+    },
+    {
+      "residue": 130,
+      "start": 6673,
+      "end": 6673,
+      "frames": 1,
+      "mean_distance": 3.0942540168762207
+    },
+    {
+      "residue": 98,
+      "start": 6674,
+      "end": 6674,
+      "frames": 1,
+      "mean_distance": 2.847773551940918
+    },
+    {
+      "residue": 130,
+      "start": 6675,
+      "end": 6675,
+      "frames": 1,
+      "mean_distance": 3.203338146209717
+    },
+    {
+      "residue": 98,
+      "start": 6676,
+      "end": 6676,
+      "frames": 1,
+      "mean_distance": 4.90135383605957
+    },
+    {
+      "residue": 130,
+      "start": 6677,
+      "end": 6677,
+      "frames": 1,
+      "mean_distance": 4.393584728240967
+    },
+    {
+      "residue": 455,
+      "start": 6678,
+      "end": 6678,
+      "frames": 1,
+      "mean_distance": 5.298593521118164
+    },
+    {
+      "residue": 423,
+      "start": 6679,
+      "end": 6679,
+      "frames": 1,
+      "mean_distance": 4.798813343048096
+    },
+    {
+      "residue": 455,
+      "start": 6680,
+      "end": 6680,
+      "frames": 1,
+      "mean_distance": 3.0674664974212646
+    },
+    {
+      "residue": 130,
+      "start": 6681,
+      "end": 6681,
+      "frames": 1,
+      "mean_distance": 4.899333477020264
+    },
+    {
+      "residue": "SF",
+      "start": 6682,
+      "end": 6682,
+      "frames": 1,
+      "mean_distance": 3.967391073703766
+    },
+    {
+      "residue": 455,
+      "start": 6683,
+      "end": 6686,
+      "frames": 4,
+      "mean_distance": 3.8193479776382446
+    },
+    {
+      "residue": 780,
+      "start": 6687,
+      "end": 6689,
+      "frames": 3,
+      "mean_distance": 5.980820814768474
+    },
+    {
+      "residue": 455,
+      "start": 6690,
+      "end": 6694,
+      "frames": 5,
+      "mean_distance": 5.458764457702637
+    },
+    {
+      "residue": 780,
+      "start": 6695,
+      "end": 6695,
+      "frames": 1,
+      "mean_distance": 5.799396514892578
+    },
+    {
+      "residue": 455,
+      "start": 6696,
+      "end": 6697,
+      "frames": 2,
+      "mean_distance": 6.231990098953247
+    },
+    {
+      "residue": 780,
+      "start": 6698,
+      "end": 6698,
+      "frames": 1,
+      "mean_distance": 6.014849662780762
+    },
+    {
+      "residue": 748,
+      "start": 6699,
+      "end": 6699,
+      "frames": 1,
+      "mean_distance": 4.244137287139893
+    },
+    {
+      "residue": 780,
+      "start": 6700,
+      "end": 6726,
+      "frames": 27,
+      "mean_distance": 4.4759319446705
+    },
+    {
+      "residue": 130,
+      "start": 6727,
+      "end": 6727,
+      "frames": 1,
+      "mean_distance": 5.309717655181885
+    }
+  ],
+  "1355": [
+    {
+      "residue": 98,
+      "start": 6500,
+      "end": 6500,
+      "frames": 1,
+      "mean_distance": 3.7126927375793457
+    },
+    {
+      "residue": 130,
+      "start": 6501,
+      "end": 6503,
+      "frames": 3,
+      "mean_distance": 3.1660777727762857
+    },
+    {
+      "residue": 98,
+      "start": 6504,
+      "end": 6504,
+      "frames": 1,
+      "mean_distance": 3.0804827213287354
+    },
+    {
+      "residue": 130,
+      "start": 6505,
+      "end": 6509,
+      "frames": 5,
+      "mean_distance": 3.196180582046509
+    },
+    {
+      "residue": 98,
+      "start": 6510,
+      "end": 6512,
+      "frames": 3,
+      "mean_distance": 3.344435691833496
+    },
+    {
+      "residue": 130,
+      "start": 6513,
+      "end": 6514,
+      "frames": 2,
+      "mean_distance": 3.2546279430389404
+    },
+    {
+      "residue": 98,
+      "start": 6515,
+      "end": 6525,
+      "frames": 11,
+      "mean_distance": 2.8232591585679487
+    },
+    {
+      "residue": 130,
+      "start": 6526,
+      "end": 6526,
+      "frames": 1,
+      "mean_distance": 3.2421844005584717
+    },
+    {
+      "residue": 98,
+      "start": 6527,
+      "end": 6559,
+      "frames": 33,
+      "mean_distance": 3.0987842733209785
+    },
+    {
+      "residue": 130,
+      "start": 6560,
+      "end": 6561,
+      "frames": 2,
+      "mean_distance": 3.8746079206466675
+    }
+  ],
+  "1465": [
+    {
+      "residue": 455,
+      "start": 6569,
+      "end": 6570,
+      "frames": 2,
+      "mean_distance": 5.005474328994751
+    },
+    {
+      "residue": 423,
+      "start": 6571,
+      "end": 6577,
+      "frames": 7,
+      "mean_distance": 4.583106449672154
+    },
+    {
+      "residue": 455,
+      "start": 6578,
+      "end": 6578,
+      "frames": 1,
+      "mean_distance": 4.0579915046691895
+    },
+    {
+      "residue": 423,
+      "start": 6579,
+      "end": 6579,
+      "frames": 1,
+      "mean_distance": 3.689335584640503
+    },
+    {
+      "residue": 455,
+      "start": 6580,
+      "end": 6582,
+      "frames": 3,
+      "mean_distance": 4.113299608230591
+    },
+    {
+      "residue": "SF",
+      "start": 6583,
+      "end": 6616,
+      "frames": 34,
+      "mean_distance": 2.967432614635019
+    },
+    {
+      "residue": 780,
+      "start": 6617,
+      "end": 6620,
+      "frames": 4,
+      "mean_distance": 4.469746470451355
+    },
+    {
+      "residue": 130,
+      "start": 6621,
+      "end": 6621,
+      "frames": 1,
+      "mean_distance": 5.195141315460205
+    },
+    {
+      "residue": "SF",
+      "start": 6622,
+      "end": 6622,
+      "frames": 1,
+      "mean_distance": 5.256791293621063
+    },
+    {
+      "residue": 455,
+      "start": 6623,
+      "end": 6628,
+      "frames": 6,
+      "mean_distance": 4.1290403207143145
+    },
+    {
+      "residue": 780,
+      "start": 6629,
+      "end": 6629,
+      "frames": 1,
+      "mean_distance": 5.218484878540039
+    },
+    {
+      "residue": 455,
+      "start": 6630,
+      "end": 6632,
+      "frames": 3,
+      "mean_distance": 3.597459077835083
+    },
+    {
+      "residue": 1105,
+      "start": 6633,
+      "end": 6634,
+      "frames": 2,
+      "mean_distance": 5.99078106880188
+    },
+    {
+      "residue": 780,
+      "start": 6635,
+      "end": 6639,
+      "frames": 5,
+      "mean_distance": 4.300592088699341
+    },
+    {
+      "residue": 455,
+      "start": 6640,
+      "end": 6640,
+      "frames": 1,
+      "mean_distance": 6.2980852127075195
+    },
+    {
+      "residue": 780,
+      "start": 6641,
+      "end": 6642,
+      "frames": 2,
+      "mean_distance": 5.3916497230529785
+    },
+    {
+      "residue": 455,
+      "start": 6643,
+      "end": 6643,
+      "frames": 1,
+      "mean_distance": 4.869729995727539
+    },
+    {
+      "residue": 780,
+      "start": 6644,
+      "end": 6645,
+      "frames": 2,
+      "mean_distance": 5.391381740570068
+    },
+    {
+      "residue": 455,
+      "start": 6646,
+      "end": 6647,
+      "frames": 2,
+      "mean_distance": 5.862144470214844
+    },
+    {
+      "residue": 780,
+      "start": 6648,
+      "end": 6648,
+      "frames": 1,
+      "mean_distance": 5.692139148712158
+    },
+    {
+      "residue": 455,
+      "start": 6649,
+      "end": 6649,
+      "frames": 1,
+      "mean_distance": 5.215202808380127
+    },
+    {
+      "residue": 780,
+      "start": 6650,
+      "end": 6650,
+      "frames": 1,
+      "mean_distance": 5.9591474533081055
+    },
+    {
+      "residue": 455,
+      "start": 6651,
+      "end": 6652,
+      "frames": 2,
+      "mean_distance": 5.669907569885254
+    },
+    {
+      "residue": 780,
+      "start": 6653,
+      "end": 6653,
+      "frames": 1,
+      "mean_distance": 4.838807106018066
+    },
+    {
+      "residue": 455,
+      "start": 6654,
+      "end": 6662,
+      "frames": 9,
+      "mean_distance": 5.031091743045383
+    },
+    {
+      "residue": 780,
+      "start": 6663,
+      "end": 6665,
+      "frames": 3,
+      "mean_distance": 4.671324014663696
+    },
+    {
+      "residue": "SF",
+      "start": 6666,
+      "end": 6667,
+      "frames": 2,
+      "mean_distance": 3.8413771092891693
+    },
+    {
+      "residue": 780,
+      "start": 6668,
+      "end": 6668,
+      "frames": 1,
+      "mean_distance": 7.1167073249816895
+    },
+    {
+      "residue": 1105,
+      "start": 6669,
+      "end": 6669,
+      "frames": 1,
+      "mean_distance": 9.616631507873535
+    },
+    {
+      "residue": 130,
+      "start": 6670,
+      "end": 6670,
+      "frames": 1,
+      "mean_distance": 6.917229652404785
+    }
+  ],
+  "1359": [
+    {
+      "residue": 455,
+      "start": 6693,
+      "end": 6693,
+      "frames": 1,
+      "mean_distance": 4.89320182800293
+    },
+    {
+      "residue": 130,
+      "start": 6694,
+      "end": 6694,
+      "frames": 1,
+      "mean_distance": 4.733071804046631
+    },
+    {
+      "residue": "SF",
+      "start": 6695,
+      "end": 6696,
+      "frames": 2,
+      "mean_distance": 5.4024752378463745
+    },
+    {
+      "residue": 423,
+      "start": 6697,
+      "end": 6700,
+      "frames": 4,
+      "mean_distance": 4.981690168380737
+    },
+    {
+      "residue": 455,
+      "start": 6701,
+      "end": 6703,
+      "frames": 3,
+      "mean_distance": 4.639661868413289
+    },
+    {
+      "residue": 130,
+      "start": 6704,
+      "end": 6704,
+      "frames": 1,
+      "mean_distance": 4.80669641494751
+    },
+    {
+      "residue": "SF",
+      "start": 6705,
+      "end": 6705,
+      "frames": 1,
+      "mean_distance": 5.80676656961441
+    },
+    {
+      "residue": 423,
+      "start": 6706,
+      "end": 6707,
+      "frames": 2,
+      "mean_distance": 5.097356081008911
+    },
+    {
+      "residue": 455,
+      "start": 6708,
+      "end": 6711,
+      "frames": 4,
+      "mean_distance": 4.0236921310424805
+    },
+    {
+      "residue": 423,
+      "start": 6712,
+      "end": 6713,
+      "frames": 2,
+      "mean_distance": 4.7329301834106445
+    },
+    {
+      "residue": 455,
+      "start": 6714,
+      "end": 6719,
+      "frames": 6,
+      "mean_distance": 3.7197998762130737
+    },
+    {
+      "residue": 423,
+      "start": 6720,
+      "end": 6720,
+      "frames": 1,
+      "mean_distance": 4.961191654205322
+    },
+    {
+      "residue": 455,
+      "start": 6721,
+      "end": 6730,
+      "frames": 10,
+      "mean_distance": 3.607067084312439
+    },
+    {
+      "residue": 423,
+      "start": 6731,
+      "end": 6731,
+      "frames": 1,
+      "mean_distance": 4.859852313995361
+    },
+    {
+      "residue": 455,
+      "start": 6732,
+      "end": 6745,
+      "frames": 14,
+      "mean_distance": 4.156738093921116
+    },
+    {
+      "residue": 423,
+      "start": 6746,
+      "end": 6747,
+      "frames": 2,
+      "mean_distance": 4.031538367271423
+    },
+    {
+      "residue": 455,
+      "start": 6748,
+      "end": 6755,
+      "frames": 8,
+      "mean_distance": 4.598745346069336
+    },
+    {
+      "residue": 748,
+      "start": 6756,
+      "end": 6756,
+      "frames": 1,
+      "mean_distance": 5.0905046463012695
+    },
+    {
+      "residue": 780,
+      "start": 6757,
+      "end": 6758,
+      "frames": 2,
+      "mean_distance": 5.179028034210205
+    },
+    {
+      "residue": "SF",
+      "start": 6759,
+      "end": 6759,
+      "frames": 1,
+      "mean_distance": 5.346960484981537
+    },
+    {
+      "residue": 780,
+      "start": 6760,
+      "end": 6760,
+      "frames": 1,
+      "mean_distance": 4.974667549133301
+    },
+    {
+      "residue": "SF",
+      "start": 6761,
+      "end": 6762,
+      "frames": 2,
+      "mean_distance": 4.503776639699936
+    },
+    {
+      "residue": 780,
+      "start": 6763,
+      "end": 6763,
+      "frames": 1,
+      "mean_distance": 6.370217323303223
+    },
+    {
+      "residue": 1105,
+      "start": 6764,
+      "end": 6764,
+      "frames": 1,
+      "mean_distance": 5.110004901885986
+    },
+    {
+      "residue": 1073,
+      "start": 6765,
+      "end": 6765,
+      "frames": 1,
+      "mean_distance": 7.661682605743408
+    },
+    {
+      "residue": 780,
+      "start": 6766,
+      "end": 6766,
+      "frames": 1,
+      "mean_distance": 3.923525094985962
+    },
+    {
+      "residue": 1105,
+      "start": 6767,
+      "end": 6767,
+      "frames": 1,
+      "mean_distance": 4.975052356719971
+    },
+    {
+      "residue": 780,
+      "start": 6768,
+      "end": 6769,
+      "frames": 2,
+      "mean_distance": 4.217195987701416
+    },
+    {
+      "residue": "SF",
+      "start": 6770,
+      "end": 6771,
+      "frames": 2,
+      "mean_distance": 4.509496331214905
+    },
+    {
+      "residue": 455,
+      "start": 6772,
+      "end": 6773,
+      "frames": 2,
+      "mean_distance": 4.0605268478393555
+    },
+    {
+      "residue": 780,
+      "start": 6774,
+      "end": 6774,
+      "frames": 1,
+      "mean_distance": 5.481690883636475
+    },
+    {
+      "residue": 748,
+      "start": 6775,
+      "end": 6779,
+      "frames": 5,
+      "mean_distance": 4.0498593807220455
+    },
+    {
+      "residue": 780,
+      "start": 6780,
+      "end": 6780,
+      "frames": 1,
+      "mean_distance": 4.63261604309082
+    },
+    {
+      "residue": 455,
+      "start": 6781,
+      "end": 6781,
+      "frames": 1,
+      "mean_distance": 5.538301944732666
+    },
+    {
+      "residue": 780,
+      "start": 6782,
+      "end": 6782,
+      "frames": 1,
+      "mean_distance": 5.899788856506348
+    },
+    {
+      "residue": 455,
+      "start": 6783,
+      "end": 6785,
+      "frames": 3,
+      "mean_distance": 3.6694230238596597
+    },
+    {
+      "residue": 780,
+      "start": 6786,
+      "end": 6786,
+      "frames": 1,
+      "mean_distance": 6.351298809051514
+    },
+    {
+      "residue": 455,
+      "start": 6787,
+      "end": 6787,
+      "frames": 1,
+      "mean_distance": 3.5674948692321777
+    },
+    {
+      "residue": 780,
+      "start": 6788,
+      "end": 6788,
+      "frames": 1,
+      "mean_distance": 6.1808857917785645
+    },
+    {
+      "residue": 455,
+      "start": 6789,
+      "end": 6789,
+      "frames": 1,
+      "mean_distance": 5.324888706207275
+    },
+    {
+      "residue": 780,
+      "start": 6790,
+      "end": 6790,
+      "frames": 1,
+      "mean_distance": 5.286247730255127
+    },
+    {
+      "residue": 455,
+      "start": 6791,
+      "end": 6791,
+      "frames": 1,
+      "mean_distance": 5.460760593414307
+    },
+    {
+      "residue": 780,
+      "start": 6792,
+      "end": 6792,
+      "frames": 1,
+      "mean_distance": 5.967817783355713
+    },
+    {
+      "residue": 455,
+      "start": 6793,
+      "end": 6797,
+      "frames": 5,
+      "mean_distance": 4.202107334136963
+    },
+    {
+      "residue": 780,
+      "start": 6798,
+      "end": 6798,
+      "frames": 1,
+      "mean_distance": 5.3167219161987305
+    }
+  ],
+  "1374": [
+    {
+      "residue": 780,
+      "start": 6716,
+      "end": 6716,
+      "frames": 1,
+      "mean_distance": 6.346145153045654
+    },
+    {
+      "residue": 455,
+      "start": 6717,
+      "end": 6717,
+      "frames": 1,
+      "mean_distance": 3.4885640144348145
+    },
+    {
+      "residue": 780,
+      "start": 6718,
+      "end": 6718,
+      "frames": 1,
+      "mean_distance": 6.009308338165283
+    },
+    {
+      "residue": 1105,
+      "start": 6719,
+      "end": 6719,
+      "frames": 1,
+      "mean_distance": 5.929576396942139
+    },
+    {
+      "residue": 780,
+      "start": 6720,
+      "end": 6721,
+      "frames": 2,
+      "mean_distance": 4.791383266448975
+    },
+    {
+      "residue": 1105,
+      "start": 6722,
+      "end": 6722,
+      "frames": 1,
+      "mean_distance": 6.071634769439697
+    },
+    {
+      "residue": 780,
+      "start": 6723,
+      "end": 6723,
+      "frames": 1,
+      "mean_distance": 5.511974334716797
+    },
+    {
+      "residue": "SF",
+      "start": 6724,
+      "end": 6724,
+      "frames": 1,
+      "mean_distance": 5.086811780929565
+    },
+    {
+      "residue": 780,
+      "start": 6725,
+      "end": 6733,
+      "frames": 9,
+      "mean_distance": 4.514269616868761
+    },
+    {
+      "residue": "SF",
+      "start": 6734,
+      "end": 6734,
+      "frames": 1,
+      "mean_distance": 5.554799795150757
+    },
+    {
+      "residue": 780,
+      "start": 6735,
+      "end": 6745,
+      "frames": 11,
+      "mean_distance": 4.288184794512662
+    },
+    {
+      "residue": 130,
+      "start": 6746,
+      "end": 6746,
+      "frames": 1,
+      "mean_distance": 5.096485137939453
+    },
+    {
+      "residue": 780,
+      "start": 6747,
+      "end": 6747,
+      "frames": 1,
+      "mean_distance": 4.383956432342529
+    },
+    {
+      "residue": 455,
+      "start": 6748,
+      "end": 6748,
+      "frames": 1,
+      "mean_distance": 5.894886016845703
+    }
+  ],
+  "1400": [
+    {
+      "residue": 130,
+      "start": 6753,
+      "end": 6753,
+      "frames": 1,
+      "mean_distance": 5.3349690437316895
+    },
+    {
+      "residue": 455,
+      "start": 6754,
+      "end": 6754,
+      "frames": 1,
+      "mean_distance": 5.052340984344482
+    },
+    {
+      "residue": 423,
+      "start": 6755,
+      "end": 6762,
+      "frames": 8,
+      "mean_distance": 4.376287043094635
+    },
+    {
+      "residue": 455,
+      "start": 6763,
+      "end": 6763,
+      "frames": 1,
+      "mean_distance": 5.057210922241211
+    },
+    {
+      "residue": 423,
+      "start": 6764,
+      "end": 6768,
+      "frames": 5,
+      "mean_distance": 4.564597511291504
+    },
+    {
+      "residue": 455,
+      "start": 6769,
+      "end": 6772,
+      "frames": 4,
+      "mean_distance": 4.400941729545593
+    },
+    {
+      "residue": 423,
+      "start": 6773,
+      "end": 6774,
+      "frames": 2,
+      "mean_distance": 4.864331245422363
+    },
+    {
+      "residue": 455,
+      "start": 6775,
+      "end": 6778,
+      "frames": 4,
+      "mean_distance": 4.669680833816528
+    },
+    {
+      "residue": 423,
+      "start": 6779,
+      "end": 6782,
+      "frames": 4,
+      "mean_distance": 4.408118724822998
+    },
+    {
+      "residue": 455,
+      "start": 6783,
+      "end": 6783,
+      "frames": 1,
+      "mean_distance": 4.581761837005615
+    },
+    {
+      "residue": 423,
+      "start": 6784,
+      "end": 6784,
+      "frames": 1,
+      "mean_distance": 4.937003135681152
+    },
+    {
+      "residue": 455,
+      "start": 6785,
+      "end": 6785,
+      "frames": 1,
+      "mean_distance": 4.960811138153076
+    },
+    {
+      "residue": 423,
+      "start": 6786,
+      "end": 6798,
+      "frames": 13,
+      "mean_distance": 3.0721512757814846
+    }
+  ]
+}

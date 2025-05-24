@@ -1,0 +1,5 @@
+ion_id,start_frame,permeation_frame,permeation_cosine,avg_nonpermeation_cosine,empirical_p,total_cosines
+1341,6500,6727,0.966,-0.108,0.014,214
+1355,6500,6561,0.859,0.036,0.175,62
+1465,6569,6670,0.949,-0.107,0.045,65
+1374,6716,6748,0.234,-0.107,0.281,31
