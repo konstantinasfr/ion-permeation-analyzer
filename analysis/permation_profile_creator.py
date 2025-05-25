@@ -11,6 +11,7 @@ from analysis.calculate_openmm_forces import calculate_ionic_forces_all_frames
 from analysis.force_analysis import analyze_forces
 from analysis.radial_distance_analysis import analyze_radial_distances
 from analysis.close_residues_analysis import analyze_close_residues, get_last_nth_frame_close_residues, plot_residue_counts, analyze_residue_combinations
+from analysis.intervals_force_analysis import analyze_force_intervals
 
 class PermeationAnalyzer:
     def __init__(self, ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,
@@ -39,6 +40,7 @@ class PermeationAnalyzer:
         self.radial_distances_results = []
         self.close_residues_results = []
         self.close_residues_result_per_frame = {}
+        self.force_intervals_results = []
 
     def _build_all_positions(self, ion_selection='resname K+ K'):
         """
@@ -162,6 +164,13 @@ class PermeationAnalyzer:
                 "analysis": {}
             }
 
+            event_force_intervals_results = {
+                "start_frame": event["start_frame"],
+                "frame": event["frame"],
+                "permeated_ion": event["permeated"],
+                "analysis": {}
+            }
+
             frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
 
             for frame in frames_to_check:
@@ -209,12 +218,30 @@ class PermeationAnalyzer:
                 )
                 event_close_residues_results["analysis"][frame] = close_residues_result
 
+                if frame == event["frame"]:
+                    # Force intervals analysis
+                    force_intervals_result = analyze_force_intervals(
+                        u=self.u,
+                        positions=positions,
+                        residue_positions=residue_positions,
+                        permeating_ion_id=event["permeated"],
+                        frame=frame,
+                        charge_map=charge_map,
+                        glu_residues=self.glu_residues,  # <-- new
+                        asn_residues=self.asn_residues,  # <-- new
+                        cutoff=self.cutoff,
+                        n_steps=20,  # Number of steps for interpolation
+                        k=332.0  # Coulomb's constant in kJ/(mol*nm*e^2)
+                    )
+                    event_force_intervals_results["analysis"][frame] = force_intervals_result
+
             # Append results per event
             self.force_results.append(event_force_results)
             self.radial_distances_results.append(event_radial_distances_results)
             self.close_residues_results.append(event_close_residues_results)
+            self.force_intervals_results.append(event_force_intervals_results)
 
-        return self.force_results, self.radial_distances_results, self.close_residues_results
+        return self.force_results, self.radial_distances_results, self.close_residues_results, self.force_intervals_results
     
     def closest_residues_comb_before_permeation(self, n=-1, use_pdb_format=False, sort_residues=True):
         """
