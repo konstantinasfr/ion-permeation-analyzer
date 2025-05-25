@@ -180,6 +180,20 @@ def unit_vector(v):
 
 #     return result
 
+def compute_alignment(force_vec, motion_vec):
+    norm_force = np.linalg.norm(force_vec)
+    norm_motion = np.linalg.norm(motion_vec)
+
+    if norm_force == 0 or norm_motion == 0:
+        return 0.0, 0.0, 0.0
+
+    unit_motion = motion_vec / norm_motion
+    component = np.dot(force_vec, unit_motion)
+    percent = abs(component) / norm_force * 100
+    cosine = component / norm_force
+    return cosine, component, percent
+
+
 def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, other_ions, charge_map,
                   closest_residues_by_ion, glu_residues, asn_residues, cutoff=10.0,
                   calculate_total_force=False, total_force_data=None):
@@ -189,12 +203,9 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
     """
     result = {
         "frame": frame,
+        "motion_vector": None,
         "ionic_force": [0.0, 0.0, 0.0],
         "ionic_force_magnitude": None,
-        "motion_vector": None,
-        "ionic_force_x": None,
-        "ionic_force_y": None,
-        "ionic_force_z": None,
         "radial_force": None,
         "axial_force": None,
         "glu_force": [0.0, 0.0, 0.0],
@@ -205,16 +216,21 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
         "residue_force_magnitude": None,
         "total_force": [0.0, 0.0, 0.0],
         "total_force_magnitude": None,
-        "motion_component_total": None,
         "cosine_total_motion": None,
         "cosine_glu_motion": None,
         "cosine_asn_motion": None,
         "cosine_residue_motion": None,
         "cosine_ionic_motion": None,
+        "motion_component_total": None,
         "motion_component_glu": None,
         "motion_component_asn": None,
         "motion_component_residue": None,
         "motion_component_ionic": None,
+        "motion_component_percent_total": None,
+        "motion_component_percent_glu": None,
+        "motion_component_percent_asn": None,
+        "motion_component_percent_residue": None,
+        "motion_component_percent_ionic": None,
         "ionic_contributions": [],
         "glu_contributions": [],
         "asn_contributions": []
@@ -223,6 +239,12 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
     if permeating_pos is None:
         return result
+    
+    ion_positions_over_time = {
+        f: positions.get(f, {}).get(permeating_ion_id) for f in range(frame, frame + 2)
+    }
+    motion_vec = get_motion_vector(ion_positions_over_time, frame)
+    result["motion_vector"] = motion_vec.tolist() if motion_vec is not None else None
 
     ionic_force = np.zeros(3)
     ionic_contributions = []
@@ -233,11 +255,16 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
         if distance <= cutoff:
             force = compute_force(charge_map[permeating_ion_id], charge_map[ion_id], permeating_pos, pos)
             ionic_force += force
+            cosine_ionic, component_ionic, percent_ionic = compute_alignment(force, motion_vec)
             ionic_contributions.append({
                 "ion_id": int(ion_id),
                 "distance": float(distance),
                 "force": force.tolist(),
-                "magnitude": float(np.linalg.norm(force))
+                "magnitude": float(np.linalg.norm(force)),
+                # Alignment with motion vector
+                "cosine_ionic_motion": float(cosine_ionic),
+                "motion_component_ionic": float(component_ionic),
+                "motion_component_percent_ionic": float(percent_ionic)
             })
 
     result["ionic_force"] = ionic_force.tolist()
@@ -245,22 +272,13 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
     result["ionic_contributions"] = ionic_contributions
     Fx, Fy, Fz = ionic_force
     result.update({
-        "ionic_force_x": float(Fx),
-        "ionic_force_y": float(Fy),
-        "ionic_force_z": float(Fz),
         "axial_force": float(Fz),
         "radial_force": float(np.sqrt(Fx**2 + Fy**2))
     })
 
-    ion_positions_over_time = {
-        f: positions.get(f, {}).get(permeating_ion_id) for f in range(frame, frame + 2)
-    }
-    motion_vec = get_motion_vector(ion_positions_over_time, frame)
-    result["motion_vector"] = motion_vec.tolist() if motion_vec is not None else None
-
     # Add residue forces (GLU + ASN)
     residue_result = analyze_residue_forces(
-        u, positions, residue_positions, permeating_ion_id, frame, charge_map,
+        u, positions, residue_positions, permeating_ion_id, frame, charge_map, motion_vec,
         glu_residues, asn_residues, cutoff=6
     )
 
@@ -290,8 +308,10 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
             if norm > 0:
                 cosine = float(np.dot(vec, unit_motion) / norm)
                 component = float(np.dot(vec, unit_motion))
+                percent_aligned = (abs(component) / norm) * 100
                 result[f"cosine_{key}_motion"] = cosine
                 result[f"motion_component_{key}"] = component
+                result[f"motion_component_percent_{key}"] = percent_aligned
 
     return result
 
@@ -302,6 +322,7 @@ def analyze_residue_forces(
     permeating_ion_id,
     frame,
     charge_map,
+    motion_vec,
     glu_residues,
     asn_residues,
     cutoff=6.0
@@ -354,7 +375,7 @@ def analyze_residue_forces(
 
             force = compute_force(1.0, charge, ion_pos, atom_pos)
             total_force += force
-
+            cosine_ionic, component_ionic, percent_ionic = compute_alignment(force, motion_vec)
             contribution = {
                 "resid": int(resid),
                 "resname": resname,
@@ -362,7 +383,10 @@ def analyze_residue_forces(
                 "charge": float(charge),
                 "distance": float(r),
                 "force": force.tolist(),
-                "magnitude": float(np.linalg.norm(force))
+                "magnitude": float(np.linalg.norm(force)),
+                "cosine_with_motion": float(cosine_ionic),
+                "motion_component": float(component_ionic),
+                "motion_component_percent": float(percent_ionic),
             }
 
             if resname == "GLU":
@@ -550,3 +574,44 @@ def extract_last_frame_analysis(events):
                 "analysis": last_data
             })
     return results
+
+import json
+import pandas as pd
+
+def extract_permeation_data(data, output_dir, output_file="permeation_summary_forces.csv"):
+  
+    rows = []
+    for event in data:
+        analysis = event["analysis"]
+        row = {
+            "start_frame": event["start_frame"],
+            "frame": event["frame"],
+            "permeated_ion": event["permeated_ion"],
+            "ionic_force_magnitude": analysis.get("ionic_force_magnitude"),
+            "glu_force_magnitude": analysis.get("glu_force_magnitude"),
+            "residue_force_magnitude": analysis.get("residue_force_magnitude"),
+            "total_force_magnitude": analysis.get("total_force_magnitude"),
+            "cosine_total_motion": analysis.get("cosine_total_motion"),
+            "cosine_glu_motion": analysis.get("cosine_glu_motion"),
+            "cosine_asn_motion": analysis.get("cosine_asn_motion"),
+            "cosine_residue_motion": analysis.get("cosine_residue_motion"),
+            "cosine_ionic_motion": analysis.get("cosine_ionic_motion"),
+            "motion_component_total": analysis.get("motion_component_total"),
+            "motion_component_glu": analysis.get("motion_component_glu"),
+            "motion_component_asn": analysis.get("motion_component_asn"),
+            "motion_component_residue": analysis.get("motion_component_residue"),
+            "motion_component_ionic": analysis.get("motion_component_ionic"),
+            "motion_component_percent_total": analysis.get("motion_component_percent_total"),
+            "motion_component_percent_glu": analysis.get("motion_component_percent_glu"),
+            "motion_component_percent_asn": analysis.get("motion_component_percent_asn"),
+            "motion_component_percent_residue": analysis.get("motion_component_percent_residue"),
+            "motion_component_percent_ionic": analysis.get("motion_component_percent_ionic"),
+        }
+        rows.append(row)
+
+    # Create and save DataFrame
+    df = pd.DataFrame(rows)
+    df.to_csv(output_dir / output_file, index=False)
+
+    df.to_csv(output_dir / output_file, index=False)
+    print(f"✅ CSV file saved as {output_file}")

@@ -1,7 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 import pandas as pd
-from analysis.force_analysis import compute_force
+from analysis.force_analysis import compute_force, compute_alignment
 
 def analyze_force_intervals(
     u,
@@ -36,17 +36,14 @@ def analyze_force_intervals(
     if q1 is None:
         return []
 
-    for step in range(n_steps):
-        alpha = step / (n_steps - 1)
+    for step in range(n_steps + 2):  # includes start and end
+        alpha = step / (n_steps + 1)
         frame_result = {
             "frame": frame + alpha,
             "step": step,
             "ionic_force": [0.0, 0.0, 0.0],
             "ionic_force_magnitude": None,
             "motion_vector": motion_vec.tolist() if motion_vec is not None else None,
-            "ionic_force_x": None,
-            "ionic_force_y": None,
-            "ionic_force_z": None,
             "radial_force": None,
             "axial_force": None,
             "glu_force": [0.0, 0.0, 0.0],
@@ -57,16 +54,21 @@ def analyze_force_intervals(
             "residue_force_magnitude": None,
             "total_force": [0.0, 0.0, 0.0],
             "total_force_magnitude": None,
-            "motion_component_total": None,
             "cosine_total_motion": None,
             "cosine_glu_motion": None,
             "cosine_asn_motion": None,
             "cosine_residue_motion": None,
             "cosine_ionic_motion": None,
+            "motion_component_total": None,
             "motion_component_glu": None,
             "motion_component_asn": None,
             "motion_component_residue": None,
             "motion_component_ionic": None,
+            "motion_component_percent_total": None,
+            "motion_component_percent_glu": None,
+            "motion_component_percent_asn": None,
+            "motion_component_percent_residue": None,
+            "motion_component_percent_ionic": None,
             "ionic_contributions": [],
             "glu_contributions": [],
             "asn_contributions": []
@@ -88,26 +90,27 @@ def analyze_force_intervals(
                 continue
             force = compute_force(q1, q2, ion_pos, pos_other, k)
             ionic_force += force
+            cosine_ionic, component_ionic, percent_ionic = compute_alignment(force, motion_vec)
             ionic_contributions.append({
                 "ion_id": int(ion_id),
                 "distance": float(dist),
                 "force": force.tolist(),
-                "magnitude": float(np.linalg.norm(force))
+                "magnitude": float(np.linalg.norm(force)),
+                "cosine_motion": float(cosine_ionic),
+                "motion_component": float(component_ionic),
+                "motion_component_percent": float(percent_ionic),
             })
 
         frame_result["ionic_force"] = ionic_force.tolist()
         frame_result["ionic_force_magnitude"] = float(np.linalg.norm(ionic_force))
         Fx, Fy, Fz = ionic_force
-        frame_result["ionic_force_x"] = float(Fx)
-        frame_result["ionic_force_y"] = float(Fy)
-        frame_result["ionic_force_z"] = float(Fz)
         frame_result["axial_force"] = float(Fz)
         frame_result["radial_force"] = float(np.sqrt(Fx**2 + Fy**2))
         frame_result["ionic_contributions"] = ionic_contributions
 
         # Static residue forces
         residue_result = analyze_residue_forces(
-            u, positions_n, positions_n1, residue_positions, frame, alpha, permeating_ion_id, charge_map,
+            u, positions_n, positions_n1, residue_positions, frame, alpha, permeating_ion_id, charge_map, motion_vec,
             glu_residues, asn_residues, cutoff=6.0
         )
         glu_force = np.array(residue_result["glu_force"])
@@ -136,8 +139,10 @@ def analyze_force_intervals(
                 if norm > 0:
                     cosine = float(np.dot(vec, unit_motion) / norm)
                     component = float(np.dot(vec, unit_motion))
+                    percent_aligned = (abs(component) / norm) * 100
                     frame_result[f"cosine_{key}_motion"] = cosine
                     frame_result[f"motion_component_{key}"] = component
+                    frame_result[f"motion_component_percent_{key}"] = percent_aligned
 
         results.append(frame_result)
 
@@ -153,6 +158,7 @@ def analyze_residue_forces(
     alpha,
     permeating_ion_id,
     charge_map,
+    motion_vec,
     glu_residues,
     asn_residues,
     cutoff=6.0
@@ -208,7 +214,7 @@ def analyze_residue_forces(
 
             force = compute_force(1.0, charge, ion_pos, atom_pos)
             total_force += force
-
+            cosine_ionic, component_ionic, percent_ionic = compute_alignment(force, motion_vec)
             contribution = {
                 "resid": int(resid),
                 "resname": resname,
@@ -216,7 +222,10 @@ def analyze_residue_forces(
                 "charge": float(charge),
                 "distance": float(r),
                 "force": force.tolist(),
-                "magnitude": float(np.linalg.norm(force))
+                "magnitude": float(np.linalg.norm(force)),
+                "cosine_motion": float(cosine_ionic),
+                "motion_component": float(component_ionic),
+                "motion_component_percent": float(percent_ionic),
             }
 
             if resname == "GLU":
@@ -236,3 +245,5 @@ def analyze_residue_forces(
         "glu_contributions": glu_contributions,
         "asn_contributions": asn_contributions
     }
+
+
