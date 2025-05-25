@@ -222,13 +222,16 @@ def main():
             output_base_dir=ch2_permeation_characteristics_dir
         )
 
-        forces_results, radial_distances_results, close_residues_results = permeation_analysis.run_permeation_analysis()
+        forces_results, radial_distances_results, close_residues_results, force_intervals_results = permeation_analysis.run_permeation_analysis()
 
         last_frame_forces = extract_last_frame_analysis(forces_results)
 
         with open(last_frame_forces_dir / "force_results_last_frame.json", "w") as f:
             json.dump(last_frame_forces, f, indent=2)
         
+        with open(last_frame_forces_dir / "force_intervals_results.json", "w") as f:
+            json.dump(force_intervals_results, f, indent=2)
+
         # Save to JSON
         with open(force_results_dir / "force_results.json", "w") as f:
             json.dump(forces_results, f, indent=2)
