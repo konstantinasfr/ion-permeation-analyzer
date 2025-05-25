@@ -60,7 +60,7 @@ def main():
     # start_frame = 6500
     start_frame = 0
     # start_frame = 5550
-    start_frame = 6500
+    # start_frame = 6500
     end_frame = 6799
     # end_frame = 6562
 
