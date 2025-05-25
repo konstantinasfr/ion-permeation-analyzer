@@ -64,6 +64,12 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
 
         ion_pos = ion.positions[0]
 
+        if ts.frame == 6727 and ion_id == 1341:
+                atoms = u.select_atoms(f"resid 130 and name CG")
+                print(atoms.positions)
+                dist = float(np.linalg.norm(ion_pos - atoms.positions[0]))
+                print(dist)
+        
         for resid in glu_residues + asn_residues:
             if use_charges:
                 if resid in glu_residues:

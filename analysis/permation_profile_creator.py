@@ -55,6 +55,27 @@ class PermeationAnalyzer:
             all_positions[ts.frame] = frame_dict
         return all_positions
 
+    def _build_residue_positions(self, residue_list, atom_names):
+        """
+        Store coordinates of specified atoms in residues across frames.
+        Returns: {frame: {(resid, atom_name): np.array([x, y, z])}}
+        """
+
+        residue_pos = {}
+        # it selects only the atoms that match both criteria per residue
+        selection = "resid " + " ".join(str(r) for r in residue_list) + " and name " + " ".join(atom_names)
+        atoms = self.u.select_atoms(selection)
+        trajectory_slice = self.u.trajectory[self.start_frame:self.end_frame]
+
+        for ts in tqdm(trajectory_slice, desc=f"Building residue positions ({self.start_frame}:{self.end_frame})"):
+            frame_data = {}
+            for atom in atoms:
+                frame_data[(atom.resid, atom.name)] = atom.position.copy()
+            residue_pos[ts.frame] = frame_data
+
+        return residue_pos
+
+
     def _build_charge_map(self, ion_selection='resname K+ K'):
         """
         Return a charge map {atom_id: charge}.
@@ -102,6 +123,11 @@ class PermeationAnalyzer:
         # Build positions and charge map once
         positions = self._build_all_positions()
         charge_map = self._build_charge_map()
+        residue_positions = self._build_residue_positions(
+                                residue_list=self.glu_residues + self.asn_residues,
+                                atom_names=["CD", "OE1", "OE2", "CG", "OD1", "ND2", "HD21", "HD22"]
+                            )
+
 
         # Optional total force calculation via OpenMM
         total_force_data = None
@@ -149,6 +175,7 @@ class PermeationAnalyzer:
                 frame_result = analyze_forces(
                         u=self.u,
                         positions=positions,
+                        residue_positions = residue_positions,
                         permeating_ion_id=event["permeated"],
                         frame=frame,
                         other_ions=positions.get(frame, {}).keys(),

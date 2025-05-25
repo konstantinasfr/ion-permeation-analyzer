@@ -180,7 +180,7 @@ def unit_vector(v):
 
 #     return result
 
-def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_map,
+def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, other_ions, charge_map,
                   closest_residues_by_ion, glu_residues, asn_residues, cutoff=10.0,
                   calculate_total_force=False, total_force_data=None):
     """
@@ -260,7 +260,7 @@ def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_ma
 
     # Add residue forces (GLU + ASN)
     residue_result = analyze_residue_forces(
-        u, positions, permeating_ion_id, frame, charge_map,
+        u, positions, residue_positions, permeating_ion_id, frame, charge_map,
         glu_residues, asn_residues, cutoff=6
     )
 
@@ -298,6 +298,7 @@ def analyze_forces(u, positions, permeating_ion_id, frame, other_ions, charge_ma
 def analyze_residue_forces(
     u,
     positions,
+    residue_positions,
     permeating_ion_id,
     frame,
     charge_map,
@@ -306,7 +307,7 @@ def analyze_residue_forces(
     cutoff=6.0
 ):
     """
-    Calculate electrostatic forces from GLU and ASN side chains on the ion.
+    Calculate electrostatic forces from GLU and ASN side chains on the ion using pre-extracted atom positions.
 
     Returns:
     - dict with GLU, ASN, and total residue force vectors, magnitudes, and per-atom contributions
@@ -321,12 +322,10 @@ def analyze_residue_forces(
     glu_contributions = []
     asn_contributions = []
 
-    close_residues = glu_residues + asn_residues
-
-    for resid in close_residues:
+    for resid in glu_residues + asn_residues:
         residue = u.select_atoms(f"resid {resid}")
         if len(residue) == 0:
-            print(f"Warning: Resid {resid} not found in frame {frame}.")
+            print(f"Warning: Resid {resid} not found in topology.")
             continue
 
         resname = residue.residues[0].resname
@@ -339,50 +338,39 @@ def analyze_residue_forces(
             continue
 
         for atom_name in atom_names:
-            sel = u.select_atoms(f"resid {resid} and name {atom_name}")
-            if len(sel) != 1:
-                print(f"Warning: Atom {atom_name} not found in resid {resid} at frame {frame}.")
-                continue
+            atom_pos = residue_positions.get(frame, {}).get((resid, atom_name))
+            if atom_pos is None:
+                continue  # Atom not found in this frame
 
-            atom = sel[0]
-            atom_pos = atom.position
-            atom_id = atom.index
-            if atom_name not in charge_map:
-                print(f"Warning: Charge not found for atom {atom_name} (ID {atom_id}) in resid {resid}.")
-                continue
             charge = charge_map[atom_name]
+            if charge is None:
+                print(f"Warning: Charge not found for atom {atom_name} in resid {resid}.")
+                continue
 
             r_vec = ion_pos - atom_pos
             r = np.linalg.norm(r_vec)
             if r > cutoff:
                 continue
 
-            unit_vec = r_vec / r
-            force = (332 * (1.0 * charge) / r**2) * unit_vec  # kcal/mol/Å
-
+            force = compute_force(1.0, charge, ion_pos, atom_pos)
             total_force += force
+
+            contribution = {
+                "resid": int(resid),
+                "resname": resname,
+                "atom": atom_name,
+                "charge": float(charge),
+                "distance": float(r),
+                "force": force.tolist(),
+                "magnitude": float(np.linalg.norm(force))
+            }
+
             if resname == "GLU":
                 glu_force += force
-                glu_contributions.append({
-                    "resid": int(resid),
-                    "resname": resname,
-                    "atom": atom_name,
-                    "charge": float(charge),
-                    "distance": float(r),
-                    "force": force.tolist(),
-                    "magnitude": float(np.linalg.norm(force))
-                })
+                glu_contributions.append(contribution)
             elif resname == "ASN":
                 asn_force += force
-                asn_contributions.append({
-                    "resid": int(resid),
-                    "resname": resname,
-                    "atom": atom_name,
-                    "charge": float(charge),
-                    "distance": float(r),
-                    "force": force.tolist(),
-                    "magnitude": float(np.linalg.norm(force))
-                })
+                asn_contributions.append(contribution)
 
     return {
         "residue_force": total_force.tolist(),
@@ -394,6 +382,7 @@ def analyze_residue_forces(
         "glu_contributions": glu_contributions,
         "asn_contributions": asn_contributions
     }
+
 
 
 def find_top_cosine_frames(event_data, top_n=5):
@@ -546,3 +535,18 @@ def extract_permeation_frames(event_data, offset_from_end=1):
     df_summary = pd.DataFrame(summary_rows)
 
     return df_expanded, df_summary
+
+   
+def extract_last_frame_analysis(events):
+    results = []
+    for event in events:
+        last_frame = event["frame"]
+        last_data = event["analysis"].get(str(last_frame)) or event["analysis"].get(last_frame)
+        if last_data:
+            results.append({
+                "start_frame": event["start_frame"],
+                "frame": last_frame,
+                "permeated_ion": event["permeated_ion"],
+                "analysis": last_data
+            })
+    return results
