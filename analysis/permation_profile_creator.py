@@ -230,7 +230,7 @@ class PermeationAnalyzer:
                         glu_residues=self.glu_residues,  # <-- new
                         asn_residues=self.asn_residues,  # <-- new
                         cutoff=self.cutoff,
-                        n_steps=1,  # Number of steps for interpolation
+                        n_steps=20,  # Number of steps for interpolation
                         k=332.0  # Coulomb's constant in kJ/(mol*nm*e^2)
                     )
                     event_force_intervals_results["analysis"][frame] = force_intervals_result
