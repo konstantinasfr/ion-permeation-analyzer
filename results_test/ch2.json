@@ -38,8 +38,8 @@
   {
     "ion_id": 1387,
     "start_frame": 4335,
-    "exit_frame": 4416,
-    "total_time": 81
+    "exit_frame": 4417,
+    "total_time": 82
   },
   {
     "ion_id": 1316,
@@ -86,8 +86,8 @@
   {
     "ion_id": 2434,
     "start_frame": 5450,
-    "exit_frame": 6017,
-    "total_time": 567
+    "exit_frame": 6018,
+    "total_time": 568
   },
   {
     "ion_id": 2444,
@@ -104,20 +104,20 @@
   {
     "ion_id": 1380,
     "start_frame": 5653,
-    "exit_frame": 6426,
-    "total_time": 773
+    "exit_frame": 6428,
+    "total_time": 775
   },
   {
     "ion_id": 1476,
     "start_frame": 5713,
-    "exit_frame": 6489,
-    "total_time": 776
+    "exit_frame": 6490,
+    "total_time": 777
   },
   {
     "ion_id": 1355,
     "start_frame": 5909,
-    "exit_frame": 6562,
-    "total_time": 653
+    "exit_frame": 6563,
+    "total_time": 654
   },
   {
     "ion_id": 1443,

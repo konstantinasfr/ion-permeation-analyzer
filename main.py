@@ -15,7 +15,7 @@ from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
 from analysis.force_analysis import collect_sorted_cosines_until_permeation
-from analysis.force_analysis import extract_permeation_frames, extract_last_frame_analysis, extract_permeation_data
+from analysis.force_analysis import extract_permeation_frames, extract_last_frame_analysis, extract_permeation_forces
 import json
 import pandas as pd
 from analysis.permation_profile_creator import PermeationAnalyzer
@@ -225,7 +225,7 @@ def main():
         forces_results, radial_distances_results, close_residues_results, force_intervals_results = permeation_analysis.run_permeation_analysis()
 
         last_frame_forces = extract_last_frame_analysis(forces_results)
-        extract_permeation_data(data=last_frame_forces, output_dir=last_frame_forces_dir)
+        extract_permeation_forces(data=last_frame_forces, output_dir=last_frame_forces_dir)
 
         with open(last_frame_forces_dir / "force_results_last_frame.json", "w") as f:
             json.dump(last_frame_forces, f, indent=2)

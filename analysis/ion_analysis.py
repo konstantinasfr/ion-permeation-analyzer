@@ -79,18 +79,16 @@ class IonPermeationAnalysis:
 
                             # Ensure that all 5 atoms are present (sometimes an atom might be missing in a corrupted frame)
                             if len(asn_atoms) == 5:
-                                # Calculate the geometric center (average position) of the selected atoms
-                                # This serves as an approximate "center of interaction" for the ASN side chain
-                                dipole_center = asn_atoms.positions.mean(axis=0)
+                                # Compute the distance between the ion and each ASN sidechain atom
+                                distances = np.linalg.norm(asn_atoms.positions - ion_pos, axis=1)
 
-                                # Compute the distance between the ion and the ASN side chain's interaction center
-                                distance = np.linalg.norm(ion_pos - dipole_center)
+                                # Take the minimum of those distances
+                                min_distance = np.min(distances)
 
-                                # If the ion is within 6 Å of this center, consider ASN as close enough to potentially interact
-                                if distance < 6.0:
+                                # If the ion is within 6 Å of any of the atoms, flag it
+                                if min_distance < 6.0:
                                     close_to_dipole = True  # Flag this residue as relevant for force calculation
-                                    break  # No need to check more residues — one nearby ASN is enough for this case
-
+                                    break  # No need to check more residues — one nearby ASN is enough
 
                     if not close_to_dipole or channel.channel_number != 2:
                         states[ion_id]['lower_flag'] = 1

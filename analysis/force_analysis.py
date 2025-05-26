@@ -578,7 +578,7 @@ def extract_last_frame_analysis(events):
 import json
 import pandas as pd
 
-def extract_permeation_data(data, output_dir, output_file="permeation_summary_forces.csv"):
+def extract_permeation_forces(data, output_dir, output_file="permeation_summary_forces.csv"):
   
     rows = []
     for event in data:
@@ -589,6 +589,7 @@ def extract_permeation_data(data, output_dir, output_file="permeation_summary_fo
             "permeated_ion": event["permeated_ion"],
             "ionic_force_magnitude": analysis.get("ionic_force_magnitude"),
             "glu_force_magnitude": analysis.get("glu_force_magnitude"),
+            "asn_force_magnitude": analysis.get("asn_force_magnitude"),
             "residue_force_magnitude": analysis.get("residue_force_magnitude"),
             "total_force_magnitude": analysis.get("total_force_magnitude"),
             "cosine_total_motion": analysis.get("cosine_total_motion"),

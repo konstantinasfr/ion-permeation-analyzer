@@ -433,7 +433,7 @@
     }
   },
   {
-    "start_frame": 760,
+    "start_frame": 473,
     "frame": 5552,
     "permeated_ion": 1306,
     "analysis": {
@@ -3031,399 +3031,13 @@
   },
   {
     "start_frame": 4408,
-    "frame": 4415,
+    "frame": 4416,
     "permeated_ion": 1387,
     "analysis": {
-      "4415": [
-        {
-          "frame": 4415.0,
-          "step": 0,
-          "ionic_force": [
-            -1.2431654334068298,
-            -0.5947210304439068,
-            -11.592971801757812
-          ],
-          "ionic_force_magnitude": 11.674594151199504,
-          "motion_vector": [
-            -1.1576690673828125,
-            0.13907241821289062,
-            -4.969749450683594
-          ],
-          "radial_force": 1.3780977464860225,
-          "axial_force": -11.592971801757812,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            -3.074497163295746,
-            7.075682878494263,
-            1.2083042860031128
-          ],
-          "asn_force_magnitude": 7.808829633927477,
-          "residue_force": [
-            -3.074497163295746,
-            7.075682878494263,
-            1.2083042860031128
-          ],
-          "residue_force_magnitude": 7.808829633927477,
-          "total_force": [
-            -4.317662596702576,
-            6.480961848050356,
-            -10.3846675157547
-          ],
-          "total_force_magnitude": 12.980230975896369,
-          "cosine_total_motion": 0.867926315831289,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.036668940161641315,
-          "cosine_residue_motion": -0.036668940161641315,
-          "cosine_ionic_motion": 0.9895183855227138,
-          "motion_component_total": 11.265884049548912,
-          "motion_component_glu": null,
-          "motion_component_asn": -0.2863415065789381,
-          "motion_component_residue": -0.2863415065789381,
-          "motion_component_ionic": 11.55222555612785,
-          "motion_component_percent_total": 86.7926315831289,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 3.6668940161641315,
-          "motion_component_percent_residue": 3.6668940161641315,
-          "motion_component_percent_ionic": 98.95183855227138,
-          "ionic_contributions": [
-            {
-              "ion_id": 1306,
-              "distance": 8.39176082611084,
-              "force": [
-                -1.8574953079223633,
-                0.8867517709732056,
-                -4.2414045333862305
-              ],
-              "magnitude": 4.714459419250488,
-              "cosine_motion": 0.9703527092933655,
-              "motion_component": 4.57468843460083,
-              "motion_component_percent": 97.03527092933655
-            },
-            {
-              "ion_id": 1307,
-              "distance": 8.712069511413574,
-              "force": [
-                0.4999687671661377,
-                -3.111016035079956,
-                -3.033966064453125
-              ],
-              "magnitude": 4.374167442321777,
-              "cosine_motion": 0.6299753189086914,
-              "motion_component": 2.755617618560791,
-              "motion_component_percent": 62.99753189086914
-            },
-            {
-              "ion_id": 1316,
-              "distance": 11.873608589172363,
-              "force": [
-                -0.3461155891418457,
-                0.052372146397829056,
-                -2.328737497329712
-              ],
-              "magnitude": 2.35490083694458,
-              "cosine_motion": 0.996685266494751,
-              "motion_component": 2.347095012664795,
-              "motion_component_percent": 99.6685266494751
-            },
-            {
-              "ion_id": 1460,
-              "distance": 11.344376564025879,
-              "force": [
-                0.46047669649124146,
-                1.5771710872650146,
-                -1.9888637065887451
-              ],
-              "magnitude": 2.5797455310821533,
-              "cosine_motion": 0.726747989654541,
-              "motion_component": 1.87482488155365,
-              "motion_component_percent": 72.6747989654541
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 3.848116159439087,
-              "force": [
-                5.775625228881836,
-                -14.440893173217773,
-                -3.6939024925231934
-              ],
-              "magnitude": 15.985686302185059,
-              "cosine_motion": 0.11841823905706406,
-              "motion_component": 1.8929967880249023,
-              "motion_component_percent": 11.841823905706406
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 2.7618367671966553,
-              "force": [
-                -10.727200508117676,
-                23.33286476135254,
-                2.629127264022827
-              ],
-              "magnitude": 25.81487464904785,
-              "cosine_motion": 0.019710563123226166,
-              "motion_component": 0.5088257193565369,
-              "motion_component_percent": 1.9710563123226166
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "ND2",
-              "charge": -0.9191,
-              "distance": 4.397829532623291,
-              "force": [
-                -1.4129245281219482,
-                14.79317569732666,
-                5.298953056335449
-              ],
-              "magnitude": 15.776986122131348,
-              "cosine_motion": -0.2811318337917328,
-              "motion_component": -4.435412883758545,
-              "motion_component_percent": 28.11318337917328
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 3.9046380519866943,
-              "force": [
-                -1.0952177047729492,
-                -8.42005443572998,
-                -3.3750810623168945
-              ],
-              "magnitude": 9.137176513671875,
-              "cosine_motion": 0.36169153451919556,
-              "motion_component": 3.3048393726348877,
-              "motion_component_percent": 36.169153451919556
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD22",
-              "charge": 0.4196,
-              "distance": 5.36522102355957,
-              "force": [
-                0.5878484845161438,
-                -4.434353828430176,
-                -1.8470145463943481
-              ],
-              "magnitude": 4.839475631713867,
-              "cosine_motion": 0.31905555725097656,
-              "motion_component": 1.5440616607666016,
-              "motion_component_percent": 31.905555725097656
-            },
-            {
-              "resid": 780,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 5.839544773101807,
-              "force": [
-                3.7973718643188477,
-                -3.755056142807007,
-                2.1962220668792725
-              ],
-              "magnitude": 5.774415493011475,
-              "cosine_motion": -0.537136971950531,
-              "motion_component": -3.101651906967163,
-              "motion_component_percent": 53.7136971950531
-            }
-          ]
-        },
-        {
-          "frame": 4415.5,
-          "step": 1,
-          "ionic_force": [
-            -1.393136590719223,
-            -0.36102963238954544,
-            -7.841116547584534
-          ],
-          "ionic_force_magnitude": 7.972093869785284,
-          "motion_vector": [
-            -1.1576690673828125,
-            0.13907241821289062,
-            -4.969749450683594
-          ],
-          "radial_force": 1.4391566821802657,
-          "axial_force": -7.841116547584534,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            -1.4654194116592407,
-            7.8016579151153564,
-            7.738748073577881
-          ],
-          "asn_force_magnitude": 11.086096789350847,
-          "residue_force": [
-            -1.4654194116592407,
-            7.8016579151153564,
-            7.738748073577881
-          ],
-          "residue_force_magnitude": 11.086096789350847,
-          "total_force": [
-            -2.8585560023784637,
-            7.440628282725811,
-            -0.10236847400665283
-          ],
-          "total_force_magnitude": 7.971497410455807,
-          "cosine_total_motion": 0.11925642897280833,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.6304546200488318,
-          "cosine_residue_motion": -0.6304546200488318,
-          "cosine_ionic_motion": 0.9959658508267867,
-          "motion_component_total": 0.9506523147369486,
-          "motion_component_glu": null,
-          "motion_component_asn": -6.989280939154762,
-          "motion_component_residue": -6.989280939154762,
-          "motion_component_ionic": 7.93993325389171,
-          "motion_component_percent_total": 11.925642897280833,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 63.04546200488318,
-          "motion_component_percent_residue": 63.04546200488318,
-          "motion_component_percent_ionic": 99.59658508267867,
-          "ionic_contributions": [
-            {
-              "ion_id": 1306,
-              "distance": 10.620455741882324,
-              "force": [
-                -1.43719482421875,
-                0.11567872017621994,
-                -2.56608510017395
-              ],
-              "magnitude": 2.9434168338775635,
-              "cosine_motion": 0.9605616331100464,
-              "motion_component": 2.8273332118988037,
-              "motion_component_percent": 96.05616331100464
-            },
-            {
-              "ion_id": 1307,
-              "distance": 11.267088890075684,
-              "force": [
-                0.10268893837928772,
-                -1.5765241384506226,
-                -2.084131956100464
-              ],
-              "magnitude": 2.6152589321136475,
-              "cosine_motion": 0.750516951084137,
-              "motion_component": 1.9627962112426758,
-              "motion_component_percent": 75.0516951084137
-            },
-            {
-              "ion_id": 1316,
-              "distance": 14.620701789855957,
-              "force": [
-                -0.26489028334617615,
-                0.04256051778793335,
-                -1.5297602415084839
-              ],
-              "magnitude": 1.5531080961227417,
-              "cosine_motion": 0.9983540773391724,
-              "motion_component": 1.5505517721176147,
-              "motion_component_percent": 99.83540773391724
-            },
-            {
-              "ion_id": 1460,
-              "distance": 12.949572563171387,
-              "force": [
-                0.2062595784664154,
-                1.0572552680969238,
-                -1.6611392498016357
-              ],
-              "magnitude": 1.9798271656036377,
-              "cosine_motion": 0.8077736496925354,
-              "motion_component": 1.5992522239685059,
-              "motion_component_percent": 80.77736496925354
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 4.603760719299316,
-              "force": [
-                1.7802830934524536,
-                -7.872064113616943,
-                -7.720152854919434
-              ],
-              "magnitude": 11.168686866760254,
-              "cosine_motion": 0.6176064610481262,
-              "motion_component": 6.897852897644043,
-              "motion_component_percent": 61.76064610481262
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 3.4358701705932617,
-              "force": [
-                -2.525963306427002,
-                11.754593849182129,
-                11.561441421508789
-              ],
-              "magnitude": 16.67986488342285,
-              "cosine_motion": -0.621270477771759,
-              "motion_component": -10.362707138061523,
-              "motion_component_percent": 62.1270477771759
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "ND2",
-              "charge": -0.9191,
-              "distance": 5.335378170013428,
-              "force": [
-                0.46561384201049805,
-                7.241256237030029,
-                7.890050888061523
-              ],
-              "magnitude": 10.71939754486084,
-              "cosine_motion": -0.7080417275428772,
-              "motion_component": -7.589780807495117,
-              "motion_component_percent": 70.80417275428772
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 5.113574028015137,
-              "force": [
-                -1.1853530406951904,
-                -3.3221280574798584,
-                -3.992591381072998
-              ],
-              "magnitude": 5.327511787414551,
-              "cosine_motion": 0.7630868554115295,
-              "motion_component": 4.065354347229004,
-              "motion_component_percent": 76.30868554115295
-            }
-          ]
-        },
+      "4416": [
         {
           "frame": 4416.0,
-          "step": 2,
+          "step": 0,
           "ionic_force": [
             -0.9943284774199128,
             -0.28250962495803833,
@@ -3431,9 +3045,9 @@
           ],
           "ionic_force_magnitude": 4.5389397560164815,
           "motion_vector": [
-            -1.1576690673828125,
-            0.13907241821289062,
-            -4.969749450683594
+            2.0530242919921875,
+            -1.0973854064941406,
+            -5.364692687988281
           ],
           "radial_force": 1.0336831280436638,
           "axial_force": -4.419668912887573,
@@ -3461,21 +3075,21 @@
             2.3923470973968506
           ],
           "total_force_magnitude": 4.147065912989118,
-          "cosine_total_motion": -0.49457419062483443,
+          "cosine_total_motion": -0.748192234097002,
           "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.8544836671156831,
-          "cosine_residue_motion": -0.8544836671156831,
-          "cosine_ionic_motion": 0.995966388348681,
-          "motion_component_total": -2.051031767384433,
+          "cosine_asn_motion": -0.8921241884136162,
+          "cosine_residue_motion": -0.8921241884136162,
+          "cosine_ionic_motion": 0.8280229801383968,
+          "motion_component_total": -3.102802510386851,
           "motion_component_glu": null,
-          "motion_component_asn": -6.571663203116412,
-          "motion_component_residue": -6.571663203116412,
-          "motion_component_ionic": 4.520631435731978,
-          "motion_component_percent_total": 49.457419062483446,
+          "motion_component_asn": -6.861148933832266,
+          "motion_component_residue": -6.861148933832266,
+          "motion_component_ionic": 3.7583464234454147,
+          "motion_component_percent_total": 74.8192234097002,
           "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 85.44836671156831,
-          "motion_component_percent_residue": 85.44836671156831,
-          "motion_component_percent_ionic": 99.5966388348681,
+          "motion_component_percent_asn": 89.21241884136163,
+          "motion_component_percent_residue": 89.21241884136163,
+          "motion_component_percent_ionic": 82.80229801383967,
           "ionic_contributions": [
             {
               "ion_id": 1306,
@@ -3486,9 +3100,9 @@
                 -1.631767988204956
               ],
               "magnitude": 1.9441404342651367,
-              "cosine_motion": 0.9381965398788452,
-              "motion_component": 1.8239858150482178,
-              "motion_component_percent": 93.81965398788452
+              "cosine_motion": 0.5908387899398804,
+              "motion_component": 1.1486735343933105,
+              "motion_component_percent": 59.08387899398804
             },
             {
               "ion_id": 1307,
@@ -3499,9 +3113,9 @@
                 -1.4354690313339233
               ],
               "magnitude": 1.6890630722045898,
-              "cosine_motion": 0.8148330450057983,
-              "motion_component": 1.3763043880462646,
-              "motion_component_percent": 81.48330450057983
+              "cosine_motion": 0.8757279515266418,
+              "motion_component": 1.4791597127914429,
+              "motion_component_percent": 87.57279515266418
             },
             {
               "ion_id": 1460,
@@ -3512,9 +3126,9 @@
                 -1.3524318933486938
               ],
               "magnitude": 1.5328923463821411,
-              "cosine_motion": 0.8613397479057312,
-              "motion_component": 1.3203411102294922,
-              "motion_component_percent": 86.13397479057312
+              "cosine_motion": 0.7375032305717468,
+              "motion_component": 1.130513072013855,
+              "motion_component_percent": 73.75032305717468
             }
           ],
           "glu_contributions": [],
@@ -3531,11 +3145,143 @@
                 6.812016010284424
               ],
               "magnitude": 7.690800189971924,
-              "cosine_motion": -0.8544837236404419,
-              "motion_component": -6.5716633796691895,
-              "motion_component_percent": 85.44837236404419
+              "cosine_motion": -0.8921241760253906,
+              "motion_component": -6.861148834228516,
+              "motion_component_percent": 89.21241760253906
             }
           ]
+        },
+        {
+          "frame": 4416.5,
+          "step": 1,
+          "ionic_force": [
+            -0.5427875518798828,
+            0.01616554707288742,
+            -1.4709117412567139
+          ],
+          "ionic_force_magnitude": 1.5679480227210276,
+          "motion_vector": [
+            2.0530242919921875,
+            -1.0973854064941406,
+            -5.364692687988281
+          ],
+          "radial_force": 0.543028223380629,
+          "axial_force": -1.4709117412567139,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            -0.5427875518798828,
+            0.01616554707288742,
+            -1.4709117412567139
+          ],
+          "total_force_magnitude": 1.5679480227210276,
+          "cosine_total_motion": 0.7371173623813779,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.7371173623813779,
+          "motion_component_total": 1.1557617108592206,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 1.1557617108592206,
+          "motion_component_percent_total": 73.71173623813779,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 73.71173623813779,
+          "ionic_contributions": [
+            {
+              "ion_id": 1306,
+              "distance": 14.551347732543945,
+              "force": [
+                -0.5427875518798828,
+                0.01616554707288742,
+                -1.4709117412567139
+              ],
+              "magnitude": 1.5679479837417603,
+              "cosine_motion": 0.7371174097061157,
+              "motion_component": 1.15576171875,
+              "motion_component_percent": 73.71174097061157
+            }
+          ],
+          "glu_contributions": [],
+          "asn_contributions": []
+        },
+        {
+          "frame": 4417.0,
+          "step": 2,
+          "ionic_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ionic_force_magnitude": 0.0,
+          "motion_vector": [
+            2.0530242919921875,
+            -1.0973854064941406,
+            -5.364692687988281
+          ],
+          "radial_force": 0.0,
+          "axial_force": 0.0,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "total_force_magnitude": 0.0,
+          "cosine_total_motion": null,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": null,
+          "motion_component_total": null,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": null,
+          "motion_component_percent_total": null,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": null,
+          "ionic_contributions": [],
+          "glu_contributions": [],
+          "asn_contributions": []
         }
       ]
     }
@@ -7356,409 +7102,13 @@
   },
   {
     "start_frame": 5477,
-    "frame": 6016,
+    "frame": 6017,
     "permeated_ion": 2434,
     "analysis": {
-      "6016": [
-        {
-          "frame": 6016.0,
-          "step": 0,
-          "ionic_force": [
-            -4.774939412251115,
-            1.9371942728757858,
-            -10.307047605514526
-          ],
-          "ionic_force_magnitude": 11.523367493223258,
-          "motion_vector": [
-            0.917236328125,
-            -0.059780120849609375,
-            -5.506996154785156
-          ],
-          "radial_force": 5.152937806875973,
-          "axial_force": -10.307047605514526,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            -2.2701884508132935,
-            9.581175804138184,
-            -4.518758833408356
-          ],
-          "asn_force_magnitude": 10.8338297377481,
-          "residue_force": [
-            -2.2701884508132935,
-            9.581175804138184,
-            -4.518758833408356
-          ],
-          "residue_force_magnitude": 10.8338297377481,
-          "total_force": [
-            -7.045127863064408,
-            11.51837007701397,
-            -14.825806438922882
-          ],
-          "total_force_magnitude": 20.052710849218975,
-          "cosine_total_motion": 0.6653844235452655,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": 0.36751106729668126,
-          "cosine_residue_motion": 0.36751106729668126,
-          "cosine_ionic_motion": 0.8123674893300362,
-          "motion_component_total": 13.34276144892746,
-          "motion_component_glu": null,
-          "motion_component_asn": 3.981552329830329,
-          "motion_component_residue": 3.981552329830329,
-          "motion_component_ionic": 9.361209119097131,
-          "motion_component_percent_total": 66.53844235452655,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 36.75110672966812,
-          "motion_component_percent_residue": 36.75110672966812,
-          "motion_component_percent_ionic": 81.23674893300362,
-          "ionic_contributions": [
-            {
-              "ion_id": 1355,
-              "distance": 8.565786361694336,
-              "force": [
-                -3.9302902221679688,
-                0.5823214054107666,
-                -2.16516375541687
-              ],
-              "magnitude": 4.524844169616699,
-              "cosine_motion": 0.3278995156288147,
-              "motion_component": 1.4836941957473755,
-              "motion_component_percent": 32.78995156288147
-            },
-            {
-              "ion_id": 1380,
-              "distance": 10.02802848815918,
-              "force": [
-                1.0140454769134521,
-                2.1479642391204834,
-                -2.2929553985595703
-              ],
-              "magnitude": 3.301466703414917,
-              "cosine_motion": 0.7285434007644653,
-              "motion_component": 2.405261754989624,
-              "motion_component_percent": 72.85434007644653
-            },
-            {
-              "ion_id": 1443,
-              "distance": 12.026005744934082,
-              "force": [
-                -0.3812868595123291,
-                0.13104836642742157,
-                -2.2599120140075684
-              ],
-              "magnitude": 2.2955949306488037,
-              "cosine_motion": 0.943124532699585,
-              "motion_component": 2.165031909942627,
-              "motion_component_percent": 94.3124532699585
-            },
-            {
-              "ion_id": 1476,
-              "distance": 10.249954223632812,
-              "force": [
-                0.008695846423506737,
-                -2.490915298461914,
-                -1.944529414176941
-              ],
-              "magnitude": 3.1600520610809326,
-              "cosine_motion": 0.6158427000045776,
-              "motion_component": 1.9460949897766113,
-              "motion_component_percent": 61.584270000457764
-            },
-            {
-              "ion_id": 2443,
-              "distance": 11.059541702270508,
-              "force": [
-                -1.4861036539077759,
-                1.5667755603790283,
-                -1.6444870233535767
-              ],
-              "magnitude": 2.7143373489379883,
-              "cosine_motion": 0.5014580488204956,
-              "motion_component": 1.3611263036727905,
-              "motion_component_percent": 50.14580488204956
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 3.8017988204956055,
-              "force": [
-                0.7798341512680054,
-                -16.308780670166016,
-                -1.280699610710144
-              ],
-              "magnitude": 16.377565383911133,
-              "cosine_motion": 0.09561621397733688,
-              "motion_component": 1.5659607648849487,
-              "motion_component_percent": 9.561621397733688
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 2.9084012508392334,
-              "force": [
-                -1.9066357612609863,
-                22.902833938598633,
-                -3.703964948654175
-              ],
-              "magnitude": 23.27862548828125,
-              "cosine_motion": 0.13295310735702515,
-              "motion_component": 3.094965696334839,
-              "motion_component_percent": 13.295310735702515
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "ND2",
-              "charge": -0.9191,
-              "distance": 4.347621917724609,
-              "force": [
-                3.8151614665985107,
-                15.443866729736328,
-                2.7465810775756836
-              ],
-              "magnitude": 16.14348793029785,
-              "cosine_motion": -0.1392318159341812,
-              "motion_component": -2.2476871013641357,
-              "motion_component_percent": 13.923181593418121
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 4.039738655090332,
-              "force": [
-                -3.772191286087036,
-                -7.618267059326172,
-                -0.7746674418449402
-              ],
-              "magnitude": 8.536248207092285,
-              "cosine_motion": 0.02646949701011181,
-              "motion_component": 0.2259501963853836,
-              "motion_component_percent": 2.646949701011181
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD22",
-              "charge": 0.4196,
-              "distance": 5.173674583435059,
-              "force": [
-                -1.186357021331787,
-                -4.83847713470459,
-                -1.5060079097747803
-              ],
-              "magnitude": 5.204455852508545,
-              "cosine_motion": 0.25792574882507324,
-              "motion_component": 1.3423631191253662,
-              "motion_component_percent": 25.792574882507324
-            }
-          ]
-        },
-        {
-          "frame": 6016.5,
-          "step": 1,
-          "ionic_force": [
-            -3.106063663959503,
-            1.6916197761893272,
-            -10.243503332138062
-          ],
-          "ionic_force_magnitude": 10.83690774470688,
-          "motion_vector": [
-            0.917236328125,
-            -0.059780120849609375,
-            -5.506996154785156
-          ],
-          "radial_force": 3.5368360086049173,
-          "axial_force": -10.243503332138062,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            -2.8592589497566223,
-            6.750665187835693,
-            6.340401649475098
-          ],
-          "asn_force_magnitude": 9.69265367671241,
-          "residue_force": [
-            -2.8592589497566223,
-            6.750665187835693,
-            6.340401649475098
-          ],
-          "residue_force_magnitude": 9.69265367671241,
-          "total_force": [
-            -5.9653226137161255,
-            8.44228496402502,
-            -3.903101682662964
-          ],
-          "total_force_magnitude": 11.049500081212832,
-          "cosine_total_motion": 0.25154376635133974,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.701139337072838,
-          "cosine_residue_motion": -0.701139337072838,
-          "cosine_ionic_motion": 0.8835854162153757,
-          "motion_component_total": 2.7794328667277104,
-          "motion_component_glu": null,
-          "motion_component_asn": -6.795900773366746,
-          "motion_component_residue": -6.795900773366746,
-          "motion_component_ionic": 9.575333640094456,
-          "motion_component_percent_total": 25.154376635133975,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 70.1139337072838,
-          "motion_component_percent_residue": 70.1139337072838,
-          "motion_component_percent_ionic": 88.35854162153757,
-          "ionic_contributions": [
-            {
-              "ion_id": 1355,
-              "distance": 8.308648109436035,
-              "force": [
-                -2.8847477436065674,
-                1.0556819438934326,
-                -3.7003581523895264
-              ],
-              "magnitude": 4.8092498779296875,
-              "cosine_motion": 0.6580318808555603,
-              "motion_component": 3.164639711380005,
-              "motion_component_percent": 65.80318808555603
-            },
-            {
-              "ion_id": 1380,
-              "distance": 12.558433532714844,
-              "force": [
-                0.5572047233581543,
-                1.1179864406585693,
-                -1.6943912506103516
-              ],
-              "magnitude": 2.1050729751586914,
-              "cosine_motion": 0.8317247033119202,
-              "motion_component": 1.7508411407470703,
-              "motion_component_percent": 83.17247033119202
-            },
-            {
-              "ion_id": 1443,
-              "distance": 14.614622116088867,
-              "force": [
-                -0.16937699913978577,
-                0.07153072208166122,
-                -1.5434881448745728
-              ],
-              "magnitude": 1.5544004440307617,
-              "cosine_motion": 0.961035966873169,
-              "motion_component": 1.4938347339630127,
-              "motion_component_percent": 96.1035966873169
-            },
-            {
-              "ion_id": 1476,
-              "distance": 11.645089149475098,
-              "force": [
-                0.1531025469303131,
-                -1.6269806623458862,
-                -1.8230000734329224
-              ],
-              "magnitude": 2.4482312202453613,
-              "cosine_motion": 0.7518479824066162,
-              "motion_component": 1.8406976461410522,
-              "motion_component_percent": 75.18479824066162
-            },
-            {
-              "ion_id": 2443,
-              "distance": 12.940826416015625,
-              "force": [
-                -0.7622461915016174,
-                1.0734013319015503,
-                -1.4822657108306885
-              ],
-              "magnitude": 1.9825037717819214,
-              "cosine_motion": 0.6685084104537964,
-              "motion_component": 1.3253204822540283,
-              "motion_component_percent": 66.85084104537964
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 4.764408588409424,
-              "force": [
-                2.0115458965301514,
-                -7.581367015838623,
-                -6.871975898742676
-              ],
-              "magnitude": 10.428206443786621,
-              "cosine_motion": 0.6894617080688477,
-              "motion_component": 7.189848899841309,
-              "motion_component_percent": 68.94617080688477
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 3.594128370285034,
-              "force": [
-                -4.076838493347168,
-                10.793111801147461,
-                9.962235450744629
-              ],
-              "magnitude": 15.243293762207031,
-              "cosine_motion": -0.696150541305542,
-              "motion_component": -10.611627578735352,
-              "motion_component_percent": 69.6150541305542
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "ND2",
-              "charge": -0.9191,
-              "distance": 5.272965431213379,
-              "force": [
-                0.5643673539161682,
-                7.853744029998779,
-                7.644822597503662
-              ],
-              "magnitude": 10.974658012390137,
-              "cosine_motion": -0.6862975358963013,
-              "motion_component": -7.531880855560303,
-              "motion_component_percent": 68.62975358963013
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 4.699823379516602,
-              "force": [
-                -1.358333706855774,
-                -4.314823627471924,
-                -4.394680500030518
-              ],
-              "magnitude": 6.306820869445801,
-              "cosine_motion": 0.6592479348182678,
-              "motion_component": 4.157758712768555,
-              "motion_component_percent": 65.92479348182678
-            }
-          ]
-        },
+      "6017": [
         {
           "frame": 6017.0,
-          "step": 2,
+          "step": 0,
           "ionic_force": [
             -0.8119779080152512,
             -0.011606216430664062,
@@ -7766,9 +7116,9 @@
           ],
           "ionic_force_magnitude": 5.075181099260022,
           "motion_vector": [
-            0.917236328125,
-            -0.059780120849609375,
-            -5.506996154785156
+            -2.9125900268554688,
+            0.1522216796875,
+            -8.711753845214844
           ],
           "radial_force": 0.8120608520084311,
           "axial_force": -5.009792447090149,
@@ -7796,21 +7146,21 @@
             0.019251704216003418
           ],
           "total_force_magnitude": 3.2686228064819725,
-          "cosine_total_motion": -0.13619164239723877,
+          "cosine_total_motion": 0.24331799818933217,
           "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.918666506466621,
-          "cosine_residue_motion": -0.918666506466621,
-          "cosine_ionic_motion": 0.9473869490215276,
-          "motion_component_total": -0.4451591083918518,
+          "cosine_asn_motion": -0.7366635971735034,
+          "cosine_residue_motion": -0.7366635971735034,
+          "cosine_ionic_motion": 0.9867363000855581,
+          "motion_component_total": 0.7953147581091904,
           "motion_component_glu": null,
-          "motion_component_asn": -5.253319445751527,
-          "motion_component_residue": -5.253319445751527,
-          "motion_component_ionic": 4.808160337359675,
-          "motion_component_percent_total": 13.619164239723878,
+          "motion_component_asn": -4.212550662038799,
+          "motion_component_residue": -4.212550662038799,
+          "motion_component_ionic": 5.00786542014799,
+          "motion_component_percent_total": 24.331799818933217,
           "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 91.8666506466621,
-          "motion_component_percent_residue": 91.8666506466621,
-          "motion_component_percent_ionic": 94.73869490215276,
+          "motion_component_percent_asn": 73.66635971735033,
+          "motion_component_percent_residue": 73.66635971735033,
+          "motion_component_percent_ionic": 98.67363000855582,
           "ionic_contributions": [
             {
               "ion_id": 1355,
@@ -7821,9 +7171,9 @@
                 -3.474121332168579
               ],
               "magnitude": 3.7586281299591064,
-              "cosine_motion": 0.8646151423454285,
-              "motion_component": 3.2497668266296387,
-              "motion_component_percent": 86.46151423454285
+              "cosine_motion": 0.9662323594093323,
+              "motion_component": 3.6317081451416016,
+              "motion_component_percent": 96.62323594093323
             },
             {
               "ion_id": 1476,
@@ -7834,9 +7184,9 @@
                 -1.5356711149215698
               ],
               "magnitude": 1.8594963550567627,
-              "cosine_motion": 0.8380728960037231,
-              "motion_component": 1.5583934783935547,
-              "motion_component_percent": 83.80728960037231
+              "cosine_motion": 0.7400699257850647,
+              "motion_component": 1.376157283782959,
+              "motion_component_percent": 74.00699257850647
             }
           ],
           "glu_contributions": [],
@@ -7853,11 +7203,156 @@
                 5.029044151306152
               ],
               "magnitude": 5.718418598175049,
-              "cosine_motion": -0.9186665415763855,
-              "motion_component": -5.25331974029541,
-              "motion_component_percent": 91.86665415763855
+              "cosine_motion": -0.7366635799407959,
+              "motion_component": -4.212550640106201,
+              "motion_component_percent": 73.66635799407959
             }
           ]
+        },
+        {
+          "frame": 6017.5,
+          "step": 1,
+          "ionic_force": [
+            -1.6727233827114105,
+            -0.0022400766611099243,
+            -0.24311494827270508
+          ],
+          "ionic_force_magnitude": 1.6902997991736826,
+          "motion_vector": [
+            -2.9125900268554688,
+            0.1522216796875,
+            -8.711753845214844
+          ],
+          "radial_force": 1.6727248826429741,
+          "axial_force": -0.24311494827270508,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            -1.6727233827114105,
+            -0.0022400766611099243,
+            -0.24311494827270508
+          ],
+          "total_force_magnitude": 1.6902997991736826,
+          "cosine_total_motion": 0.4501042758676889,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.4501042758676889,
+          "motion_component_total": 0.7608111671063704,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 0.7608111671063704,
+          "motion_component_percent_total": 45.01042758676889,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 45.01042758676889,
+          "ionic_contributions": [
+            {
+              "ion_id": 1321,
+              "distance": 13.365500450134277,
+              "force": [
+                -1.2124886512756348,
+                -0.07729311287403107,
+                1.4064139127731323
+              ],
+              "magnitude": 1.8585216999053955,
+              "cosine_motion": -0.5114496350288391,
+              "motion_component": -0.9505402445793152,
+              "motion_component_percent": 51.14496350288391
+            },
+            {
+              "ion_id": 1355,
+              "distance": 13.916868209838867,
+              "force": [
+                -0.46023473143577576,
+                0.07505303621292114,
+                -1.6495288610458374
+              ],
+              "magnitude": 1.714174509048462,
+              "cosine_motion": 0.9983530640602112,
+              "motion_component": 1.7113513946533203,
+              "motion_component_percent": 99.83530640602112
+            }
+          ],
+          "glu_contributions": [],
+          "asn_contributions": []
+        },
+        {
+          "frame": 6018.0,
+          "step": 2,
+          "ionic_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "ionic_force_magnitude": 0.0,
+          "motion_vector": [
+            -2.9125900268554688,
+            0.1522216796875,
+            -8.711753845214844
+          ],
+          "radial_force": 0.0,
+          "axial_force": 0.0,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "total_force_magnitude": 0.0,
+          "cosine_total_motion": null,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": null,
+          "motion_component_total": null,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": null,
+          "motion_component_percent_total": null,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": null,
+          "ionic_contributions": [],
+          "glu_contributions": [],
+          "asn_contributions": []
         }
       ]
     }
@@ -8321,7 +7816,7 @@
     }
   },
   {
-    "start_frame": 5599,
+    "start_frame": 5598,
     "frame": 6202,
     "permeated_ion": 2443,
     "analysis": {
@@ -8725,26 +8220,26 @@
   },
   {
     "start_frame": 5689,
-    "frame": 6425,
+    "frame": 6427,
     "permeated_ion": 1380,
     "analysis": {
-      "6425": [
+      "6427": [
         {
-          "frame": 6425.0,
+          "frame": 6427.0,
           "step": 0,
           "ionic_force": [
-            -1.382570967078209,
-            -1.3527981080114841,
-            -7.00937819480896
+            -0.2791014313697815,
+            -1.3958299197256565,
+            -5.224152088165283
           ],
-          "ionic_force_magnitude": 7.271378677933803,
+          "ionic_force_magnitude": 5.414610218111335,
           "motion_vector": [
-            -1.5445594787597656,
-            -0.16333770751953125,
-            -0.25521087646484375
+            -0.68609619140625,
+            -1.8134956359863281,
+            -2.36322021484375
           ],
-          "radial_force": 1.9343125910894094,
-          "axial_force": -7.00937819480896,
+          "radial_force": 1.423460141273367,
+          "axial_force": -5.224152088165283,
           "glu_force": [
             0.0,
             0.0,
@@ -8752,77 +8247,77 @@
           ],
           "glu_force_magnitude": 0.0,
           "asn_force": [
-            1.4471406638622284,
-            -1.5274386405944824,
-            -0.7555291652679443
+            -0.6784534454345703,
+            3.2226402759552,
+            4.4736647605896
           ],
-          "asn_force_magnitude": 2.235645146564009,
+          "asn_force_magnitude": 5.555122484335683,
           "residue_force": [
-            1.4471406638622284,
-            -1.5274386405944824,
-            -0.7555291652679443
+            -0.6784534454345703,
+            3.2226402759552,
+            4.4736647605896
           ],
-          "residue_force_magnitude": 2.235645146564009,
+          "residue_force_magnitude": 5.555122484335683,
           "total_force": [
-            0.06456969678401947,
-            -2.8802367486059666,
-            -7.764907360076904
+            -0.9575548768043518,
+            1.8268103562295437,
+            -0.7504873275756836
           ],
-          "total_force_magnitude": 8.282132532406102,
-          "cosine_total_motion": 0.1804536985689141,
+          "total_force_magnitude": 2.194852762389997,
+          "cosine_total_motion": -0.1315141290728658,
           "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.5095013843822004,
-          "cosine_residue_motion": -0.5095013843822004,
-          "cosine_ionic_motion": 0.36218795105038726,
-          "motion_component_total": 1.494541447510608,
+          "cosine_asn_motion": -0.9393365353193629,
+          "cosine_residue_motion": -0.9393365353193629,
+          "cosine_ionic_motion": 0.9104026254250159,
+          "motion_component_total": -0.2886541494888941,
           "motion_component_glu": null,
-          "motion_component_asn": -1.1390642971617098,
-          "motion_component_residue": -1.1390642971617098,
-          "motion_component_ionic": 2.633605744672318,
-          "motion_component_percent_total": 18.045369856891412,
+          "motion_component_asn": -5.218129507710572,
+          "motion_component_residue": -5.218129507710572,
+          "motion_component_ionic": 4.929475358221677,
+          "motion_component_percent_total": 13.15141290728658,
           "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 50.95013843822004,
-          "motion_component_percent_residue": 50.95013843822004,
-          "motion_component_percent_ionic": 36.21879510503872,
+          "motion_component_percent_asn": 93.93365353193629,
+          "motion_component_percent_residue": 93.93365353193629,
+          "motion_component_percent_ionic": 91.0402625425016,
           "ionic_contributions": [
             {
               "ion_id": 1327,
-              "distance": 14.779746055603027,
+              "distance": 13.886490821838379,
               "force": [
-                -0.05384409427642822,
-                -0.05643549934029579,
-                -1.5178591012954712
+                -0.14642807841300964,
+                0.06069111451506615,
+                -1.7143703699111938
               ],
-              "magnitude": 1.5198619365692139,
-              "cosine_motion": 0.2005455195903778,
-              "motion_component": 0.30480149388313293,
-              "motion_component_percent": 20.05455195903778
+              "magnitude": 1.7216824293136597,
+              "cosine_motion": 0.7679838538169861,
+              "motion_component": 1.3222242593765259,
+              "motion_component_percent": 76.79838538169861
             },
             {
               "ion_id": 1355,
-              "distance": 9.395625114440918,
+              "distance": 12.073678016662598,
               "force": [
-                -0.2439037412405014,
-                -0.3415834605693817,
-                -3.737361431121826
+                0.3731147348880768,
+                -0.807207465171814,
+                -2.0967166423797607
               ],
-              "magnitude": 3.7608561515808105,
-              "cosine_motion": 0.2341940999031067,
-              "motion_component": 0.8807703256607056,
-              "motion_component_percent": 23.41940999031067
+              "magnitude": 2.2775027751922607,
+              "cosine_motion": 0.885219931602478,
+              "motion_component": 2.0160908699035645,
+              "motion_component_percent": 88.5219931602478
             },
             {
               "ion_id": 1476,
-              "distance": 12.086224555969238,
+              "distance": 14.24856948852539,
               "force": [
-                -1.0848231315612793,
-                -0.9547791481018066,
-                -1.7541576623916626
+                -0.5057880878448486,
+                -0.6493135690689087,
+                -1.4130650758743286
               ],
-              "magnitude": 2.2727766036987305,
-              "cosine_motion": 0.6371210813522339,
-              "motion_component": 1.4480339288711548,
-              "motion_component_percent": 63.71210813522339
+              "magnitude": 1.635292887687683,
+              "cosine_motion": 0.9730123281478882,
+              "motion_component": 1.5911601781845093,
+              "motion_component_percent": 97.30123281478882
             }
           ],
           "glu_contributions": [],
@@ -8830,101 +8325,37 @@
             {
               "resid": 130,
               "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 5.522468566894531,
-              "force": [
-                2.3126273155212402,
-                -5.889163017272949,
-                -4.496074199676514
-              ],
-              "magnitude": 7.761775970458984,
-              "cosine_motion": -0.11971979588270187,
-              "motion_component": -0.9292382597923279,
-              "motion_component_percent": 11.971979588270187
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
               "atom": "OD1",
               "charge": -0.5931,
-              "distance": 4.316771507263184,
+              "distance": 5.9536895751953125,
               "force": [
-                -3.564619302749634,
-                7.7363600730896,
-                6.253138542175293
+                -0.6784534454345703,
+                3.2226402759552,
+                4.4736647605896
               ],
-              "magnitude": 10.566906929016113,
-              "cosine_motion": 0.15910343825817108,
-              "motion_component": 1.6812312602996826,
-              "motion_component_percent": 15.910343825817108
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 5.6670050621032715,
-              "force": [
-                -0.26714757084846497,
-                -3.3070719242095947,
-                -2.7943055629730225
-              ],
-              "magnitude": 4.3377685546875,
-              "cosine_motion": 0.2439979463815689,
-              "motion_component": 1.0584065914154053,
-              "motion_component_percent": 24.39979463815689
-            },
-            {
-              "resid": 780,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 5.407215595245361,
-              "force": [
-                4.756587505340576,
-                -2.6613380908966064,
-                3.95580792427063
-              ],
-              "magnitude": 6.734705924987793,
-              "cosine_motion": -0.7473000884056091,
-              "motion_component": -5.032846450805664,
-              "motion_component_percent": 74.73000884056091
-            },
-            {
-              "resid": 780,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 5.364573001861572,
-              "force": [
-                -1.7903072834014893,
-                2.5937743186950684,
-                -3.674095869064331
-              ],
-              "magnitude": 4.8406453132629395,
-              "cosine_motion": 0.4303935170173645,
-              "motion_component": 2.0833823680877686,
-              "motion_component_percent": 43.03935170173645
+              "magnitude": 5.555122375488281,
+              "cosine_motion": -0.9393365979194641,
+              "motion_component": -5.218129634857178,
+              "motion_component_percent": 93.93365979194641
             }
           ]
         },
         {
-          "frame": 6425.5,
+          "frame": 6427.5,
           "step": 1,
           "ionic_force": [
-            -1.5260116308927536,
-            -2.0927122980356216,
-            -6.444141626358032
+            0.09966941922903061,
+            -0.8496628478169441,
+            -3.2504314184188843
           ],
-          "ionic_force_magnitude": 6.9451506506720095,
+          "ionic_force_magnitude": 3.3611256081756973,
           "motion_vector": [
-            -1.5445594787597656,
-            -0.16333770751953125,
-            -0.25521087646484375
+            -0.68609619140625,
+            -1.8134956359863281,
+            -2.36322021484375
           ],
-          "radial_force": 2.5900108609751995,
-          "axial_force": -6.444141626358032,
+          "radial_force": 0.8554887188559833,
+          "axial_force": -3.2504314184188843,
           "glu_force": [
             0.0,
             0.0,
@@ -8932,147 +8363,85 @@
           ],
           "glu_force_magnitude": 0.0,
           "asn_force": [
-            -0.26293376088142395,
-            -0.8580896854400635,
-            -2.057546615600586
+            0.0,
+            0.0,
+            0.0
           ],
-          "asn_force_magnitude": 2.2447605988700223,
+          "asn_force_magnitude": 0.0,
           "residue_force": [
-            -0.26293376088142395,
-            -0.8580896854400635,
-            -2.057546615600586
+            0.0,
+            0.0,
+            0.0
           ],
-          "residue_force_magnitude": 2.2447605988700223,
+          "residue_force_magnitude": 0.0,
           "total_force": [
-            -1.7889453917741776,
-            -2.950801983475685,
-            -8.501688241958618
+            0.09966941922903061,
+            -0.8496628478169441,
+            -3.2504314184188843
           ],
-          "total_force_magnitude": 9.175307129676451,
-          "cosine_total_motion": 0.3749382271421134,
+          "total_force_magnitude": 3.3611256081756973,
+          "cosine_total_motion": 0.8909450356286831,
           "cosine_glu_motion": null,
-          "cosine_asn_motion": 0.30322861540885776,
-          "cosine_residue_motion": 0.30322861540885776,
-          "cosine_ionic_motion": 0.3973272689338364,
-          "motion_component_total": 3.4401733886852814,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.8909450356286831,
+          "motion_component_total": 2.994578174728576,
           "motion_component_glu": null,
-          "motion_component_asn": 0.6806756483197152,
-          "motion_component_residue": 0.6806756483197152,
-          "motion_component_ionic": 2.7594977403655663,
-          "motion_component_percent_total": 37.49382271421134,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 2.994578174728576,
+          "motion_component_percent_total": 89.09450356286831,
           "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 30.322861540885775,
-          "motion_component_percent_residue": 30.322861540885775,
-          "motion_component_percent_ionic": 39.73272689338364,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 89.09450356286831,
           "ionic_contributions": [
             {
               "ion_id": 1327,
-              "distance": 14.456657409667969,
+              "distance": 14.268919944763184,
               "force": [
-                -0.16127724945545197,
-                -0.06506253778934479,
-                -1.5790072679519653
+                -0.08655072003602982,
+                -0.08907610923051834,
+                -1.6258949041366577
               ],
-              "magnitude": 1.588555097579956,
-              "cosine_motion": 0.26504281163215637,
-              "motion_component": 0.42103511095046997,
-              "motion_component_percent": 26.504281163215637
+              "magnitude": 1.630631685256958,
+              "cosine_motion": 0.8151662945747375,
+              "motion_component": 1.3292360305786133,
+              "motion_component_percent": 81.51662945747375
             },
             {
               "ion_id": 1355,
-              "distance": 9.70859146118164,
+              "distance": 13.568184852600098,
               "force": [
-                -0.3895319402217865,
-                -1.1147466897964478,
-                -3.318457841873169
+                0.18622013926506042,
+                -0.7605867385864258,
+                -1.6245365142822266
               ],
-              "magnitude": 3.522294282913208,
-              "cosine_motion": 0.29412248730659485,
-              "motion_component": 1.0359859466552734,
-              "motion_component_percent": 29.412248730659485
-            },
-            {
-              "ion_id": 1476,
-              "distance": 12.745674133300781,
-              "force": [
-                -0.9752024412155151,
-                -0.9129030704498291,
-                -1.546676516532898
-              ],
-              "magnitude": 2.043678045272827,
-              "cosine_motion": 0.6373198628425598,
-              "motion_component": 1.3024766445159912,
-              "motion_component_percent": 63.73198628425598
+              "magnitude": 1.8034104108810425,
+              "cosine_motion": 0.9234405159950256,
+              "motion_component": 1.6653422117233276,
+              "motion_component_percent": 92.34405159950256
             }
           ],
           "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 5.77828311920166,
-              "force": [
-                1.3560312986373901,
-                -5.298908233642578,
-                -4.510774612426758
-              ],
-              "magnitude": 7.0897345542907715,
-              "cosine_motion": -0.006968287751078606,
-              "motion_component": -0.04940330982208252,
-              "motion_component_percent": 0.6968287751078606
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 4.693089962005615,
-              "force": [
-                -1.282899260520935,
-                6.988211154937744,
-                5.426473617553711
-              ],
-              "magnitude": 8.940220832824707,
-              "cosine_motion": -0.03871680051088333,
-              "motion_component": -0.34613674879074097,
-              "motion_component_percent": 3.871680051088333
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 5.953995704650879,
-              "force": [
-                -0.33606579899787903,
-                -2.5473926067352295,
-                -2.973245620727539
-              ],
-              "magnitude": 3.9296741485595703,
-              "cosine_motion": 0.2738689184188843,
-              "motion_component": 1.0762156248092651,
-              "motion_component_percent": 27.386891841888428
-            }
-          ]
+          "asn_contributions": []
         },
         {
-          "frame": 6426.0,
+          "frame": 6428.0,
           "step": 2,
           "ionic_force": [
-            -1.5980022549629211,
-            -2.4518961906433105,
-            -5.547749876976013
+            -0.03435530886054039,
+            -0.21089859306812286,
+            -1.5059750080108643
           ],
-          "ionic_force_magnitude": 6.272394665041823,
+          "ionic_force_magnitude": 1.5210585881412786,
           "motion_vector": [
-            -1.5445594787597656,
-            -0.16333770751953125,
-            -0.25521087646484375
+            -0.68609619140625,
+            -1.8134956359863281,
+            -2.36322021484375
           ],
-          "radial_force": 2.9266715115567306,
-          "axial_force": -5.547749876976013,
+          "radial_force": 0.21367850571598634,
+          "axial_force": -1.5059750080108643,
           "glu_force": [
             0.0,
             0.0,
@@ -9080,417 +8449,68 @@
           ],
           "glu_force_magnitude": 0.0,
           "asn_force": [
-            0.15065915882587433,
-            5.75576114654541,
-            4.331099987030029
+            0.0,
+            0.0,
+            0.0
           ],
-          "asn_force_magnitude": 7.204853340344367,
+          "asn_force_magnitude": 0.0,
           "residue_force": [
-            0.15065915882587433,
-            5.75576114654541,
-            4.331099987030029
+            0.0,
+            0.0,
+            0.0
           ],
-          "residue_force_magnitude": 7.204853340344367,
+          "residue_force_magnitude": 0.0,
           "total_force": [
-            -1.4473430961370468,
-            3.3038649559020996,
-            -1.2166498899459839
+            -0.03435530886054039,
+            -0.21089859306812286,
+            -1.5059750080108643
           ],
-          "total_force_magnitude": 3.80664716508887,
-          "cosine_total_motion": 0.3348593076697725,
+          "total_force_magnitude": 1.5210585881412786,
+          "cosine_total_motion": 0.8527508777160477,
           "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.20088980373398624,
-          "cosine_residue_motion": -0.20088980373398624,
-          "cosine_ionic_motion": 0.4339766473703781,
-          "motion_component_total": 1.2746912342447612,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.8527508777160477,
+          "motion_component_total": 1.2970840460950077,
           "motion_component_glu": null,
-          "motion_component_asn": -1.447381573473935,
-          "motion_component_residue": -1.447381573473935,
-          "motion_component_ionic": 2.722072807718696,
-          "motion_component_percent_total": 33.48593076697725,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 1.2970840460950077,
+          "motion_component_percent_total": 85.27508777160477,
           "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 20.088980373398623,
-          "motion_component_percent_residue": 20.088980373398623,
-          "motion_component_percent_ionic": 43.397664737037815,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 85.27508777160477,
           "ionic_contributions": [
             {
               "ion_id": 1327,
-              "distance": 14.200011253356934,
+              "distance": 14.773931503295898,
               "force": [
-                -0.2796490788459778,
-                -0.07367515563964844,
-                -1.620900273323059
+                -0.03435530886054039,
+                -0.21089859306812286,
+                -1.5059750080108643
               ],
-              "magnitude": 1.646496057510376,
-              "cosine_motion": 0.3309326171875,
-              "motion_component": 0.5448792576789856,
-              "motion_component_percent": 33.09326171875
-            },
-            {
-              "ion_id": 1355,
-              "distance": 10.516140937805176,
-              "force": [
-                -0.4390662908554077,
-                -1.5106929540634155,
-                -2.556880474090576
-              ],
-              "magnitude": 3.002100944519043,
-              "cosine_motion": 0.33383244276046753,
-              "motion_component": 1.0021986961364746,
-              "motion_component_percent": 33.38324427604675
-            },
-            {
-              "ion_id": 1476,
-              "distance": 13.415825843811035,
-              "force": [
-                -0.8792868852615356,
-                -0.8675280809402466,
-                -1.369969129562378
-              ],
-              "magnitude": 1.8446046113967896,
-              "cosine_motion": 0.6369900703430176,
-              "motion_component": 1.1749948263168335,
-              "motion_component_percent": 63.69900703430176
+              "magnitude": 1.5210586786270142,
+              "cosine_motion": 0.8527507781982422,
+              "motion_component": 1.2970839738845825,
+              "motion_component_percent": 85.27507781982422
             }
           ],
           "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 5.227817535400391,
-              "force": [
-                0.15065915882587433,
-                5.75576114654541,
-                4.331099987030029
-              ],
-              "magnitude": 7.204853534698486,
-              "cosine_motion": -0.20088981091976166,
-              "motion_component": -1.447381615638733,
-              "motion_component_percent": 20.088981091976166
-            }
-          ]
+          "asn_contributions": []
         }
       ]
     }
   },
   {
-    "start_frame": 5892,
-    "frame": 6488,
+    "start_frame": 5891,
+    "frame": 6489,
     "permeated_ion": 1476,
     "analysis": {
-      "6488": [
-        {
-          "frame": 6488.0,
-          "step": 0,
-          "ionic_force": [
-            -0.4124993681907654,
-            -1.4086133688688278,
-            -8.854763507843018
-          ],
-          "ionic_force_magnitude": 8.975588233176818,
-          "motion_vector": [
-            -0.6596145629882812,
-            1.8584747314453125,
-            -2.0570907592773438
-          ],
-          "radial_force": 1.4677695158688127,
-          "axial_force": -8.854763507843018,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            -1.2398658990859985,
-            -1.3148384094238281,
-            -0.6661646366119385
-          ],
-          "asn_force_magnitude": 1.9260952244592762,
-          "residue_force": [
-            -1.2398658990859985,
-            -1.3148384094238281,
-            -0.6661646366119385
-          ],
-          "residue_force_magnitude": 1.9260952244592762,
-          "total_force": [
-            -1.652365267276764,
-            -2.723451778292656,
-            -9.520928144454956
-          ],
-          "total_force_magnitude": 10.039699860905332,
-          "cosine_total_motion": 0.5457511830071815,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.04653146862421928,
-          "cosine_residue_motion": -0.04653146862421928,
-          "cosine_ionic_motion": 0.620438680001621,
-          "motion_component_total": 5.479178076126121,
-          "motion_component_glu": null,
-          "motion_component_asn": -0.0896240395041854,
-          "motion_component_residue": -0.0896240395041854,
-          "motion_component_ionic": 5.568802115630306,
-          "motion_component_percent_total": 54.57511830071815,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 4.653146862421928,
-          "motion_component_percent_residue": 4.653146862421928,
-          "motion_component_percent_ionic": 62.04386800016209,
-          "ionic_contributions": [
-            {
-              "ion_id": 1327,
-              "distance": 10.569830894470215,
-              "force": [
-                1.6464307308197021,
-                0.5983303785324097,
-                -2.400447130203247
-              ],
-              "magnitude": 2.9716796875,
-              "cosine_motion": 0.5861741900444031,
-              "motion_component": 1.7419220209121704,
-              "motion_component_percent": 58.61741900444031
-            },
-            {
-              "ion_id": 1330,
-              "distance": 13.205230712890625,
-              "force": [
-                -0.19868579506874084,
-                -0.18994195759296417,
-                -1.8839623928070068
-              ],
-              "magnitude": 1.903908610343933,
-              "cosine_motion": 0.6733983159065247,
-              "motion_component": 1.2820888757705688,
-              "motion_component_percent": 67.33983159065247
-            },
-            {
-              "ion_id": 1341,
-              "distance": 10.087407112121582,
-              "force": [
-                -2.268233299255371,
-                0.35912325978279114,
-                -2.317638874053955
-              ],
-              "magnitude": 3.26271390914917,
-              "cosine_motion": 0.7454742789268494,
-              "motion_component": 2.432269334793091,
-              "motion_component_percent": 74.54742789268494
-            },
-            {
-              "ion_id": 1355,
-              "distance": 10.252323150634766,
-              "force": [
-                0.4079889953136444,
-                -2.1761250495910645,
-                -2.2527151107788086
-              ],
-              "magnitude": 3.1585915088653564,
-              "cosine_motion": 0.03562405705451965,
-              "motion_component": 0.11252184212207794,
-              "motion_component_percent": 3.5624057054519653
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 5.607229232788086,
-              "force": [
-                1.9392443895339966,
-                -6.711006164550781,
-                -2.80818772315979
-              ],
-              "magnitude": 7.528890609741211,
-              "cosine_motion": -0.3716959059238434,
-              "motion_component": -2.7984578609466553,
-              "motion_component_percent": 37.16959059238434
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 4.357287883758545,
-              "force": [
-                -2.8092422485351562,
-                9.292988777160645,
-                3.6486358642578125
-              ],
-              "magnitude": 10.371307373046875,
-              "cosine_motion": 0.3931073546409607,
-              "motion_component": 4.077037334442139,
-              "motion_component_percent": 39.31073546409607
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 5.763132572174072,
-              "force": [
-                -0.36986804008483887,
-                -3.8968210220336914,
-                -1.506612777709961
-              ],
-              "magnitude": 4.19426965713501,
-              "cosine_motion": -0.32620784640312195,
-              "motion_component": -1.3682036399841309,
-              "motion_component_percent": 32.620784640312195
-            }
-          ]
-        },
-        {
-          "frame": 6488.5,
-          "step": 1,
-          "ionic_force": [
-            -0.18397505581378937,
-            -0.8005735874176025,
-            -8.4955393075943
-          ],
-          "ionic_force_magnitude": 8.535159812031184,
-          "motion_vector": [
-            -0.6596145629882812,
-            1.8584747314453125,
-            -2.0570907592773438
-          ],
-          "radial_force": 0.8214407404264635,
-          "axial_force": -8.4955393075943,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            0.21243584156036377,
-            1.6868915557861328,
-            1.843186855316162
-          ],
-          "asn_force_magnitude": 2.5076024189197743,
-          "residue_force": [
-            0.21243584156036377,
-            1.6868915557861328,
-            1.843186855316162
-          ],
-          "residue_force_magnitude": 2.5076024189197743,
-          "total_force": [
-            0.028460785746574402,
-            0.8863179683685303,
-            -6.652352452278137
-          ],
-          "total_force_magnitude": 6.711196816269746,
-          "cosine_total_motion": 0.8006871176890101,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.11148892224262154,
-          "cosine_residue_motion": -0.11148892224262154,
-          "cosine_ionic_motion": 0.6623354278841225,
-          "motion_component_total": 5.3735688350626845,
-          "motion_component_glu": null,
-          "motion_component_asn": -0.2795698910983564,
-          "motion_component_residue": -0.2795698910983564,
-          "motion_component_ionic": 5.653138726161041,
-          "motion_component_percent_total": 80.06871176890101,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 11.148892224262154,
-          "motion_component_percent_residue": 11.148892224262154,
-          "motion_component_percent_ionic": 66.23354278841225,
-          "ionic_contributions": [
-            {
-              "ion_id": 1327,
-              "distance": 11.318196296691895,
-              "force": [
-                1.2532522678375244,
-                0.6660299897193909,
-                -2.1685566902160645
-              ],
-              "magnitude": 2.591693639755249,
-              "cosine_motion": 0.6596800088882446,
-              "motion_component": 1.709688425064087,
-              "motion_component_percent": 65.96800088882446
-            },
-            {
-              "ion_id": 1330,
-              "distance": 14.106566429138184,
-              "force": [
-                -0.15211166441440582,
-                -0.008649259805679321,
-                -1.6614105701446533
-              ],
-              "magnitude": 1.6683818101882935,
-              "cosine_motion": 0.7365753650665283,
-              "motion_component": 1.228888988494873,
-              "motion_component_percent": 73.65753650665283
-            },
-            {
-              "ion_id": 1341,
-              "distance": 10.966883659362793,
-              "force": [
-                -1.88666832447052,
-                0.34182557463645935,
-                -1.9858077764511108
-              ],
-              "magnitude": 2.7603976726531982,
-              "cosine_motion": 0.758270800113678,
-              "motion_component": 2.0931289196014404,
-              "motion_component_percent": 75.8270800113678
-            },
-            {
-              "ion_id": 1355,
-              "distance": 10.055232048034668,
-              "force": [
-                0.6015526652336121,
-                -1.7997798919677734,
-                -2.6797642707824707
-              ],
-              "magnitude": 3.283627510070801,
-              "cosine_motion": 0.1892518252134323,
-              "motion_component": 0.6214324831962585,
-              "motion_component_percent": 18.92518252134323
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 5.536708831787109,
-              "force": [
-                1.3893107175827026,
-                -5.62654972076416,
-                -5.102892875671387
-              ],
-              "magnitude": 7.7219014167785645,
-              "cosine_motion": -0.03981369733810425,
-              "motion_component": -0.3074374496936798,
-              "motion_component_percent": 3.981369733810425
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 4.40349817276001,
-              "force": [
-                -1.1768748760223389,
-                7.313441276550293,
-                6.946079730987549
-              ],
-              "magnitude": 10.154776573181152,
-              "cosine_motion": 0.0027442658320069313,
-              "motion_component": 0.027867406606674194,
-              "motion_component_percent": 0.27442658320069313
-            }
-          ]
-        },
+      "6489": [
         {
           "frame": 6489.0,
-          "step": 2,
+          "step": 0,
           "ionic_force": [
             0.08745795488357544,
             -0.23588845133781433,
@@ -9498,9 +8518,9 @@
           ],
           "ionic_force_magnitude": 6.492989483308295,
           "motion_vector": [
-            -0.6596145629882812,
-            1.8584747314453125,
-            -2.0570907592773438
+            -0.4549713134765625,
+            -0.05165863037109375,
+            -4.110870361328125
           ],
           "radial_force": 0.25157952092125846,
           "axial_force": -6.488113760948181,
@@ -9528,21 +8548,21 @@
             0.12785255908966064
           ],
           "total_force_magnitude": 3.3741075023509826,
-          "cosine_total_motion": 0.599236531748971,
+          "cosine_total_motion": -0.060595970218125995,
           "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.33027451224454324,
-          "cosine_residue_motion": -0.33027451224454324,
-          "cosine_ionic_motion": 0.6945157498516686,
-          "motion_component_total": 2.0218884774569856,
+          "cosine_asn_motion": -0.8823826908850454,
+          "cosine_residue_motion": -0.8823826908850454,
+          "cosine_ionic_motion": 0.9920795210004253,
+          "motion_component_total": -0.20445731772521564,
           "motion_component_glu": null,
-          "motion_component_asn": -2.4875949823218733,
-          "motion_component_residue": -2.4875949823218733,
-          "motion_component_ionic": 4.509483459778859,
-          "motion_component_percent_total": 59.9236531748971,
+          "motion_component_asn": -6.646019214186508,
+          "motion_component_residue": -6.646019214186508,
+          "motion_component_ionic": 6.441561896461293,
+          "motion_component_percent_total": 6.0595970218126,
           "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 33.027451224454325,
-          "motion_component_percent_residue": 33.027451224454325,
-          "motion_component_percent_ionic": 69.45157498516686,
+          "motion_component_percent_asn": 88.23826908850454,
+          "motion_component_percent_residue": 88.23826908850454,
+          "motion_component_percent_ionic": 99.20795210004253,
           "ionic_contributions": [
             {
               "ion_id": 1327,
@@ -9553,9 +8573,9 @@
                 -1.9233936071395874
               ],
               "magnitude": 2.2473132610321045,
-              "cosine_motion": 0.718829870223999,
-              "motion_component": 1.6154358386993408,
-              "motion_component_percent": 71.8829870223999
+              "cosine_motion": 0.8007489442825317,
+              "motion_component": 1.799533724784851,
+              "motion_component_percent": 80.07489442825317
             },
             {
               "ion_id": 1341,
@@ -9566,9 +8586,9 @@
                 -1.7184700965881348
               ],
               "magnitude": 2.36422061920166,
-              "cosine_motion": 0.7689195275306702,
-              "motion_component": 1.8178954124450684,
-              "motion_component_percent": 76.89195275306702
+              "cosine_motion": 0.7947626709938049,
+              "motion_component": 1.878994345664978,
+              "motion_component_percent": 79.4762670993805
             },
             {
               "ion_id": 1355,
@@ -9579,9 +8599,9 @@
                 -2.846250057220459
               ],
               "magnitude": 3.190526008605957,
-              "cosine_motion": 0.33729615807533264,
-              "motion_component": 1.0761522054672241,
-              "motion_component_percent": 33.729615807533264
+              "cosine_motion": 0.8660120368003845,
+              "motion_component": 2.763033866882324,
+              "motion_component_percent": 86.60120368003845
             }
           ],
           "glu_contributions": [],
@@ -9598,410 +8618,196 @@
                 6.615966320037842
               ],
               "magnitude": 7.531900882720947,
-              "cosine_motion": -0.3302744925022125,
-              "motion_component": -2.4875948429107666,
-              "motion_component_percent": 33.02744925022125
+              "cosine_motion": -0.8823827505111694,
+              "motion_component": -6.646019458770752,
+              "motion_component_percent": 88.23827505111694
             }
           ]
+        },
+        {
+          "frame": 6489.5,
+          "step": 1,
+          "ionic_force": [
+            0.1336003541946411,
+            -0.5980167984962463,
+            -5.049830198287964
+          ],
+          "ionic_force_magnitude": 5.086871157938413,
+          "motion_vector": [
+            -0.4549713134765625,
+            -0.05165863037109375,
+            -4.110870361328125
+          ],
+          "radial_force": 0.6127586359445566,
+          "axial_force": -5.049830198287964,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            0.1336003541946411,
+            -0.5980167984962463,
+            -5.049830198287964
+          ],
+          "total_force_magnitude": 5.086871157938413,
+          "cosine_total_motion": 0.9851961154067156,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.9851961154067156,
+          "motion_component_total": 5.011565704375386,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 5.011565704375386,
+          "motion_component_percent_total": 98.51961154067156,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 98.51961154067156,
+          "ionic_contributions": [
+            {
+              "ion_id": 1327,
+              "distance": 14.234981536865234,
+              "force": [
+                0.5648996829986572,
+                0.4395228624343872,
+                -1.473810076713562
+              ],
+              "magnitude": 1.6384162902832031,
+              "cosine_motion": 0.8527296781539917,
+              "motion_component": 1.3971261978149414,
+              "motion_component_percent": 85.27296781539917
+            },
+            {
+              "ion_id": 1341,
+              "distance": 13.747450828552246,
+              "force": [
+                -0.8592453002929688,
+                -0.2990993857383728,
+                -1.5027230978012085
+              ],
+              "magnitude": 1.7566843032836914,
+              "cosine_motion": 0.9061018824577332,
+              "motion_component": 1.5917350053787231,
+              "motion_component_percent": 90.61018824577332
+            },
+            {
+              "ion_id": 1355,
+              "distance": 12.168638229370117,
+              "force": [
+                0.42794597148895264,
+                -0.7384402751922607,
+                -2.0732970237731934
+              ],
+              "magnitude": 2.242095470428467,
+              "cosine_motion": 0.9021490812301636,
+              "motion_component": 2.0227043628692627,
+              "motion_component_percent": 90.21490812301636
+            }
+          ],
+          "glu_contributions": [],
+          "asn_contributions": []
+        },
+        {
+          "frame": 6490.0,
+          "step": 2,
+          "ionic_force": [
+            0.26552385091781616,
+            -0.4712832272052765,
+            -1.5574729442596436
+          ],
+          "ionic_force_magnitude": 1.6487367187492519,
+          "motion_vector": [
+            -0.4549713134765625,
+            -0.05165863037109375,
+            -4.110870361328125
+          ],
+          "radial_force": 0.5409351122373616,
+          "axial_force": -1.5574729442596436,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            0.26552385091781616,
+            -0.4712832272052765,
+            -1.5574729442596436
+          ],
+          "total_force_magnitude": 1.6487367187492519,
+          "cosine_total_motion": 0.9246957646468101,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.9246957646468101,
+          "motion_component_total": 1.5245798608451122,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 1.5245798608451122,
+          "motion_component_percent_total": 92.46957646468101,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 92.46957646468101,
+          "ionic_contributions": [
+            {
+              "ion_id": 1355,
+              "distance": 14.190359115600586,
+              "force": [
+                0.26552385091781616,
+                -0.4712832272052765,
+                -1.5574729442596436
+              ],
+              "magnitude": 1.6487367153167725,
+              "cosine_motion": 0.9246957898139954,
+              "motion_component": 1.5245798826217651,
+              "motion_component_percent": 92.46957898139954
+            }
+          ],
+          "glu_contributions": [],
+          "asn_contributions": []
         }
       ]
     }
   },
   {
     "start_frame": 5997,
-    "frame": 6561,
+    "frame": 6562,
     "permeated_ion": 1355,
     "analysis": {
-      "6561": [
-        {
-          "frame": 6561.0,
-          "step": 0,
-          "ionic_force": [
-            -2.351348042488098,
-            2.377216547727585,
-            -11.267191410064697
-          ],
-          "ionic_force_magnitude": 11.75285490435146,
-          "motion_vector": [
-            -0.17771148681640625,
-            -1.4416885375976562,
-            -4.5340423583984375
-          ],
-          "radial_force": 3.343650121005855,
-          "axial_force": -11.267191410064697,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            -8.390534162521362,
-            6.522450923919678,
-            4.829678416252136
-          ],
-          "asn_force_magnitude": 11.673440931952774,
-          "residue_force": [
-            -8.390534162521362,
-            6.522450923919678,
-            4.829678416252136
-          ],
-          "residue_force_magnitude": 11.673440931952774,
-          "total_force": [
-            -10.74188220500946,
-            8.899667471647263,
-            -6.437512993812561
-          ],
-          "total_force_magnitude": 15.363387906243235,
-          "cosine_total_motion": 0.24972526788515811,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.5363689065445365,
-          "cosine_residue_motion": -0.5363689065445365,
-          "cosine_ionic_motion": 0.8591867245000376,
-          "motion_component_total": 3.8366261605101903,
-          "motion_component_glu": null,
-          "motion_component_asn": -6.261270748283745,
-          "motion_component_residue": -6.261270748283745,
-          "motion_component_ionic": 10.097896908793935,
-          "motion_component_percent_total": 24.97252678851581,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 53.63689065445365,
-          "motion_component_percent_residue": 53.63689065445365,
-          "motion_component_percent_ionic": 85.91867245000377,
-          "ionic_contributions": [
-            {
-              "ion_id": 1327,
-              "distance": 9.54033374786377,
-              "force": [
-                1.9448966979980469,
-                1.4587265253067017,
-                -2.7193212509155273
-              ],
-              "magnitude": 3.6476311683654785,
-              "cosine_motion": 0.5689591765403748,
-              "motion_component": 2.0753531455993652,
-              "motion_component_percent": 56.895917654037476
-            },
-            {
-              "ion_id": 1330,
-              "distance": 9.831693649291992,
-              "force": [
-                -2.0129354000091553,
-                -1.6208391189575195,
-                -2.2622406482696533
-              ],
-              "magnitude": 3.4346413612365723,
-              "cosine_motion": 0.7920236587524414,
-              "motion_component": 2.7203171253204346,
-              "motion_component_percent": 79.20236587524414
-            },
-            {
-              "ion_id": 1341,
-              "distance": 8.00463581085205,
-              "force": [
-                -2.0574705600738525,
-                2.4868741035461426,
-                -4.053411483764648
-              ],
-              "magnitude": 5.181493282318115,
-              "cosine_motion": 0.614474356174469,
-              "motion_component": 3.1838948726654053,
-              "motion_component_percent": 61.4474356174469
-            },
-            {
-              "ion_id": 1465,
-              "distance": 12.162859916687012,
-              "force": [
-                -0.2258387804031372,
-                0.05245503783226013,
-                -2.232218027114868
-              ],
-              "magnitude": 2.2442264556884766,
-              "cosine_motion": 0.9439029097557068,
-              "motion_component": 2.1183319091796875,
-              "motion_component_percent": 94.39029097557068
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 3.6914260387420654,
-              "force": [
-                6.848118305206299,
-                -15.413118362426758,
-                -4.16062593460083
-              ],
-              "magnitude": 17.371578216552734,
-              "cosine_motion": 0.4820440113544464,
-              "motion_component": 8.373865127563477,
-              "motion_component_percent": 48.20440113544464
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 2.5899715423583984,
-              "force": [
-                -15.794816017150879,
-                23.844758987426758,
-                6.606307506561279
-              ],
-              "magnitude": 29.354591369628906,
-              "cosine_motion": -0.44020944833755493,
-              "motion_component": -12.922168731689453,
-              "motion_component_percent": 44.02094483375549
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "ND2",
-              "charge": -0.9191,
-              "distance": 4.075011253356934,
-              "force": [
-                -1.4347524642944336,
-                17.70260238647461,
-                4.714297294616699
-              ],
-              "magnitude": 18.375669479370117,
-              "cosine_motion": -0.5331220626831055,
-              "motion_component": -9.79647445678711,
-              "motion_component_percent": 53.31220626831055
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 3.5930869579315186,
-              "force": [
-                -1.6583493947982788,
-                -10.313432693481445,
-                -2.7048146724700928
-              ],
-              "magnitude": 10.790414810180664,
-              "cosine_motion": 0.5338765978813171,
-              "motion_component": 5.760749816894531,
-              "motion_component_percent": 53.387659788131714
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD22",
-              "charge": 0.4196,
-              "distance": 5.077670574188232,
-              "force": [
-                0.3166416883468628,
-                -5.185932159423828,
-                -1.4830842018127441
-              ],
-              "magnitude": 5.40311861038208,
-              "cosine_motion": 0.5498489141464233,
-              "motion_component": 2.9708988666534424,
-              "motion_component_percent": 54.984891414642334
-            },
-            {
-              "resid": 780,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 5.9246392250061035,
-              "force": [
-                3.3326237201690674,
-                -4.112427234649658,
-                1.8575984239578247
-              ],
-              "magnitude": 5.609733581542969,
-              "cosine_motion": -0.1155388355255127,
-              "motion_component": -0.6481420993804932,
-              "motion_component_percent": 11.55388355255127
-            }
-          ]
-        },
-        {
-          "frame": 6561.5,
-          "step": 1,
-          "ionic_force": [
-            -2.504154160618782,
-            2.0241302475333214,
-            -11.611746549606323
-          ],
-          "ionic_force_magnitude": 12.04991905580357,
-          "motion_vector": [
-            -0.17771148681640625,
-            -1.4416885375976562,
-            -4.5340423583984375
-          ],
-          "radial_force": 3.219921011317461,
-          "axial_force": -11.611746549606323,
-          "glu_force": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "glu_force_magnitude": 0.0,
-          "asn_force": [
-            -2.406988725066185,
-            6.076299667358398,
-            5.8031086921691895
-          ],
-          "asn_force_magnitude": 8.740199246199433,
-          "residue_force": [
-            -2.406988725066185,
-            6.076299667358398,
-            5.8031086921691895
-          ],
-          "residue_force_magnitude": 8.740199246199433,
-          "total_force": [
-            -4.911142885684967,
-            8.10042991489172,
-            -5.808637857437134
-          ],
-          "total_force_magnitude": 11.11200085531578,
-          "cosine_total_motion": 0.2935666783844173,
-          "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.8325361570293304,
-          "cosine_residue_motion": -0.8325361570293304,
-          "cosine_ionic_motion": 0.874582229523416,
-          "motion_component_total": 3.262113181299857,
-          "motion_component_glu": null,
-          "motion_component_asn": -7.276531892101526,
-          "motion_component_residue": -7.276531892101526,
-          "motion_component_ionic": 10.538645073401383,
-          "motion_component_percent_total": 29.35666783844173,
-          "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 83.25361570293303,
-          "motion_component_percent_residue": 83.25361570293303,
-          "motion_component_percent_ionic": 87.4582229523416,
-          "ionic_contributions": [
-            {
-              "ion_id": 1327,
-              "distance": 11.100937843322754,
-              "force": [
-                1.1655957698822021,
-                0.7230123281478882,
-                -2.3188321590423584
-              ],
-              "magnitude": 2.6941311359405518,
-              "cosine_motion": 0.7222471833229065,
-              "motion_component": 1.9458286762237549,
-              "motion_component_percent": 72.22471833229065
-            },
-            {
-              "ion_id": 1330,
-              "distance": 12.03500747680664,
-              "force": [
-                -1.0821583271026611,
-                -1.1218376159667969,
-                -1.6806014776229858
-              ],
-              "magnitude": 2.2921621799468994,
-              "cosine_motion": 0.86406010389328,
-              "motion_component": 1.9805659055709839,
-              "motion_component_percent": 86.406010389328
-            },
-            {
-              "ion_id": 1341,
-              "distance": 6.889702320098877,
-              "force": [
-                -2.4330058097839355,
-                2.46581768989563,
-                -6.076089859008789
-              ],
-              "magnitude": 6.9941864013671875,
-              "cosine_motion": 0.7335414290428162,
-              "motion_component": 5.130525588989258,
-              "motion_component_percent": 73.35414290428162
-            },
-            {
-              "ion_id": 1465,
-              "distance": 14.661026954650879,
-              "force": [
-                -0.1545857936143875,
-                -0.04286215454339981,
-                -1.53622305393219
-              ],
-              "magnitude": 1.5445760488510132,
-              "cosine_motion": 0.9593086838722229,
-              "motion_component": 1.4817252159118652,
-              "motion_component_percent": 95.93086838722229
-            }
-          ],
-          "glu_contributions": [],
-          "asn_contributions": [
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "CG",
-              "charge": 0.713,
-              "distance": 4.94907808303833,
-              "force": [
-                2.2171690464019775,
-                -7.386937618255615,
-                -5.824061870574951
-              ],
-              "magnitude": 9.664490699768066,
-              "cosine_motion": 0.7967770099639893,
-              "motion_component": 7.700444221496582,
-              "motion_component_percent": 79.67770099639893
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "OD1",
-              "charge": -0.5931,
-              "distance": 3.820225477218628,
-              "force": [
-                -3.6675894260406494,
-                9.421016693115234,
-                8.935159683227539
-              ],
-              "magnitude": 13.492362976074219,
-              "cosine_motion": -0.8319524526596069,
-              "motion_component": -11.225004196166992,
-              "motion_component_percent": 83.1952452659607
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "ND2",
-              "charge": -0.9191,
-              "distance": 5.5178399085998535,
-              "force": [
-                -0.13414715230464935,
-                8.071756362915039,
-                5.939113616943359
-              ],
-              "magnitude": 10.022191047668457,
-              "cosine_motion": -0.8077206611633301,
-              "motion_component": -8.095130920410156,
-              "motion_component_percent": 80.77206611633301
-            },
-            {
-              "resid": 130,
-              "resname": "ASN",
-              "atom": "HD21",
-              "charge": 0.4196,
-              "distance": 5.156116008758545,
-              "force": [
-                -0.8224211931228638,
-                -4.02953577041626,
-                -3.247102737426758
-              ],
-              "magnitude": 5.239963054656982,
-              "cosine_motion": 0.8288529515266418,
-              "motion_component": 4.343158721923828,
-              "motion_component_percent": 82.88529515266418
-            }
-          ]
-        },
+      "6562": [
         {
           "frame": 6562.0,
-          "step": 2,
+          "step": 0,
           "ionic_force": [
             -2.398833990097046,
             1.0760656893253326,
@@ -10009,9 +8815,9 @@
           ],
           "ionic_force_magnitude": 12.039473110462255,
           "motion_vector": [
-            -0.17771148681640625,
-            -1.4416885375976562,
-            -4.5340423583984375
+            0.9076499938964844,
+            0.5763206481933594,
+            -2.2060546875
           ],
           "radial_force": 2.6291294908749014,
           "axial_force": -11.748897433280945,
@@ -10039,21 +8845,21 @@
             -6.628994345664978
           ],
           "total_force_magnitude": 8.76482041751321,
-          "cosine_total_motion": 0.5689638412453119,
+          "cosine_total_motion": 0.6735111270991266,
           "cosine_glu_motion": null,
-          "cosine_asn_motion": -0.9376477028219584,
-          "cosine_residue_motion": -0.9376477028219584,
-          "cosine_ionic_motion": 0.9097082431591154,
-          "motion_component_total": 4.986865892573654,
+          "cosine_asn_motion": -0.6324254477209483,
+          "cosine_residue_motion": -0.6324254477209483,
+          "cosine_ionic_motion": 0.8245251292508291,
+          "motion_component_total": 5.90320407822076,
           "motion_component_glu": null,
-          "motion_component_asn": -5.965542039306374,
-          "motion_component_residue": -5.965542039306374,
-          "motion_component_ionic": 10.952407931880028,
-          "motion_component_percent_total": 56.89638412453119,
+          "motion_component_asn": -4.023644044295013,
+          "motion_component_residue": -4.023644044295013,
+          "motion_component_ionic": 9.926848122515773,
+          "motion_component_percent_total": 67.35111270991267,
           "motion_component_percent_glu": null,
-          "motion_component_percent_asn": 93.76477028219584,
-          "motion_component_percent_residue": 93.76477028219584,
-          "motion_component_percent_ionic": 90.97082431591154,
+          "motion_component_percent_asn": 63.24254477209483,
+          "motion_component_percent_residue": 63.24254477209483,
+          "motion_component_percent_ionic": 82.45251292508291,
           "ionic_contributions": [
             {
               "ion_id": 1327,
@@ -10064,9 +8870,9 @@
                 -1.8139832019805908
               ],
               "magnitude": 1.965286135673523,
-              "cosine_motion": 0.8161010146141052,
-              "motion_component": 1.6038720607757568,
-              "motion_component_percent": 81.61010146141052
+              "cosine_motion": 0.9970161318778992,
+              "motion_component": 1.959421992301941,
+              "motion_component_percent": 99.70161318778992
             },
             {
               "ion_id": 1330,
@@ -10077,9 +8883,9 @@
                 -1.2437320947647095
               ],
               "magnitude": 1.6023893356323242,
-              "cosine_motion": 0.9039118885993958,
-              "motion_component": 1.4484187364578247,
-              "motion_component_percent": 90.39118885993958
+              "cosine_motion": 0.4372861981391907,
+              "motion_component": 0.7007027268409729,
+              "motion_component_percent": 43.72861981391907
             },
             {
               "ion_id": 1341,
@@ -10090,9 +8896,9 @@
                 -8.691182136535645
               ],
               "magnitude": 9.163726806640625,
-              "cosine_motion": 0.8621074557304382,
-              "motion_component": 7.90011739730835,
-              "motion_component_percent": 86.21074557304382
+              "cosine_motion": 0.7929877638816833,
+              "motion_component": 7.266723155975342,
+              "motion_component_percent": 79.29877638816833
             }
           ],
           "glu_contributions": [],
@@ -10109,17 +8915,176 @@
                 5.119903087615967
               ],
               "magnitude": 6.362242698669434,
-              "cosine_motion": -0.9376477003097534,
-              "motion_component": -5.965542316436768,
-              "motion_component_percent": 93.76477003097534
+              "cosine_motion": -0.6324254274368286,
+              "motion_component": -4.023643970489502,
+              "motion_component_percent": 63.24254274368286
             }
           ]
+        },
+        {
+          "frame": 6562.5,
+          "step": 1,
+          "ionic_force": [
+            -0.5272805094718933,
+            1.248344212770462,
+            -5.93812358379364
+          ],
+          "ionic_force_magnitude": 6.090788102177966,
+          "motion_vector": [
+            0.9076499938964844,
+            0.5763206481933594,
+            -2.2060546875
+          ],
+          "radial_force": 1.3551339451236708,
+          "axial_force": -5.93812358379364,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            -0.5272805094718933,
+            1.248344212770462,
+            -5.93812358379364
+          ],
+          "total_force_magnitude": 6.090788102177966,
+          "cosine_total_motion": 0.8925053223692987,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.8925053223692987,
+          "motion_component_total": 5.436060798617435,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 5.436060798617435,
+          "motion_component_percent_total": 89.25053223692987,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 89.25053223692987,
+          "ionic_contributions": [
+            {
+              "ion_id": 1327,
+              "distance": 14.127270698547363,
+              "force": [
+                0.554638683795929,
+                0.3072223365306854,
+                -1.537922739982605
+              ],
+              "magnitude": 1.6634950637817383,
+              "cosine_motion": 0.9977512955665588,
+              "motion_component": 1.6597543954849243,
+              "motion_component_percent": 99.77512955665588
+            },
+            {
+              "ion_id": 1341,
+              "distance": 8.469820022583008,
+              "force": [
+                -1.0819191932678223,
+                0.9411218762397766,
+                -4.400200843811035
+              ],
+              "magnitude": 4.627961158752441,
+              "cosine_motion": 0.8159763216972351,
+              "motion_component": 3.776306629180908,
+              "motion_component_percent": 81.59763216972351
+            }
+          ],
+          "glu_contributions": [],
+          "asn_contributions": []
+        },
+        {
+          "frame": 6563.0,
+          "step": 2,
+          "ionic_force": [
+            -0.596043050289154,
+            0.6172291040420532,
+            -2.6423914432525635
+          ],
+          "ionic_force_magnitude": 2.7782137470052444,
+          "motion_vector": [
+            0.9076499938964844,
+            0.5763206481933594,
+            -2.2060546875
+          ],
+          "radial_force": 0.8580437545222008,
+          "axial_force": -2.6423914432525635,
+          "glu_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "glu_force_magnitude": 0.0,
+          "asn_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "asn_force_magnitude": 0.0,
+          "residue_force": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "residue_force_magnitude": 0.0,
+          "total_force": [
+            -0.596043050289154,
+            0.6172291040420532,
+            -2.6423914432525635
+          ],
+          "total_force_magnitude": 2.7782137470052444,
+          "cosine_total_motion": 0.8278015287163489,
+          "cosine_glu_motion": null,
+          "cosine_asn_motion": null,
+          "cosine_residue_motion": null,
+          "cosine_ionic_motion": 0.8278015287163489,
+          "motion_component_total": 2.299809586871717,
+          "motion_component_glu": null,
+          "motion_component_asn": null,
+          "motion_component_residue": null,
+          "motion_component_ionic": 2.299809586871717,
+          "motion_component_percent_total": 82.7801528716349,
+          "motion_component_percent_glu": null,
+          "motion_component_percent_asn": null,
+          "motion_component_percent_residue": null,
+          "motion_component_percent_ionic": 82.7801528716349,
+          "ionic_contributions": [
+            {
+              "ion_id": 1341,
+              "distance": 10.931662559509277,
+              "force": [
+                -0.596043050289154,
+                0.6172291040420532,
+                -2.6423914432525635
+              ],
+              "magnitude": 2.7782137393951416,
+              "cosine_motion": 0.8278015851974487,
+              "motion_component": 2.299809694290161,
+              "motion_component_percent": 82.78015851974487
+            }
+          ],
+          "glu_contributions": [],
+          "asn_contributions": []
         }
       ]
     }
   },
   {
-    "start_frame": 6161,
+    "start_frame": 6160,
     "frame": 6359,
     "permeated_ion": 1443,
     "analysis": {

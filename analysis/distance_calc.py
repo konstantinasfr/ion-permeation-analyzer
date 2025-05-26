@@ -64,20 +64,21 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
 
         ion_pos = ion.positions[0]
 
-        if ts.frame == 6727 and ion_id == 1341:
-                atoms = u.select_atoms(f"resid 130 and name CG")
-                print(atoms.positions)
-                dist = float(np.linalg.norm(ion_pos - atoms.positions[0]))
-                print(dist)
+        # if ts.frame == 6727 and ion_id == 1341:
+        #         atoms = u.select_atoms(f"resid 130 and name CG")
+        #         print(atoms.positions)
+        #         dist = float(np.linalg.norm(ion_pos - atoms.positions[0]))
+        #         print(dist)
         
         for resid in glu_residues + asn_residues:
             if use_charges:
                 if resid in glu_residues:
-                    # Select CD, OE1, OE2 for GLU – these are the key electrostatic atoms
+                    # Select CD, OE1, OE2 for GLU – key electrostatic atoms
                     atoms = u.select_atoms(f"resid {resid} and name CD OE1 OE2")
-                    if atoms.n_atoms == 3:
-                        center = atoms.positions.mean(axis=0)  # Geometric center of GLU side chain
-                        dist = float(np.linalg.norm(ion_pos - center))
+                    if atoms.n_atoms >= 1:
+                        # Calculate all distances and take the minimum
+                        dists = np.linalg.norm(atoms.positions - ion_pos, axis=1)
+                        dist = float(np.min(dists))
                     else:
                         print(f"Glu {resid} missing CD, OE1, or OE2 at frame {ts.frame}")
                         dist = float('nan')
@@ -85,12 +86,13 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
                 elif resid in asn_residues:
                     # Select CG, OD1, ND2, HD21, HD22 for ASN – full electrostatic group
                     atoms = u.select_atoms(f"resid {resid} and name CG OD1 ND2 HD21 HD22")
-                    if atoms.n_atoms == 5:
-                        center = atoms.positions.mean(axis=0)  # Geometric center of ASN side chain
-                        dist = float(np.linalg.norm(ion_pos - center))
+                    if atoms.n_atoms >= 1:
+                        dists = np.linalg.norm(atoms.positions - ion_pos, axis=1)
+                        dist = float(np.min(dists))
                     else:
-                        print(f"Asn {resid} missing CG, OD1, ND2, HD21, or HD22 at frame {ts.frame}")
+                        print(f"Asn {resid} missing sidechain atoms at frame {ts.frame}")
                         dist = float('nan')
+
 
 
             elif use_ca_only:
