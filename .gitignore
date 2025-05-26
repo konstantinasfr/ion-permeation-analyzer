@@ -2,3 +2,4 @@ forces_cache_ions/results_test/forces/force_results.json
 forces_cache_ions/ionic_forces.npy
 results_test/forces/force_results.json
 forces_cache_ions/ionic_forces_scaled.npy
+forces_cache_ions/ionic_forces_scaled_removeCMMotionF.npy
