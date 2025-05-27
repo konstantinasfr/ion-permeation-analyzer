@@ -43,20 +43,28 @@ import os
 import json
 import pandas as pd
 
-def convert_to_pdb_numbering(residue_id: int) -> str:
+def convert_to_pdb_numbering(residue_id, channel_type):
     """
     Converts a residue ID to a PDB-style numbering.
     """
-    if isinstance(residue_id, int):
-        chain_dict = {0: "A", 1: "B", 2: "C", 3: "D"}
-        chain_number = int(residue_id) // 325
-        pdb_number = residue_id - 325 * chain_number + 49
+    if channel_type == "G4":
+        residues_per_chain = 325
+        offset = 49
+    elif channel_type == "G2":
+        residues_per_chain = 328
+        offset = 54
+
+    if residue_id != "SF":
+        chain_number = int(residue_id)//residues_per_chain
+        chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
+        pdb_number = residue_id-residues_per_chain*chain_number+offset
         return f"{pdb_number}.{chain_dict[chain_number]}"
     else:
-        return residue_id
+        return "SF"
 
 
-def get_last_nth_frame_close_residues(event, n=-1, use_pdb_format=True, sort_residues=True):
+
+def get_last_nth_frame_close_residues(event, n=-1, use_pdb_format=True, sort_residues=True, channel_type="G2"):
     """
     Extract close residues at a specific frame from a permeation event.
 
@@ -94,7 +102,7 @@ def get_last_nth_frame_close_residues(event, n=-1, use_pdb_format=True, sort_res
                 residues = sorted(residues, key=lambda r: int(r))
             
         formatted_residues = [
-            convert_to_pdb_numbering(res) if use_pdb_format else str(res)
+            convert_to_pdb_numbering(res, channel_type) if use_pdb_format else str(res)
             for res in residues
         ]
         converted_data[ion_id] = "_".join(formatted_residues)

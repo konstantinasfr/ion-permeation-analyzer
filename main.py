@@ -27,41 +27,87 @@ def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
-    parser.add_argument("--top_file", default="../com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../protein.nc")
+
+    # parser.add_argument("--top_file", default="../com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../protein.nc")
+    # parser.add_argument("--channel_type", default="G4")
+
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
+
+    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
 
-    upper1 = [106, 431, 756, 1081]
-    lower1 = [100, 425, 750, 1075]
-    # lower1 = [98, 423, 748, 1073]
+    if args.channel_type == "G4":
+        upper1 = [106, 431, 756, 1081]
+        lower1 = [100, 425, 750, 1075]  #sf_residues
+  
+        upper2 = [100, 425, 750, 1075]  #sf_residues
+        lower2 = [130, 455, 780, 1105]  #asn_residues
 
-    # upper2 = [98, 423, 748, 1073]
-    upper2 = [100, 425, 750, 1075]
-    lower2 = [130, 455, 780, 1105]
-    # lower2 = [138, 463, 788, 1113]
+        upper3 = [130, 455, 780, 1105]
+        lower3 = [138, 463, 788, 1113]
 
-    upper3 = [130, 455, 780, 1105]
-    lower3 = [138, 463, 788, 1113]
+        upper4 = [138, 463, 788, 1113]  #hbc_residues
+        lower4 = [265, 590, 915 ,1240]
 
-    upper4 = [138, 463, 788, 1113]
-    lower4 = [265, 590, 915 ,1240]
+        upper5 = [265, 590, 915 ,1240]
+        lower5 = [259, 584, 909, 1234]
 
-    upper5 = [265, 590, 915 ,1240]
-    lower5 = [259, 584, 909, 1234]
+        hbc_residues = [138, 463, 788, 1113]
+        diagonal_pairs = [(138, 788), (463, 1113)]
+
+        glu_residues = [98, 423, 748, 1073]
+        asn_residues = [130, 455, 780, 1105]
+        sf_residues = [100, 425, 750, 1075]
+
+        start_frame = 0
+        # start_frame = 5550
+        # start_frame = 6500
+        end_frame = 6799
+
+    elif args.channel_type == "G2":
+        upper1 = [106, 434, 762, 1090]
+        lower1 = [100, 428, 756, 1084]
+
+        upper2 = [101, 429, 757, 1085]
+        lower2 = [130, 458, 786, 1114] #asn_residues
+
+        upper3 = [130, 458, 786, 1114] #asn_residues
+        lower3 = [138, 466, 794, 1122] #hbc_residues
+
+        upper4 = [138, 466, 794, 1122] #hbc_residues
+        lower4 = [265, 593, 921, 1249]
+
+        upper5 = [265, 593, 921, 1249] #upper gloop
+        lower5 = [259, 587, 915, 1243] #lower gloop
+
+        hbc_residues = [138, 466, 794, 1122]
+        diagonal_pairs = [(138, 794), (466, 1122)]
+
+        glu_residues = [98, 426, 754, 1082]
+        asn_residues = [130, 458, 786, 1114]
+        sf_residues = [101, 429, 757, 1085]
+
+        start_frame = 0
+        # start_frame = 5550
+        # start_frame = 6500
+        end_frame = 1250
+
 
     # start_frame = 5414
     # end_frame = 5553
     # start_frame = 5000
     # end_frame = 6800
     # start_frame = 6500
-    start_frame = 0
-    # start_frame = 5550
-    # start_frame = 6500
-    end_frame = 6799
+    # start_frame = 0
+    # # start_frame = 5550
+    # # start_frame = 6500
+    # end_frame = 6799
     # end_frame = 6562
 
     ch1 = Channel(u, upper1, lower1, num=1, radius=11)
@@ -70,7 +116,8 @@ def main():
     ch4 = Channel(u, upper4, lower4, num=4, radius=15.0)
     ch5 = Channel(u, upper5, lower5, num=5, radius=20.0)
 
-    analyzer = IonPermeationAnalysis(u, ion_selection="resname K+ K", start_frame=start_frame, end_frame=end_frame, channel1=ch1, channel2=ch2, channel3=ch3, channel4=ch4, channel5=ch5)
+    analyzer = IonPermeationAnalysis(u, ion_selection="resname K+ K", start_frame=start_frame, end_frame=end_frame, channel1=ch1, channel2=ch2, channel3=ch3, channel4=ch4, channel5=ch5,
+                                     hbc_residues=hbc_residues, diagonal_pairs=diagonal_pairs)
     analyzer.run_analysis()
     analyzer.print_results()
 
@@ -78,7 +125,8 @@ def main():
                        
     for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
                        desc="Calculating Distances", unit="ion"):
-        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=False, use_min_distances=False, use_charges=True)
+        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=False, use_min_distances=False, use_charges=True,
+                                                  glu_residues=glu_residues, asn_residues=asn_residues, sf_residues=sf_residues)
         total_distances_dict.update(temp_distances_dict)
 
     total_distances_dict_ca = {}
@@ -91,7 +139,7 @@ def main():
 
     # Create 'results' directory if it doesn't exist
     # results_dir = Path("results_no_mutations")
-    results_dir = Path("results_test")
+    results_dir = Path("results_G2")
     results_dir.mkdir(exist_ok=True)
     force_results_dir = Path(f"{results_dir}/forces")
     force_results_dir.mkdir(exist_ok=True)
@@ -131,7 +179,7 @@ def main():
 
     residue_clusters, min_results_per_frame, close_contacts_dict = cluster_frames_by_closest_residue(total_distances_dict)
 
-    total_residue_comb_over_all_frames = close_contact_residues_analysis(close_contacts_dict, close_contact_residues_dir, max_bar_number=20)
+    total_residue_comb_over_all_frames = close_contact_residues_analysis(close_contacts_dict, close_contact_residues_dir, args.channel_type, max_bar_number=20)
     plot_residue_counts(total_residue_comb_over_all_frames, close_contact_residues_dir, filename=f"residue_counts_all_frames.png", exclude=(), duplicates=False)
     analyze_residue_combinations(total_residue_comb_over_all_frames, close_contact_residues_dir, top_n_plot=20)
 
@@ -157,7 +205,7 @@ def main():
     if len(analyzer.permeation_events3) > 0:
         print(f"Found {len(ch2_permeations)} permeation events in channel 2")
         # ch2_permation_residues, frame here is the last frame before the permeation
-        ch2_permation_residues,  ch2_permation_residues_pdb = analyze_ch2_permation_residues(min_results_per_frame, ch2_permeations, end_frame)
+        ch2_permation_residues,  ch2_permation_residues_pdb = analyze_ch2_permation_residues(min_results_per_frame, ch2_permeations, end_frame, args.channel_type)
 
         ch2_permation_residue_comb = count_residue_combinations_with_duplicates(ch2_permation_residues)
 

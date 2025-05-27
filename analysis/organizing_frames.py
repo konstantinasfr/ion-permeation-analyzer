@@ -1,13 +1,20 @@
 import numpy as np
 
-def convert_to_pdb_numbering(residue_id: int) -> str:
+def convert_to_pdb_numbering(residue_id, channel_type):
     """
     Converts a residue ID to a PDB-style numbering.
     """
+    if channel_type == "G4":
+        residues_per_chain = 325
+        offset = 49
+    elif channel_type == "G2":
+        residues_per_chain = 328
+        offset = 54
+
     if residue_id != "SF":
-        chain_number = int(residue_id)//325
+        chain_number = int(residue_id)//residues_per_chain
         chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
-        pdb_number = residue_id-325*chain_number+49
+        pdb_number = residue_id-residues_per_chain*chain_number+offset
         return f"{pdb_number}.{chain_dict[chain_number]}"
     else:
         return "SF"
@@ -113,7 +120,7 @@ import matplotlib.pyplot as plt
 from collections import Counter
 import pandas as pd
 
-def close_contact_residues_analysis(data, main_path, max_bar_number=20):
+def close_contact_residues_analysis(data, main_path, channel_type, max_bar_number=20):
     """
     For each ion, plots and saves a bar chart of residue combinations (unordered)
     that are close during trajectory frames, and writes full CSV summary.
@@ -148,19 +155,19 @@ def close_contact_residues_analysis(data, main_path, max_bar_number=20):
                 norm_combo = normalize_combo(residues)
                 combo_counts[norm_combo] += 1
                 total_combo_counts[norm_combo] += 1
-                total_residue_comb_over_all_frames[frame][ion_id] = '_'.join(map(convert_to_pdb_numbering, norm_combo))
+                total_residue_comb_over_all_frames[frame][ion_id] = '_'.join(map(lambda r: convert_to_pdb_numbering(r, channel_type), norm_combo))
 
         if not combo_counts:
             continue
 
-        combo_data = [{"residue_combination": '_'.join(map(convert_to_pdb_numbering, combo)), "count": count}
+        combo_data = [{"residue_combination": '_'.join(map(lambda r: convert_to_pdb_numbering(r, channel_type), combo)), "count": count}
                       for combo, count in combo_counts.items()]
         df = pd.DataFrame(combo_data).sort_values(by="count", ascending=False)
         csv_path = os.path.join(csv_dir, f"{ion_id}.csv")
         df.to_csv(csv_path, index=False)
 
         top_combos = combo_counts.most_common(max_bar_number)
-        labels = ['_'.join(map(convert_to_pdb_numbering, combo)) for combo, _ in top_combos]
+        labels = ['_'.join(map(lambda r: convert_to_pdb_numbering(r, channel_type), combo)) for combo, _ in top_combos]
         counts = [count for _, count in top_combos]
 
         plt.figure(figsize=(8, 4))
@@ -185,14 +192,14 @@ def close_contact_residues_analysis(data, main_path, max_bar_number=20):
 
     # Global summary across all ions
     if total_combo_counts:
-        total_combo_data = [{"residue_combination": '_'.join(map(convert_to_pdb_numbering, combo)), "count": count}
+        total_combo_data = [{"residue_combination": '_'.join(map(lambda r: convert_to_pdb_numbering(r, channel_type), combo)), "count": count}
                             for combo, count in total_combo_counts.items()]
         df_total = pd.DataFrame(total_combo_data).sort_values(by="count", ascending=False)
         total_csv_path = os.path.join(main_path, "ALL_ions_combined.csv")
         df_total.to_csv(total_csv_path, index=False)
 
         top_total_combos = total_combo_counts.most_common(max_bar_number)
-        labels = ['_'.join(map(convert_to_pdb_numbering, combo)) for combo, _ in top_total_combos]
+        labels = ['_'.join(map(lambda r: convert_to_pdb_numbering(r, channel_type), combo)) for combo, _ in top_total_combos]
         counts = [count for _, count in top_total_combos]
 
         plt.figure(figsize=(10, 5))
