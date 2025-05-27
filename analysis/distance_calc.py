@@ -14,7 +14,8 @@ def get_overlapping_ions(ion_id, target_start, target_end, event_list):
             overlapping_ions.append(int(event['ion_id']))
     return overlapping_ions
 
-def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_distances=False, use_charges=False):
+def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_distances=False, use_charges=False,
+                        glu_residues=None, asn_residues=None, sf_residues=None):
     """
     Calculates the distances between a given ion and selected residues across relevant frames.
     Depending on the flags, uses CA atoms, all atoms (min), or functional atom-based charge centers.
@@ -46,9 +47,6 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
                    get_overlapping_ions(ion_id, start_frame, exit_frame, ch3)
 
     # Residue definitions
-    glu_residues = [98, 423, 748, 1073]
-    asn_residues = [130, 455, 780, 1105]
-    sf_residues = [100, 425, 750, 1075]
     all_residues = glu_residues + asn_residues + sf_residues
 
     if sum([use_ca_only, use_min_distances, use_charges]) != 1:

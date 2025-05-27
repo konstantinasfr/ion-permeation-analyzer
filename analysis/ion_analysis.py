@@ -3,7 +3,8 @@ import numpy as np
 from tqdm import tqdm
 
 class IonPermeationAnalysis:
-    def __init__(self, universe, ion_selection, start_frame, end_frame, channel1, channel2, channel3, channel4, channel5):
+    def __init__(self, universe, ion_selection, start_frame, end_frame, channel1, channel2, channel3, channel4, channel5,
+                 hbc_residues, diagonal_pairs):
         self.u = universe
 
         self.ion_selection = ion_selection
@@ -14,6 +15,8 @@ class IonPermeationAnalysis:
         self.channel3 = channel3
         self.channel4 = channel4
         self.channel5 = channel5
+        self.hbc_residues =hbc_residues
+        self.diagonal_pairs = diagonal_pairs
         self.ion_states1 = {}
         self.ion_states2 = {}
         self.ion_states3 = {}
@@ -112,11 +115,9 @@ class IonPermeationAnalysis:
     def run_analysis(self):
         print("Starting analysis...")
 
-        hbc_residues = [138, 463, 788, 1113]
-        diagonal_pairs = [(138, 788), (463, 1113)]
 
         # Select all atoms for each HBC residue
-        atoms = {resid: self.u.select_atoms(f"resid {resid}") for resid in hbc_residues}
+        atoms = {resid: self.u.select_atoms(f"resid {resid}") for resid in self.hbc_residues}
 
         self.hbc_diameters = []
 
@@ -125,7 +126,7 @@ class IonPermeationAnalysis:
                     desc="Processing Frames", unit="frame"):
 
             distances = []
-            for res1, res2 in diagonal_pairs:
+            for res1, res2 in self.diagonal_pairs:
                 pos1 = atoms[res1].positions
                 pos2 = atoms[res2].positions
                 # Compute all pairwise distances and take the minimum
@@ -216,7 +217,8 @@ class IonPermeationAnalysis:
             
             
             sorted_ion_grouped_frames = sorted(ion_grouped_frames, key=lambda x: x['start'])
-
+            if sorted_ion_grouped_frames == []:
+                print(ion_id, ion_grouped_frames)
             if sorted_ion_grouped_frames[0]["residue"] == "SF":
                 ch2_start = sorted_ion_grouped_frames[0]["end"]+1
             else:
@@ -294,4 +296,4 @@ class IonPermeationAnalysis:
                     "distances": distances
                 })
 
-        return resultsprint
+        return results

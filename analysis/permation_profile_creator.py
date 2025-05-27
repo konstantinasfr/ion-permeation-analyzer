@@ -243,7 +243,7 @@ class PermeationAnalyzer:
 
         return self.force_results, self.radial_distances_results, self.close_residues_results, self.force_intervals_results
     
-    def closest_residues_comb_before_permeation(self, n=-1, use_pdb_format=False, sort_residues=True):
+    def closest_residues_comb_before_permeation(self, n=-1, use_pdb_format=False, sort_residues=True, channel_type="G2"):
         """
         Loop through all permeation events and apply get_last_nth_frame_close_residues.
         Saves both JSON and CSV outputs.
@@ -255,7 +255,7 @@ class PermeationAnalyzer:
         for i, event in enumerate(self.close_residues_results):
             try:
                 frame_data = get_last_nth_frame_close_residues(
-                    event, n=n, use_pdb_format=use_pdb_format, sort_residues=sort_residues
+                    event, n=n, use_pdb_format=use_pdb_format, sort_residues=sort_residues, channel_type=channel_type
                 )
                 frame_key = list(frame_data.keys())[0]
                 ion_dict = frame_data[frame_key]
