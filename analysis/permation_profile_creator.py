@@ -12,6 +12,7 @@ from analysis.force_analysis import analyze_forces
 from analysis.radial_distance_analysis import analyze_radial_distances
 from analysis.close_residues_analysis import analyze_close_residues, get_last_nth_frame_close_residues, plot_residue_counts, analyze_residue_combinations
 from analysis.intervals_force_analysis import analyze_force_intervals
+from collections import defaultdict
 
 class PermeationAnalyzer:
     def __init__(self, ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,
@@ -77,40 +78,39 @@ class PermeationAnalyzer:
 
         return residue_pos
 
-
-    def _build_charge_map(self, ion_selection='resname K+ K'):
+    def _build_charge_map(self, pip2_resnames=["PIP2"], ion_selection='resname K+ K'):
         """
-        Return a charge map {atom_id: charge}.
-        - Assigns +1.0 to selected ions (e.g., K+)
-        - Assigns fixed partial charges to GLU and ASN atoms
-        """
+        Returns a charge map {(resid, atom_name): charge} for selected ions, GLU, ASN, and PIP2 atoms.
 
+        - Ions get +1.0
+        - GLU, ASN, and PIP2 atoms use their actual force field charges
+        - More robust than using just atom names
+        """
         charge_map = {}
 
-        # Add ion charges
+        # --- Add ions (using resid to identify ion uniquely) ---
         ions = self.u.select_atoms(ion_selection)
         for ion in ions:
             charge_map[ion.resid] = 1.0  # atom index, not resid
 
-        # Add ASN atoms (CG, OD1, ND2, HD21, HD22)
-        for atom in self.u.select_atoms("resname ASN and name CG OD1 ND2 HD21 HD22"):
-            if atom.name == "CG":
-                charge_map[atom.name] = 0.7130
-            elif atom.name == "OD1":
-                charge_map[atom.name] = -0.5931
-            elif atom.name == "ND2":
-                charge_map[atom.name] = -0.9191
-            elif atom.name in {"HD21", "HD22"}:
-                charge_map[atom.name] = 0.4196
+        # --- Add ASN atoms ---
+        asn_atoms = self.u.select_atoms("resname ASN and name CG OD1 ND2 HD21 HD22")
+        for atom in asn_atoms:
+            charge_map[atom.name] = atom.charge
 
-        # Add GLU atoms (CD, OE1, OE2)
-        for atom in self.u.select_atoms("resname GLU and name CD OE1 OE2"):
-            if atom.name == "CD":
-                charge_map[atom.name] = 0.8054
-            elif atom.name in {"OE1", "OE2"}:
-                charge_map[atom.name] = -0.8188
+        # --- Add GLU atoms ---
+        glu_atoms = self.u.select_atoms("resname GLU and name CD OE1 OE2")
+        for atom in glu_atoms:
+            charge_map[atom.name] = atom.charge
+
+        # --- Add PIP2 atoms ---
+        pip2_sel = f"resname {' '.join(pip2_resnames)}"
+        pip2_atoms = self.u.select_atoms(pip2_sel)
+        for atom in pip2_atoms:
+            charge_map[atom.name] = atom.charge
 
         return charge_map
+
 
 
 
@@ -124,12 +124,35 @@ class PermeationAnalyzer:
         """
         # Build positions and charge map once
         positions = self._build_all_positions()
-        charge_map = self._build_charge_map()
+        
         residue_positions = self._build_residue_positions(
                                 residue_list=self.glu_residues + self.asn_residues,
                                 atom_names=["CD", "OE1", "OE2", "CG", "OD1", "ND2", "HD21", "HD22"]
                             )
+        
+        possible_names = {"PIP2", "POPI", "POP2", "LPI2", "PIP"}  # Add more if needed
+        actual_pip2_names = {res.resname for res in self.u.residues if res.resname in possible_names}
 
+        print("Detected PIP2 residue names:", actual_pip2_names)
+
+        #Collect all resids for PIP2 residues
+        pip2_resids = sorted({int(res.resid) for res in self.u.residues if res.resname in actual_pip2_names})
+        #Find all atom names used in these PIP2 residues
+        pip2_atoms = self.u.select_atoms(f"resname {' '.join(actual_pip2_names)}")
+        atom_names_by_resid = defaultdict(list)
+        for atom in pip2_atoms:
+            atom_names_by_resid[atom.resid].append(atom.name)
+
+        # Flatten unique atom names
+        unique_pip2_atom_names = sorted(set(atom.name for atom in pip2_atoms))
+        print("Unique atom names in PIP2 residues:", unique_pip2_atom_names)
+
+        pip2_positions = self._build_residue_positions(
+                                residue_list=pip2_resids,
+                                atom_names=unique_pip2_atom_names,
+                            )
+        #Build charge map for all relevant atoms
+        charge_map = self._build_charge_map(list(actual_pip2_names)[0])
 
         # Optional total force calculation via OpenMM
         total_force_data = None
@@ -185,6 +208,9 @@ class PermeationAnalyzer:
                         u=self.u,
                         positions=positions,
                         residue_positions = residue_positions,
+                        pip2_positions=pip2_positions,
+                        pip2_resids=pip2_resids,
+                        unique_pip2_atom_names=unique_pip2_atom_names,
                         permeating_ion_id=event["permeated"],
                         frame=frame,
                         other_ions=positions.get(frame, {}).keys(),

@@ -48,22 +48,10 @@
     "total_time": 43
   },
   {
-    "ion_id": 2333,
-    "start_frame": 788,
-    "exit_frame": 1249,
-    "total_time": 461
-  },
-  {
     "ion_id": 2247,
     "start_frame": 789,
     "exit_frame": 795,
     "total_time": 6
-  },
-  {
-    "ion_id": 2372,
-    "start_frame": 799,
-    "exit_frame": 1249,
-    "total_time": 450
   },
   {
     "ion_id": 2231,
@@ -84,12 +72,6 @@
     "total_time": 224
   },
   {
-    "ion_id": 2334,
-    "start_frame": 1171,
-    "exit_frame": 1249,
-    "total_time": 78
-  },
-  {
     "ion_id": 2230,
     "start_frame": 1192,
     "exit_frame": 1226,
@@ -100,11 +82,5 @@
     "start_frame": 1199,
     "exit_frame": 1220,
     "total_time": 21
-  },
-  {
-    "ion_id": 2280,
-    "start_frame": 1208,
-    "exit_frame": 1249,
-    "total_time": 41
   }
 ]

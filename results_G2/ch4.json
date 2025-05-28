@@ -76,11 +76,5 @@
     "start_frame": 1220,
     "exit_frame": 1242,
     "total_time": 22
-  },
-  {
-    "ion_id": 2230,
-    "start_frame": 1226,
-    "exit_frame": 1249,
-    "total_time": 23
   }
 ]

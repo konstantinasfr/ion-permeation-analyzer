@@ -194,7 +194,7 @@ def compute_alignment(force_vec, motion_vec):
     return cosine, component, percent
 
 
-def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, other_ions, charge_map,
+def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids, unique_pip2_atom_names, permeating_ion_id, frame, other_ions, charge_map,
                   closest_residues_by_ion, glu_residues, asn_residues, cutoff=10.0,
                   calculate_total_force=False, total_force_data=None):
     """
@@ -285,7 +285,15 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
     glu_force = np.array(residue_result["glu_force"])
     asn_force = np.array(residue_result["asn_force"])
     residue_force = np.array(residue_result["residue_force"])
-    total_force = ionic_force + residue_force
+
+    pip2_result = analyze_pip2_forces(
+            u, positions, pip2_positions, permeating_ion_id, frame,
+            charge_map, motion_vec, pip2_resids=pip2_resids, unique_pip2_atom_names=unique_pip2_atom_names,
+            cutoff=50.0, headgroup_only=True
+        )
+    pip2_force = np.array(pip2_result["pip2_force"])
+
+    total_force = ionic_force + residue_force + pip2_force
 
     result["glu_force"] = glu_force.tolist()
     result["glu_force_magnitude"] = float(np.linalg.norm(glu_force))
@@ -293,15 +301,18 @@ def analyze_forces(u, positions, residue_positions, permeating_ion_id, frame, ot
     result["asn_force_magnitude"] = float(np.linalg.norm(asn_force))
     result["residue_force"] = residue_force.tolist()
     result["residue_force_magnitude"] = float(np.linalg.norm(residue_force))
+    result["pip2_force"] = pip2_force.tolist()
+    result["pip2_force_magnitude"] = float(np.linalg.norm(pip2_force))
     result["total_force"] = total_force.tolist()
     result["total_force_magnitude"] = float(np.linalg.norm(total_force))
     result["glu_contributions"] = residue_result["glu_contributions"]
     result["asn_contributions"] = residue_result["asn_contributions"]
+    result["pip2_contributions"] = pip2_result["pip2_contributions"]
 
     if motion_vec is not None and np.linalg.norm(motion_vec) > 0:
         unit_motion = unit_vector(motion_vec)
         for key, vec in zip(
-            ["ionic", "glu", "asn", "residue", "total"],
+            ["ionic", "glu", "asn", "residue", "pip2", "total"],
             [ionic_force, glu_force, asn_force, residue_force, total_force]
         ):
             norm = np.linalg.norm(vec)
@@ -398,15 +409,81 @@ def analyze_residue_forces(
 
     return {
         "residue_force": total_force.tolist(),
-        "residue_force_magnitude": float(np.linalg.norm(total_force)),
         "glu_force": glu_force.tolist(),
-        "glu_force_magnitude": float(np.linalg.norm(glu_force)),
         "asn_force": asn_force.tolist(),
-        "asn_force_magnitude": float(np.linalg.norm(asn_force)),
         "glu_contributions": glu_contributions,
         "asn_contributions": asn_contributions
     }
 
+def analyze_pip2_forces(
+    u,
+    positions,
+    pip2_positions,
+    permeating_ion_id,
+    frame,
+    charge_map,
+    motion_vec,
+    pip2_resids,
+    unique_pip2_atom_names,
+    cutoff=50.0,
+    headgroup_only=True
+):
+    """
+    Calculate electrostatic forces from PIP2 atoms on the ion.
+    
+    Parameters:
+    - pip2_resids: list of PIP2 residue IDs
+    - headgroup_only: if True, only uses phosphate headgroup atoms
+
+    Returns:
+    - Dictionary with total force, magnitude, and per-atom contributions
+    """
+    important_atoms = {"P4", "P5", "O4P", "O5P", "O41", "O42", "O43", "O51", "O52", "O53"}
+    ion_pos = positions[frame][permeating_ion_id]
+    
+    pip2_force = np.zeros(3)
+    contributions = []
+
+    for resid in pip2_resids:
+
+        for atom_name in unique_pip2_atom_names:
+            if headgroup_only and atom_name not in important_atoms:
+                continue
+
+            atom_pos = pip2_positions.get(frame, {}).get((resid, atom_name))
+            if atom_pos is None:
+                continue
+
+            charge = charge_map.get(atom_name)
+            if charge is None:
+                continue
+
+            r_vec = ion_pos - atom_pos
+            r = np.linalg.norm(r_vec)
+            if r > cutoff:
+                continue
+
+            force = compute_force(1.0, charge, ion_pos, atom_pos)
+            pip2_force += force
+
+            cosine, component, percent = compute_alignment(force, motion_vec)
+
+            contributions.append({
+                "resid": int(resid),
+                "atom": atom_name,
+                "charge": float(charge),
+                "distance": float(r),
+                "force": force.tolist(),
+                "magnitude": float(np.linalg.norm(force)),
+                "cosine_with_motion": float(cosine),
+                "motion_component": float(component),
+                "motion_component_percent": float(percent)
+            })
+
+    return {
+        "pip2_force": pip2_force.tolist(),
+        "pip2_contributions": contributions
+    }
 
 
 def find_top_cosine_frames(event_data, top_n=5):
