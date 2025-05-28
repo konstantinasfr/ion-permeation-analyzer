@@ -106,7 +106,10 @@ class IonPermeationAnalysis:
                 states[ion_id]['upper_flag'] = 0
 
         states[ion_id]['prev_ion_z'] = ion_z
-  
+
+ #       if ion_id == 2231:
+ #           print(f"'Frame: {frame}, channel_num: {channel_number}, upper_flag: {states[ion_id]['upper_flag']}, lower_flag: {states[ion_id]['lower_flag']}")
+
         if frame == self.end_frame and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
             states[ion_id]['lower_flag'] = 1
             states[ion_id]['lower_flag_frame'] = frame
