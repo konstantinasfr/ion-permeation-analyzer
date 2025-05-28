@@ -94,9 +94,11 @@ def main():
         sf_residues = [100, 428, 756, 1084]
 
         start_frame = 0
+        # start_frame = 700
         # start_frame = 5550
         # start_frame = 6500
-        end_frame = 1249
+        end_frame = 1250
+        # end_frame = 1000
 
 
     # start_frame = 5414
