@@ -59,7 +59,10 @@ def main():
         lower5 = [259, 584, 909, 1234]
 
         hbc_residues = [138, 463, 788, 1113]
-        diagonal_pairs = [(138, 788), (463, 1113)]
+        hbc_diagonal_pairs = [(138, 788), (463, 1113)]
+
+        sf_low_res_residues = [100, 425, 750, 1075]
+        sf_low_res_diagonal_pairs = [(100, 750), (425, 1075)]
 
         glu_residues = [98, 423, 748, 1073]
         asn_residues = [130, 455, 780, 1105]
@@ -87,11 +90,14 @@ def main():
         lower5 = [259, 587, 915, 1243] #lower gloop
 
         hbc_residues = [138, 466, 794, 1122]
-        diagonal_pairs = [(138, 794), (466, 1122)]
+        hbc_diagonal_pairs = [(138, 794), (466, 1122)]
 
         glu_residues = [98, 426, 754, 1082]
         asn_residues = [130, 458, 786, 1114]
         sf_residues = [100, 428, 756, 1084]
+
+        sf_low_res_residues = [100, 428, 756, 1084]
+        sf_low_res_diagonal_pairs = [(100, 756), (428, 1084)]
 
         start_frame = 0
         # start_frame = 700
@@ -119,7 +125,9 @@ def main():
     ch5 = Channel(u, upper5, lower5, num=5, radius=20.0)
 
     analyzer = IonPermeationAnalysis(u, ion_selection="resname K+ K", start_frame=start_frame, end_frame=end_frame, channel1=ch1, channel2=ch2, channel3=ch3, channel4=ch4, channel5=ch5,
-                                     hbc_residues=hbc_residues, diagonal_pairs=diagonal_pairs)
+                                     hbc_residues=hbc_residues, hbc_diagonal_pairs=hbc_diagonal_pairs,
+                                     sf_low_res_residues=sf_low_res_residues, sf_low_res_diagonal_pairs=sf_low_res_diagonal_pairs)
+
     analyzer.run_analysis()
     analyzer.print_results()
 
@@ -156,6 +164,9 @@ def main():
     with open(results_dir / "hbc_diameters.json", "w") as f:
         json.dump(analyzer.hbc_diameters, f, indent=2)
     
+    with open(results_dir / "sf_low_res_diameters.json", "w") as f:
+        json.dump(analyzer.sf_low_res_diameters, f, indent=2)
+
     with open(results_dir / "ch1.json", "w") as f:
         json.dump(analyzer.permeation_events1, f, indent=2)
 
