@@ -78,7 +78,7 @@ class PermeationAnalyzer:
 
         return residue_pos
 
-    def _build_charge_map(self, pip2_resnames=["PIP2"], ion_selection='resname K+ K'):
+    def _build_charge_map(self, pip2_resnames="PIP", unique_pip2_atom_names=None, ion_selection='resname K+ K'):
         """
         Returns a charge map {(resid, atom_name): charge} for selected ions, GLU, ASN, and PIP2 atoms.
 
@@ -104,8 +104,7 @@ class PermeationAnalyzer:
             charge_map[atom.name] = atom.charge
 
         # --- Add PIP2 atoms ---
-        pip2_sel = f"resname {' '.join(pip2_resnames)}"
-        pip2_atoms = self.u.select_atoms(pip2_sel)
+        pip2_atoms = self.u.select_atoms(f"resname {pip2_resnames} and name {" ".join(str(item) for item in unique_pip2_atom_names)}")
         for atom in pip2_atoms:
             charge_map[atom.name] = atom.charge
 
@@ -152,7 +151,7 @@ class PermeationAnalyzer:
                                 atom_names=unique_pip2_atom_names,
                             )
         #Build charge map for all relevant atoms
-        charge_map = self._build_charge_map(list(actual_pip2_names)[0])
+        charge_map = self._build_charge_map(list(actual_pip2_names)[0], unique_pip2_atom_names)
 
         # Optional total force calculation via OpenMM
         total_force_data = None
