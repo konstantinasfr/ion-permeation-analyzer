@@ -74,7 +74,7 @@ def main():
         upper1 = [106, 434, 762, 1090]
         lower1 = [100, 428, 756, 1084]
 
-        upper2 = [101, 429, 757, 1085]
+        upper2 = [100, 428, 756, 1084]
         lower2 = [130, 458, 786, 1114] #asn_residues
 
         upper3 = [130, 458, 786, 1114] #asn_residues
@@ -91,12 +91,12 @@ def main():
 
         glu_residues = [98, 426, 754, 1082]
         asn_residues = [130, 458, 786, 1114]
-        sf_residues = [101, 429, 757, 1085]
+        sf_residues = [100, 428, 756, 1084]
 
         start_frame = 0
         # start_frame = 5550
         # start_frame = 6500
-        end_frame = 1250
+        end_frame = 1249
 
 
     # start_frame = 5414
@@ -186,13 +186,13 @@ def main():
     with open(close_contact_residues_dir / "total_residue_comb_over_all_frames.json", "w") as f:
         json.dump(total_residue_comb_over_all_frames, f, indent=2)
 
+    with open(results_dir / "residue_clusters.json", "w") as f:
+        json.dump(residue_clusters, f, indent=2)
+
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
     with open(results_dir / "ch2_fixed.json", "w") as f:
         json.dump(ch2_permeations, f, indent=2)
-
-    with open(results_dir / "residue_clusters.json", "w") as f:
-        json.dump(residue_clusters, f, indent=2)
 
     with open(results_dir / "min_results_per_frame.json", "w") as f:
         json.dump(min_results_per_frame, f, indent=2)
@@ -263,6 +263,8 @@ def main():
             ch2=ch2,
             close_contacts_dict=close_contacts_dict,
             total_residue_comb_over_all_frames=total_residue_comb_over_all_frames,
+            glu_residues = glu_residues,
+            asn_residues = asn_residues,
             cutoff=15.0,
             calculate_total_force=False,
             prmtop_file=args.top_file,

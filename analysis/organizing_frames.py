@@ -34,6 +34,15 @@ def cluster_frames_by_closest_residue(distance_data):
         min_results_per_frame[ion_id] = []
         not_sf_starting = False
 
+        SF_only = True
+        for frame_data in frame_list[:-1]:
+            frame = frame_data["frame"]
+            residues = frame_data["residues"]
+            closest_residue, closest_distance = min(residues.items(), key=lambda item: item[1])
+            if closest_residue != "SF" :
+                SF_only = False
+                break
+
         for frame_data in frame_list[:-1]:
             frame = frame_data["frame"]
             residues = frame_data["residues"]
@@ -41,7 +50,7 @@ def cluster_frames_by_closest_residue(distance_data):
             # Find the closest residue (key with smallest value)
             closest_residue, closest_distance = min(residues.items(), key=lambda item: item[1])
 
-            if closest_residue != "SF" or not_sf_starting:
+            if closest_residue != "SF" or not_sf_starting or SF_only:
                 min_results_per_frame[ion_id].append({
                     "frame":frame,
                     "residue":closest_residue,

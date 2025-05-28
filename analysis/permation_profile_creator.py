@@ -15,8 +15,8 @@ from analysis.intervals_force_analysis import analyze_force_intervals
 
 class PermeationAnalyzer:
     def __init__(self, ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,
-                 ch2, close_contacts_dict, total_residue_comb_over_all_frames, cutoff=15.0, calculate_total_force=False,
-                 prmtop_file=None, nc_file=None,output_base_dir=None):
+                 ch2, close_contacts_dict, total_residue_comb_over_all_frames, glu_residues, asn_residues, cutoff=15.0, calculate_total_force=False,
+                prmtop_file=None, nc_file=None,output_base_dir=None):
         """
         Initializes the analyzer with all necessary inputs and automatically
         runs the analysis, storing the results as attributes.
@@ -34,8 +34,8 @@ class PermeationAnalyzer:
         self.prmtop_file = prmtop_file
         self.nc_file = nc_file
         self.output_base_dir = output_base_dir
-        self.glu_residues = [98, 423, 748, 1073]
-        self.asn_residues = [130, 455, 780, 1105]
+        self.glu_residues = glu_residues
+        self.asn_residues = asn_residues
         self.force_results = []
         self.radial_distances_results = []
         self.close_residues_results = []
