@@ -214,23 +214,28 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         "asn_force_magnitude": 0,
         "residue_force": [0.0, 0.0, 0.0],
         "residue_force_magnitude": 0,
+        "pip2_force": [0.0, 0.0, 0.0],
+        "pip2_force_magnitude": 0,
         "total_force": [0.0, 0.0, 0.0],
         "total_force_magnitude": 0,
         "cosine_total_motion": 0,
         "cosine_glu_motion": 0,
         "cosine_asn_motion": 0,
         "cosine_residue_motion": 0,
+        "cosine_pip2_motion": 0,
         "cosine_ionic_motion": 0,
         "motion_component_total": 0,
         "motion_component_glu": 0,
         "motion_component_asn": 0,
         "motion_component_residue": 0,
         "motion_component_ionic": 0,
+        "motion_component_pip2": 0,
         "motion_component_percent_total": 0,
         "motion_component_percent_glu": 0,
         "motion_component_percent_asn": 0,
         "motion_component_percent_residue": 0,
         "motion_component_percent_ionic": 0,
+        "motion_component_percent_pip2": 0,
         "ionic_contributions": [],
         "glu_contributions": [],
         "asn_contributions": []
@@ -289,7 +294,7 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     pip2_result = analyze_pip2_forces(
             u, positions, pip2_positions, permeating_ion_id, frame,
             charge_map, motion_vec, pip2_resids=pip2_resids, unique_pip2_atom_names=unique_pip2_atom_names,
-            cutoff=50.0, headgroup_only=True
+            cutoff=50.0, headgroup_only=False
         )
     pip2_force = np.array(pip2_result["pip2_force"])
 
@@ -313,7 +318,7 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         unit_motion = unit_vector(motion_vec)
         for key, vec in zip(
             ["ionic", "glu", "asn", "residue", "pip2", "total"],
-            [ionic_force, glu_force, asn_force, residue_force, total_force]
+            [ionic_force, glu_force, asn_force, residue_force, pip2_force, total_force]
         ):
             norm = np.linalg.norm(vec)
             if norm > 0:
@@ -445,7 +450,6 @@ def analyze_pip2_forces(
     contributions = []
 
     for resid in pip2_resids:
-
         for atom_name in unique_pip2_atom_names:
             if headgroup_only and atom_name not in important_atoms:
                 continue
