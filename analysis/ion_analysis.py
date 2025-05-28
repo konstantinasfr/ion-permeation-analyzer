@@ -4,9 +4,9 @@ from tqdm import tqdm
 
 class IonPermeationAnalysis:
     def __init__(self, universe, ion_selection, start_frame, end_frame, channel1, channel2, channel3, channel4, channel5,
-                 hbc_residues, diagonal_pairs):
+                 hbc_residues, hbc_diagonal_pairs, sf_low_res_residues, sf_low_res_diagonal_pairs):
+        
         self.u = universe
-
         self.ion_selection = ion_selection
         self.start_frame = start_frame
         self.end_frame = end_frame
@@ -16,7 +16,9 @@ class IonPermeationAnalysis:
         self.channel4 = channel4
         self.channel5 = channel5
         self.hbc_residues =hbc_residues
-        self.diagonal_pairs = diagonal_pairs
+        self.hbc_diagonal_pairs = hbc_diagonal_pairs
+        self.sf_low_res_residues =sf_low_res_residues
+        self.sf_low_res_diagonal_pairs = sf_low_res_diagonal_pairs
         self.ion_states1 = {}
         self.ion_states2 = {}
         self.ion_states3 = {}
@@ -115,43 +117,54 @@ class IonPermeationAnalysis:
             states[ion_id]['lower_flag_frame'] = frame
 
 
+    def compute_constriction_point_diameters(self, frame, atoms, diagonal_pairs):
+        """
+        Computes the mean distance between pairs of HBC residues across the specified frames.
+        """
+        distances = []
+        for res1, res2 in diagonal_pairs:
+            pos1 = atoms[res1].positions
+            pos2 = atoms[res2].positions
+            # Compute all pairwise distances and take the minimum
+            pairwise_dists = np.linalg.norm(pos1[:, None, :] - pos2[None, :, :], axis=2)
+            dist = np.min(pairwise_dists)
+            distances.append(dist)
+
+        mean_diameter = np.mean(distances)
+        consiction_point_diameters_dict = {
+            "frame": int(frame),
+            "mean": float(mean_diameter),
+            "A_C": float(distances[0]),
+            "B_D": float(distances[1])
+        }
+        return consiction_point_diameters_dict
+    
+
     def run_analysis(self):
         print("Starting analysis...")
 
 
-        # Select all atoms for each HBC residue
-        atoms = {resid: self.u.select_atoms(f"resid {resid}") for resid in self.hbc_residues}
+       
 
         self.hbc_diameters = []
+
+        
+        self.sf_low_res_diameters = []
+
 
         for ts in tqdm(self.u.trajectory[self.start_frame:self.end_frame+1],
                     total=(self.end_frame - self.start_frame),
                     desc="Processing Frames", unit="frame"):
+            
+             # Select all atoms for each HBC residue
+            hbc_atoms = {resid: self.u.select_atoms(f"resid {resid}") for resid in self.hbc_residues}
 
-            distances = []
-            for res1, res2 in self.diagonal_pairs:
-                pos1 = atoms[res1].positions
-                pos2 = atoms[res2].positions
-                # Compute all pairwise distances and take the minimum
-                pairwise_dists = np.linalg.norm(pos1[:, None, :] - pos2[None, :, :], axis=2)
-                dist = np.min(pairwise_dists)
-                distances.append(dist)
+            self.hbc_diameters.append(self.compute_constriction_point_diameters(ts.frame, hbc_atoms, self.hbc_diagonal_pairs))
 
-            mean_diameter = np.mean(distances)
-            self.hbc_diameters.append({
-                "frame": int(ts.frame),
-                "mean": float(mean_diameter),
-                "138_788": float(distances[0]),
-                "463_1113": float(distances[1])
-            })
+            sf_low_res_atoms = {resid: self.u.select_atoms(f"resid {resid}") for resid in self.sf_low_res_residues}
 
+            self.sf_low_res_diameters.append(self.compute_constriction_point_diameters(ts.frame, sf_low_res_atoms, self.sf_low_res_diagonal_pairs))
 
-
-            # if ts.frame>self.start_frame+1:
-            #     # print(ts.frame, self.ion_states1[2433])
-            #     print(ts.frame, self.ion_states1[1469])
-            #     # print(self.channel1.lower_center)
-            #     # print(self.channel2.upper_center)
             self.channel1.compute_geometry(1)
             self.channel2.compute_geometry(2)
             self.channel3.compute_geometry(3)
