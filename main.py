@@ -35,8 +35,10 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
 
@@ -100,7 +102,7 @@ def main():
         sf_low_res_diagonal_pairs = [(100, 756), (428, 1084)]
 
         start_frame = 0
-        # start_frame = 700
+        # start_frame = 900
         # start_frame = 5550
         # start_frame = 6500
         end_frame = 1250
@@ -153,6 +155,8 @@ def main():
     results_dir.mkdir(exist_ok=True)
     force_results_dir = Path(f"{results_dir}/forces")
     force_results_dir.mkdir(exist_ok=True)
+    force_per_ion_results_dir = Path(f"{force_results_dir}/forces_per_ion")
+    force_per_ion_results_dir.mkdir(exist_ok=True)
     ch2_permeation_characteristics_dir = Path(f"{results_dir}/ch2_permeation_characteristics")
     ch2_permeation_characteristics_dir.mkdir(exist_ok=True)
     close_contact_residues_dir = Path(f"{results_dir}/close_contact_residues")
@@ -269,6 +273,7 @@ def main():
         
         permeation_analysis = PermeationAnalyzer(
             ch2_permation_residues=ch2_permation_residues,
+            ch1_permeation_events=analyzer.permeation_events1,
             u=u,
             start_frame=start_frame,
             end_frame=end_frame,
@@ -278,12 +283,14 @@ def main():
             total_residue_comb_over_all_frames=total_residue_comb_over_all_frames,
             glu_residues = glu_residues,
             asn_residues = asn_residues,
+            sf_residues= sf_residues,
             cutoff=15.0,
             calculate_total_force=False,
             prmtop_file=args.top_file,
             nc_file=args.traj_file,
             output_base_dir=ch2_permeation_characteristics_dir
         )
+    
 
         forces_results, radial_distances_results, close_residues_results, force_intervals_results = permeation_analysis.run_permeation_analysis()
 
@@ -299,6 +306,11 @@ def main():
         # Save to JSON
         with open(force_results_dir / "force_results.json", "w") as f:
             json.dump(forces_results, f, indent=2)
+
+        for ion_forces in forces_results:
+            ion_id = ion_forces["permeated_ion"]
+            with open(force_per_ion_results_dir / f"{ion_id}.json", "w") as f:
+                json.dump(ion_forces, f, indent=2)
 
         with open(ch2_permeation_characteristics_dir / "radial_distances_results.json", "w") as f:
             json.dump(radial_distances_results, f, indent=2)

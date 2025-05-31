@@ -194,8 +194,8 @@ def compute_alignment(force_vec, motion_vec):
     return cosine, component, percent
 
 
-def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids, unique_pip2_atom_names, permeating_ion_id, frame, other_ions, charge_map,
-                  closest_residues_by_ion, glu_residues, asn_residues, cutoff=10.0,
+def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids, unique_pip2_atom_names, actual_pip2_names, permeating_ion_id, frame, other_ions, charge_map,
+                  closest_residues_by_ion, glu_residues, asn_residues, total_sf_residues, cutoff=15.0,
                   calculate_total_force=False, total_force_data=None):
     """
     Analyze one frame: compute ionic, residue, and optionally total forces.
@@ -204,6 +204,7 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     result = {
         "frame": frame,
         "motion_vector": 0,
+        "motion_vector_magnitude": 0,
         "ionic_force": [0.0, 0.0, 0.0],
         "ionic_force_magnitude": 0,
         "radial_force": 0,
@@ -212,6 +213,8 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         "glu_force_magnitude": 0,
         "asn_force": [0.0, 0.0, 0.0],
         "asn_force_magnitude": 0,
+        "sf_force": [0.0, 0.0, 0.0],
+        "sf_force_magnitude": 0,
         "residue_force": [0.0, 0.0, 0.0],
         "residue_force_magnitude": 0,
         "pip2_force": [0.0, 0.0, 0.0],
@@ -221,24 +224,28 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         "cosine_total_motion": 0,
         "cosine_glu_motion": 0,
         "cosine_asn_motion": 0,
+        "cosine_sf_motion": 0,
         "cosine_residue_motion": 0,
         "cosine_pip2_motion": 0,
         "cosine_ionic_motion": 0,
         "motion_component_total": 0,
         "motion_component_glu": 0,
         "motion_component_asn": 0,
+        "motion_component_sf": 0,
         "motion_component_residue": 0,
         "motion_component_ionic": 0,
         "motion_component_pip2": 0,
         "motion_component_percent_total": 0,
         "motion_component_percent_glu": 0,
         "motion_component_percent_asn": 0,
+        "motion_component_percent_sf": 0,
         "motion_component_percent_residue": 0,
         "motion_component_percent_ionic": 0,
         "motion_component_percent_pip2": 0,
         "ionic_contributions": [],
         "glu_contributions": [],
-        "asn_contributions": []
+        "asn_contributions": [],
+        "sf_contributions": []
     }
 
     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
@@ -250,6 +257,7 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     }
     motion_vec = get_motion_vector(ion_positions_over_time, frame)
     result["motion_vector"] = motion_vec.tolist() if motion_vec is not None else None
+    result["motion_vector_magnitude"] = float(np.linalg.norm(motion_vec)) if motion_vec is not None else 0.0
 
     ionic_force = np.zeros(3)
     ionic_contributions = []
@@ -284,16 +292,17 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     # Add residue forces (GLU + ASN)
     residue_result = analyze_residue_forces(
         u, positions, residue_positions, permeating_ion_id, frame, charge_map, motion_vec,
-        glu_residues, asn_residues, cutoff=6
+        glu_residues, asn_residues, total_sf_residues, cutoff=15
     )
 
     glu_force = np.array(residue_result["glu_force"])
     asn_force = np.array(residue_result["asn_force"])
+    sf_force = np.array(residue_result["sf_force"])
     residue_force = np.array(residue_result["residue_force"])
 
     pip2_result = analyze_pip2_forces(
             u, positions, pip2_positions, permeating_ion_id, frame,
-            charge_map, motion_vec, pip2_resids=pip2_resids, unique_pip2_atom_names=unique_pip2_atom_names,
+            charge_map, motion_vec, pip2_resids=pip2_resids, unique_pip2_atom_names=unique_pip2_atom_names, actual_pip2_name=actual_pip2_names,
             cutoff=50.0, headgroup_only=False
         )
     pip2_force = np.array(pip2_result["pip2_force"])
@@ -304,6 +313,8 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     result["glu_force_magnitude"] = float(np.linalg.norm(glu_force))
     result["asn_force"] = asn_force.tolist()
     result["asn_force_magnitude"] = float(np.linalg.norm(asn_force))
+    result["sf_force"] = sf_force.tolist()
+    result["sf_force_magnitude"] = float(np.linalg.norm(sf_force))
     result["residue_force"] = residue_force.tolist()
     result["residue_force_magnitude"] = float(np.linalg.norm(residue_force))
     result["pip2_force"] = pip2_force.tolist()
@@ -312,13 +323,14 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     result["total_force_magnitude"] = float(np.linalg.norm(total_force))
     result["glu_contributions"] = residue_result["glu_contributions"]
     result["asn_contributions"] = residue_result["asn_contributions"]
+    result["sf_contributions"] = residue_result["sf_contributions"]
     result["pip2_contributions"] = pip2_result["pip2_contributions"]
 
     if motion_vec is not None and np.linalg.norm(motion_vec) > 0:
         unit_motion = unit_vector(motion_vec)
         for key, vec in zip(
-            ["ionic", "glu", "asn", "residue", "pip2", "total"],
-            [ionic_force, glu_force, asn_force, residue_force, pip2_force, total_force]
+            ["ionic", "glu", "asn", "sf", "residue", "pip2", "total"],
+            [ionic_force, glu_force, asn_force, sf_force, residue_force, pip2_force, total_force]
         ):
             norm = np.linalg.norm(vec)
             if norm > 0:
@@ -341,6 +353,7 @@ def analyze_residue_forces(
     motion_vec,
     glu_residues,
     asn_residues,
+    total_sf_residues,
     cutoff=6.0
 ):
     """
@@ -356,30 +369,37 @@ def analyze_residue_forces(
     total_force = np.zeros(3)
     glu_force = np.zeros(3)
     asn_force = np.zeros(3)
+    sf_force = np.zeros(3)
     glu_contributions = []
     asn_contributions = []
+    sf_contributions = []
 
-    for resid in glu_residues + asn_residues:
+    for resid in glu_residues + asn_residues + total_sf_residues:
         residue = u.select_atoms(f"resid {resid}")
         if len(residue) == 0:
             print(f"Warning: Resid {resid} not found in topology.")
             continue
 
         resname = residue.residues[0].resname
-        if resname == "GLU":
-            atom_names = ["CD", "OE1", "OE2"]
-        elif resname == "ASN":
-            atom_names = ["CG", "OD1", "ND2", "HD21", "HD22"]
-        else:
-            print(f"Warning: Resid {resid} is not GLU or ASN (found {resname}).")
-            continue
+        # if resname == "GLU":
+        #     atom_names = ["CD", "OE1", "OE2"]
+        # elif resname == "ASN":
+        #     atom_names = ["CG", "OD1", "ND2", "HD21", "HD22"]
+        # else:
+        #     print(f"Warning: Resid {resid} is not GLU or ASN (found {resname}).")
+        #     continue
+
+        atom_names = []
+        for atom in residue:
+            atom_names.append(atom.name)
 
         for atom_name in atom_names:
             atom_pos = residue_positions.get(frame, {}).get((resid, atom_name))
             if atom_pos is None:
                 continue  # Atom not found in this frame
 
-            charge = charge_map[atom_name]
+            charge = charge_map[(resname, atom_name)]
+
             if charge is None:
                 print(f"Warning: Charge not found for atom {atom_name} in resid {resid}.")
                 continue
@@ -405,19 +425,24 @@ def analyze_residue_forces(
                 "motion_component_percent": float(percent_ionic),
             }
 
-            if resname == "GLU":
+            if resid  in glu_residues:
                 glu_force += force
                 glu_contributions.append(contribution)
-            elif resname == "ASN":
+            elif resid in asn_residues:
                 asn_force += force
                 asn_contributions.append(contribution)
+            elif resid in total_sf_residues:
+                sf_force += force
+                sf_contributions.append(contribution)
 
     return {
         "residue_force": total_force.tolist(),
         "glu_force": glu_force.tolist(),
         "asn_force": asn_force.tolist(),
+        "sf_force": sf_force.tolist(),
         "glu_contributions": glu_contributions,
-        "asn_contributions": asn_contributions
+        "asn_contributions": asn_contributions,
+        "sf_contributions": sf_contributions
     }
 
 def analyze_pip2_forces(
@@ -430,6 +455,7 @@ def analyze_pip2_forces(
     motion_vec,
     pip2_resids,
     unique_pip2_atom_names,
+    actual_pip2_name,
     cutoff=50.0,
     headgroup_only=True
 ):
@@ -458,7 +484,7 @@ def analyze_pip2_forces(
             if atom_pos is None:
                 continue
 
-            charge = charge_map.get(atom_name)
+            charge = charge_map[(actual_pip2_name,atom_name)]
             if charge is None:
                 continue
 
