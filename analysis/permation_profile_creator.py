@@ -13,16 +13,18 @@ from analysis.radial_distance_analysis import analyze_radial_distances
 from analysis.close_residues_analysis import analyze_close_residues, get_last_nth_frame_close_residues, plot_residue_counts, analyze_residue_combinations
 from analysis.intervals_force_analysis import analyze_force_intervals
 from collections import defaultdict
+import gc
 
 class PermeationAnalyzer:
-    def __init__(self, ch2_permation_residues, u, start_frame, end_frame, min_results_per_frame,
-                 ch2, close_contacts_dict, total_residue_comb_over_all_frames, glu_residues, asn_residues, cutoff=15.0, calculate_total_force=False,
+    def __init__(self, ch2_permation_residues, ch1_permeation_events, u, start_frame, end_frame, min_results_per_frame,
+                 ch2, close_contacts_dict, total_residue_comb_over_all_frames, glu_residues, asn_residues, sf_residues, cutoff=15.0, calculate_total_force=False,
                 prmtop_file=None, nc_file=None,output_base_dir=None):
         """
         Initializes the analyzer with all necessary inputs and automatically
         runs the analysis, storing the results as attributes.
         """
         self.ch2_permation_residues = ch2_permation_residues
+        self.ch1_permeation_events = ch1_permeation_events
         self.u = u
         self.start_frame = start_frame
         self.end_frame = end_frame
@@ -37,6 +39,7 @@ class PermeationAnalyzer:
         self.output_base_dir = output_base_dir
         self.glu_residues = glu_residues
         self.asn_residues = asn_residues
+        self.sf_residues = sf_residues
         self.force_results = []
         self.radial_distances_results = []
         self.close_residues_results = []
@@ -78,7 +81,7 @@ class PermeationAnalyzer:
 
         return residue_pos
 
-    def _build_charge_map(self, pip2_resnames="PIP", unique_pip2_atom_names=None, ion_selection='resname K+ K'):
+    def _build_charge_map(self, pip2_resnames="PIP", unique_pip2_atom_names=None, residues_names=['ASN', 'GLU'], unique_res_atom_names=None, ion_selection='resname K+ K'):
         """
         Returns a charge map {(resid, atom_name): charge} for selected ions, GLU, ASN, and PIP2 atoms.
 
@@ -93,20 +96,17 @@ class PermeationAnalyzer:
         for ion in ions:
             charge_map[ion.resid] = 1.0  # atom index, not resid
 
-        # --- Add ASN atoms ---
-        asn_atoms = self.u.select_atoms("resname ASN and name CG OD1 ND2 HD21 HD22")
-        for atom in asn_atoms:
-            charge_map[atom.name] = atom.charge
+        # --- Add residues atoms ---
+        for resname in residues_names:
+            res_atoms = self.u.select_atoms(f"resname {resname} and name {' '.join(str(item) for item in unique_res_atom_names)}")
+            for atom in res_atoms:
+                charge_map[(resname, atom.name)] = atom.charge
 
-        # --- Add GLU atoms ---
-        glu_atoms = self.u.select_atoms("resname GLU and name CD OE1 OE2")
-        for atom in glu_atoms:
-            charge_map[atom.name] = atom.charge
 
         # --- Add PIP2 atoms ---
-        pip2_atoms = self.u.select_atoms(f"resname {pip2_resnames} and name {" ".join(str(item) for item in unique_pip2_atom_names)}")
+        pip2_atoms = self.u.select_atoms(f"resname {pip2_resnames} and name {' '.join(str(item) for item in unique_pip2_atom_names)}")
         for atom in pip2_atoms:
-            charge_map[atom.name] = atom.charge
+            charge_map[(pip2_resnames,atom.name)] = atom.charge
 
         return charge_map
 
@@ -121,12 +121,36 @@ class PermeationAnalyzer:
         - radial_distances_results (list)
         - close_residues_results (list)
         """
+        ################## POSITION EXTRACTION ##################
+        
         # Build positions and charge map once
         positions = self._build_all_positions()
+
+        total_sf_residues = []
+        for res in self.sf_residues:
+            for i in range(7):
+                total_sf_residues.append(res+i)
+
+
+        residue_list=self.glu_residues + self.asn_residues + total_sf_residues
+
+        residues_names = []
+        for resid in residue_list:
+            res = self.u.select_atoms(f"resid {resid}").residues[0]
+            residues_names.append(res.resname)
+            
+        res_atoms = self.u.select_atoms(f"resname {' '.join(residues_names)}")
+        # res_atom_names_by_resid = defaultdict(list)
+        # for atom in res_atoms:
+        #     res_atom_names_by_resid[atom.resid].append(atom.name)
+
+        # Flatten unique atom names
+        unique_res_atom_names = sorted(set(atom.name for atom in res_atoms))
+        print("Unique atom names in residues:", unique_res_atom_names)
         
         residue_positions = self._build_residue_positions(
-                                residue_list=self.glu_residues + self.asn_residues,
-                                atom_names=["CD", "OE1", "OE2", "CG", "OD1", "ND2", "HD21", "HD22"]
+                                residue_list=residue_list,
+                                atom_names=unique_res_atom_names
                             )
         
         possible_names = {"PIP2", "POPI", "POP2", "LPI2", "PIP"}  # Add more if needed
@@ -136,11 +160,12 @@ class PermeationAnalyzer:
 
         #Collect all resids for PIP2 residues
         pip2_resids = sorted({int(res.resid) for res in self.u.residues if res.resname in actual_pip2_names})
+        print("PIP2 residue IDs:", pip2_resids)
         #Find all atom names used in these PIP2 residues
         pip2_atoms = self.u.select_atoms(f"resname {' '.join(actual_pip2_names)}")
-        atom_names_by_resid = defaultdict(list)
-        for atom in pip2_atoms:
-            atom_names_by_resid[atom.resid].append(atom.name)
+        # pip_atom_names_by_resid = defaultdict(list)
+        # for atom in pip2_atoms:
+        #     pip_atom_names_by_resid[atom.resid].append(atom.name)
 
         # Flatten unique atom names
         unique_pip2_atom_names = sorted(set(atom.name for atom in pip2_atoms))
@@ -150,8 +175,11 @@ class PermeationAnalyzer:
                                 residue_list=pip2_resids,
                                 atom_names=unique_pip2_atom_names,
                             )
-        #Build charge map for all relevant atoms
-        charge_map = self._build_charge_map(list(actual_pip2_names)[0], unique_pip2_atom_names)
+        
+        ################### CHARGE MAP BUILDING ###################
+        # Get unique residue names for those resids
+        charge_map = self._build_charge_map(list(actual_pip2_names)[0], unique_pip2_atom_names, residues_names, unique_res_atom_names)
+        # print(charge_map)
 
         # Optional total force calculation via OpenMM
         total_force_data = None
@@ -161,7 +189,15 @@ class PermeationAnalyzer:
                 self.prmtop_file, self.nc_file
             )
 
-        for event in self.ch2_permation_residues:
+        for event in tqdm(self.ch2_permation_residues, desc="Permeation_profile_creator: Analyzing Permeation Events in Channel 2"):
+            ion_id_to_find = event["permeated"]
+            ch1_permeation_event = next((item for item in self.ch1_permeation_events if item["ion_id"] == ion_id_to_find), None)
+            if ch1_permeation_event:
+                ch1_start_frame = ch1_permeation_event["start_frame"]
+            else:
+                print(ion_id_to_find, "not found in ch1_permeation_events")
+                ch1_start_frame = event["start_frame"]
+
             if not (self.start_frame <= event["frame"] < self.end_frame):
                 continue
 
@@ -193,9 +229,10 @@ class PermeationAnalyzer:
                 "analysis": {}
             }
 
-            frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
+            # frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
+            frames_to_check = list(range(ch1_start_frame, event["frame"] + 1))
 
-            for frame in frames_to_check:
+            for frame in tqdm(frames_to_check, desc=f"Analyzing frame {event['frame']} for ion {event['permeated']}"):
                 # Skip if ion is near SF in this frame
                 residue_track = self.min_results_per_frame.get(event["permeated"], [])
                 is_sf = any(entry["frame"] == frame and entry["residue"] == "SF" for entry in residue_track)
@@ -210,6 +247,7 @@ class PermeationAnalyzer:
                         pip2_positions=pip2_positions,
                         pip2_resids=pip2_resids,
                         unique_pip2_atom_names=unique_pip2_atom_names,
+                        actual_pip2_names=list(actual_pip2_names)[0],
                         permeating_ion_id=event["permeated"],
                         frame=frame,
                         other_ions=positions.get(frame, {}).keys(),
@@ -217,6 +255,7 @@ class PermeationAnalyzer:
                         closest_residues_by_ion=self.min_results_per_frame,
                         glu_residues=self.glu_residues,        # <-- new
                         asn_residues=self.asn_residues,        # <-- new
+                        total_sf_residues=total_sf_residues,          # <-- new
                         cutoff=self.cutoff,
                         calculate_total_force=self.calculate_total_force,
                         total_force_data=total_force_data
@@ -254,17 +293,27 @@ class PermeationAnalyzer:
                         charge_map=charge_map,
                         glu_residues=self.glu_residues,  # <-- new
                         asn_residues=self.asn_residues,  # <-- new
+                        total_sf_residues=total_sf_residues,  # <-- new
                         cutoff=self.cutoff,
                         n_steps=20,  # Number of steps for interpolation
                         k=332.0  # Coulomb's constant in kJ/(mol*nm*e^2)
                     )
                     event_force_intervals_results["analysis"][frame] = force_intervals_result
+                    del force_intervals_result
+
+                del frame_result, radial_distances_result, close_residues_result
+                gc.collect()                
 
             # Append results per event
             self.force_results.append(event_force_results)
+
             self.radial_distances_results.append(event_radial_distances_results)
             self.close_residues_results.append(event_close_residues_results)
             self.force_intervals_results.append(event_force_intervals_results)
+
+            del event_force_results, event_radial_distances_results, event_close_residues_results, event_force_intervals_results
+            gc.collect()
+
 
         return self.force_results, self.radial_distances_results, self.close_residues_results, self.force_intervals_results
     

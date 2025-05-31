@@ -116,14 +116,16 @@
   },
   {
     "permeated": 2231,
-    "start_frame": 807,
+    "start_frame": 805,
     "permeation_frame": 806,
     "pattern": {
       "2397": 98,
       "2223": 1082,
       "2231": "SF"
     },
-    "match_frames": []
+    "match_frames": [
+      805
+    ]
   },
   {
     "permeated": 2381,

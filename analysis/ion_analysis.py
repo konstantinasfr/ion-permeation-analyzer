@@ -233,6 +233,16 @@ class IonPermeationAnalysis:
             
             
             sorted_ion_grouped_frames = sorted(ion_grouped_frames, key=lambda x: x['start'])
+
+            if len(sorted_ion_grouped_frames) == 1:
+                ch2_fixed.append({
+                    "ion_id": ion_id,
+                    "start_frame": sorted_ion_grouped_frames[0]["start"],
+                    "exit_frame": sorted_ion_grouped_frames[0]["end"],
+                    "total_time": sorted_ion_grouped_frames[0]["end"] - sorted_ion_grouped_frames[0]["start"] + 1
+                })
+                continue
+            
             if sorted_ion_grouped_frames == []:
                 print(ion_id, ion_grouped_frames)
             if sorted_ion_grouped_frames[0]["residue"] == "SF":
