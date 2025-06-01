@@ -1,32 +1,5 @@
 {
-  "98, 130, 786, 786": {
-    "count": 1,
-    "permeated_residues": [
-      786
-    ],
-    "frames": [
-      594
-    ]
-  },
-  "130, 426, 458": {
-    "count": 1,
-    "permeated_residues": [
-      458
-    ],
-    "frames": [
-      692
-    ]
-  },
-  "130, 130, 458": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      565
-    ]
-  },
-  "130, 426": {
+  "130, 130, 426, 786": {
     "count": 1,
     "permeated_residues": [
       130
@@ -35,63 +8,7 @@
       969
     ]
   },
-  "130, 458, 754, 786": {
-    "count": 1,
-    "permeated_residues": [
-      786
-    ],
-    "frames": [
-      707
-    ]
-  },
-  "130, 786, 1082": {
-    "count": 1,
-    "permeated_residues": [
-      130
-    ],
-    "frames": [
-      787
-    ]
-  },
-  "130, 786": {
-    "count": 2,
-    "permeated_residues": [
-      786,
-      130
-    ],
-    "frames": [
-      959,
-      1219
-    ]
-  },
-  "130, 1082, 1114, SF": {
-    "count": 1,
-    "permeated_residues": [
-      1114
-    ],
-    "frames": [
-      777
-    ]
-  },
-  "98, 786, 1082": {
-    "count": 1,
-    "permeated_residues": [
-      786
-    ],
-    "frames": [
-      794
-    ]
-  },
-  "98, 1082, SF": {
-    "count": 1,
-    "permeated_residues": [
-      "SF"
-    ],
-    "frames": [
-      806
-    ]
-  },
-  "754, 786, 1082": {
+  "98, 458, 754, 1082": {
     "count": 1,
     "permeated_residues": [
       1082
@@ -100,22 +17,13 @@
       946
     ]
   },
-  "458": {
-    "count": 1,
-    "permeated_residues": [
-      458
-    ],
-    "frames": [
-      1186
-    ]
-  },
-  "786": {
+  "98, 130, 786, SF": {
     "count": 1,
     "permeated_residues": [
       786
     ],
     "frames": [
-      1225
+      959
     ]
   }
 }

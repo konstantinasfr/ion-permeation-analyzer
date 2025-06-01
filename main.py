@@ -102,11 +102,11 @@ def main():
         sf_low_res_diagonal_pairs = [(100, 756), (428, 1084)]
 
         start_frame = 0
-        # start_frame = 900
+        start_frame = 900
         # start_frame = 5550
         # start_frame = 6500
         end_frame = 1250
-        # end_frame = 1000
+        end_frame = 1000
 
 
     # start_frame = 5414

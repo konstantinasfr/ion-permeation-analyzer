@@ -205,8 +205,14 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         "frame": frame,
         "motion_vector": 0,
         "motion_vector_magnitude": 0,
+        "field_force": [0.0, 0.0, 0.0],
+        "field_force_magnitude": 0,
         "ionic_force": [0.0, 0.0, 0.0],
         "ionic_force_magnitude": 0,
+        "ionic_force_up": [0.0, 0.0, 0.0],
+        "ionic_force_up_magnitude": 0,
+        "ionic_force_down": [0.0, 0.0, 0.0],
+        "ionic_force_down_magnitude": 0,
         "radial_force": 0,
         "axial_force": 0,
         "glu_force": [0.0, 0.0, 0.0],
@@ -228,12 +234,16 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         "cosine_residue_motion": 0,
         "cosine_pip2_motion": 0,
         "cosine_ionic_motion": 0,
+        "cosine_ionic_up_motion": 0,
+        "cosine_ionic_down_motion": 0,
         "motion_component_total": 0,
         "motion_component_glu": 0,
         "motion_component_asn": 0,
         "motion_component_sf": 0,
         "motion_component_residue": 0,
         "motion_component_ionic": 0,
+        "motion_component_ionic_up": 0,
+        "motion_component_ionic_down": 0,
         "motion_component_pip2": 0,
         "motion_component_percent_total": 0,
         "motion_component_percent_glu": 0,
@@ -241,6 +251,8 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         "motion_component_percent_sf": 0,
         "motion_component_percent_residue": 0,
         "motion_component_percent_ionic": 0,
+        "motion_component_percent_ionic_up": 0,
+        "motion_component_percent_ionic_down": 0,
         "motion_component_percent_pip2": 0,
         "ionic_contributions": [],
         "glu_contributions": [],
@@ -260,14 +272,22 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     result["motion_vector_magnitude"] = float(np.linalg.norm(motion_vec)) if motion_vec is not None else 0.0
 
     ionic_force = np.zeros(3)
+    ionic_force_up = np.zeros(3)
+    ionic_force_down = np.zeros(3)
     ionic_contributions = []
     for ion_id, pos in positions.get(frame, {}).items():
         if ion_id == permeating_ion_id or ion_id not in other_ions:
             continue
         distance = compute_distance(permeating_pos, pos)
         if distance <= cutoff:
+            z_pos_perm = permeating_pos[2]
+            z_pos_ion = pos[2]
             force = compute_force(charge_map[permeating_ion_id], charge_map[ion_id], permeating_pos, pos)
             ionic_force += force
+            if z_pos_ion > z_pos_perm:
+                ionic_force_up += force
+            elif z_pos_ion < z_pos_perm:
+                ionic_force_down += force
             cosine_ionic, component_ionic, percent_ionic = compute_alignment(force, motion_vec)
             ionic_contributions.append({
                 "ion_id": int(ion_id),
@@ -277,8 +297,21 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
                 # Alignment with motion vector
                 "cosine_ionic_motion": float(cosine_ionic),
                 "motion_component_ionic": float(component_ionic),
-                "motion_component_percent_ionic": float(percent_ionic)
+                "motion_component_percent_ionic": float(percent_ionic),
+                "position" : "up" if z_pos_ion > z_pos_perm else "down" if z_pos_ion < z_pos_perm else "same"
             })
+
+    result["ionic_force_up"] = ionic_force_up.tolist()
+    result["ionic_force_up_magnitude"] = float(np.linalg.norm(ionic_force_up))
+    result["ionic_force_down"] = ionic_force_down.tolist()
+    result["ionic_force_down_magnitude"] = float(np.linalg.norm(ionic_force_down))
+    
+    external_field_strength = -0.06  # kcal/(mol·Å·e)
+    external_field_direction = np.array([0.0, 0.0, 1.0])  # assuming field is along +Z
+    q = charge_map[permeating_ion_id]
+    field_force =  q * external_field_strength * external_field_direction
+    result["field_force"] = field_force.tolist()
+    result["field_force_magnitude"] = float(np.linalg.norm(result["field_force"]))
 
     result["ionic_force"] = ionic_force.tolist()
     result["ionic_force_magnitude"] = float(np.linalg.norm(ionic_force))
@@ -307,7 +340,7 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         )
     pip2_force = np.array(pip2_result["pip2_force"])
 
-    total_force = ionic_force + residue_force + pip2_force
+    total_force = ionic_force + residue_force + pip2_force +field_force
 
     result["glu_force"] = glu_force.tolist()
     result["glu_force_magnitude"] = float(np.linalg.norm(glu_force))
@@ -329,8 +362,8 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
     if motion_vec is not None and np.linalg.norm(motion_vec) > 0:
         unit_motion = unit_vector(motion_vec)
         for key, vec in zip(
-            ["ionic", "glu", "asn", "sf", "residue", "pip2", "total"],
-            [ionic_force, glu_force, asn_force, sf_force, residue_force, pip2_force, total_force]
+            ["ionic", "ionic_up", "ionic_down", "glu", "asn", "sf", "residue", "pip2", "total"],
+            [ionic_force, ionic_force_up, ionic_force_down, glu_force, asn_force, sf_force, residue_force, pip2_force, total_force]
         ):
             norm = np.linalg.norm(vec)
             if norm > 0:
