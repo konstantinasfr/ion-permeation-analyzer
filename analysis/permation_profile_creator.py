@@ -16,15 +16,16 @@ from collections import defaultdict
 import gc
 
 class PermeationAnalyzer:
-    def __init__(self, ch2_permation_residues, ch1_permeation_events, u, start_frame, end_frame, min_results_per_frame,
+    def __init__(self, ch2_permation_residues, ch1_permeation_events, ch2_permeation_events, u, start_frame, end_frame, min_results_per_frame,
                  ch2, close_contacts_dict, total_residue_comb_over_all_frames, glu_residues, asn_residues, sf_residues, cutoff=15.0, calculate_total_force=False,
-                prmtop_file=None, nc_file=None,output_base_dir=None):
+                prmtop_file=None, nc_file=None,output_base_dir=None, calculate_intervals=False):
         """
         Initializes the analyzer with all necessary inputs and automatically
         runs the analysis, storing the results as attributes.
         """
         self.ch2_permation_residues = ch2_permation_residues
         self.ch1_permeation_events = ch1_permeation_events
+        self.ch2_permeation_events = ch2_permeation_events
         self.u = u
         self.start_frame = start_frame
         self.end_frame = end_frame
@@ -40,6 +41,7 @@ class PermeationAnalyzer:
         self.glu_residues = glu_residues
         self.asn_residues = asn_residues
         self.sf_residues = sf_residues
+        self.calculate_intervals = calculate_intervals
         self.force_results = []
         self.radial_distances_results = []
         self.close_residues_results = []
@@ -110,7 +112,17 @@ class PermeationAnalyzer:
 
         return charge_map
 
+    def _get_previous_start_frame(self, events, target_ion_id):
+        # Sort by start_frame to ensure logical order
+        events = sorted(events, key=lambda x: x["start_frame"])
 
+        for i, event in enumerate(events):
+            if event["ion_id"] == target_ion_id:
+                if i == 0:
+                    return event["start_frame"]  # No previous, return own
+                return events[i - 1]["start_frame"]
+        
+        return None  # target ion not found
 
 
     def run_permeation_analysis(self):
@@ -191,12 +203,23 @@ class PermeationAnalyzer:
 
         for event in tqdm(self.ch2_permation_residues, desc="Permeation_profile_creator: Analyzing Permeation Events in Channel 2"):
             ion_id_to_find = event["permeated"]
-            ch1_permeation_event = next((item for item in self.ch1_permeation_events if item["ion_id"] == ion_id_to_find), None)
-            if ch1_permeation_event:
-                ch1_start_frame = ch1_permeation_event["start_frame"]
-            else:
-                print(ion_id_to_find, "not found in ch1_permeation_events")
-                ch1_start_frame = event["start_frame"]
+            ch1_start_frame= self._get_previous_start_frame(self.ch2_permeation_events, ion_id_to_find)
+
+            # # Start from the first frame of channel 1 permeation events
+            # ch1_permeation_event = next((item for item in self.ch1_permeation_events if item["ion_id"] == ion_id_to_find), None)
+            # if ch1_permeation_event:
+            #     ch1_start_frame = ch1_permeation_event["start_frame"]                
+            # else:
+            #     print(ion_id_to_find, "not found in ch1_permeation_events")
+            #     ch1_start_frame = event["start_frame"]
+            
+            # # Uncomment if you want to analyze only the last 30 frames before the event
+            # if event["start_frame"] - 30 <0:
+            #     ch1_start_frame = 0
+            # else:
+            #     ch1_start_frame = event["start_frame"] - 30
+
+
 
             if not (self.start_frame <= event["frame"] < self.end_frame):
                 continue
@@ -232,12 +255,12 @@ class PermeationAnalyzer:
             # frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
             frames_to_check = list(range(ch1_start_frame, event["frame"] + 1))
 
-            for frame in tqdm(frames_to_check, desc=f"Analyzing frame {event['frame']} for ion {event['permeated']}"):
-                # Skip if ion is near SF in this frame
-                residue_track = self.min_results_per_frame.get(event["permeated"], [])
-                is_sf = any(entry["frame"] == frame and entry["residue"] == "SF" for entry in residue_track)
-                if is_sf:
-                    continue
+            for frame in frames_to_check:
+                # # Skip if ion is near SF in this frame
+                # residue_track = self.min_results_per_frame.get(event["permeated"], [])
+                # is_sf = any(entry["frame"] == frame and entry["residue"] == "SF" for entry in residue_track)
+                # if is_sf:
+                #     continue
 
                 # Force analysis
                 frame_result = analyze_forces(
@@ -282,7 +305,7 @@ class PermeationAnalyzer:
                 )
                 event_close_residues_results["analysis"][frame] = close_residues_result
 
-                if frame == event["frame"]:
+                if frame == event["frame"] and self.calculate_intervals:
                     # Force intervals analysis
                     force_intervals_result = analyze_force_intervals(
                         u=self.u,
@@ -309,9 +332,10 @@ class PermeationAnalyzer:
 
             self.radial_distances_results.append(event_radial_distances_results)
             self.close_residues_results.append(event_close_residues_results)
-            self.force_intervals_results.append(event_force_intervals_results)
+            if self.calculate_intervals:
+                self.force_intervals_results.append(event_force_intervals_results)
 
-            del event_force_results, event_radial_distances_results, event_close_residues_results, event_force_intervals_results
+            del event_force_results, event_radial_distances_results, event_close_residues_results
             gc.collect()
 
 

@@ -35,10 +35,10 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
-    parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
 
@@ -274,6 +274,7 @@ def main():
         permeation_analysis = PermeationAnalyzer(
             ch2_permation_residues=ch2_permation_residues,
             ch1_permeation_events=analyzer.permeation_events1,
+            ch2_permeation_events=analyzer.permeation_events2,
             u=u,
             start_frame=start_frame,
             end_frame=end_frame,
