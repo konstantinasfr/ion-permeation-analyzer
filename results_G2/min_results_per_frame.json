@@ -1,1619 +1,2756 @@
 {
   "2333": [
     {
-      "frame": 900,
-      "residue": 458,
-      "min_distance": 5.383437633514404
+      "frame": 1100,
+      "residue": 130,
+      "min_distance": 2.7037296295166016
     },
     {
-      "frame": 901,
+      "frame": 1101,
       "residue": 98,
-      "min_distance": 2.6854636669158936
+      "min_distance": 2.6520073413848877
     },
     {
-      "frame": 902,
-      "residue": 130,
-      "min_distance": 2.8080716133117676
-    },
-    {
-      "frame": 903,
-      "residue": 1114,
-      "min_distance": 4.508433818817139
-    },
-    {
-      "frame": 904,
-      "residue": 1114,
-      "min_distance": 5.550867080688477
-    },
-    {
-      "frame": 905,
-      "residue": 1114,
-      "min_distance": 5.510837554931641
-    },
-    {
-      "frame": 906,
-      "residue": 1114,
-      "min_distance": 2.6844139099121094
-    },
-    {
-      "frame": 907,
-      "residue": 1114,
-      "min_distance": 2.6723084449768066
-    },
-    {
-      "frame": 908,
-      "residue": 1082,
-      "min_distance": 3.5013835430145264
-    },
-    {
-      "frame": 909,
-      "residue": 1082,
-      "min_distance": 2.7909343242645264
-    },
-    {
-      "frame": 910,
-      "residue": 1082,
-      "min_distance": 2.647916316986084
-    },
-    {
-      "frame": 911,
-      "residue": 1082,
-      "min_distance": 2.6346583366394043
-    },
-    {
-      "frame": 912,
-      "residue": 1082,
-      "min_distance": 2.5983431339263916
-    },
-    {
-      "frame": 913,
-      "residue": 1082,
-      "min_distance": 2.5474681854248047
-    },
-    {
-      "frame": 914,
-      "residue": 1114,
-      "min_distance": 5.018566608428955
-    },
-    {
-      "frame": 915,
+      "frame": 1102,
       "residue": 98,
-      "min_distance": 5.434210777282715
+      "min_distance": 2.8455188274383545
     },
     {
-      "frame": 916,
+      "frame": 1103,
+      "residue": 130,
+      "min_distance": 2.692139148712158
+    },
+    {
+      "frame": 1104,
       "residue": 98,
-      "min_distance": 2.7790865898132324
+      "min_distance": 2.7895007133483887
     },
     {
-      "frame": 917,
+      "frame": 1105,
+      "residue": 98,
+      "min_distance": 2.7301735877990723
+    },
+    {
+      "frame": 1106,
+      "residue": 98,
+      "min_distance": 2.6772642135620117
+    },
+    {
+      "frame": 1107,
+      "residue": 98,
+      "min_distance": 2.635049819946289
+    },
+    {
+      "frame": 1108,
+      "residue": 98,
+      "min_distance": 2.6665403842926025
+    },
+    {
+      "frame": 1109,
+      "residue": 98,
+      "min_distance": 2.669468879699707
+    },
+    {
+      "frame": 1110,
       "residue": 130,
-      "min_distance": 3.8815083503723145
+      "min_distance": 2.585399866104126
     },
     {
-      "frame": 918,
+      "frame": 1111,
+      "residue": 98,
+      "min_distance": 2.6982295513153076
+    },
+    {
+      "frame": 1112,
+      "residue": 98,
+      "min_distance": 2.6597900390625
+    },
+    {
+      "frame": 1113,
+      "residue": 98,
+      "min_distance": 2.580803155899048
+    },
+    {
+      "frame": 1114,
       "residue": 786,
-      "min_distance": 2.9491124153137207
+      "min_distance": 5.855629920959473
     },
     {
-      "frame": 919,
-      "residue": 130,
-      "min_distance": 3.921273946762085
-    },
-    {
-      "frame": 920,
-      "residue": 130,
-      "min_distance": 2.8540799617767334
-    },
-    {
-      "frame": 921,
-      "residue": 1114,
-      "min_distance": 6.687266826629639
-    },
-    {
-      "frame": 922,
-      "residue": 1114,
-      "min_distance": 5.050753116607666
-    },
-    {
-      "frame": 923,
-      "residue": 130,
-      "min_distance": 5.649188995361328
-    },
-    {
-      "frame": 924,
-      "residue": 458,
-      "min_distance": 5.176239490509033
-    },
-    {
-      "frame": 925,
-      "residue": 1114,
-      "min_distance": 5.380880355834961
-    },
-    {
-      "frame": 926,
-      "residue": 458,
-      "min_distance": 3.8245859146118164
-    },
-    {
-      "frame": 927,
-      "residue": 1082,
-      "min_distance": 2.6830825805664062
-    },
-    {
-      "frame": 928,
-      "residue": 1082,
-      "min_distance": 2.6571922302246094
-    },
-    {
-      "frame": 929,
-      "residue": 1082,
-      "min_distance": 2.617638349533081
-    },
-    {
-      "frame": 930,
-      "residue": 1114,
-      "min_distance": 2.5826706886291504
-    },
-    {
-      "frame": 931,
-      "residue": 1114,
-      "min_distance": 4.273660659790039
-    },
-    {
-      "frame": 932,
-      "residue": 1082,
-      "min_distance": 2.749631881713867
-    },
-    {
-      "frame": 933,
-      "residue": 1082,
-      "min_distance": 2.8994293212890625
-    },
-    {
-      "frame": 934,
-      "residue": 1082,
-      "min_distance": 2.781691312789917
-    },
-    {
-      "frame": 935,
-      "residue": 1114,
-      "min_distance": 2.749915838241577
-    },
-    {
-      "frame": 936,
-      "residue": 1082,
-      "min_distance": 2.744065046310425
-    },
-    {
-      "frame": 937,
-      "residue": 1082,
-      "min_distance": 2.7339282035827637
-    },
-    {
-      "frame": 938,
-      "residue": 1114,
-      "min_distance": 2.510694742202759
-    },
-    {
-      "frame": 939,
-      "residue": 1114,
-      "min_distance": 2.749999523162842
-    },
-    {
-      "frame": 940,
-      "residue": 1082,
-      "min_distance": 2.6516191959381104
-    },
-    {
-      "frame": 941,
-      "residue": 1082,
-      "min_distance": 3.3922293186187744
-    },
-    {
-      "frame": 942,
-      "residue": 1082,
-      "min_distance": 2.6294045448303223
-    },
-    {
-      "frame": 943,
-      "residue": 458,
-      "min_distance": 4.978311061859131
-    },
-    {
-      "frame": 944,
+      "frame": 1115,
       "residue": 786,
-      "min_distance": 7.408883094787598
+      "min_distance": 8.721903800964355
     },
     {
-      "frame": 945,
-      "residue": 786,
-      "min_distance": 4.365108013153076
+      "frame": 1116,
+      "residue": 130,
+      "min_distance": 5.052262783050537
     },
     {
-      "frame": 946,
-      "residue": 458,
-      "min_distance": 4.620572566986084
+      "frame": 1117,
+      "residue": 98,
+      "min_distance": 2.8153672218322754
     },
     {
-      "frame": 947,
+      "frame": 1118,
+      "residue": 98,
+      "min_distance": 2.6362578868865967
+    },
+    {
+      "frame": 1119,
+      "residue": 130,
+      "min_distance": 2.5860180854797363
+    },
+    {
+      "frame": 1120,
+      "residue": 98,
+      "min_distance": 2.7430782318115234
+    },
+    {
+      "frame": 1121,
       "residue": "SF",
-      "min_distance": 4.742761671543121
+      "min_distance": 5.617090404033661
     },
     {
-      "frame": 948,
+      "frame": 1122,
       "residue": 426,
-      "min_distance": 2.5469107627868652
+      "min_distance": 2.596116781234741
     },
     {
-      "frame": 949,
+      "frame": 1123,
+      "residue": 426,
+      "min_distance": 2.7200400829315186
+    },
+    {
+      "frame": 1124,
+      "residue": 426,
+      "min_distance": 2.6043946743011475
+    },
+    {
+      "frame": 1125,
+      "residue": 458,
+      "min_distance": 2.6609528064727783
+    },
+    {
+      "frame": 1126,
+      "residue": 458,
+      "min_distance": 2.8297762870788574
+    },
+    {
+      "frame": 1127,
+      "residue": "SF",
+      "min_distance": 5.153307318687439
+    },
+    {
+      "frame": 1128,
       "residue": 1114,
-      "min_distance": 4.452207088470459
+      "min_distance": 5.416523456573486
     },
     {
-      "frame": 950,
-      "residue": 754,
-      "min_distance": 2.8361892700195312
-    },
-    {
-      "frame": 951,
-      "residue": 754,
-      "min_distance": 2.785987615585327
-    },
-    {
-      "frame": 952,
-      "residue": 754,
-      "min_distance": 2.799086570739746
-    },
-    {
-      "frame": 953,
-      "residue": 786,
-      "min_distance": 5.697708606719971
-    },
-    {
-      "frame": 954,
+      "frame": 1129,
       "residue": 130,
-      "min_distance": 4.648571968078613
+      "min_distance": 2.83781099319458
     },
     {
-      "frame": 955,
-      "residue": 786,
-      "min_distance": 5.475061416625977
-    },
-    {
-      "frame": 956,
+      "frame": 1130,
       "residue": 130,
-      "min_distance": 2.724295139312744
+      "min_distance": 4.886478900909424
     },
     {
-      "frame": 957,
+      "frame": 1131,
+      "residue": 754,
+      "min_distance": 2.7042527198791504
+    },
+    {
+      "frame": 1132,
+      "residue": 754,
+      "min_distance": 2.716508388519287
+    },
+    {
+      "frame": 1133,
+      "residue": 754,
+      "min_distance": 2.647110939025879
+    },
+    {
+      "frame": 1134,
+      "residue": 754,
+      "min_distance": 2.875248670578003
+    },
+    {
+      "frame": 1135,
+      "residue": 754,
+      "min_distance": 2.7161128520965576
+    },
+    {
+      "frame": 1136,
+      "residue": 754,
+      "min_distance": 2.680368423461914
+    },
+    {
+      "frame": 1137,
       "residue": "SF",
-      "min_distance": 5.0313674211502075
+      "min_distance": 3.6712575554847717
     },
     {
-      "frame": 958,
+      "frame": 1138,
+      "residue": 130,
+      "min_distance": 5.420927047729492
+    },
+    {
+      "frame": 1139,
+      "residue": "SF",
+      "min_distance": 5.489288091659546
+    },
+    {
+      "frame": 1140,
+      "residue": 130,
+      "min_distance": 5.180619239807129
+    },
+    {
+      "frame": 1141,
+      "residue": 130,
+      "min_distance": 4.457727432250977
+    },
+    {
+      "frame": 1142,
       "residue": 98,
-      "min_distance": 2.5712764263153076
+      "min_distance": 4.168273448944092
     },
     {
-      "frame": 959,
+      "frame": 1143,
       "residue": 98,
-      "min_distance": 3.8795645236968994
+      "min_distance": 2.7405054569244385
     },
     {
-      "frame": 960,
+      "frame": 1144,
       "residue": 98,
-      "min_distance": 2.588515281677246
+      "min_distance": 3.0133137702941895
     },
     {
-      "frame": 961,
+      "frame": 1145,
+      "residue": 98,
+      "min_distance": 4.146178245544434
+    },
+    {
+      "frame": 1146,
+      "residue": 130,
+      "min_distance": 3.9221768379211426
+    },
+    {
+      "frame": 1147,
+      "residue": 98,
+      "min_distance": 4.354162693023682
+    },
+    {
+      "frame": 1148,
+      "residue": "SF",
+      "min_distance": 5.729384779930115
+    },
+    {
+      "frame": 1149,
       "residue": 1114,
-      "min_distance": 2.6515390872955322
+      "min_distance": 5.1522932052612305
     },
     {
-      "frame": 962,
-      "residue": 458,
-      "min_distance": 3.247131824493408
-    },
-    {
-      "frame": 963,
-      "residue": "SF",
-      "min_distance": 4.341855585575104
-    },
-    {
-      "frame": 964,
-      "residue": 786,
-      "min_distance": 2.816502332687378
-    },
-    {
-      "frame": 965,
-      "residue": 754,
-      "min_distance": 2.5118565559387207
-    },
-    {
-      "frame": 966,
-      "residue": 754,
-      "min_distance": 2.848038673400879
-    },
-    {
-      "frame": 967,
-      "residue": 754,
-      "min_distance": 2.786902666091919
-    },
-    {
-      "frame": 968,
-      "residue": 754,
-      "min_distance": 2.704629898071289
-    },
-    {
-      "frame": 969,
-      "residue": 130,
-      "min_distance": 2.6359341144561768
-    },
-    {
-      "frame": 970,
-      "residue": "SF",
-      "min_distance": 4.35572075843811
-    },
-    {
-      "frame": 971,
-      "residue": 458,
-      "min_distance": 5.795983791351318
-    },
-    {
-      "frame": 972,
-      "residue": 458,
-      "min_distance": 5.491583824157715
-    },
-    {
-      "frame": 973,
-      "residue": 458,
-      "min_distance": 4.270201683044434
-    },
-    {
-      "frame": 974,
-      "residue": "SF",
-      "min_distance": 5.305846333503723
-    },
-    {
-      "frame": 975,
-      "residue": "SF",
-      "min_distance": 6.305423736572266
-    },
-    {
-      "frame": 976,
-      "residue": 130,
-      "min_distance": 5.506701469421387
-    },
-    {
-      "frame": 977,
-      "residue": 786,
-      "min_distance": 5.019547939300537
-    },
-    {
-      "frame": 978,
-      "residue": 130,
-      "min_distance": 4.130542755126953
-    },
-    {
-      "frame": 979,
-      "residue": 98,
-      "min_distance": 4.043747901916504
-    },
-    {
-      "frame": 980,
-      "residue": 130,
-      "min_distance": 3.9354515075683594
-    },
-    {
-      "frame": 981,
-      "residue": 130,
-      "min_distance": 5.217999458312988
-    },
-    {
-      "frame": 982,
-      "residue": 458,
-      "min_distance": 3.995090961456299
-    },
-    {
-      "frame": 983,
-      "residue": 130,
-      "min_distance": 2.8184311389923096
-    },
-    {
-      "frame": 984,
-      "residue": 98,
-      "min_distance": 2.8249385356903076
-    },
-    {
-      "frame": 985,
-      "residue": 98,
-      "min_distance": 2.683748483657837
-    },
-    {
-      "frame": 986,
-      "residue": 98,
-      "min_distance": 4.439388751983643
-    },
-    {
-      "frame": 987,
-      "residue": 98,
-      "min_distance": 3.5417287349700928
-    },
-    {
-      "frame": 988,
-      "residue": 98,
-      "min_distance": 2.6852877140045166
-    },
-    {
-      "frame": 989,
-      "residue": 1114,
-      "min_distance": 5.405490398406982
-    },
-    {
-      "frame": 990,
-      "residue": 130,
-      "min_distance": 5.185398578643799
-    },
-    {
-      "frame": 991,
-      "residue": 98,
-      "min_distance": 2.6989939212799072
-    },
-    {
-      "frame": 992,
-      "residue": 98,
-      "min_distance": 2.6325604915618896
-    },
-    {
-      "frame": 993,
-      "residue": 98,
-      "min_distance": 2.7926831245422363
-    },
-    {
-      "frame": 994,
-      "residue": 98,
-      "min_distance": 5.158712387084961
-    },
-    {
-      "frame": 995,
-      "residue": 458,
-      "min_distance": 5.547458648681641
-    },
-    {
-      "frame": 996,
-      "residue": 458,
-      "min_distance": 5.96946382522583
-    },
-    {
-      "frame": 997,
-      "residue": 130,
-      "min_distance": 4.547695159912109
-    },
-    {
-      "frame": 998,
-      "residue": 754,
-      "min_distance": 6.5770087242126465
-    },
-    {
-      "frame": 999,
-      "residue": 754,
-      "min_distance": 4.75317907333374
-    }
-  ],
-  "2372": [
-    {
-      "frame": 900,
-      "residue": 754,
-      "min_distance": 3.5057308673858643
-    },
-    {
-      "frame": 901,
-      "residue": 754,
-      "min_distance": 3.2531962394714355
-    },
-    {
-      "frame": 902,
-      "residue": 754,
-      "min_distance": 2.549802541732788
-    },
-    {
-      "frame": 903,
-      "residue": 754,
-      "min_distance": 4.17584228515625
-    },
-    {
-      "frame": 904,
-      "residue": 458,
-      "min_distance": 6.555117607116699
-    },
-    {
-      "frame": 905,
-      "residue": 130,
-      "min_distance": 2.71704363822937
-    },
-    {
-      "frame": 906,
-      "residue": 786,
-      "min_distance": 5.291101932525635
-    },
-    {
-      "frame": 907,
-      "residue": 98,
-      "min_distance": 4.39455509185791
-    },
-    {
-      "frame": 908,
-      "residue": 98,
-      "min_distance": 2.715500593185425
-    },
-    {
-      "frame": 909,
-      "residue": 98,
-      "min_distance": 3.203498125076294
-    },
-    {
-      "frame": 910,
-      "residue": 130,
-      "min_distance": 3.2117576599121094
-    },
-    {
-      "frame": 911,
-      "residue": 98,
-      "min_distance": 2.8490164279937744
-    },
-    {
-      "frame": 912,
-      "residue": 98,
-      "min_distance": 2.700495719909668
-    },
-    {
-      "frame": 913,
-      "residue": 98,
-      "min_distance": 2.6199209690093994
-    },
-    {
-      "frame": 914,
-      "residue": 98,
-      "min_distance": 2.603019952774048
-    },
-    {
-      "frame": 915,
-      "residue": "SF",
-      "min_distance": 3.9798566102981567
-    },
-    {
-      "frame": 916,
-      "residue": "SF",
-      "min_distance": 3.813986659049988
-    },
-    {
-      "frame": 917,
-      "residue": 458,
-      "min_distance": 4.941507339477539
-    },
-    {
-      "frame": 918,
-      "residue": 1114,
-      "min_distance": 4.437892913818359
-    },
-    {
-      "frame": 919,
-      "residue": 786,
-      "min_distance": 2.8919765949249268
-    },
-    {
-      "frame": 920,
-      "residue": 754,
-      "min_distance": 2.772083282470703
-    },
-    {
-      "frame": 921,
-      "residue": 786,
-      "min_distance": 5.018359184265137
-    },
-    {
-      "frame": 922,
-      "residue": 426,
-      "min_distance": 2.5254034996032715
-    },
-    {
-      "frame": 923,
-      "residue": 1114,
-      "min_distance": 4.9478840827941895
-    },
-    {
-      "frame": 924,
-      "residue": 130,
-      "min_distance": 4.738314628601074
-    },
-    {
-      "frame": 925,
-      "residue": 458,
-      "min_distance": 3.458163022994995
-    },
-    {
-      "frame": 926,
-      "residue": 98,
-      "min_distance": 2.6363210678100586
-    },
-    {
-      "frame": 927,
-      "residue": 98,
-      "min_distance": 2.9187426567077637
-    },
-    {
-      "frame": 928,
-      "residue": 98,
-      "min_distance": 2.7396743297576904
-    },
-    {
-      "frame": 929,
-      "residue": 98,
-      "min_distance": 2.518272638320923
-    },
-    {
-      "frame": 930,
-      "residue": 98,
-      "min_distance": 2.6491973400115967
-    },
-    {
-      "frame": 931,
-      "residue": 98,
-      "min_distance": 3.350163221359253
-    },
-    {
-      "frame": 932,
-      "residue": 98,
-      "min_distance": 2.6095592975616455
-    },
-    {
-      "frame": 933,
-      "residue": 98,
-      "min_distance": 3.014090061187744
-    },
-    {
-      "frame": 934,
-      "residue": 786,
-      "min_distance": 3.964879035949707
-    },
-    {
-      "frame": 935,
-      "residue": 786,
-      "min_distance": 4.674557685852051
-    },
-    {
-      "frame": 936,
-      "residue": 786,
-      "min_distance": 4.023984909057617
-    },
-    {
-      "frame": 937,
-      "residue": 130,
-      "min_distance": 3.776639461517334
-    },
-    {
-      "frame": 938,
-      "residue": 458,
-      "min_distance": 10.200922012329102
-    },
-    {
-      "frame": 939,
-      "residue": 786,
-      "min_distance": 7.89475154876709
-    },
-    {
-      "frame": 940,
-      "residue": 786,
-      "min_distance": 8.16498851776123
-    },
-    {
-      "frame": 941,
-      "residue": 130,
-      "min_distance": 3.5581536293029785
-    },
-    {
-      "frame": 942,
-      "residue": 98,
-      "min_distance": 2.548597574234009
-    },
-    {
-      "frame": 943,
-      "residue": 98,
-      "min_distance": 5.081953048706055
-    },
-    {
-      "frame": 944,
-      "residue": 98,
-      "min_distance": 4.302213668823242
-    },
-    {
-      "frame": 945,
-      "residue": 98,
-      "min_distance": 4.171229839324951
-    },
-    {
-      "frame": 946,
-      "residue": 98,
-      "min_distance": 5.012716293334961
-    },
-    {
-      "frame": 947,
-      "residue": 98,
-      "min_distance": 2.5842669010162354
-    },
-    {
-      "frame": 948,
-      "residue": 98,
-      "min_distance": 4.290377140045166
-    },
-    {
-      "frame": 949,
-      "residue": 130,
-      "min_distance": 4.332393169403076
-    },
-    {
-      "frame": 950,
-      "residue": 786,
-      "min_distance": 6.266888618469238
-    },
-    {
-      "frame": 951,
-      "residue": 458,
-      "min_distance": 4.89597225189209
-    },
-    {
-      "frame": 952,
-      "residue": 426,
-      "min_distance": 5.06315803527832
-    },
-    {
-      "frame": 953,
-      "residue": 426,
-      "min_distance": 3.891537666320801
-    },
-    {
-      "frame": 954,
-      "residue": 426,
-      "min_distance": 4.504548072814941
-    },
-    {
-      "frame": 955,
-      "residue": 458,
-      "min_distance": 4.3181867599487305
-    },
-    {
-      "frame": 956,
-      "residue": 426,
-      "min_distance": 2.6569595336914062
-    },
-    {
-      "frame": 957,
-      "residue": 426,
-      "min_distance": 5.671594142913818
-    },
-    {
-      "frame": 958,
-      "residue": 786,
-      "min_distance": 5.00518798828125
-    },
-    {
-      "frame": 959,
-      "residue": "SF",
-      "min_distance": 4.652817070484161
-    },
-    {
-      "frame": 960,
-      "residue": 458,
-      "min_distance": 3.9825472831726074
-    },
-    {
-      "frame": 961,
-      "residue": 786,
-      "min_distance": 4.098101615905762
-    },
-    {
-      "frame": 962,
-      "residue": 426,
-      "min_distance": 2.775240898132324
-    },
-    {
-      "frame": 963,
-      "residue": 426,
-      "min_distance": 2.6730105876922607
-    },
-    {
-      "frame": 964,
-      "residue": 426,
-      "min_distance": 2.6765012741088867
-    },
-    {
-      "frame": 965,
-      "residue": 426,
-      "min_distance": 2.8074429035186768
-    },
-    {
-      "frame": 966,
-      "residue": 426,
-      "min_distance": 2.5549445152282715
-    },
-    {
-      "frame": 967,
-      "residue": "SF",
-      "min_distance": 3.3139891028404236
-    },
-    {
-      "frame": 968,
-      "residue": "SF",
-      "min_distance": 4.6164430975914
-    },
-    {
-      "frame": 969,
-      "residue": 786,
-      "min_distance": 4.503633499145508
-    },
-    {
-      "frame": 970,
-      "residue": 130,
-      "min_distance": 2.7960033416748047
-    },
-    {
-      "frame": 971,
-      "residue": 130,
-      "min_distance": 3.090564727783203
-    },
-    {
-      "frame": 972,
-      "residue": 98,
-      "min_distance": 4.51749324798584
-    },
-    {
-      "frame": 973,
-      "residue": 98,
-      "min_distance": 4.119429588317871
-    },
-    {
-      "frame": 974,
-      "residue": 98,
-      "min_distance": 2.6873223781585693
-    },
-    {
-      "frame": 975,
-      "residue": 98,
-      "min_distance": 5.107589244842529
-    },
-    {
-      "frame": 976,
-      "residue": 130,
-      "min_distance": 2.8384907245635986
-    },
-    {
-      "frame": 977,
-      "residue": 458,
-      "min_distance": 4.934789657592773
-    },
-    {
-      "frame": 978,
-      "residue": 426,
-      "min_distance": 3.895536422729492
-    },
-    {
-      "frame": 979,
-      "residue": 426,
-      "min_distance": 4.267813682556152
-    },
-    {
-      "frame": 980,
-      "residue": 426,
-      "min_distance": 4.20530891418457
-    },
-    {
-      "frame": 981,
-      "residue": 426,
-      "min_distance": 4.412474632263184
-    },
-    {
-      "frame": 982,
-      "residue": 426,
-      "min_distance": 4.3119378089904785
-    },
-    {
-      "frame": 983,
-      "residue": 426,
-      "min_distance": 4.755255699157715
-    },
-    {
-      "frame": 984,
-      "residue": 426,
-      "min_distance": 2.6616218090057373
-    },
-    {
-      "frame": 985,
-      "residue": 458,
-      "min_distance": 3.655437707901001
-    },
-    {
-      "frame": 986,
-      "residue": 786,
-      "min_distance": 2.870490550994873
-    },
-    {
-      "frame": 987,
-      "residue": 1114,
-      "min_distance": 2.775432825088501
-    },
-    {
-      "frame": 988,
-      "residue": 754,
-      "min_distance": 4.867009162902832
-    },
-    {
-      "frame": 989,
-      "residue": 130,
-      "min_distance": 4.468954563140869
-    },
-    {
-      "frame": 990,
-      "residue": 754,
-      "min_distance": 2.8217544555664062
-    },
-    {
-      "frame": 991,
-      "residue": 130,
-      "min_distance": 2.5827748775482178
-    },
-    {
-      "frame": 992,
-      "residue": 786,
-      "min_distance": 3.894192934036255
-    },
-    {
-      "frame": 993,
-      "residue": 130,
-      "min_distance": 4.551759243011475
-    },
-    {
-      "frame": 994,
-      "residue": 786,
-      "min_distance": 5.07814884185791
-    },
-    {
-      "frame": 995,
-      "residue": 1114,
-      "min_distance": 4.838149547576904
-    },
-    {
-      "frame": 996,
-      "residue": 458,
-      "min_distance": 4.6124114990234375
-    },
-    {
-      "frame": 997,
+      "frame": 1150,
       "residue": 1082,
-      "min_distance": 2.7170908451080322
+      "min_distance": 2.866779088973999
     },
     {
-      "frame": 998,
-      "residue": 1114,
-      "min_distance": 4.453832149505615
+      "frame": 1151,
+      "residue": 1082,
+      "min_distance": 2.6592602729797363
     },
     {
-      "frame": 999,
+      "frame": 1152,
+      "residue": 1082,
+      "min_distance": 2.7134923934936523
+    },
+    {
+      "frame": 1153,
+      "residue": 1082,
+      "min_distance": 2.598778486251831
+    },
+    {
+      "frame": 1154,
+      "residue": 1082,
+      "min_distance": 2.507692575454712
+    },
+    {
+      "frame": 1155,
+      "residue": 1082,
+      "min_distance": 2.5765879154205322
+    },
+    {
+      "frame": 1156,
+      "residue": 1082,
+      "min_distance": 2.5048751831054688
+    },
+    {
+      "frame": 1157,
+      "residue": 1082,
+      "min_distance": 3.1883833408355713
+    },
+    {
+      "frame": 1158,
+      "residue": 1082,
+      "min_distance": 2.8589212894439697
+    },
+    {
+      "frame": 1159,
+      "residue": 1082,
+      "min_distance": 2.609814405441284
+    },
+    {
+      "frame": 1160,
+      "residue": 1082,
+      "min_distance": 2.6782217025756836
+    },
+    {
+      "frame": 1161,
+      "residue": 1082,
+      "min_distance": 2.9345343112945557
+    },
+    {
+      "frame": 1162,
       "residue": 458,
-      "min_distance": 2.7879650592803955
-    }
-  ],
-  "2397": [
-    {
-      "frame": 900,
-      "residue": 1114,
-      "min_distance": 2.8292548656463623
+      "min_distance": 4.195292949676514
     },
     {
-      "frame": 901,
+      "frame": 1163,
       "residue": 458,
-      "min_distance": 3.1088504791259766
+      "min_distance": 2.6151089668273926
     },
     {
-      "frame": 902,
-      "residue": 786,
-      "min_distance": 2.6339142322540283
+      "frame": 1164,
+      "residue": 1082,
+      "min_distance": 2.8636817932128906
     },
     {
-      "frame": 903,
-      "residue": 786,
-      "min_distance": 4.760434627532959
+      "frame": 1165,
+      "residue": 1082,
+      "min_distance": 2.613044500350952
     },
     {
-      "frame": 904,
-      "residue": 786,
-      "min_distance": 4.121173858642578
-    },
-    {
-      "frame": 905,
-      "residue": 786,
-      "min_distance": 4.786337375640869
-    },
-    {
-      "frame": 906,
-      "residue": 786,
-      "min_distance": 3.4192914962768555
-    },
-    {
-      "frame": 907,
-      "residue": 786,
-      "min_distance": 2.619874954223633
-    },
-    {
-      "frame": 908,
-      "residue": 786,
-      "min_distance": 5.719966411590576
-    },
-    {
-      "frame": 909,
-      "residue": "SF",
-      "min_distance": 4.412607550621033
-    },
-    {
-      "frame": 910,
-      "residue": 754,
-      "min_distance": 3.6694748401641846
-    },
-    {
-      "frame": 911,
-      "residue": 754,
-      "min_distance": 3.0715885162353516
-    },
-    {
-      "frame": 912,
-      "residue": 754,
-      "min_distance": 3.770339250564575
-    },
-    {
-      "frame": 913,
-      "residue": 130,
-      "min_distance": 4.731461524963379
-    },
-    {
-      "frame": 914,
+      "frame": 1166,
       "residue": 458,
-      "min_distance": 3.5422279834747314
+      "min_distance": 2.8127975463867188
     },
     {
-      "frame": 915,
-      "residue": 786,
-      "min_distance": 3.049494981765747
+      "frame": 1167,
+      "residue": 1082,
+      "min_distance": 2.8186585903167725
     },
     {
-      "frame": 916,
+      "frame": 1168,
+      "residue": 1082,
+      "min_distance": 2.7561118602752686
+    },
+    {
+      "frame": 1169,
+      "residue": 1082,
+      "min_distance": 2.949139356613159
+    },
+    {
+      "frame": 1170,
       "residue": 426,
-      "min_distance": 2.7560601234436035
+      "min_distance": 4.509846210479736
     },
     {
-      "frame": 917,
-      "residue": 458,
-      "min_distance": 3.0562281608581543
-    },
-    {
-      "frame": 918,
-      "residue": 1082,
-      "min_distance": 4.532186031341553
-    },
-    {
-      "frame": 919,
-      "residue": 1114,
-      "min_distance": 5.46726655960083
-    },
-    {
-      "frame": 920,
-      "residue": "SF",
-      "min_distance": 4.937575340270996
-    },
-    {
-      "frame": 921,
-      "residue": 754,
-      "min_distance": 2.832594633102417
-    },
-    {
-      "frame": 922,
-      "residue": 754,
-      "min_distance": 2.7626900672912598
-    },
-    {
-      "frame": 923,
+      "frame": 1171,
       "residue": 786,
-      "min_distance": 5.224876403808594
+      "min_distance": 3.375890016555786
     },
     {
-      "frame": 924,
+      "frame": 1172,
       "residue": 786,
-      "min_distance": 3.0263402462005615
+      "min_distance": 5.208489894866943
     },
     {
-      "frame": 925,
-      "residue": 786,
-      "min_distance": 5.459847450256348
-    },
-    {
-      "frame": 926,
+      "frame": 1173,
       "residue": 754,
-      "min_distance": 3.7990763187408447
+      "min_distance": 2.5689001083374023
     },
     {
-      "frame": 927,
-      "residue": 786,
-      "min_distance": 3.2346065044403076
-    },
-    {
-      "frame": 928,
-      "residue": 458,
-      "min_distance": 3.7893295288085938
-    },
-    {
-      "frame": 929,
-      "residue": "SF",
-      "min_distance": 3.836115837097168
-    },
-    {
-      "frame": 930,
+      "frame": 1174,
       "residue": 754,
-      "min_distance": 4.2429962158203125
+      "min_distance": 2.828029155731201
     },
     {
-      "frame": 931,
+      "frame": 1175,
       "residue": 754,
-      "min_distance": 2.715484857559204
+      "min_distance": 2.6839635372161865
     },
     {
-      "frame": 932,
+      "frame": 1176,
       "residue": 754,
-      "min_distance": 2.6508326530456543
+      "min_distance": 2.5468173027038574
     },
     {
-      "frame": 933,
-      "residue": 130,
-      "min_distance": 3.598851203918457
-    },
-    {
-      "frame": 934,
-      "residue": 98,
-      "min_distance": 4.5107340812683105
-    },
-    {
-      "frame": 935,
-      "residue": 98,
-      "min_distance": 4.681044101715088
-    },
-    {
-      "frame": 936,
-      "residue": 98,
-      "min_distance": 2.6606996059417725
-    },
-    {
-      "frame": 937,
-      "residue": 98,
-      "min_distance": 2.665562629699707
-    },
-    {
-      "frame": 938,
-      "residue": 98,
-      "min_distance": 2.7841405868530273
-    },
-    {
-      "frame": 939,
-      "residue": 98,
-      "min_distance": 2.754884719848633
-    },
-    {
-      "frame": 940,
-      "residue": 98,
-      "min_distance": 2.5774343013763428
-    },
-    {
-      "frame": 941,
-      "residue": "SF",
-      "min_distance": 3.2254183292388916
-    },
-    {
-      "frame": 942,
+      "frame": 1177,
       "residue": 754,
-      "min_distance": 5.537858963012695
+      "min_distance": 2.5419671535491943
     },
     {
-      "frame": 943,
+      "frame": 1178,
       "residue": 754,
-      "min_distance": 2.6231656074523926
+      "min_distance": 2.7147815227508545
     },
     {
-      "frame": 944,
+      "frame": 1179,
       "residue": 754,
-      "min_distance": 2.59883189201355
+      "min_distance": 2.6480042934417725
     },
     {
-      "frame": 945,
+      "frame": 1180,
       "residue": 754,
-      "min_distance": 3.124497890472412
+      "min_distance": 2.625020980834961
     },
     {
-      "frame": 946,
+      "frame": 1181,
       "residue": 754,
-      "min_distance": 3.07816743850708
+      "min_distance": 2.4970955848693848
     },
     {
-      "frame": 947,
-      "residue": 130,
-      "min_distance": 5.485471248626709
+      "frame": 1182,
+      "residue": 754,
+      "min_distance": 2.7264676094055176
     },
     {
-      "frame": 948,
-      "residue": 130,
-      "min_distance": 4.548981189727783
+      "frame": 1183,
+      "residue": 754,
+      "min_distance": 2.6003611087799072
     },
     {
-      "frame": 949,
+      "frame": 1184,
+      "residue": 754,
+      "min_distance": 2.7121312618255615
+    },
+    {
+      "frame": 1185,
+      "residue": 754,
+      "min_distance": 2.802921772003174
+    },
+    {
+      "frame": 1186,
+      "residue": 754,
+      "min_distance": 2.8284189701080322
+    },
+    {
+      "frame": 1187,
+      "residue": 754,
+      "min_distance": 2.77585768699646
+    },
+    {
+      "frame": 1188,
       "residue": 426,
-      "min_distance": 4.576030731201172
+      "min_distance": 5.920079231262207
     },
     {
-      "frame": 950,
-      "residue": 130,
-      "min_distance": 3.9485387802124023
-    },
-    {
-      "frame": 951,
-      "residue": 130,
-      "min_distance": 5.107762813568115
-    },
-    {
-      "frame": 952,
-      "residue": 1114,
-      "min_distance": 4.225757122039795
-    },
-    {
-      "frame": 953,
-      "residue": 1114,
-      "min_distance": 3.8212389945983887
-    },
-    {
-      "frame": 954,
-      "residue": "SF",
-      "min_distance": 3.9508833289146423
-    },
-    {
-      "frame": 955,
-      "residue": "SF",
-      "min_distance": 3.73749178647995
-    },
-    {
-      "frame": 956,
-      "residue": 786,
-      "min_distance": 4.523719787597656
-    },
-    {
-      "frame": 957,
+      "frame": 1189,
       "residue": 754,
-      "min_distance": 3.182544231414795
+      "min_distance": 2.6408169269561768
     },
     {
-      "frame": 958,
+      "frame": 1190,
+      "residue": 754,
+      "min_distance": 2.68856143951416
+    },
+    {
+      "frame": 1191,
       "residue": 130,
-      "min_distance": 2.8402352333068848
+      "min_distance": 5.808138847351074
     },
     {
-      "frame": 959,
-      "residue": 130,
-      "min_distance": 10.130958557128906
+      "frame": 1192,
+      "residue": 754,
+      "min_distance": 2.4853081703186035
     },
     {
-      "frame": 960,
-      "residue": 458,
-      "min_distance": 3.8870809078216553
+      "frame": 1193,
+      "residue": 754,
+      "min_distance": 2.821971893310547
     },
     {
-      "frame": 961,
-      "residue": 458,
-      "min_distance": 5.468225479125977
+      "frame": 1194,
+      "residue": 754,
+      "min_distance": 2.811441659927368
     },
     {
-      "frame": 962,
-      "residue": 98,
-      "min_distance": 2.5642640590667725
+      "frame": 1195,
+      "residue": 754,
+      "min_distance": 2.632305145263672
     },
     {
-      "frame": 963,
-      "residue": 98,
-      "min_distance": 2.882362127304077
+      "frame": 1196,
+      "residue": 754,
+      "min_distance": 2.43572998046875
     },
     {
-      "frame": 964,
-      "residue": 1114,
-      "min_distance": 5.282914161682129
+      "frame": 1197,
+      "residue": 754,
+      "min_distance": 2.511061668395996
     },
     {
-      "frame": 965,
-      "residue": 98,
-      "min_distance": 2.5185375213623047
+      "frame": 1198,
+      "residue": 754,
+      "min_distance": 2.729167938232422
     },
     {
-      "frame": 966,
-      "residue": 98,
-      "min_distance": 3.7914235591888428
+      "frame": 1199,
+      "residue": 754,
+      "min_distance": 2.766306161880493
     },
     {
-      "frame": 967,
-      "residue": 98,
-      "min_distance": 3.1351804733276367
-    },
-    {
-      "frame": 968,
-      "residue": 98,
-      "min_distance": 4.841958999633789
-    },
-    {
-      "frame": 969,
-      "residue": 130,
-      "min_distance": 5.539332389831543
-    }
-  ],
-  "2381": [
-    {
-      "frame": 939,
-      "residue": 786,
-      "min_distance": 5.7243452072143555
-    },
-    {
-      "frame": 940,
+      "frame": 1200,
       "residue": "SF",
-      "min_distance": 4.341023802757263
+      "min_distance": 3.7908767461776733
     },
     {
-      "frame": 941,
-      "residue": 98,
-      "min_distance": 4.878772258758545
-    },
-    {
-      "frame": 942,
-      "residue": 786,
-      "min_distance": 2.74065899848938
-    },
-    {
-      "frame": 943,
+      "frame": 1201,
       "residue": "SF",
-      "min_distance": 3.619978606700897
+      "min_distance": 3.6370397806167603
     },
     {
-      "frame": 944,
-      "residue": 458,
-      "min_distance": 4.971437931060791
-    },
-    {
-      "frame": 945,
-      "residue": 458,
-      "min_distance": 2.735792398452759
-    },
-    {
-      "frame": 946,
-      "residue": 1082,
-      "min_distance": 3.1431379318237305
-    }
-  ],
-  "2223": [
-    {
-      "frame": 954,
-      "residue": 130,
-      "min_distance": 2.7214157581329346
-    },
-    {
-      "frame": 955,
-      "residue": 130,
-      "min_distance": 5.148585796356201
-    },
-    {
-      "frame": 956,
-      "residue": 1114,
-      "min_distance": 3.9110426902770996
-    },
-    {
-      "frame": 957,
-      "residue": 1082,
-      "min_distance": 4.529892444610596
-    },
-    {
-      "frame": 958,
-      "residue": 1082,
-      "min_distance": 4.582522869110107
-    },
-    {
-      "frame": 959,
+      "frame": 1202,
       "residue": 786,
-      "min_distance": 3.346139430999756
+      "min_distance": 4.495097637176514
+    },
+    {
+      "frame": 1203,
+      "residue": 754,
+      "min_distance": 2.608269453048706
+    },
+    {
+      "frame": 1204,
+      "residue": 754,
+      "min_distance": 2.887068271636963
+    },
+    {
+      "frame": 1205,
+      "residue": 754,
+      "min_distance": 2.5516562461853027
+    },
+    {
+      "frame": 1206,
+      "residue": 754,
+      "min_distance": 2.835963487625122
+    },
+    {
+      "frame": 1207,
+      "residue": 754,
+      "min_distance": 2.5651323795318604
+    },
+    {
+      "frame": 1208,
+      "residue": 786,
+      "min_distance": 6.0121660232543945
+    },
+    {
+      "frame": 1209,
+      "residue": "SF",
+      "min_distance": 5.190109133720398
+    },
+    {
+      "frame": 1210,
+      "residue": 754,
+      "min_distance": 4.777865886688232
+    },
+    {
+      "frame": 1211,
+      "residue": 130,
+      "min_distance": 4.997838020324707
+    },
+    {
+      "frame": 1212,
+      "residue": 98,
+      "min_distance": 2.573138952255249
+    },
+    {
+      "frame": 1213,
+      "residue": 98,
+      "min_distance": 2.7194197177886963
+    },
+    {
+      "frame": 1214,
+      "residue": 98,
+      "min_distance": 2.7140417098999023
+    },
+    {
+      "frame": 1215,
+      "residue": 130,
+      "min_distance": 2.8671927452087402
+    },
+    {
+      "frame": 1216,
+      "residue": 130,
+      "min_distance": 2.863694906234741
+    },
+    {
+      "frame": 1217,
+      "residue": 130,
+      "min_distance": 2.6955513954162598
+    },
+    {
+      "frame": 1218,
+      "residue": 130,
+      "min_distance": 2.6594700813293457
+    },
+    {
+      "frame": 1219,
+      "residue": 98,
+      "min_distance": 2.5471832752227783
+    },
+    {
+      "frame": 1220,
+      "residue": 130,
+      "min_distance": 2.6850171089172363
+    },
+    {
+      "frame": 1221,
+      "residue": 98,
+      "min_distance": 2.5812294483184814
+    },
+    {
+      "frame": 1222,
+      "residue": 98,
+      "min_distance": 2.4611330032348633
+    },
+    {
+      "frame": 1223,
+      "residue": 130,
+      "min_distance": 2.8792474269866943
+    },
+    {
+      "frame": 1224,
+      "residue": 98,
+      "min_distance": 2.54803204536438
+    },
+    {
+      "frame": 1225,
+      "residue": 130,
+      "min_distance": 2.649658203125
+    },
+    {
+      "frame": 1226,
+      "residue": 98,
+      "min_distance": 2.669004440307617
+    },
+    {
+      "frame": 1227,
+      "residue": 786,
+      "min_distance": 4.17116641998291
+    },
+    {
+      "frame": 1228,
+      "residue": 130,
+      "min_distance": 4.367189407348633
+    },
+    {
+      "frame": 1229,
+      "residue": 98,
+      "min_distance": 2.597088098526001
+    },
+    {
+      "frame": 1230,
+      "residue": 98,
+      "min_distance": 2.5917913913726807
+    },
+    {
+      "frame": 1231,
+      "residue": 98,
+      "min_distance": 2.6183724403381348
+    },
+    {
+      "frame": 1232,
+      "residue": 98,
+      "min_distance": 2.8602488040924072
+    },
+    {
+      "frame": 1233,
+      "residue": 98,
+      "min_distance": 2.6881933212280273
+    },
+    {
+      "frame": 1234,
+      "residue": 98,
+      "min_distance": 2.6332361698150635
+    },
+    {
+      "frame": 1235,
+      "residue": 130,
+      "min_distance": 3.08314847946167
+    },
+    {
+      "frame": 1236,
+      "residue": "SF",
+      "min_distance": 5.779626250267029
+    },
+    {
+      "frame": 1237,
+      "residue": 786,
+      "min_distance": 5.389542579650879
+    },
+    {
+      "frame": 1238,
+      "residue": 458,
+      "min_distance": 5.245771884918213
+    },
+    {
+      "frame": 1239,
+      "residue": 786,
+      "min_distance": 5.859766483306885
+    },
+    {
+      "frame": 1240,
+      "residue": "SF",
+      "min_distance": 4.377732694149017
+    },
+    {
+      "frame": 1241,
+      "residue": 458,
+      "min_distance": 4.3996357917785645
+    },
+    {
+      "frame": 1242,
+      "residue": 130,
+      "min_distance": 5.774796962738037
+    },
+    {
+      "frame": 1243,
+      "residue": 458,
+      "min_distance": 5.3914642333984375
+    },
+    {
+      "frame": 1244,
+      "residue": 1114,
+      "min_distance": 14.799796104431152
+    },
+    {
+      "frame": 1245,
+      "residue": "SF",
+      "min_distance": 4.71518349647522
+    },
+    {
+      "frame": 1246,
+      "residue": 130,
+      "min_distance": 5.153614521026611
+    },
+    {
+      "frame": 1247,
+      "residue": 786,
+      "min_distance": 4.048985958099365
+    },
+    {
+      "frame": 1248,
+      "residue": 754,
+      "min_distance": 2.705824851989746
     }
   ],
   "2343": [
     {
-      "frame": 963,
-      "residue": 786,
-      "min_distance": 5.167057991027832
+      "frame": 1100,
+      "residue": 426,
+      "min_distance": 2.490386486053467
     },
     {
-      "frame": 964,
-      "residue": 130,
-      "min_distance": 4.681761741638184
+      "frame": 1101,
+      "residue": 426,
+      "min_distance": 2.877415418624878
     },
     {
-      "frame": 965,
-      "residue": 130,
-      "min_distance": 4.242242813110352
+      "frame": 1102,
+      "residue": 426,
+      "min_distance": 2.6042463779449463
     },
     {
-      "frame": 966,
+      "frame": 1103,
+      "residue": 426,
+      "min_distance": 2.6313111782073975
+    },
+    {
+      "frame": 1104,
+      "residue": 426,
+      "min_distance": 2.6654200553894043
+    },
+    {
+      "frame": 1105,
+      "residue": 426,
+      "min_distance": 2.8598873615264893
+    },
+    {
+      "frame": 1106,
+      "residue": 426,
+      "min_distance": 2.559544086456299
+    },
+    {
+      "frame": 1107,
+      "residue": 458,
+      "min_distance": 3.6626768112182617
+    },
+    {
+      "frame": 1108,
+      "residue": 458,
+      "min_distance": 3.9881796836853027
+    },
+    {
+      "frame": 1109,
+      "residue": 1114,
+      "min_distance": 3.804229497909546
+    },
+    {
+      "frame": 1110,
+      "residue": 458,
+      "min_distance": 2.9408280849456787
+    },
+    {
+      "frame": 1111,
+      "residue": 458,
+      "min_distance": 5.5747575759887695
+    },
+    {
+      "frame": 1112,
+      "residue": 426,
+      "min_distance": 2.6376500129699707
+    },
+    {
+      "frame": 1113,
+      "residue": 458,
+      "min_distance": 2.6244049072265625
+    },
+    {
+      "frame": 1114,
+      "residue": 426,
+      "min_distance": 2.5910277366638184
+    },
+    {
+      "frame": 1115,
+      "residue": 426,
+      "min_distance": 2.5683770179748535
+    },
+    {
+      "frame": 1116,
+      "residue": 458,
+      "min_distance": 2.78348708152771
+    },
+    {
+      "frame": 1117,
+      "residue": 458,
+      "min_distance": 2.713001251220703
+    },
+    {
+      "frame": 1118,
       "residue": 1082,
-      "min_distance": 4.299968719482422
+      "min_distance": 4.641116142272949
     },
     {
-      "frame": 967,
-      "residue": 458,
-      "min_distance": 4.734410285949707
-    },
-    {
-      "frame": 968,
-      "residue": 458,
-      "min_distance": 2.7375664710998535
-    },
-    {
-      "frame": 969,
+      "frame": 1119,
       "residue": 426,
-      "min_distance": 4.107287883758545
+      "min_distance": 2.649115562438965
     },
     {
-      "frame": 970,
+      "frame": 1120,
       "residue": 426,
-      "min_distance": 2.5649354457855225
+      "min_distance": 2.649900436401367
     },
     {
-      "frame": 971,
-      "residue": 1114,
-      "min_distance": 2.9464235305786133
-    },
-    {
-      "frame": 972,
+      "frame": 1121,
       "residue": "SF",
-      "min_distance": 5.6905940771102905
+      "min_distance": 4.827714443206787
     },
     {
-      "frame": 973,
-      "residue": "SF",
-      "min_distance": 3.989244222640991
-    },
-    {
-      "frame": 974,
-      "residue": 786,
-      "min_distance": 4.347613334655762
-    },
-    {
-      "frame": 975,
-      "residue": 786,
-      "min_distance": 4.6492743492126465
-    },
-    {
-      "frame": 976,
-      "residue": "SF",
-      "min_distance": 4.93914270401001
-    },
-    {
-      "frame": 977,
-      "residue": 98,
-      "min_distance": 2.644486427307129
-    },
-    {
-      "frame": 978,
-      "residue": 98,
-      "min_distance": 2.629321813583374
-    },
-    {
-      "frame": 979,
-      "residue": 786,
-      "min_distance": 3.208850145339966
-    },
-    {
-      "frame": 980,
+      "frame": 1122,
       "residue": 458,
-      "min_distance": 3.489448308944702
+      "min_distance": 3.5535573959350586
     },
     {
-      "frame": 981,
-      "residue": 1114,
-      "min_distance": 2.9600613117218018
+      "frame": 1123,
+      "residue": 130,
+      "min_distance": 3.8173367977142334
     },
     {
-      "frame": 982,
-      "residue": "SF",
-      "min_distance": 4.18229067325592
-    },
-    {
-      "frame": 983,
-      "residue": 1114,
-      "min_distance": 5.484349727630615
-    },
-    {
-      "frame": 984,
+      "frame": 1124,
       "residue": 98,
-      "min_distance": 5.31838321685791
+      "min_distance": 4.173819541931152
     },
     {
-      "frame": 985,
+      "frame": 1125,
+      "residue": 98,
+      "min_distance": 2.5762274265289307
+    },
+    {
+      "frame": 1126,
+      "residue": 130,
+      "min_distance": 5.84439754486084
+    },
+    {
+      "frame": 1127,
+      "residue": 130,
+      "min_distance": 5.1071624755859375
+    },
+    {
+      "frame": 1128,
+      "residue": 98,
+      "min_distance": 2.4941256046295166
+    },
+    {
+      "frame": 1129,
+      "residue": 458,
+      "min_distance": 3.5326454639434814
+    },
+    {
+      "frame": 1130,
+      "residue": "SF",
+      "min_distance": 4.512770056724548
+    },
+    {
+      "frame": 1131,
+      "residue": 426,
+      "min_distance": 5.250833034515381
+    },
+    {
+      "frame": 1132,
       "residue": 1114,
-      "min_distance": 6.064958095550537
+      "min_distance": 4.690715789794922
     },
     {
-      "frame": 986,
+      "frame": 1133,
+      "residue": 1082,
+      "min_distance": 2.7615811824798584
+    },
+    {
+      "frame": 1134,
+      "residue": 1082,
+      "min_distance": 2.779352903366089
+    },
+    {
+      "frame": 1135,
+      "residue": 1082,
+      "min_distance": 2.704238176345825
+    },
+    {
+      "frame": 1136,
+      "residue": 1082,
+      "min_distance": 2.6286380290985107
+    },
+    {
+      "frame": 1137,
+      "residue": 1082,
+      "min_distance": 2.746994972229004
+    },
+    {
+      "frame": 1138,
+      "residue": 1082,
+      "min_distance": 2.745695114135742
+    },
+    {
+      "frame": 1139,
+      "residue": 458,
+      "min_distance": 3.7135658264160156
+    },
+    {
+      "frame": 1140,
+      "residue": 458,
+      "min_distance": 4.53562593460083
+    },
+    {
+      "frame": 1141,
+      "residue": 1082,
+      "min_distance": 2.5324866771698
+    },
+    {
+      "frame": 1142,
+      "residue": 1082,
+      "min_distance": 2.6661171913146973
+    },
+    {
+      "frame": 1143,
+      "residue": 1082,
+      "min_distance": 2.7871954441070557
+    },
+    {
+      "frame": 1144,
+      "residue": 1082,
+      "min_distance": 2.506704330444336
+    },
+    {
+      "frame": 1145,
+      "residue": 1082,
+      "min_distance": 3.0506439208984375
+    },
+    {
+      "frame": 1146,
+      "residue": 1082,
+      "min_distance": 2.896721363067627
+    },
+    {
+      "frame": 1147,
+      "residue": 1082,
+      "min_distance": 2.750242233276367
+    },
+    {
+      "frame": 1148,
+      "residue": 1082,
+      "min_distance": 2.8662009239196777
+    },
+    {
+      "frame": 1149,
+      "residue": 458,
+      "min_distance": 2.582760810852051
+    },
+    {
+      "frame": 1150,
+      "residue": 1082,
+      "min_distance": 2.660194158554077
+    },
+    {
+      "frame": 1151,
+      "residue": 786,
+      "min_distance": 7.617351055145264
+    },
+    {
+      "frame": 1152,
+      "residue": 786,
+      "min_distance": 7.265872478485107
+    },
+    {
+      "frame": 1153,
+      "residue": 786,
+      "min_distance": 2.7678515911102295
+    },
+    {
+      "frame": 1154,
+      "residue": 130,
+      "min_distance": 3.6273953914642334
+    },
+    {
+      "frame": 1155,
       "residue": 1114,
-      "min_distance": 3.4970524311065674
+      "min_distance": 4.3820414543151855
     },
     {
-      "frame": 987,
+      "frame": 1156,
+      "residue": 458,
+      "min_distance": 4.591501712799072
+    },
+    {
+      "frame": 1157,
+      "residue": 98,
+      "min_distance": 4.869105339050293
+    },
+    {
+      "frame": 1158,
+      "residue": 98,
+      "min_distance": 3.440711498260498
+    },
+    {
+      "frame": 1159,
+      "residue": 130,
+      "min_distance": 4.297161102294922
+    },
+    {
+      "frame": 1160,
+      "residue": 130,
+      "min_distance": 3.495069980621338
+    },
+    {
+      "frame": 1161,
+      "residue": 98,
+      "min_distance": 4.812436580657959
+    },
+    {
+      "frame": 1162,
+      "residue": 98,
+      "min_distance": 5.5482683181762695
+    },
+    {
+      "frame": 1163,
+      "residue": 98,
+      "min_distance": 5.191243648529053
+    },
+    {
+      "frame": 1164,
+      "residue": 130,
+      "min_distance": 4.794691562652588
+    },
+    {
+      "frame": 1165,
+      "residue": 98,
+      "min_distance": 5.376296520233154
+    },
+    {
+      "frame": 1166,
+      "residue": "SF",
+      "min_distance": 5.858773112297058
+    },
+    {
+      "frame": 1167,
       "residue": 754,
-      "min_distance": 2.6784327030181885
+      "min_distance": 2.5306053161621094
     },
     {
-      "frame": 988,
-      "residue": 786,
-      "min_distance": 5.036776065826416
+      "frame": 1168,
+      "residue": 754,
+      "min_distance": 2.4274699687957764
     },
     {
-      "frame": 989,
-      "residue": 1114,
-      "min_distance": 3.971769094467163
+      "frame": 1169,
+      "residue": 754,
+      "min_distance": 2.720123291015625
     },
     {
-      "frame": 990,
-      "residue": 1114,
-      "min_distance": 3.398883581161499
+      "frame": 1170,
+      "residue": 98,
+      "min_distance": 2.7549753189086914
     },
     {
-      "frame": 991,
-      "residue": 1114,
-      "min_distance": 3.5058271884918213
+      "frame": 1171,
+      "residue": 98,
+      "min_distance": 2.852419376373291
     },
     {
-      "frame": 992,
-      "residue": 426,
-      "min_distance": 2.80041241645813
+      "frame": 1172,
+      "residue": 98,
+      "min_distance": 2.673798084259033
     },
     {
-      "frame": 993,
+      "frame": 1173,
+      "residue": 98,
+      "min_distance": 2.4793167114257812
+    },
+    {
+      "frame": 1174,
+      "residue": 130,
+      "min_distance": 4.877407073974609
+    },
+    {
+      "frame": 1175,
+      "residue": 130,
+      "min_distance": 3.8155112266540527
+    },
+    {
+      "frame": 1176,
       "residue": 458,
-      "min_distance": 3.828397035598755
+      "min_distance": 10.298766136169434
     },
     {
-      "frame": 994,
+      "frame": 1177,
+      "residue": 458,
+      "min_distance": 6.792471885681152
+    },
+    {
+      "frame": 1178,
+      "residue": 458,
+      "min_distance": 2.7570981979370117
+    },
+    {
+      "frame": 1179,
+      "residue": 458,
+      "min_distance": 6.9491143226623535
+    },
+    {
+      "frame": 1180,
       "residue": 130,
-      "min_distance": 2.5716426372528076
+      "min_distance": 5.250769138336182
     },
     {
-      "frame": 995,
-      "residue": 130,
-      "min_distance": 5.032536029815674
+      "frame": 1181,
+      "residue": 98,
+      "min_distance": 2.7753169536590576
     },
     {
-      "frame": 996,
+      "frame": 1182,
+      "residue": 98,
+      "min_distance": 2.665121555328369
+    },
+    {
+      "frame": 1183,
+      "residue": "SF",
+      "min_distance": 5.287303924560547
+    },
+    {
+      "frame": 1184,
+      "residue": "SF",
+      "min_distance": 3.9285778999328613
+    },
+    {
+      "frame": 1185,
       "residue": 1114,
-      "min_distance": 5.2453765869140625
+      "min_distance": 4.68082332611084
     },
     {
-      "frame": 997,
-      "residue": 130,
-      "min_distance": 4.703291416168213
+      "frame": 1186,
+      "residue": 458,
+      "min_distance": 5.128213882446289
+    }
+  ],
+  "2372": [
+    {
+      "frame": 1100,
+      "residue": 458,
+      "min_distance": 4.429263591766357
     },
     {
-      "frame": 998,
+      "frame": 1101,
+      "residue": 458,
+      "min_distance": 3.0355846881866455
+    },
+    {
+      "frame": 1102,
+      "residue": 1114,
+      "min_distance": 3.2190492153167725
+    },
+    {
+      "frame": 1103,
+      "residue": 1114,
+      "min_distance": 5.504911422729492
+    },
+    {
+      "frame": 1104,
       "residue": 786,
-      "min_distance": 4.096027851104736
+      "min_distance": 5.192927360534668
     },
     {
-      "frame": 999,
+      "frame": 1105,
+      "residue": 754,
+      "min_distance": 2.7506959438323975
+    },
+    {
+      "frame": 1106,
+      "residue": 786,
+      "min_distance": 4.33511209487915
+    },
+    {
+      "frame": 1107,
+      "residue": 786,
+      "min_distance": 3.443145751953125
+    },
+    {
+      "frame": 1108,
+      "residue": 754,
+      "min_distance": 2.5552423000335693
+    },
+    {
+      "frame": 1109,
+      "residue": 754,
+      "min_distance": 2.6385650634765625
+    },
+    {
+      "frame": 1110,
+      "residue": 754,
+      "min_distance": 2.6657211780548096
+    },
+    {
+      "frame": 1111,
+      "residue": 130,
+      "min_distance": 5.053542613983154
+    },
+    {
+      "frame": 1112,
+      "residue": 786,
+      "min_distance": 2.8402233123779297
+    },
+    {
+      "frame": 1113,
+      "residue": 786,
+      "min_distance": 3.9108777046203613
+    },
+    {
+      "frame": 1114,
+      "residue": 754,
+      "min_distance": 2.8412225246429443
+    },
+    {
+      "frame": 1115,
+      "residue": 754,
+      "min_distance": 2.6555347442626953
+    },
+    {
+      "frame": 1116,
+      "residue": 754,
+      "min_distance": 2.6498074531555176
+    },
+    {
+      "frame": 1117,
+      "residue": 754,
+      "min_distance": 2.6844706535339355
+    },
+    {
+      "frame": 1118,
+      "residue": 754,
+      "min_distance": 2.907871723175049
+    },
+    {
+      "frame": 1119,
+      "residue": 754,
+      "min_distance": 2.662132501602173
+    },
+    {
+      "frame": 1120,
+      "residue": 754,
+      "min_distance": 2.623854875564575
+    },
+    {
+      "frame": 1121,
+      "residue": 754,
+      "min_distance": 2.706136465072632
+    },
+    {
+      "frame": 1122,
+      "residue": 754,
+      "min_distance": 2.60320782661438
+    },
+    {
+      "frame": 1123,
+      "residue": 786,
+      "min_distance": 4.674276351928711
+    },
+    {
+      "frame": 1124,
+      "residue": 786,
+      "min_distance": 4.653570652008057
+    },
+    {
+      "frame": 1125,
+      "residue": "SF",
+      "min_distance": 5.812551915645599
+    },
+    {
+      "frame": 1126,
+      "residue": 754,
+      "min_distance": 2.6041736602783203
+    },
+    {
+      "frame": 1127,
+      "residue": 754,
+      "min_distance": 2.6515750885009766
+    },
+    {
+      "frame": 1128,
+      "residue": 786,
+      "min_distance": 2.5701496601104736
+    },
+    {
+      "frame": 1129,
+      "residue": 786,
+      "min_distance": 4.781583786010742
+    },
+    {
+      "frame": 1130,
+      "residue": 754,
+      "min_distance": 2.873728036880493
+    },
+    {
+      "frame": 1131,
       "residue": 1114,
-      "min_distance": 2.9412765502929688
+      "min_distance": 5.463923931121826
+    },
+    {
+      "frame": 1132,
+      "residue": 98,
+      "min_distance": 2.5304696559906006
+    },
+    {
+      "frame": 1133,
+      "residue": 130,
+      "min_distance": 2.934986114501953
+    },
+    {
+      "frame": 1134,
+      "residue": 1114,
+      "min_distance": 4.56052827835083
+    },
+    {
+      "frame": 1135,
+      "residue": 130,
+      "min_distance": 4.595083236694336
+    },
+    {
+      "frame": 1136,
+      "residue": 98,
+      "min_distance": 5.392159938812256
+    },
+    {
+      "frame": 1137,
+      "residue": 458,
+      "min_distance": 5.219414710998535
+    },
+    {
+      "frame": 1138,
+      "residue": 458,
+      "min_distance": 3.24080228805542
+    },
+    {
+      "frame": 1139,
+      "residue": 98,
+      "min_distance": 4.42622184753418
+    },
+    {
+      "frame": 1140,
+      "residue": 98,
+      "min_distance": 4.554978370666504
+    },
+    {
+      "frame": 1141,
+      "residue": 754,
+      "min_distance": 3.640777587890625
+    },
+    {
+      "frame": 1142,
+      "residue": 754,
+      "min_distance": 2.7013258934020996
+    },
+    {
+      "frame": 1143,
+      "residue": 786,
+      "min_distance": 2.671238899230957
+    },
+    {
+      "frame": 1144,
+      "residue": 130,
+      "min_distance": 4.987842082977295
+    },
+    {
+      "frame": 1145,
+      "residue": 130,
+      "min_distance": 4.929781913757324
+    },
+    {
+      "frame": 1146,
+      "residue": 754,
+      "min_distance": 2.531216621398926
+    },
+    {
+      "frame": 1147,
+      "residue": 754,
+      "min_distance": 2.5937082767486572
+    },
+    {
+      "frame": 1148,
+      "residue": 754,
+      "min_distance": 3.07477068901062
+    },
+    {
+      "frame": 1149,
+      "residue": 754,
+      "min_distance": 2.795938014984131
+    },
+    {
+      "frame": 1150,
+      "residue": 754,
+      "min_distance": 2.679212808609009
+    },
+    {
+      "frame": 1151,
+      "residue": 130,
+      "min_distance": 3.562044620513916
+    },
+    {
+      "frame": 1152,
+      "residue": "SF",
+      "min_distance": 3.9552788734436035
+    },
+    {
+      "frame": 1153,
+      "residue": "SF",
+      "min_distance": 4.27088326215744
+    },
+    {
+      "frame": 1154,
+      "residue": 426,
+      "min_distance": 3.891843557357788
+    },
+    {
+      "frame": 1155,
+      "residue": 426,
+      "min_distance": 3.18721604347229
+    },
+    {
+      "frame": 1156,
+      "residue": 426,
+      "min_distance": 3.903714656829834
+    },
+    {
+      "frame": 1157,
+      "residue": 786,
+      "min_distance": 5.915411949157715
+    },
+    {
+      "frame": 1158,
+      "residue": 786,
+      "min_distance": 4.826617240905762
+    },
+    {
+      "frame": 1159,
+      "residue": 786,
+      "min_distance": 2.6869430541992188
+    },
+    {
+      "frame": 1160,
+      "residue": 754,
+      "min_distance": 2.5247652530670166
+    },
+    {
+      "frame": 1161,
+      "residue": 754,
+      "min_distance": 2.602947473526001
+    },
+    {
+      "frame": 1162,
+      "residue": 754,
+      "min_distance": 2.564178943634033
+    },
+    {
+      "frame": 1163,
+      "residue": 754,
+      "min_distance": 2.7397050857543945
+    },
+    {
+      "frame": 1164,
+      "residue": 786,
+      "min_distance": 2.681408643722534
+    },
+    {
+      "frame": 1165,
+      "residue": 786,
+      "min_distance": 3.8720662593841553
+    },
+    {
+      "frame": 1166,
+      "residue": 754,
+      "min_distance": 2.819786787033081
+    },
+    {
+      "frame": 1167,
+      "residue": 426,
+      "min_distance": 2.5688138008117676
+    },
+    {
+      "frame": 1168,
+      "residue": 458,
+      "min_distance": 4.26960563659668
+    },
+    {
+      "frame": 1169,
+      "residue": 130,
+      "min_distance": 5.715146064758301
+    },
+    {
+      "frame": 1170,
+      "residue": 458,
+      "min_distance": 3.1873676776885986
+    },
+    {
+      "frame": 1171,
+      "residue": 426,
+      "min_distance": 2.604400396347046
+    },
+    {
+      "frame": 1172,
+      "residue": 426,
+      "min_distance": 2.9191694259643555
+    },
+    {
+      "frame": 1173,
+      "residue": 426,
+      "min_distance": 3.974490165710449
+    },
+    {
+      "frame": 1174,
+      "residue": 458,
+      "min_distance": 16.994787216186523
+    },
+    {
+      "frame": 1175,
+      "residue": 1114,
+      "min_distance": 6.109348297119141
+    },
+    {
+      "frame": 1176,
+      "residue": 98,
+      "min_distance": 2.607057809829712
+    },
+    {
+      "frame": 1177,
+      "residue": 98,
+      "min_distance": 2.6752631664276123
+    },
+    {
+      "frame": 1178,
+      "residue": 98,
+      "min_distance": 2.674511194229126
+    },
+    {
+      "frame": 1179,
+      "residue": 98,
+      "min_distance": 2.5327138900756836
+    },
+    {
+      "frame": 1180,
+      "residue": 130,
+      "min_distance": 4.364014148712158
+    },
+    {
+      "frame": 1181,
+      "residue": "SF",
+      "min_distance": 5.184352517127991
+    },
+    {
+      "frame": 1182,
+      "residue": "SF",
+      "min_distance": 4.077548384666443
+    },
+    {
+      "frame": 1183,
+      "residue": 786,
+      "min_distance": 5.716254234313965
+    },
+    {
+      "frame": 1184,
+      "residue": 130,
+      "min_distance": 3.8601858615875244
+    },
+    {
+      "frame": 1185,
+      "residue": 98,
+      "min_distance": 2.554776430130005
+    },
+    {
+      "frame": 1186,
+      "residue": 98,
+      "min_distance": 2.430851936340332
+    },
+    {
+      "frame": 1187,
+      "residue": 98,
+      "min_distance": 2.6087725162506104
+    },
+    {
+      "frame": 1188,
+      "residue": 130,
+      "min_distance": 2.6176321506500244
+    },
+    {
+      "frame": 1189,
+      "residue": 98,
+      "min_distance": 2.600790500640869
+    },
+    {
+      "frame": 1190,
+      "residue": 98,
+      "min_distance": 2.6493279933929443
+    },
+    {
+      "frame": 1191,
+      "residue": 98,
+      "min_distance": 2.5350396633148193
+    },
+    {
+      "frame": 1192,
+      "residue": 130,
+      "min_distance": 2.6170740127563477
+    },
+    {
+      "frame": 1193,
+      "residue": 98,
+      "min_distance": 2.56118106842041
+    },
+    {
+      "frame": 1194,
+      "residue": 98,
+      "min_distance": 2.553556442260742
+    },
+    {
+      "frame": 1195,
+      "residue": 98,
+      "min_distance": 2.524731397628784
+    },
+    {
+      "frame": 1196,
+      "residue": 98,
+      "min_distance": 2.66915225982666
+    },
+    {
+      "frame": 1197,
+      "residue": 98,
+      "min_distance": 2.6895315647125244
+    },
+    {
+      "frame": 1198,
+      "residue": 98,
+      "min_distance": 2.629120111465454
+    },
+    {
+      "frame": 1199,
+      "residue": 130,
+      "min_distance": 2.742457866668701
+    },
+    {
+      "frame": 1200,
+      "residue": 98,
+      "min_distance": 2.7975826263427734
+    },
+    {
+      "frame": 1201,
+      "residue": 98,
+      "min_distance": 2.8965134620666504
+    },
+    {
+      "frame": 1202,
+      "residue": 98,
+      "min_distance": 2.6857948303222656
+    },
+    {
+      "frame": 1203,
+      "residue": 130,
+      "min_distance": 2.929124355316162
+    },
+    {
+      "frame": 1204,
+      "residue": 98,
+      "min_distance": 2.5532312393188477
+    },
+    {
+      "frame": 1205,
+      "residue": 98,
+      "min_distance": 2.533395528793335
+    },
+    {
+      "frame": 1206,
+      "residue": 98,
+      "min_distance": 2.796464204788208
+    },
+    {
+      "frame": 1207,
+      "residue": 130,
+      "min_distance": 2.7872297763824463
+    },
+    {
+      "frame": 1208,
+      "residue": 98,
+      "min_distance": 2.5069997310638428
+    },
+    {
+      "frame": 1209,
+      "residue": 130,
+      "min_distance": 5.028410911560059
+    },
+    {
+      "frame": 1210,
+      "residue": "SF",
+      "min_distance": 4.224989652633667
+    },
+    {
+      "frame": 1211,
+      "residue": 1114,
+      "min_distance": 4.346557140350342
+    },
+    {
+      "frame": 1212,
+      "residue": 1082,
+      "min_distance": 2.5746564865112305
+    },
+    {
+      "frame": 1213,
+      "residue": 458,
+      "min_distance": 5.09433650970459
+    },
+    {
+      "frame": 1214,
+      "residue": 426,
+      "min_distance": 2.6973824501037598
+    },
+    {
+      "frame": 1215,
+      "residue": 426,
+      "min_distance": 2.749600648880005
+    },
+    {
+      "frame": 1216,
+      "residue": 426,
+      "min_distance": 4.85302209854126
+    },
+    {
+      "frame": 1217,
+      "residue": 754,
+      "min_distance": 5.274118423461914
+    },
+    {
+      "frame": 1218,
+      "residue": "SF",
+      "min_distance": 5.195633292198181
+    },
+    {
+      "frame": 1219,
+      "residue": "SF",
+      "min_distance": 4.190244495868683
+    },
+    {
+      "frame": 1220,
+      "residue": "SF",
+      "min_distance": 3.8621933460235596
+    },
+    {
+      "frame": 1221,
+      "residue": "SF",
+      "min_distance": 3.7894861102104187
+    },
+    {
+      "frame": 1222,
+      "residue": 1082,
+      "min_distance": 2.7290213108062744
+    },
+    {
+      "frame": 1223,
+      "residue": 1082,
+      "min_distance": 2.8104069232940674
+    },
+    {
+      "frame": 1224,
+      "residue": 1082,
+      "min_distance": 3.660982847213745
+    },
+    {
+      "frame": 1225,
+      "residue": 426,
+      "min_distance": 3.2933030128479004
+    },
+    {
+      "frame": 1226,
+      "residue": 1114,
+      "min_distance": 5.409895896911621
+    },
+    {
+      "frame": 1227,
+      "residue": 1114,
+      "min_distance": 4.040085315704346
+    },
+    {
+      "frame": 1228,
+      "residue": 786,
+      "min_distance": 2.751452922821045
+    },
+    {
+      "frame": 1229,
+      "residue": "SF",
+      "min_distance": 5.969126224517822
+    },
+    {
+      "frame": 1230,
+      "residue": 458,
+      "min_distance": 5.692923069000244
+    },
+    {
+      "frame": 1231,
+      "residue": "SF",
+      "min_distance": 3.881227493286133
+    },
+    {
+      "frame": 1232,
+      "residue": "SF",
+      "min_distance": 3.816821873188019
+    },
+    {
+      "frame": 1233,
+      "residue": 458,
+      "min_distance": 4.9846320152282715
+    },
+    {
+      "frame": 1234,
+      "residue": "SF",
+      "min_distance": 4.088886499404907
+    },
+    {
+      "frame": 1235,
+      "residue": "SF",
+      "min_distance": 6.046128153800964
+    },
+    {
+      "frame": 1236,
+      "residue": 130,
+      "min_distance": 3.8734335899353027
+    },
+    {
+      "frame": 1237,
+      "residue": 458,
+      "min_distance": 2.595146656036377
+    },
+    {
+      "frame": 1238,
+      "residue": "SF",
+      "min_distance": 6.179971814155579
+    },
+    {
+      "frame": 1239,
+      "residue": "SF",
+      "min_distance": 3.6769991517066956
+    },
+    {
+      "frame": 1240,
+      "residue": "SF",
+      "min_distance": 4.079254567623138
+    },
+    {
+      "frame": 1241,
+      "residue": "SF",
+      "min_distance": 4.489193499088287
+    },
+    {
+      "frame": 1242,
+      "residue": 426,
+      "min_distance": 3.120884656906128
+    },
+    {
+      "frame": 1243,
+      "residue": 426,
+      "min_distance": 2.5408365726470947
+    },
+    {
+      "frame": 1244,
+      "residue": 426,
+      "min_distance": 2.760713815689087
+    },
+    {
+      "frame": 1245,
+      "residue": 786,
+      "min_distance": 5.780913352966309
+    },
+    {
+      "frame": 1246,
+      "residue": 130,
+      "min_distance": 6.272430419921875
+    },
+    {
+      "frame": 1247,
+      "residue": "SF",
+      "min_distance": 4.570963978767395
+    },
+    {
+      "frame": 1248,
+      "residue": "SF",
+      "min_distance": 3.7813196182250977
+    }
+  ],
+  "2334": [
+    {
+      "frame": 1171,
+      "residue": 1082,
+      "min_distance": 3.1181366443634033
+    },
+    {
+      "frame": 1172,
+      "residue": 1082,
+      "min_distance": 2.8070600032806396
+    },
+    {
+      "frame": 1173,
+      "residue": 1082,
+      "min_distance": 2.51861834526062
+    },
+    {
+      "frame": 1174,
+      "residue": 1082,
+      "min_distance": 2.6368308067321777
+    },
+    {
+      "frame": 1175,
+      "residue": 1082,
+      "min_distance": 2.7413711547851562
+    },
+    {
+      "frame": 1176,
+      "residue": 1082,
+      "min_distance": 2.6258931159973145
+    },
+    {
+      "frame": 1177,
+      "residue": 1082,
+      "min_distance": 2.562382698059082
+    },
+    {
+      "frame": 1178,
+      "residue": 1082,
+      "min_distance": 2.714033603668213
+    },
+    {
+      "frame": 1179,
+      "residue": 1082,
+      "min_distance": 2.7172579765319824
+    },
+    {
+      "frame": 1180,
+      "residue": 1082,
+      "min_distance": 2.8086562156677246
+    },
+    {
+      "frame": 1181,
+      "residue": 1082,
+      "min_distance": 2.7012062072753906
+    },
+    {
+      "frame": 1182,
+      "residue": 1082,
+      "min_distance": 2.710724353790283
+    },
+    {
+      "frame": 1183,
+      "residue": 1114,
+      "min_distance": 2.6223227977752686
+    },
+    {
+      "frame": 1184,
+      "residue": 1082,
+      "min_distance": 2.6931540966033936
+    },
+    {
+      "frame": 1185,
+      "residue": 1082,
+      "min_distance": 2.609668016433716
+    },
+    {
+      "frame": 1186,
+      "residue": 1082,
+      "min_distance": 2.7649617195129395
+    },
+    {
+      "frame": 1187,
+      "residue": 1082,
+      "min_distance": 2.5321033000946045
+    },
+    {
+      "frame": 1188,
+      "residue": 1082,
+      "min_distance": 3.5649354457855225
+    },
+    {
+      "frame": 1189,
+      "residue": 1082,
+      "min_distance": 4.3442816734313965
+    },
+    {
+      "frame": 1190,
+      "residue": 1082,
+      "min_distance": 2.691814661026001
+    },
+    {
+      "frame": 1191,
+      "residue": 1082,
+      "min_distance": 2.5733931064605713
+    },
+    {
+      "frame": 1192,
+      "residue": 1082,
+      "min_distance": 3.05007004737854
+    },
+    {
+      "frame": 1193,
+      "residue": 1082,
+      "min_distance": 2.6319081783294678
+    },
+    {
+      "frame": 1194,
+      "residue": 1082,
+      "min_distance": 2.4934027194976807
+    },
+    {
+      "frame": 1195,
+      "residue": 1082,
+      "min_distance": 2.9401967525482178
+    },
+    {
+      "frame": 1196,
+      "residue": 1082,
+      "min_distance": 2.6950013637542725
+    },
+    {
+      "frame": 1197,
+      "residue": 1114,
+      "min_distance": 2.7265186309814453
+    },
+    {
+      "frame": 1198,
+      "residue": 1082,
+      "min_distance": 2.4385688304901123
+    },
+    {
+      "frame": 1199,
+      "residue": 1082,
+      "min_distance": 2.8053293228149414
+    },
+    {
+      "frame": 1200,
+      "residue": 1082,
+      "min_distance": 2.612475633621216
+    },
+    {
+      "frame": 1201,
+      "residue": 1082,
+      "min_distance": 2.6043198108673096
+    },
+    {
+      "frame": 1202,
+      "residue": 1114,
+      "min_distance": 2.7548978328704834
+    },
+    {
+      "frame": 1203,
+      "residue": 1082,
+      "min_distance": 2.5408473014831543
+    },
+    {
+      "frame": 1204,
+      "residue": 458,
+      "min_distance": 2.972177505493164
+    },
+    {
+      "frame": 1205,
+      "residue": 1082,
+      "min_distance": 5.186535835266113
+    },
+    {
+      "frame": 1206,
+      "residue": 1082,
+      "min_distance": 2.617454767227173
+    },
+    {
+      "frame": 1207,
+      "residue": 1082,
+      "min_distance": 2.555457830429077
+    },
+    {
+      "frame": 1208,
+      "residue": 1082,
+      "min_distance": 4.27518367767334
+    },
+    {
+      "frame": 1209,
+      "residue": 1082,
+      "min_distance": 2.600857973098755
+    },
+    {
+      "frame": 1210,
+      "residue": 1082,
+      "min_distance": 2.632603168487549
+    },
+    {
+      "frame": 1211,
+      "residue": 786,
+      "min_distance": 9.914129257202148
+    },
+    {
+      "frame": 1212,
+      "residue": 786,
+      "min_distance": 10.462996482849121
+    },
+    {
+      "frame": 1213,
+      "residue": 786,
+      "min_distance": 7.6709885597229
+    },
+    {
+      "frame": 1214,
+      "residue": 1082,
+      "min_distance": 2.4511168003082275
+    },
+    {
+      "frame": 1215,
+      "residue": 1082,
+      "min_distance": 2.593595504760742
+    },
+    {
+      "frame": 1216,
+      "residue": 1082,
+      "min_distance": 2.6651628017425537
+    },
+    {
+      "frame": 1217,
+      "residue": 1082,
+      "min_distance": 2.84423565864563
+    },
+    {
+      "frame": 1218,
+      "residue": 1114,
+      "min_distance": 4.3071513175964355
+    },
+    {
+      "frame": 1219,
+      "residue": 1082,
+      "min_distance": 4.674225330352783
+    },
+    {
+      "frame": 1220,
+      "residue": 458,
+      "min_distance": 5.192389488220215
+    },
+    {
+      "frame": 1221,
+      "residue": 754,
+      "min_distance": 2.5526437759399414
+    },
+    {
+      "frame": 1222,
+      "residue": 754,
+      "min_distance": 2.562192440032959
+    },
+    {
+      "frame": 1223,
+      "residue": 754,
+      "min_distance": 2.9851136207580566
+    },
+    {
+      "frame": 1224,
+      "residue": "SF",
+      "min_distance": 4.396408677101135
+    },
+    {
+      "frame": 1225,
+      "residue": "SF",
+      "min_distance": 4.1573657393455505
+    },
+    {
+      "frame": 1226,
+      "residue": 458,
+      "min_distance": 3.62282395362854
+    },
+    {
+      "frame": 1227,
+      "residue": 458,
+      "min_distance": 3.0807950496673584
+    },
+    {
+      "frame": 1228,
+      "residue": "SF",
+      "min_distance": 3.7756974697113037
+    },
+    {
+      "frame": 1229,
+      "residue": "SF",
+      "min_distance": 3.872011661529541
+    },
+    {
+      "frame": 1230,
+      "residue": 786,
+      "min_distance": 3.0748229026794434
+    },
+    {
+      "frame": 1231,
+      "residue": 1114,
+      "min_distance": 10.499323844909668
+    },
+    {
+      "frame": 1232,
+      "residue": 458,
+      "min_distance": 3.4225072860717773
+    },
+    {
+      "frame": 1233,
+      "residue": "SF",
+      "min_distance": 4.126116871833801
+    },
+    {
+      "frame": 1234,
+      "residue": "SF",
+      "min_distance": 4.672761857509613
+    },
+    {
+      "frame": 1235,
+      "residue": 1082,
+      "min_distance": 2.8937456607818604
+    },
+    {
+      "frame": 1236,
+      "residue": 1082,
+      "min_distance": 2.7679522037506104
+    },
+    {
+      "frame": 1237,
+      "residue": 1114,
+      "min_distance": 3.5968055725097656
+    },
+    {
+      "frame": 1238,
+      "residue": 1082,
+      "min_distance": 3.891601800918579
+    },
+    {
+      "frame": 1239,
+      "residue": 1082,
+      "min_distance": 3.0126960277557373
+    },
+    {
+      "frame": 1240,
+      "residue": 458,
+      "min_distance": 3.6462292671203613
+    },
+    {
+      "frame": 1241,
+      "residue": 1082,
+      "min_distance": 2.7506628036499023
+    },
+    {
+      "frame": 1242,
+      "residue": 1114,
+      "min_distance": 3.8869431018829346
+    },
+    {
+      "frame": 1243,
+      "residue": 458,
+      "min_distance": 5.382099151611328
+    },
+    {
+      "frame": 1244,
+      "residue": "SF",
+      "min_distance": 3.934906780719757
+    },
+    {
+      "frame": 1245,
+      "residue": "SF",
+      "min_distance": 4.521694183349609
+    },
+    {
+      "frame": 1246,
+      "residue": 1082,
+      "min_distance": 2.684910774230957
+    },
+    {
+      "frame": 1247,
+      "residue": 1082,
+      "min_distance": 2.6265132427215576
+    },
+    {
+      "frame": 1248,
+      "residue": 1082,
+      "min_distance": 2.920767307281494
+    }
+  ],
+  "2230": [
+    {
+      "frame": 1193,
+      "residue": 458,
+      "min_distance": 5.222881317138672
+    },
+    {
+      "frame": 1194,
+      "residue": 1114,
+      "min_distance": 5.465703964233398
+    },
+    {
+      "frame": 1195,
+      "residue": 458,
+      "min_distance": 2.9146296977996826
+    },
+    {
+      "frame": 1196,
+      "residue": "SF",
+      "min_distance": 5.562118887901306
+    },
+    {
+      "frame": 1197,
+      "residue": 786,
+      "min_distance": 2.680222272872925
+    },
+    {
+      "frame": 1198,
+      "residue": 426,
+      "min_distance": 2.5419650077819824
+    },
+    {
+      "frame": 1199,
+      "residue": 426,
+      "min_distance": 2.6095354557037354
+    },
+    {
+      "frame": 1200,
+      "residue": 426,
+      "min_distance": 2.8563475608825684
+    },
+    {
+      "frame": 1201,
+      "residue": 426,
+      "min_distance": 2.7471625804901123
+    },
+    {
+      "frame": 1202,
+      "residue": 426,
+      "min_distance": 2.7238407135009766
+    },
+    {
+      "frame": 1203,
+      "residue": 426,
+      "min_distance": 2.91195011138916
+    },
+    {
+      "frame": 1204,
+      "residue": 426,
+      "min_distance": 2.705867290496826
+    },
+    {
+      "frame": 1205,
+      "residue": 426,
+      "min_distance": 2.6419389247894287
+    },
+    {
+      "frame": 1206,
+      "residue": 426,
+      "min_distance": 2.717629909515381
+    },
+    {
+      "frame": 1207,
+      "residue": 426,
+      "min_distance": 2.5518367290496826
+    },
+    {
+      "frame": 1208,
+      "residue": 786,
+      "min_distance": 4.8914031982421875
+    },
+    {
+      "frame": 1209,
+      "residue": 426,
+      "min_distance": 2.7037317752838135
+    },
+    {
+      "frame": 1210,
+      "residue": 426,
+      "min_distance": 2.6881911754608154
+    },
+    {
+      "frame": 1211,
+      "residue": 426,
+      "min_distance": 2.737291097640991
+    },
+    {
+      "frame": 1212,
+      "residue": 130,
+      "min_distance": 5.08833122253418
+    },
+    {
+      "frame": 1213,
+      "residue": 786,
+      "min_distance": 5.508159637451172
+    },
+    {
+      "frame": 1214,
+      "residue": 754,
+      "min_distance": 2.5917372703552246
+    },
+    {
+      "frame": 1215,
+      "residue": 130,
+      "min_distance": 4.738643646240234
+    },
+    {
+      "frame": 1216,
+      "residue": 786,
+      "min_distance": 16.105607986450195
+    },
+    {
+      "frame": 1217,
+      "residue": 786,
+      "min_distance": 18.103174209594727
+    },
+    {
+      "frame": 1218,
+      "residue": 130,
+      "min_distance": 17.942665100097656
+    },
+    {
+      "frame": 1219,
+      "residue": 786,
+      "min_distance": 16.272188186645508
+    },
+    {
+      "frame": 1220,
+      "residue": 130,
+      "min_distance": 17.274690628051758
+    },
+    {
+      "frame": 1221,
+      "residue": 786,
+      "min_distance": 16.799238204956055
+    },
+    {
+      "frame": 1222,
+      "residue": 1114,
+      "min_distance": 16.53117561340332
+    },
+    {
+      "frame": 1223,
+      "residue": 786,
+      "min_distance": 7.45169734954834
+    },
+    {
+      "frame": 1224,
+      "residue": 1114,
+      "min_distance": 8.597640037536621
+    },
+    {
+      "frame": 1225,
+      "residue": 786,
+      "min_distance": 5.371079921722412
+    }
+  ],
+  "2515": [
+    {
+      "frame": 1199,
+      "residue": 458,
+      "min_distance": 6.029179573059082
+    },
+    {
+      "frame": 1200,
+      "residue": 754,
+      "min_distance": 4.985082626342773
+    },
+    {
+      "frame": 1201,
+      "residue": 786,
+      "min_distance": 4.638833522796631
+    },
+    {
+      "frame": 1202,
+      "residue": 786,
+      "min_distance": 2.716343402862549
+    },
+    {
+      "frame": 1203,
+      "residue": 786,
+      "min_distance": 14.454874992370605
+    },
+    {
+      "frame": 1204,
+      "residue": 786,
+      "min_distance": 14.915396690368652
+    },
+    {
+      "frame": 1205,
+      "residue": 786,
+      "min_distance": 12.438037872314453
+    },
+    {
+      "frame": 1206,
+      "residue": 786,
+      "min_distance": 12.861599922180176
+    },
+    {
+      "frame": 1207,
+      "residue": 786,
+      "min_distance": 12.911649703979492
+    },
+    {
+      "frame": 1208,
+      "residue": 786,
+      "min_distance": 17.788883209228516
+    },
+    {
+      "frame": 1209,
+      "residue": 786,
+      "min_distance": 18.662633895874023
+    },
+    {
+      "frame": 1210,
+      "residue": 786,
+      "min_distance": 16.805843353271484
+    },
+    {
+      "frame": 1211,
+      "residue": 786,
+      "min_distance": 19.3615779876709
+    },
+    {
+      "frame": 1212,
+      "residue": 786,
+      "min_distance": 17.238683700561523
+    },
+    {
+      "frame": 1213,
+      "residue": 786,
+      "min_distance": 18.555171966552734
+    },
+    {
+      "frame": 1214,
+      "residue": 786,
+      "min_distance": 16.744489669799805
+    },
+    {
+      "frame": 1215,
+      "residue": 786,
+      "min_distance": 15.684704780578613
+    },
+    {
+      "frame": 1216,
+      "residue": 786,
+      "min_distance": 14.44836139678955
+    },
+    {
+      "frame": 1217,
+      "residue": 786,
+      "min_distance": 12.457080841064453
+    },
+    {
+      "frame": 1218,
+      "residue": 130,
+      "min_distance": 6.058248519897461
+    },
+    {
+      "frame": 1219,
+      "residue": 130,
+      "min_distance": 4.686076641082764
+    }
+  ],
+  "2280": [
+    {
+      "frame": 1218,
+      "residue": 786,
+      "min_distance": 3.987396001815796
+    },
+    {
+      "frame": 1219,
+      "residue": 754,
+      "min_distance": 3.8096072673797607
+    },
+    {
+      "frame": 1220,
+      "residue": 786,
+      "min_distance": 8.473804473876953
+    },
+    {
+      "frame": 1221,
+      "residue": 1082,
+      "min_distance": 2.611276626586914
+    },
+    {
+      "frame": 1222,
+      "residue": 130,
+      "min_distance": 6.235934257507324
+    },
+    {
+      "frame": 1223,
+      "residue": "SF",
+      "min_distance": 4.094066143035889
+    },
+    {
+      "frame": 1224,
+      "residue": "SF",
+      "min_distance": 4.066218197345734
+    },
+    {
+      "frame": 1225,
+      "residue": "SF",
+      "min_distance": 3.8734107613563538
+    },
+    {
+      "frame": 1226,
+      "residue": "SF",
+      "min_distance": 3.916653573513031
+    },
+    {
+      "frame": 1227,
+      "residue": "SF",
+      "min_distance": 4.167808532714844
+    },
+    {
+      "frame": 1228,
+      "residue": 754,
+      "min_distance": 2.576995611190796
+    },
+    {
+      "frame": 1229,
+      "residue": 754,
+      "min_distance": 2.7212212085723877
+    },
+    {
+      "frame": 1230,
+      "residue": "SF",
+      "min_distance": 5.364397883415222
+    },
+    {
+      "frame": 1231,
+      "residue": "SF",
+      "min_distance": 4.295147478580475
+    },
+    {
+      "frame": 1232,
+      "residue": 786,
+      "min_distance": 2.5074758529663086
+    },
+    {
+      "frame": 1233,
+      "residue": 754,
+      "min_distance": 2.6896963119506836
+    },
+    {
+      "frame": 1234,
+      "residue": 754,
+      "min_distance": 2.599485158920288
+    },
+    {
+      "frame": 1235,
+      "residue": "SF",
+      "min_distance": 4.028292179107666
+    },
+    {
+      "frame": 1236,
+      "residue": "SF",
+      "min_distance": 4.85370409488678
+    },
+    {
+      "frame": 1237,
+      "residue": "SF",
+      "min_distance": 4.056111574172974
+    },
+    {
+      "frame": 1238,
+      "residue": "SF",
+      "min_distance": 3.916036009788513
+    },
+    {
+      "frame": 1239,
+      "residue": 130,
+      "min_distance": 4.010962009429932
+    },
+    {
+      "frame": 1240,
+      "residue": 130,
+      "min_distance": 3.830568313598633
+    },
+    {
+      "frame": 1241,
+      "residue": 98,
+      "min_distance": 2.6267471313476562
+    },
+    {
+      "frame": 1242,
+      "residue": 130,
+      "min_distance": 2.551943063735962
+    },
+    {
+      "frame": 1243,
+      "residue": 130,
+      "min_distance": 4.776642322540283
+    },
+    {
+      "frame": 1244,
+      "residue": 1082,
+      "min_distance": 4.667032241821289
+    },
+    {
+      "frame": 1245,
+      "residue": 426,
+      "min_distance": 2.588085651397705
+    },
+    {
+      "frame": 1246,
+      "residue": 426,
+      "min_distance": 2.6635499000549316
+    },
+    {
+      "frame": 1247,
+      "residue": 458,
+      "min_distance": 2.7742035388946533
+    },
+    {
+      "frame": 1248,
+      "residue": 426,
+      "min_distance": 2.5895159244537354
     }
   ]
 }
