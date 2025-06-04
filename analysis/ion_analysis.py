@@ -1,6 +1,7 @@
 import MDAnalysis as mda
 import numpy as np
 from tqdm import tqdm
+import pandas as pd
 
 class IonPermeationAnalysis:
     def __init__(self, universe, ion_selection, start_frame, end_frame, channel1, channel2, channel3, channel4, channel5,
@@ -247,12 +248,20 @@ class IonPermeationAnalysis:
                 print(ion_id, ion_grouped_frames)
             if sorted_ion_grouped_frames[0]["residue"] == "SF":
                 ch2_start = sorted_ion_grouped_frames[0]["end"]+1
+                ######################################################
+                #### make the ch2 json start frame correct too
+                for item in self.permeation_events2:
+                    if item["ion_id"] == ion_id:
+                        item["start_frame"] = ch2_start  
+                ######################################################
+
             else:
                 ch2_start = sorted_ion_grouped_frames[0]["start"]
 
+            previous_mean_distance = 0
             for group in sorted_ion_grouped_frames[1:]:
                 if group["residue"] == "SF":
-                    if group["end"]-group["start"]+1>3:
+                    if group["end"]-group["start"]+1>10:
                         ch2_fixed.append({
                                     "ion_id": ion_id,
                                     "start_frame": ch2_start,
@@ -260,6 +269,17 @@ class IonPermeationAnalysis:
                                     "total_time": group["start"]-ch2_start
                                 })
                         ch2_start = group["end"]+1
+
+                elif group["mean_distance"] > 10.0:
+                    if previous_mean_distance < 10.0:
+                        ch2_fixed.append({
+                            "ion_id": ion_id,
+                            "start_frame": ch2_start,
+                            "exit_frame": group["start"]-1,
+                            "total_time": group["start"]-ch2_start
+                        })
+                    ch2_start = group["end"]+1
+                previous_mean_distance = group["mean_distance"]
 
             ch2_fixed.append({
                         "ion_id": ion_id,
@@ -323,3 +343,31 @@ class IonPermeationAnalysis:
                 })
 
         return results
+
+
+    def summarize_coexistence_blocks(self, df):
+        """
+        Takes a DataFrame of coexistence blocks and returns:
+        - ion_count
+        - num_states
+        - total_frames
+        - percent_time
+        - mean_frames
+        """
+        # Compute total simulation time from first start to last end
+        total_simulation_frames = df["end"].max() - df["start"].min() + 1
+
+        summary = (
+            df.groupby("num_ions")
+            .agg(
+                num_states=("num_ions", "count"),
+                total_frames=("duration", "sum"),
+                mean_frames=("duration", "mean")
+            )
+            .reset_index()
+            .rename(columns={"num_ions": "ion_count"})
+        )
+
+        summary["percent_time"] = (summary["total_frames"] / total_simulation_frames * 100).round(2)
+        summary["mean_frames"] = summary["mean_frames"].round(2)
+        return summary

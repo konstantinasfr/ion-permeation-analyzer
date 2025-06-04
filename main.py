@@ -10,7 +10,7 @@ from analysis.channels import Channel
 from analysis.ion_analysis import IonPermeationAnalysis
 from analysis.distance_calc import calculate_distances
 from analysis.organizing_frames import cluster_frames_by_closest_residue, tracking_ion_distances, plot_ion_distance_traces
-from analysis.organizing_frames import close_contact_residues_analysis
+from analysis.organizing_frames import close_contact_residues_analysis, get_clean_ion_coexistence_table
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
@@ -102,7 +102,7 @@ def main():
         sf_low_res_diagonal_pairs = [(100, 756), (428, 1084)]
 
         start_frame = 0
-        # start_frame = 1100
+        # start_frame = 800
         # start_frame = 5550
         # start_frame = 6500
         end_frame = 1250
@@ -152,6 +152,7 @@ def main():
     # Create 'results' directory if it doesn't exist
     # results_dir = Path("results_no_mutations")
     results_dir = Path("results_G2")
+    results_dir = Path("results_test")
     results_dir.mkdir(exist_ok=True)
     force_results_dir = Path(f"{results_dir}/forces")
     force_results_dir.mkdir(exist_ok=True)
@@ -207,6 +208,8 @@ def main():
         json.dump(residue_clusters, f, indent=2)
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
+
+    get_clean_ion_coexistence_table(ch2_permeations, results_dir)
 
     with open(results_dir / "ch2_fixed.json", "w") as f:
         json.dump(ch2_permeations, f, indent=2)

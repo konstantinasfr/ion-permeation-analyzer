@@ -373,3 +373,77 @@ def plot_ion_distance_traces(distance_data, results_dir):
         plt.savefig(last15_dir / f"{target_ion}.png")
         plt.close()
 
+def summarize_coexistence_blocks(df):
+    """
+    Takes a DataFrame of coexistence blocks and returns:
+    - ion_count
+    - num_states
+    - total_frames
+    - percent_time
+    - mean_frames
+    """
+    # Compute total simulation time from first start to last end
+    total_simulation_frames = df["end"].max() - df["start"].min() + 1
+
+    summary = (
+        df.groupby("num_ions")
+          .agg(
+              num_states=("num_ions", "count"),
+              total_frames=("duration", "sum"),
+              mean_frames=("duration", "mean")
+          )
+          .reset_index()
+          .rename(columns={"num_ions": "ion_count"})
+    )
+
+    summary["percent_time"] = (summary["total_frames"] / total_simulation_frames * 100).round(2)
+    summary["mean_frames"] = summary["mean_frames"].round(2)
+    return summary
+
+
+def get_clean_ion_coexistence_table(ion_events, folder="./"):
+    """
+    Creates non-overlapping frame blocks where ions coexisted.
+    Each block ends exactly where the next begins.
+    """
+    # Step 1: Build frame-by-frame ion presence
+    timeline = {}
+    for ion in ion_events:
+        for frame in range(ion["start_frame"], ion["exit_frame"] + 1):
+            timeline.setdefault(frame, set()).add(ion["ion_id"])
+    # Step 2: Sort frames and chunk by unique ion sets
+    frames = sorted(timeline.keys())
+    result = []
+    prev_ions = None
+    start = frames[0]
+    for i, frame in enumerate(frames):
+        current_ions = timeline[frame]
+        if prev_ions is None:
+            prev_ions = current_ions
+            continue
+        if current_ions != prev_ions:
+            end = frames[i - 1]
+            result.append({
+                "start": start,
+                "end": end,
+                "duration": end - start + 1,
+                "num_ions": len(prev_ions),
+                "ions": (prev_ions)
+            })
+            start = frame
+            prev_ions = current_ions
+    # Handle final block
+    end = frames[-1]
+    result.append({
+        "start": start,
+        "end": end,
+        "duration": end - start + 1,
+        "num_ions": len(prev_ions),
+        "ions": (prev_ions)
+    })
+    df = pd.DataFrame(result)
+    df["ions"] = df["ions"].apply(lambda x: ", ".join(map(str, x)))  # Clean formatting
+    df.to_csv(f"{folder}/ion_coexistence.csv", index=False)
+    summary = summarize_coexistence_blocks(df)
+    summary.to_csv(f"{folder}/ion_coexistence_summary.csv", index=False)
+
