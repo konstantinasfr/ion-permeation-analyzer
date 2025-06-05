@@ -1,3 +1,3 @@
 Wilcoxon signed-rank test result:
-Statistic = 68.0
-P-value = 0.468292236328125
+Statistic = 0.0
+P-value = 0.125

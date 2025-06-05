@@ -1,0 +1,34 @@
+{
+  "2223": {
+    "permeation_frame": 959,
+    "number_of_ions_in_channel": 2,
+    "ions_in_channel": [
+      2397,
+      2223
+    ]
+  },
+  "2397": {
+    "permeation_frame": 969,
+    "number_of_ions_in_channel": 1,
+    "ions_in_channel": [
+      2397
+    ]
+  },
+  "2231": {
+    "permeation_frame": 806,
+    "number_of_ions_in_channel": 3,
+    "ions_in_channel": [
+      2231,
+      2397,
+      2223
+    ]
+  },
+  "2381": {
+    "permeation_frame": 946,
+    "number_of_ions_in_channel": 2,
+    "ions_in_channel": [
+      2381,
+      2397
+    ]
+  }
+}

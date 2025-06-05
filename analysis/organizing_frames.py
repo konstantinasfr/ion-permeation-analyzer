@@ -1,4 +1,5 @@
 import numpy as np
+import json
 
 def convert_to_pdb_numbering(residue_id, channel_type):
     """
@@ -400,6 +401,12 @@ def summarize_coexistence_blocks(df):
     summary["mean_frames"] = summary["mean_frames"].round(2)
     return summary
 
+def parse_ion_string(ion_str):
+    """
+    Converts a comma-separated string of ion IDs into a list of integers.
+    Example: '2400, 2276, 2397, 2399' → [2400, 2276, 2397, 2399]
+    """
+    return [int(x.strip()) for x in ion_str.split(",") if x.strip().isdigit()]
 
 def get_clean_ion_coexistence_table(ion_events, folder="./"):
     """
@@ -408,9 +415,28 @@ def get_clean_ion_coexistence_table(ion_events, folder="./"):
     """
     # Step 1: Build frame-by-frame ion presence
     timeline = {}
+    permeation_frames_ion_coexistence = {}
+    
     for ion in ion_events:
-        for frame in range(ion["start_frame"], ion["exit_frame"] + 1):
-            timeline.setdefault(frame, set()).add(ion["ion_id"])
+        ion_id = ion["ion_id"]
+        exit_frame = ion["exit_frame"]
+    
+        # Build frame-by-frame presence
+        for frame in range(ion["start_frame"], exit_frame + 1):
+            timeline.setdefault(frame, set()).add(ion_id)
+    
+        # Handle permeation frame assignment
+        if ion_id not in permeation_frames_ion_coexistence:
+            permeation_frames_ion_coexistence[ion_id] = {
+                "permeation_frame": exit_frame,
+                "number_of_ions_in_channel": [],
+                "ions_in_channel": 0
+            }
+        else:
+            if permeation_frames_ion_coexistence[ion_id]["permeation_frame"] < exit_frame:
+                permeation_frames_ion_coexistence[ion_id]["permeation_frame"] = exit_frame
+
+
     # Step 2: Sort frames and chunk by unique ion sets
     frames = sorted(timeline.keys())
     result = []
@@ -441,9 +467,21 @@ def get_clean_ion_coexistence_table(ion_events, folder="./"):
         "num_ions": len(prev_ions),
         "ions": (prev_ions)
     })
+
     df = pd.DataFrame(result)
     df["ions"] = df["ions"].apply(lambda x: ", ".join(map(str, x)))  # Clean formatting
+
+    for ion_id, ion_perm_event in permeation_frames_ion_coexistence.items():
+        permation_frame = ion_perm_event['permeation_frame']
+        coexisting_ions = df[df["end"] == permation_frame]["ions"].values[0]
+        coexisting_ions_list = parse_ion_string(coexisting_ions)
+        permeation_frames_ion_coexistence[ion_id]["ions_in_channel"] = coexisting_ions_list
+        permeation_frames_ion_coexistence[ion_id]["number_of_ions_in_channel"] = len(coexisting_ions_list)
+    
+
     df.to_csv(f"{folder}/ion_coexistence.csv", index=False)
     summary = summarize_coexistence_blocks(df)
     summary.to_csv(f"{folder}/ion_coexistence_summary.csv", index=False)
 
+    with open(f"{folder}/permeation_frames_ion_coexistence.json", "w") as f:
+        json.dump(permeation_frames_ion_coexistence, f, indent=2)

@@ -102,11 +102,11 @@ def main():
         sf_low_res_diagonal_pairs = [(100, 756), (428, 1084)]
 
         start_frame = 0
-        # start_frame = 800
+        start_frame = 800
         # start_frame = 5550
         # start_frame = 6500
         end_frame = 1250
-        # end_frame = 1000
+        end_frame = 1000
 
 
     # start_frame = 5414
@@ -152,10 +152,12 @@ def main():
     # Create 'results' directory if it doesn't exist
     # results_dir = Path("results_no_mutations")
     results_dir = Path("results_G2")
-    results_dir = Path("results_test")
+    # results_dir = Path("results_test")
     results_dir.mkdir(exist_ok=True)
     force_results_dir = Path(f"{results_dir}/forces")
     force_results_dir.mkdir(exist_ok=True)
+    coexisting_ions_results_dir = Path(f"{results_dir}/coexisting_ions_in_channel2")
+    coexisting_ions_results_dir.mkdir(exist_ok=True)
     force_per_ion_results_dir = Path(f"{force_results_dir}/forces_per_ion")
     force_per_ion_results_dir.mkdir(exist_ok=True)
     ch2_permeation_characteristics_dir = Path(f"{results_dir}/ch2_permeation_characteristics")
@@ -209,7 +211,7 @@ def main():
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
-    get_clean_ion_coexistence_table(ch2_permeations, results_dir)
+    get_clean_ion_coexistence_table(ch2_permeations, coexisting_ions_results_dir)
 
     with open(results_dir / "ch2_fixed.json", "w") as f:
         json.dump(ch2_permeations, f, indent=2)
