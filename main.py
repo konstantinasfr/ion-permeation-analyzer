@@ -35,11 +35,15 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+
+    parser.add_argument("--top_file", default="../GIRK_12/RUN2/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../GIRK_12/RUN2/protein.nc")
+
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
-    parser.add_argument("--channel_type", default="G2")
+    parser.add_argument("--channel_type", default="G12")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -108,6 +112,36 @@ def main():
         end_frame = 1250
         end_frame = 1000
 
+    elif args.channel_type == "G12":
+        upper1 = [107, 432, 757, 1082]
+        lower1 = [101, 426, 751, 1076]  #sf_residues
+  
+        upper2 = [101, 426, 751, 1076]  #sf_residues
+        lower2 = [131, 456, 781, 1106]  #asn_residues
+
+        upper3 = [131, 456, 781, 1106]
+        lower3 = [139, 464, 789, 1114]
+
+        upper4 = [139, 464, 789, 1114]  #hbc_residues
+        lower4 = [266, 591, 916 ,1241]
+
+        upper5 = [266, 591, 916 ,1241]
+        lower5 = [260, 585, 910, 1235]
+
+        hbc_residues = [139, 464, 789, 1114]
+        hbc_diagonal_pairs = [(139, 789), (464, 1114)]
+
+        sf_low_res_residues = [101, 426, 751, 1076] 
+        sf_low_res_diagonal_pairs = [(101, 751), (426, 1076)]
+
+        glu_residues = [99, 424, 749, 1074]
+        asn_residues = [131, 456, 781, 1106]
+        sf_residues = [101, 426, 751, 1076] 
+
+        start_frame = 1000
+        # start_frame = 5550
+        # start_frame = 6500
+        end_frame = 1500
 
     # start_frame = 5414
     # end_frame = 5553
@@ -151,7 +185,8 @@ def main():
 
     # Create 'results' directory if it doesn't exist
     # results_dir = Path("results_no_mutations")
-    results_dir = Path("results_G2")
+    # results_dir = Path("results_G2")
+    results_dir = Path("results_G12")
     # results_dir = Path("results_test")
     results_dir.mkdir(exist_ok=True)
     force_results_dir = Path(f"{results_dir}/forces")

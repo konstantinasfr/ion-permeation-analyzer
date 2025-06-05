@@ -11,6 +11,9 @@ def convert_to_pdb_numbering(residue_id, channel_type):
     elif channel_type == "G2":
         residues_per_chain = 328
         offset = 54
+    elif channel_type == "G12":
+        residues_per_chain = 325
+        offset = 53
 
     if residue_id != "SF":
         chain_number = int(residue_id)//residues_per_chain
