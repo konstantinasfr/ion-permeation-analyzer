@@ -180,7 +180,28 @@ def main():
     if distances_path.exists():
         print(f"✅ File {distances_path} already exists. Skipping distance calculation.")
         with open(distances_path) as f:
-            total_distances_dict = json.load(f)
+            raw_data = json.load(f)
+
+        total_distances_dict = {}
+
+        for ion_id_str, frame_data in raw_data.items():
+            ion_id = int(ion_id_str)
+            total_distances_dict[ion_id] = []
+
+            for entry in frame_data:
+                # Fix inner structure so it matches calculate_distances output
+                cleaned_entry = {
+                    "frame": int(entry["frame"]),
+                    "residues": {
+                        int(k) if k.isdigit() else k: float(v)
+                        for k, v in entry["residues"].items()
+                    },
+                    "ions": {
+                        int(k): float(v) for k, v in entry["ions"].items()
+                    }
+                }
+                total_distances_dict[ion_id].append(cleaned_entry)
+
     else:
         print("🚀 Calculating distances...")
         total_distances_dict = {}
@@ -193,10 +214,13 @@ def main():
             )
             total_distances_dict.update(temp_distances_dict)
 
-        # Save in string-keyed format for JSON
+        # Save with string keys (required by JSON)
+        json_ready = {str(k): v for k, v in total_distances_dict.items()}
         with open(distances_path, "w") as f:
-            json.dump(total_distances_dict, f, indent=2)
+            json.dump(json_ready, f, indent=2)
         print(f"💾 Saved distances to {distances_path}")
+
+
 
 
     total_distances_dict_ca = {}

@@ -225,7 +225,8 @@ class IonPermeationAnalysis:
             ch2_fixed_sorted = sorted(ch2_fixed, key=lambda x: x['start_frame'])
 
             for event in ch2_fixed_sorted:
-                print(f"{event['ion_id']:6d} | {event['start_frame']:11d} | {event['exit_frame']:10d} | {event['total_time']:10d}")
+                print(f"{int(event['ion_id']):6d} | {int(event['start_frame']):11d} | {int(event['exit_frame']):10d} | {int(event['total_time']):10d}")
+
 
             print(f"\nTotal fixed permeation events: {len(ch2_fixed_sorted)}")
     
