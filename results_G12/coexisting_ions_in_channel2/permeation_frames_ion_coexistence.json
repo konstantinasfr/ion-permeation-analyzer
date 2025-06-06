@@ -1,11 +1,12 @@
 {
   "1311": {
     "permeation_frame": 1661,
-    "number_of_ions_in_channel": 4,
+    "number_of_ions_in_channel": 5,
     "ions_in_channel": [
-      2313,
       2434,
+      2313,
       2197,
+      2295,
       1311
     ]
   },
@@ -111,11 +112,12 @@
   },
   "2188": {
     "permeation_frame": 1416,
-    "number_of_ions_in_channel": 4,
+    "number_of_ions_in_channel": 5,
     "ions_in_channel": [
       2313,
       2315,
       2188,
+      2253,
       1311
     ]
   },
@@ -142,10 +144,11 @@
   },
   "2315": {
     "permeation_frame": 1489,
-    "number_of_ions_in_channel": 3,
+    "number_of_ions_in_channel": 4,
     "ions_in_channel": [
       2313,
       2315,
+      2253,
       1311
     ]
   },
@@ -192,8 +195,9 @@
   },
   "2295": {
     "permeation_frame": 1842,
-    "number_of_ions_in_channel": 3,
+    "number_of_ions_in_channel": 4,
     "ions_in_channel": [
+      2296,
       2201,
       2434,
       2295
@@ -201,12 +205,13 @@
   },
   "2201": {
     "permeation_frame": 2151,
-    "number_of_ions_in_channel": 4,
+    "number_of_ions_in_channel": 5,
     "ions_in_channel": [
-      2201,
-      2202,
+      2312,
       2227,
-      2327
+      2327,
+      2201,
+      2202
     ]
   },
   "2296": {
@@ -692,9 +697,10 @@
   },
   "2314": {
     "permeation_frame": 5858,
-    "number_of_ions_in_channel": 1,
+    "number_of_ions_in_channel": 2,
     "ions_in_channel": [
-      2314
+      2314,
+      2285
     ]
   },
   "2229": {
@@ -765,12 +771,13 @@
   },
   "2311": {
     "permeation_frame": 6643,
-    "number_of_ions_in_channel": 4,
+    "number_of_ions_in_channel": 5,
     "ions_in_channel": [
+      2311,
       2440,
-      2226,
       2443,
-      2311
+      2189,
+      2226
     ]
   },
   "2307": {

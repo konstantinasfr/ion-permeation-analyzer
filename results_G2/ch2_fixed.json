@@ -104,14 +104,8 @@
   {
     "ion_id": 2520,
     "start_frame": 623,
-    "exit_frame": 624,
-    "total_time": 2
-  },
-  {
-    "ion_id": 2520,
-    "start_frame": 642,
     "exit_frame": 787,
-    "total_time": 146
+    "total_time": 165
   },
   {
     "ion_id": 2223,

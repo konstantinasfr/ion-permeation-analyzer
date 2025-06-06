@@ -1912,7 +1912,7 @@
     }
   },
   {
-    "start_frame": 172,
+    "start_frame": 166,
     "frame": 571,
     "permeated_ion": 1315,
     "analysis": {
@@ -2556,7 +2556,7 @@
     }
   },
   {
-    "start_frame": 364,
+    "start_frame": 353,
     "frame": 458,
     "permeated_ion": 1312,
     "analysis": {
@@ -2789,7 +2789,7 @@
     }
   },
   {
-    "start_frame": 460,
+    "start_frame": 459,
     "frame": 1091,
     "permeated_ion": 2280,
     "analysis": {
@@ -3535,7 +3535,7 @@
     }
   },
   {
-    "start_frame": 524,
+    "start_frame": 491,
     "frame": 805,
     "permeated_ion": 2299,
     "analysis": {
@@ -3889,7 +3889,7 @@
     }
   },
   {
-    "start_frame": 774,
+    "start_frame": 692,
     "frame": 849,
     "permeated_ion": 2203,
     "analysis": {
@@ -4255,7 +4255,7 @@
     }
   },
   {
-    "start_frame": 795,
+    "start_frame": 787,
     "frame": 1120,
     "permeated_ion": 2271,
     "analysis": {
@@ -4691,7 +4691,7 @@
     }
   },
   {
-    "start_frame": 863,
+    "start_frame": 855,
     "frame": 1716,
     "permeated_ion": 2313,
     "analysis": {
@@ -5628,7 +5628,7 @@
     }
   },
   {
-    "start_frame": 993,
+    "start_frame": 983,
     "frame": 1000,
     "permeated_ion": 2265,
     "analysis": {
@@ -6222,7 +6222,7 @@
     }
   },
   {
-    "start_frame": 1203,
+    "start_frame": 1202,
     "frame": 1295,
     "permeated_ion": 2246,
     "analysis": {
@@ -6404,7 +6404,7 @@
     }
   },
   {
-    "start_frame": 1306,
+    "start_frame": 1303,
     "frame": 1331,
     "permeated_ion": 2241,
     "analysis": {
@@ -6541,7 +6541,7 @@
     }
   },
   {
-    "start_frame": 1320,
+    "start_frame": 1315,
     "frame": 1489,
     "permeated_ion": 2315,
     "analysis": {
@@ -6735,7 +6735,7 @@
     }
   },
   {
-    "start_frame": 1392,
+    "start_frame": 1370,
     "frame": 1585,
     "permeated_ion": 2253,
     "analysis": {
@@ -7013,7 +7013,7 @@
     }
   },
   {
-    "start_frame": 1537,
+    "start_frame": 1534,
     "frame": 1899,
     "permeated_ion": 2434,
     "analysis": {
@@ -7555,7 +7555,7 @@
     }
   },
   {
-    "start_frame": 1591,
+    "start_frame": 1589,
     "frame": 1638,
     "permeated_ion": 2194,
     "analysis": {
@@ -7667,7 +7667,7 @@
     }
   },
   {
-    "start_frame": 1616,
+    "start_frame": 1602,
     "frame": 1811,
     "permeated_ion": 2197,
     "analysis": {
@@ -7897,7 +7897,7 @@
     }
   },
   {
-    "start_frame": 1664,
+    "start_frame": 1658,
     "frame": 1842,
     "permeated_ion": 2295,
     "analysis": {
@@ -8145,7 +8145,7 @@
     }
   },
   {
-    "start_frame": 1800,
+    "start_frame": 1795,
     "frame": 2151,
     "permeated_ion": 2201,
     "analysis": {
@@ -8554,7 +8554,7 @@
     }
   },
   {
-    "start_frame": 1846,
+    "start_frame": 1838,
     "frame": 2079,
     "permeated_ion": 2296,
     "analysis": {
@@ -8846,7 +8846,7 @@
     }
   },
   {
-    "start_frame": 1868,
+    "start_frame": 1867,
     "frame": 1878,
     "permeated_ion": 2182,
     "analysis": {
@@ -8894,7 +8894,7 @@
     }
   },
   {
-    "start_frame": 1888,
+    "start_frame": 1886,
     "frame": 1940,
     "permeated_ion": 2308,
     "analysis": {
@@ -8975,7 +8975,7 @@
     }
   },
   {
-    "start_frame": 1915,
+    "start_frame": 1910,
     "frame": 2065,
     "permeated_ion": 2171,
     "analysis": {
@@ -9162,7 +9162,7 @@
     }
   },
   {
-    "start_frame": 1959,
+    "start_frame": 1957,
     "frame": 1988,
     "permeated_ion": 2230,
     "analysis": {
@@ -9248,7 +9248,7 @@
     }
   },
   {
-    "start_frame": 1992,
+    "start_frame": 1989,
     "frame": 2343,
     "permeated_ion": 2327,
     "analysis": {
@@ -9642,7 +9642,7 @@
     }
   },
   {
-    "start_frame": 2069,
+    "start_frame": 2029,
     "frame": 2113,
     "permeated_ion": 2193,
     "analysis": {
@@ -9774,7 +9774,7 @@
     }
   },
   {
-    "start_frame": 2103,
+    "start_frame": 2096,
     "frame": 3680,
     "permeated_ion": 2202,
     "analysis": {
@@ -11433,7 +11433,7 @@
     }
   },
   {
-    "start_frame": 2124,
+    "start_frame": 2120,
     "frame": 2241,
     "permeated_ion": 2227,
     "analysis": {
@@ -11586,7 +11586,7 @@
     }
   },
   {
-    "start_frame": 2186,
+    "start_frame": 2146,
     "frame": 2197,
     "permeated_ion": 2312,
     "analysis": {
@@ -11671,7 +11671,7 @@
     }
   },
   {
-    "start_frame": 2218,
+    "start_frame": 2206,
     "frame": 2309,
     "permeated_ion": 2302,
     "analysis": {
@@ -11842,7 +11842,7 @@
     }
   },
   {
-    "start_frame": 2257,
+    "start_frame": 2245,
     "frame": 2430,
     "permeated_ion": 2266,
     "analysis": {
@@ -12074,7 +12074,7 @@
     }
   },
   {
-    "start_frame": 2316,
+    "start_frame": 2315,
     "frame": 2537,
     "permeated_ion": 2215,
     "analysis": {
@@ -12342,7 +12342,7 @@
     }
   },
   {
-    "start_frame": 2347,
+    "start_frame": 2344,
     "frame": 2374,
     "permeated_ion": 2304,
     "analysis": {
@@ -12409,7 +12409,7 @@
     }
   },
   {
-    "start_frame": 2382,
+    "start_frame": 2379,
     "frame": 2385,
     "permeated_ion": 2249,
     "analysis": {
@@ -12458,7 +12458,7 @@
     }
   },
   {
-    "start_frame": 2413,
+    "start_frame": 2408,
     "frame": 2833,
     "permeated_ion": 2232,
     "analysis": {
@@ -12920,7 +12920,7 @@
     }
   },
   {
-    "start_frame": 2472,
+    "start_frame": 2471,
     "frame": 2474,
     "permeated_ion": 2247,
     "analysis": {
@@ -14541,7 +14541,7 @@
     }
   },
   {
-    "start_frame": 2548,
+    "start_frame": 2542,
     "frame": 2553,
     "permeated_ion": 2294,
     "analysis": {
@@ -14584,7 +14584,7 @@
     }
   },
   {
-    "start_frame": 2563,
+    "start_frame": 2562,
     "frame": 2605,
     "permeated_ion": 2224,
     "analysis": {
@@ -14655,7 +14655,7 @@
     }
   },
   {
-    "start_frame": 2691,
+    "start_frame": 2689,
     "frame": 2697,
     "permeated_ion": 2438,
     "analysis": {
@@ -14798,7 +14798,7 @@
     }
   },
   {
-    "start_frame": 2705,
+    "start_frame": 2699,
     "frame": 2734,
     "permeated_ion": 2267,
     "analysis": {
@@ -15049,7 +15049,7 @@
     }
   },
   {
-    "start_frame": 3249,
+    "start_frame": 3245,
     "frame": 3280,
     "permeated_ion": 2179,
     "analysis": {
@@ -15172,7 +15172,7 @@
     }
   },
   {
-    "start_frame": 3377,
+    "start_frame": 3371,
     "frame": 3394,
     "permeated_ion": 2167,
     "analysis": {
@@ -15827,7 +15827,7 @@
     }
   },
   {
-    "start_frame": 3586,
+    "start_frame": 3584,
     "frame": 3600,
     "permeated_ion": 2228,
     "analysis": {
@@ -16015,7 +16015,7 @@
     }
   },
   {
-    "start_frame": 3672,
+    "start_frame": 3669,
     "frame": 3903,
     "permeated_ion": 2248,
     "analysis": {
@@ -16288,7 +16288,7 @@
     }
   },
   {
-    "start_frame": 3875,
+    "start_frame": 3874,
     "frame": 4719,
     "permeated_ion": 2289,
     "analysis": {
@@ -17207,7 +17207,7 @@
     }
   },
   {
-    "start_frame": 3903,
+    "start_frame": 3902,
     "frame": 4290,
     "permeated_ion": 2170,
     "analysis": {
@@ -17741,7 +17741,7 @@
     }
   },
   {
-    "start_frame": 4041,
+    "start_frame": 4040,
     "frame": 4907,
     "permeated_ion": 2439,
     "analysis": {
@@ -18680,7 +18680,7 @@
     }
   },
   {
-    "start_frame": 4402,
+    "start_frame": 4391,
     "frame": 4414,
     "permeated_ion": 2441,
     "analysis": {
@@ -18750,7 +18750,7 @@
     }
   },
   {
-    "start_frame": 4453,
+    "start_frame": 4452,
     "frame": 4508,
     "permeated_ion": 2256,
     "analysis": {
@@ -18875,7 +18875,7 @@
     }
   },
   {
-    "start_frame": 4482,
+    "start_frame": 4476,
     "frame": 5470,
     "permeated_ion": 2217,
     "analysis": {
@@ -19901,7 +19901,7 @@
     }
   },
   {
-    "start_frame": 4532,
+    "start_frame": 4530,
     "frame": 4624,
     "permeated_ion": 2186,
     "analysis": {
@@ -20057,7 +20057,7 @@
     }
   },
   {
-    "start_frame": 4557,
+    "start_frame": 4556,
     "frame": 4577,
     "permeated_ion": 2178,
     "analysis": {
@@ -20112,7 +20112,7 @@
     }
   },
   {
-    "start_frame": 4690,
+    "start_frame": 4689,
     "frame": 4695,
     "permeated_ion": 2210,
     "analysis": {
@@ -20154,7 +20154,7 @@
     }
   },
   {
-    "start_frame": 4880,
+    "start_frame": 4879,
     "frame": 5704,
     "permeated_ion": 2258,
     "analysis": {
@@ -21012,7 +21012,7 @@
     }
   },
   {
-    "start_frame": 4897,
+    "start_frame": 4896,
     "frame": 5636,
     "permeated_ion": 2199,
     "analysis": {
@@ -21989,7 +21989,7 @@
     }
   },
   {
-    "start_frame": 4977,
+    "start_frame": 4974,
     "frame": 5275,
     "permeated_ion": 2257,
     "analysis": {
@@ -22354,7 +22354,7 @@
     }
   },
   {
-    "start_frame": 4991,
+    "start_frame": 4989,
     "frame": 4991,
     "permeated_ion": 2192,
     "analysis": {
@@ -22379,7 +22379,7 @@
     }
   },
   {
-    "start_frame": 5021,
+    "start_frame": 5009,
     "frame": 5030,
     "permeated_ion": 2177,
     "analysis": {
@@ -22428,7 +22428,7 @@
     }
   },
   {
-    "start_frame": 5111,
+    "start_frame": 5089,
     "frame": 5124,
     "permeated_ion": 2290,
     "analysis": {
@@ -22632,7 +22632,7 @@
     }
   },
   {
-    "start_frame": 5371,
+    "start_frame": 5369,
     "frame": 5477,
     "permeated_ion": 2169,
     "analysis": {
@@ -23605,7 +23605,7 @@
     }
   },
   {
-    "start_frame": 5746,
+    "start_frame": 5741,
     "frame": 5837,
     "permeated_ion": 2229,
     "analysis": {
@@ -23757,7 +23757,7 @@
     }
   },
   {
-    "start_frame": 5861,
+    "start_frame": 5852,
     "frame": 5872,
     "permeated_ion": 2285,
     "analysis": {
@@ -24011,7 +24011,7 @@
     }
   },
   {
-    "start_frame": 5933,
+    "start_frame": 5929,
     "frame": 5964,
     "permeated_ion": 2442,
     "analysis": {
@@ -24071,7 +24071,7 @@
     }
   },
   {
-    "start_frame": 5985,
+    "start_frame": 5984,
     "frame": 6798,
     "permeated_ion": 2440,
     "analysis": {
@@ -24948,7 +24948,7 @@
     }
   },
   {
-    "start_frame": 6079,
+    "start_frame": 6071,
     "frame": 6080,
     "permeated_ion": 2184,
     "analysis": {
@@ -24988,7 +24988,7 @@
     }
   },
   {
-    "start_frame": 6095,
+    "start_frame": 6091,
     "frame": 6152,
     "permeated_ion": 2322,
     "analysis": {
@@ -25077,7 +25077,7 @@
     }
   },
   {
-    "start_frame": 6152,
+    "start_frame": 6151,
     "frame": 6176,
     "permeated_ion": 2242,
     "analysis": {
@@ -25670,7 +25670,7 @@
     }
   },
   {
-    "start_frame": 6228,
+    "start_frame": 6226,
     "frame": 6231,
     "permeated_ion": 2307,
     "analysis": {
@@ -25842,7 +25842,7 @@
     }
   },
   {
-    "start_frame": 6278,
+    "start_frame": 6271,
     "frame": 6452,
     "permeated_ion": 2250,
     "analysis": {
@@ -26054,7 +26054,7 @@
     }
   },
   {
-    "start_frame": 6410,
+    "start_frame": 6330,
     "frame": 6798,
     "permeated_ion": 2226,
     "analysis": {
@@ -26589,7 +26589,7 @@
     }
   },
   {
-    "start_frame": 6465,
+    "start_frame": 6461,
     "frame": 6466,
     "permeated_ion": 2309,
     "analysis": {
@@ -26733,7 +26733,7 @@
     }
   },
   {
-    "start_frame": 6495,
+    "start_frame": 6478,
     "frame": 6503,
     "permeated_ion": 2282,
     "analysis": {
@@ -26783,7 +26783,7 @@
     }
   },
   {
-    "start_frame": 6516,
+    "start_frame": 6514,
     "frame": 6532,
     "permeated_ion": 2200,
     "analysis": {
@@ -26845,7 +26845,7 @@
     }
   },
   {
-    "start_frame": 6564,
+    "start_frame": 6550,
     "frame": 6582,
     "permeated_ion": 2264,
     "analysis": {
@@ -26921,7 +26921,7 @@
     }
   },
   {
-    "start_frame": 6617,
+    "start_frame": 6616,
     "frame": 6737,
     "permeated_ion": 2443,
     "analysis": {
@@ -27116,7 +27116,7 @@
     }
   },
   {
-    "start_frame": 6651,
+    "start_frame": 6634,
     "frame": 6798,
     "permeated_ion": 2189,
     "analysis": {

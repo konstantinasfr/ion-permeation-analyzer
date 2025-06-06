@@ -1,4 +1,9 @@
 residue_combination,count
-184.B,8
-184.C,3
-184.A_184.B,1
+N184.B,5
+D173.A_N184.B,3
+E152.C,1
+D173.A_N184.C,1
+N184.C_N184.D,1
+D173.A,1
+N184.C,1
+N184.B_N184.D,1

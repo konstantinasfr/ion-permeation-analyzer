@@ -22,6 +22,7 @@ def convert_to_pdb_numbering(residue_id, channel_type):
                        173:"D",
                        }
     if residue_id != "SF":
+        residue_id = int(residue_id)
         chain_number = int(residue_id)//residues_per_chain
         chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
         pdb_number = residue_id-residues_per_chain*chain_number+offset

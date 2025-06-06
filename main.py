@@ -143,8 +143,8 @@ def main():
         sf_residues = [101, 426, 751, 1076] 
 
         start_frame = 0
-        # start_frame = 5550
-        # start_frame = 6500
+        # start_frame = 1500
+        # end_frame = 1000
         end_frame = 6800
 
         results_dir = Path("results_G12")
@@ -175,13 +175,33 @@ def main():
 
     total_distances_dict = {}
                        
-    for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
-                       desc="Calculating Distances", unit="ion"):
-        temp_distances_dict = calculate_distances(ion_in_ch2, analyzer, use_ca_only=False, use_min_distances=False, use_charges=True,
-                                                  glu_residues=glu_residues, asn_residues=asn_residues, sf_residues=sf_residues)
-        total_distances_dict.update(temp_distances_dict)
+    distances_path = results_dir / "distances.json"
+
+    if distances_path.exists():
+        print(f"✅ File {distances_path} already exists. Skipping distance calculation.")
+        with open(distances_path) as f:
+            total_distances_dict = json.load(f)
+    else:
+        print("🚀 Calculating distances...")
+        total_distances_dict = {}
+
+        for ion_in_ch2 in tqdm(analyzer.permeation_events2, total=len(analyzer.permeation_events2),
+                            desc="Calculating Distances", unit="ion"):
+            temp_distances_dict = calculate_distances(
+                ion_in_ch2, analyzer, use_ca_only=False, use_min_distances=False, use_charges=True,
+                glu_residues=glu_residues, asn_residues=asn_residues, sf_residues=sf_residues
+            )
+            total_distances_dict.update(temp_distances_dict)
+
+        # Save in string-keyed format for JSON
+        with open(distances_path, "w") as f:
+            json.dump(total_distances_dict, f, indent=2)
+        print(f"💾 Saved distances to {distances_path}")
+
 
     total_distances_dict_ca = {}
+                       
+
                        
     # for ion_in_ch2 in tqdm(analyzer.permeation_events2,total=len(analyzer.permeation_events2),
     #                    desc="Calculating Distances", unit="ion"):
@@ -228,10 +248,6 @@ def main():
 
     with open(results_dir / "ch5.json", "w") as f:
         json.dump(analyzer.permeation_events5, f, indent=2)
-
-    # Save total_distances_dict to JSON
-    with open(results_dir / "distances.json", "w") as f:
-        json.dump(total_distances_dict, f, indent=2)
 
     #     # Save total_distances_dict to JSON
     # with open(results_dir / "distances_ca.json", "w") as f:

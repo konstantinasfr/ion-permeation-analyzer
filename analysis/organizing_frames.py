@@ -1,28 +1,6 @@
 import numpy as np
 import json
-
-def convert_to_pdb_numbering(residue_id, channel_type):
-    """
-    Converts a residue ID to a PDB-style numbering.
-    """
-    if channel_type == "G4":
-        residues_per_chain = 325
-        offset = 49
-    elif channel_type == "G2":
-        residues_per_chain = 328
-        offset = 54
-    elif channel_type == "G12":
-        residues_per_chain = 325
-        offset = 53
-
-    if residue_id != "SF":
-        chain_number = int(residue_id)//residues_per_chain
-        chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
-        pdb_number = residue_id-residues_per_chain*chain_number+offset
-        return f"{pdb_number}.{chain_dict[chain_number]}"
-    else:
-        return "SF"
-
+from analysis.converter import convert_to_pdb_numbering
 
 def cluster_frames_by_closest_residue(distance_data):
     clustered_results = {}
@@ -168,12 +146,12 @@ def close_contact_residues_analysis(data, main_path, channel_type, max_bar_numbe
                 norm_combo = normalize_combo(residues)
                 combo_counts[norm_combo] += 1
                 total_combo_counts[norm_combo] += 1
-                total_residue_comb_over_all_frames[frame][ion_id] = '_'.join(map(lambda r: convert_to_pdb_numbering(r, channel_type), norm_combo))
+                total_residue_comb_over_all_frames[frame][ion_id] = '_'.join(map(lambda r: convert_to_pdb_numbering(int(r), channel_type), norm_combo))
 
         if not combo_counts:
             continue
 
-        combo_data = [{"residue_combination": '_'.join(map(lambda r: convert_to_pdb_numbering(r, channel_type), combo)), "count": count}
+        combo_data = [{"residue_combination": '_'.join(map(lambda r: convert_to_pdb_numbering(int(r), channel_type), combo)), "count": count}
                       for combo, count in combo_counts.items()]
         df = pd.DataFrame(combo_data).sort_values(by="count", ascending=False)
         csv_path = os.path.join(csv_dir, f"{ion_id}.csv")

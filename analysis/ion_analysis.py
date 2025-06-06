@@ -202,7 +202,7 @@ class IonPermeationAnalysis:
             permeation_events.sort(key=lambda x: x['start_frame'])
 
             for event in permeation_events:
-                print(f"{event['ion_id']:6d} | {event['start_frame']:11d} | {event['exit_frame']:10d} | {event['total_time']:10d}")
+                print(f"{int(event['ion_id']):6d} | {int(event['start_frame']):11d} | {int(event['exit_frame']):10d} | {int(event['total_time']):10d}")
 
             print(f"\nTotal forward permeation events: {len(permeation_events)}")
 

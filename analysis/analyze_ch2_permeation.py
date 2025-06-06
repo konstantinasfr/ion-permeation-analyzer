@@ -4,6 +4,7 @@ from collections import Counter
 from typing import List, Dict, Any, Tuple
 from collections import defaultdict
 from typing import List, Dict, Any
+from analysis.converter import convert_to_pdb_numbering
 
 """
 analyze_ch2_permeation.py
@@ -11,29 +12,6 @@ analyze_ch2_permeation.py
 This script identifies which ions are present and what residues they are closest to
 at the exact frame where another ion permeates (i.e., exits the channel).
 """
-
-def convert_to_pdb_numbering(residue_id, channel_type):
-    """
-    Converts a residue ID to a PDB-style numbering.
-    """
-    if channel_type == "G4":
-        residues_per_chain = 325
-        offset = 49
-    elif channel_type == "G2":
-        residues_per_chain = 328
-        offset = 54
-    elif channel_type == "G12":
-        residues_per_chain = 325
-        offset = 53
-
-    if residue_id != "SF":
-        chain_number = int(residue_id)//residues_per_chain
-        chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
-        pdb_number = residue_id-residues_per_chain*chain_number+offset
-        return f"{pdb_number}.{chain_dict[chain_number]}"
-    else:
-        return "SF"
-
 
 def get_residues_at_frame(min_results_per_frame: Dict[str, List[Dict[str, Any]]], target_frame: int, pdb_format:bool, channel_type:str) -> Dict[int, int]:
     """
