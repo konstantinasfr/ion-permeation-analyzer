@@ -11,8 +11,9 @@
   },
   "2399": {
     "permeation_frame": 692,
-    "number_of_ions_in_channel": 3,
+    "number_of_ions_in_channel": 4,
     "ions_in_channel": [
+      2520,
       2276,
       2397,
       2399

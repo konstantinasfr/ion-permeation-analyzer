@@ -20,6 +20,7 @@ import json
 import pandas as pd
 from analysis.permation_profile_creator import PermeationAnalyzer
 from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations
+from analysis.significant_forces import significant_forces
 
 
 
@@ -421,6 +422,8 @@ def main():
         permeation_analysis.analyze_cosine_significance(force_results_dir)
         permeation_analysis.analyze_radial_significance()
 
+        significant_forces(args.channel_type, force_results_dir)
+        
     else:
         print("No permeation events found in channel 2")
 

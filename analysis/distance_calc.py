@@ -72,7 +72,8 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
             if use_charges:
                 if resid in glu_residues:
                     # Select CD, OE1, OE2 for GLU – key electrostatic atoms
-                    atoms = u.select_atoms(f"resid {resid} and name CD OE1 OE2")
+                    # atoms = u.select_atoms(f"resid {resid} and name CD OE1 OE2")
+                    atoms = u.select_atoms(f"resid {resid}")
                     if atoms.n_atoms >= 1:
                         # Calculate all distances and take the minimum
                         dists = np.linalg.norm(atoms.positions - ion_pos, axis=1)
@@ -83,7 +84,8 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
 
                 elif resid in asn_residues:
                     # Select CG, OD1, ND2, HD21, HD22 for ASN – full electrostatic group
-                    atoms = u.select_atoms(f"resid {resid} and name CG OD1 ND2 HD21 HD22")
+                    # atoms = u.select_atoms(f"resid {resid} and name CG OD1 ND2 HD21 HD22")
+                    atoms = u.select_atoms(f"resid {resid}")
                     if atoms.n_atoms >= 1:
                         dists = np.linalg.norm(atoms.positions - ion_pos, axis=1)
                         dist = float(np.min(dists))
@@ -120,7 +122,25 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
                 dist = float('nan')
             sf_distances.append(dist)
 
-        frame_data['residues']['SF'] = float(np.mean(sf_distances))
+#################### Change to consider SF only when ion goes back into the filter ####################
+        # frame_data['residues']['SF'] = float(np.mean(sf_distances))
+        atom_indices = []
+        for resid in sf_residues:
+            residue_atoms = u.select_atoms(f"resid {resid}")
+            coords = residue_atoms.positions
+            sorted_indices = coords[:, 2].argsort()  # sort Z-values
+            upper_index = sorted_indices[0]  # second from the end
+            atom_indices.append(residue_atoms[upper_index].index)
+
+        upper_atoms = u.atoms[atom_indices]
+        upper_center = upper_atoms.center_of_mass()
+
+        if ion_pos[2] > upper_center[2]:
+            frame_data['residues']['SF'] = float(np.mean(sf_distances))
+        else:
+            frame_data['residues']['SF'] = 100000 # Arbitrary large value to indicate not in SF
+        ##############################################################################################
+
 
         # Distances to overlapping ions
         for ion_to_test in ions_to_test:

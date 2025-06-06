@@ -119,7 +119,7 @@ class PermeationAnalyzer:
         for i, event in enumerate(events):
             if event["ion_id"] == target_ion_id:
                 if i == 0:
-                    return event["start_frame"]  # No previous, return own
+                    return 0 # No previous, return own
                 return events[i - 1]["start_frame"]
         
         return None  # target ion not found
