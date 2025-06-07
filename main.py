@@ -36,16 +36,16 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
 
-    # parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
+    parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
 
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G2")
+    parser.add_argument("--channel_type", default="G12")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)

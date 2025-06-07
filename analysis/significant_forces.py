@@ -180,7 +180,7 @@ def plot_force_magnitudes_for_one_ion(df, ion_id, stuck_start_frame, permeation_
         plt.savefig(save_path)
         plt.close()
 
-    print(f"✅ Histograms saved to: {ion_folder}")
+    # print(f"✅ Histograms saved to: {ion_folder}")
 
 import os
 import matplotlib.pyplot as plt
@@ -241,7 +241,7 @@ def plot_force_magnitude_boxplots_for_one_ion(df, ion_id, stuck_start_frame, per
         plt.savefig(save_path)
         plt.close()
 
-    print(f"✅ Boxplots saved to: {ion_folder}")
+    # print(f"✅ Boxplots saved to: {ion_folder}")
 
 import numpy as np
 import pandas as pd
@@ -557,7 +557,7 @@ def significant_forces(channel_type="G2", folder="./significant_forces"):
         
         if permeation_frame == start_stuck_frame or start_stuck_frame == 0:
             continue
-        print(extract_number(filename),json_data["start_frame"], permeation_frame, start_stuck_frame)
+        # print(extract_number(filename),json_data["start_frame"], permeation_frame, start_stuck_frame)
         # Analyze
         df_result = analyze_force_vectors(df, permeation_frame, start_stuck_frame)
         df_result = df_result.sort_values("delta_magnitude", ascending=False)

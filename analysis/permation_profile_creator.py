@@ -350,24 +350,42 @@ class PermeationAnalyzer:
         os.makedirs(output_dir, exist_ok=True)
 
         summary = {}
+
         for i, event in enumerate(self.close_residues_results):
             try:
+                # Get closest residues for this permeation event
                 frame_data = get_last_nth_frame_close_residues(
-                    event, n=n, use_pdb_format=use_pdb_format, sort_residues=sort_residues, channel_type=channel_type
+                    event,
+                    n=n,
+                    use_pdb_format=use_pdb_format,
+                    sort_residues=sort_residues,
+                    channel_type=channel_type
                 )
+
                 frame_key = list(frame_data.keys())[0]
                 ion_dict = frame_data[frame_key]
-                summary[frame_key] = ion_dict
+
+                # ✅ Filter out 'SF' residues here (inside try)
+                filtered_ion_dict = {ion_id: resid for ion_id, resid in ion_dict.items() if resid != "SF"}
+                if filtered_ion_dict:
+                    summary[frame_key] = filtered_ion_dict
+                else:
+                    print(f"⚠️ Skipping frame {frame_key} — only 'SF' residues found.")
+
             except Exception as e:
                 print(f"Skipping event {i} due to error: {e}")
 
-        # Save JSON
+        # Save JSON summary
         with open(os.path.join(output_dir, f"closest_residues_n_{n}.json"), "w") as f:
             json.dump(summary, f, indent=2)
 
-        # bar plot of residue occurrences in this frame over all ions
+        # Plot residue frequency bar chart
         plot_residue_counts(summary, output_dir, filename=f"residue_counts_{n}.png", exclude=(), duplicates=False)
-        analyze_residue_combinations(summary, output_dir, top_n_plot=20)
+
+        # (Optional) Residue combination analysis
+        # analyze_residue_combinations(summary, output_dir, top_n_plot=20)
+
+
 
     def analyze_radial_significance(self):
         """
