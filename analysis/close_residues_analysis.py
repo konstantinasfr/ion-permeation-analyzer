@@ -359,18 +359,21 @@ def count_frames_residue_closest(data, result_folder, total_frames, channel_type
     # === Bar plot: frame counts
     plt.figure(figsize=(10, 6))
     bars = plt.bar(df_counts["Residue"], df_counts["FrameCount"])
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=30)
     plt.xlabel("Residue")
     plt.ylabel("Number of Frames Appearing as Closest")
     plt.title("Residues Most Frequently Closest to Any Ion (Per Frame)")
 
-    for bar in bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
-                 f"{int(height)}", ha='center', va='bottom', fontsize=10)
+    total_frames = df_counts["FrameCount"].sum()
 
-    plt.tight_layout()
-    plt.savefig(f"{result_folder}/closest_single_residue_counts_barplot.png", dpi=300)
+    for bar, count in zip(bars, df_counts["FrameCount"]):
+        height = bar.get_height()
+        percentage = (count / total_frames) * 100
+        label = f"{int(count)} ({percentage:.1f}%)"
+        plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
+                label, ha='center', va='bottom', fontsize=10)
+        plt.tight_layout()
+        plt.savefig(f"{result_folder}/closest_single_residue_counts_barplot.png", dpi=300)
 
     # === Percentages
     df_counts["Percentage"] = (df_counts["FrameCount"] / total_frames) * 100
@@ -394,6 +397,203 @@ def count_frames_residue_closest(data, result_folder, total_frames, channel_type
 
     print("✅ All plots and CSVs saved successfully.")
 
+def extract_min_mean_distance_pairs(data_by_ion):
+    output = {}
+
+    for ion_id, frame_list in data_by_ion.items():
+        new_entries = []
+
+        for frame_entry in frame_list:
+            frame = frame_entry["frame"]
+            residues = frame_entry["residues"]
+
+            # Filter out "SF" and convert keys to int
+            filtered = {int(k): v for k, v in residues.items() if k != "SF"}
+
+            # Sort residues numerically
+            sorted_residues = sorted(filtered.items())  # list of (resid, dist)
+
+            # Break into consecutive pairs: (r1, r2), (r3, r4), ...
+            pairs = [
+                (sorted_residues[i], sorted_residues[i + 1])
+                for i in range(0, len(sorted_residues) - 1, 2)
+            ]
+
+            # Compute mean distances
+            pair_mean_distances = [
+                {
+                    "residue1": pair[0][0],
+                    "residue2": pair[1][0],
+                    "mean_distance": (pair[0][1] + pair[1][1]) / 2,
+                    "frame": frame
+                }
+                for pair in pairs
+            ]
+
+            # Select pair with smallest mean distance
+            if pair_mean_distances:
+                best_pair = min(pair_mean_distances, key=lambda x: x["mean_distance"])
+                new_entries.append(best_pair)
+
+        output[ion_id] = new_entries
+
+    return output
 
 
 
+import matplotlib.pyplot as plt
+import pandas as pd
+from collections import defaultdict
+
+def count_frames_pair_closest(data, result_folder, total_frames, channel_type="G2"):
+    pair_to_frames = defaultdict(set)
+
+    for ion_id, frame_list in data.items():
+        for entry in frame_list:
+            frame = entry["frame"]
+            res1 = entry["residue1"]
+            res2 = entry["residue2"]
+
+            # Convert both residues to PDB numbering
+            pdb_res1 = convert_to_pdb_numbering(res1, channel_type)
+            pdb_res2 = convert_to_pdb_numbering(res2, channel_type)
+
+            # Create an ordered label for the pair
+            pair_label = f"({min(pdb_res1, pdb_res2)}, {max(pdb_res1, pdb_res2)})"
+            pair_to_frames[pair_label].add(frame)
+
+    # === Count occurrences
+    pair_frame_counts = {pair: len(frames) for pair, frames in pair_to_frames.items()}
+
+    # === DataFrame of counts
+    df_counts = pd.DataFrame({
+        "ResiduePair": list(pair_frame_counts.keys()),
+        "FrameCount": list(pair_frame_counts.values())
+    })
+
+    df_counts = df_counts.sort_values(by="FrameCount", ascending=False)
+    df_counts.to_csv(f"{result_folder}/closest_residue_pair_counts.csv", index=False)
+
+    # === Bar plot: frame counts
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(df_counts["ResiduePair"], df_counts["FrameCount"], width=0.5)
+    plt.xticks(rotation=30)
+    plt.xlabel("Residue Pair")
+    plt.ylabel("Number of Frames Appearing as Closest")
+    plt.title("Residue Pairs Most Frequently Closest to Any Ion (Per Frame)")
+
+    total_frames = df_counts["FrameCount"].sum()  # get the total for percentage
+
+    for bar, count in zip(bars, df_counts["FrameCount"]):
+        height = bar.get_height()
+        percentage = (count / total_frames) * 100
+        label = f"{int(count)} ({percentage:.1f}%)"
+        plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
+                label, ha='center', va='bottom', fontsize=9)
+
+
+    plt.tight_layout()
+    plt.savefig(f"{result_folder}/closest_residue_pair_counts_barplot.png", dpi=300)
+
+    # === Percentages
+    df_counts["Percentage"] = (df_counts["FrameCount"] / total_frames) * 100
+    df_counts[["ResiduePair", "Percentage"]].to_csv(f"{result_folder}/closest_residue_pair_percentages.csv", index=False)
+
+    # === Bar plot: percentages
+    plt.figure(figsize=(10, 6))
+    bars_pct = plt.bar(df_counts["ResiduePair"], df_counts["Percentage"], width=0.5)
+    plt.xticks(rotation=45)
+    plt.xlabel("Residue Pair")
+    plt.ylabel("Percentage of Total Frames (%)")
+    plt.title("Residue Pairs Most Frequently Closest to Any Ion (as % of Frames)")
+
+    for bar in bars_pct:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
+                 f"{height:.1f}%", ha='center', va='bottom', fontsize=9)
+
+    plt.tight_layout()
+    plt.savefig(f"{result_folder}/closest_residue_pair_percentages_barplot.png", dpi=300)
+
+    print("✅ Pair-based plots and CSVs saved successfully.")
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from collections import defaultdict
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from collections import defaultdict
+
+def plot_start_frame_residue_distribution(closest_dict, interval_list, result_folder, channel_type="G2"):
+    residue_counts = defaultdict(int)
+
+    for entry in interval_list:
+        ion_id = entry["ion_id"]
+        start_frame = int(entry["start_frame"])
+        if ion_id == 2299:
+            print(ion_id,start_frame)
+
+        frames = closest_dict.get(ion_id, [])
+        match = next((item for item in frames if int(item["frame"]) == int(start_frame)), None)
+
+        if match is None:
+            print(f"⚠️ No match for ion {ion_id} at or after frame {start_frame}")
+            continue
+
+        residue = match["residue"]
+
+        if isinstance(residue, str) and residue.upper() == "SF":
+            print(f"⚠️ Ion {ion_id} starts at residue 'SF' — skipping")
+            continue
+
+        pdb_res = str(convert_to_pdb_numbering(residue, channel_type))
+        residue_counts[pdb_res] += 1
+
+    total_ions = len(interval_list)
+    df = pd.DataFrame({
+        "Residue": list(residue_counts.keys()),
+        "StartCount": list(residue_counts.values())
+    })
+    df["Percentage"] = (df["StartCount"] / total_ions) * 100
+    df = df.sort_values(by="StartCount", ascending=False)
+
+    df.to_csv(f"{result_folder}/start_frame_residue_counts.csv", index=False)
+
+    # === Barplot 1: Raw Counts
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(df["Residue"], df["StartCount"], width=0.6)
+    plt.xticks(rotation=45)
+    plt.xlabel("Residue")
+    plt.ylabel("Number of Ions Starting Closest to Residue")
+    plt.title("Start Frame Closest Residue per Ion (Raw Counts)")
+
+    total_ions = df["StartCount"].sum()
+
+    for bar, count in zip(bars, df["StartCount"]):
+        height = bar.get_height()
+        percentage = (count / total_ions) * 100
+        label = f"{int(count)} ({percentage:.1f}%)"
+        plt.text(bar.get_x() + bar.get_width() / 2, height + 0.1,
+                label, ha='center', va='bottom', fontsize=10)
+
+    plt.tight_layout()
+    plt.savefig(f"{result_folder}/start_frame_residue_counts_barplot.png", dpi=300)
+
+    # === Barplot 2: Percentages
+    plt.figure(figsize=(10, 6))
+    bars_pct = plt.bar(df["Residue"], df["Percentage"], width=0.6)
+    plt.xticks(rotation=45)
+    plt.xlabel("Residue (PDB numbering)")
+    plt.ylabel("Percentage of Ions Starting Closest (%)")
+    plt.title("Start Frame Closest Residue per Ion (Percentage)")
+
+    for bar, count, pct in zip(bars_pct, df["StartCount"], df["Percentage"]):
+        label = f"{pct:.1f}% ({count})"
+        plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5,
+                 label, ha='center', va='bottom', fontsize=10)
+
+    plt.tight_layout()
+    plt.savefig(f"{result_folder}/start_frame_residue_percentage_barplot.png", dpi=300)
+
+    print("✅ CSV, raw count plot, and percentage plot saved successfully.")

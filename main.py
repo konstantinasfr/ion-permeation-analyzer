@@ -19,7 +19,8 @@ from analysis.force_analysis import extract_permeation_frames, extract_last_fram
 import json
 import pandas as pd
 from analysis.permation_profile_creator import PermeationAnalyzer
-from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations, find_closest_residues_percentage, count_frames_residue_closest
+from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations, find_closest_residues_percentage
+from analysis.close_residues_analysis import count_frames_residue_closest, extract_min_mean_distance_pairs, count_frames_pair_closest, plot_start_frame_residue_distribution
 from analysis.significant_forces import significant_forces
 
 
@@ -36,16 +37,16 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
 
-    # parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
+    parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
 
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G2")
+    parser.add_argument("--channel_type", default="G12")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -284,6 +285,12 @@ def main():
     analyze_residue_combinations(total_residue_comb_over_all_frames, close_contact_residues_dir, top_n_plot=20)
     find_closest_residues_percentage(min_results_per_frame, close_contact_residues_dir, args.channel_type)
     count_frames_residue_closest(min_results_per_frame, close_contact_residues_dir, end_frame, args.channel_type)
+    min_mean_distance_pairs = extract_min_mean_distance_pairs(total_distances_dict)
+    count_frames_pair_closest(min_mean_distance_pairs, close_contact_residues_dir, end_frame, args.channel_type)
+    plot_start_frame_residue_distribution(min_results_per_frame, analyzer.permeation_events2, close_contact_residues_dir, args.channel_type)
+
+    with open(results_dir / "min_mean_distance_pairs.json", "w") as f:
+        json.dump(min_mean_distance_pairs, f, indent=2)
 
     with open(close_contact_residues_dir / "total_residue_comb_over_all_frames.json", "w") as f:
         json.dump(total_residue_comb_over_all_frames, f, indent=2)
