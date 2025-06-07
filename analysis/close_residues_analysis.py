@@ -264,3 +264,136 @@ def analyze_residue_combinations(data, output_dir, top_n_plot=20):
 
 #     df = pd.DataFrame(flat_rows)
 #     df.to_csv(os.path.join(output_dir, f"closest_residues_n_{n}.csv"), index=False)
+
+
+import json
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from collections import defaultdict
+
+def find_closest_residues_percentage(data, result_folder, channel_type="G12"):
+    all_rows = []
+
+    for ion_id, frame_list in data.items():
+        residue_counts = defaultdict(int)
+        total_frames = len(frame_list)
+
+        for frame_entry in frame_list:
+            res_id = frame_entry["residue"]
+
+            # ✅ Skip SF-labeled entries
+            if isinstance(res_id, str) and res_id.upper() == "SF":
+                continue
+
+            # ✅ Apply PDB conversion
+            pdb_res = str(convert_to_pdb_numbering(res_id, channel_type))
+            residue_counts[pdb_res] += 1
+
+        # === Percentage and counts
+        percentage_dict = {f"{res}_pct": (count / total_frames) * 100 for res, count in residue_counts.items()}
+        count_dict = {f"{res}_count": count for res, count in residue_counts.items()}
+        row = {"ion_id": ion_id, "total_frames": total_frames}
+        row.update(percentage_dict)
+        row.update(count_dict)
+        all_rows.append(row)
+
+    # === Create and save DataFrame
+    df = pd.DataFrame(all_rows).fillna(0)
+    df.to_csv(f"{result_folder}/single_closest_residue_distribution.csv", index=False)
+
+    # === Prepare for boxplot
+    pct_cols = [col for col in df.columns if col.endswith("_pct")]
+    df_pct = df[pct_cols].copy()
+    df_pct_long = df_pct.melt(var_name="Residue", value_name="Percentage")
+    df_pct_long["Residue"] = df_pct_long["Residue"].str.replace("_pct", "")
+
+    # === Boxplot
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(data=df_pct_long, x="Residue", y="Percentage")
+    plt.ylabel("Percentage of Frames")
+    plt.xlabel("Residue")
+    plt.title("Residue Proximity Distribution Across Ions")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig(f"{result_folder}/residue_proximity_boxplot.png", dpi=300)
+
+    print("✅ CSV and boxplot saved (excluding 'SF').")
+
+
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from collections import defaultdict
+
+def count_frames_residue_closest(data, result_folder, total_frames, channel_type="G2"):
+    residue_to_frames = defaultdict(set)
+
+    for ion_id, frame_list in data.items():
+        for entry in frame_list:
+            frame = entry["frame"]
+            residue = entry["residue"]
+
+            # Skip SF if labeled as string
+            if isinstance(residue, str) and residue.upper() == "SF":
+                continue
+
+            # Convert residue to PDB format
+            pdb_res = str(convert_to_pdb_numbering(residue, channel_type))
+
+            # Only count one appearance per frame
+            residue_to_frames[pdb_res].add(frame)
+
+    # === Count occurrences
+    residue_frame_counts = {res: len(frames) for res, frames in residue_to_frames.items()}
+
+    # === DataFrame of counts
+    df_counts = pd.DataFrame({
+        "Residue": list(residue_frame_counts.keys()),
+        "FrameCount": list(residue_frame_counts.values())
+    })
+
+    df_counts = df_counts.sort_values(by="FrameCount", ascending=False)
+    df_counts.to_csv(f"{result_folder}/closest_residue_counts.csv", index=False)
+
+    # === Bar plot: frame counts
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(df_counts["Residue"], df_counts["FrameCount"])
+    plt.xticks(rotation=45)
+    plt.xlabel("Residue")
+    plt.ylabel("Number of Frames Appearing as Closest")
+    plt.title("Residues Most Frequently Closest to Any Ion (Per Frame)")
+
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
+                 f"{int(height)}", ha='center', va='bottom', fontsize=10)
+
+    plt.tight_layout()
+    plt.savefig(f"{result_folder}/closest_single_residue_counts_barplot.png", dpi=300)
+
+    # === Percentages
+    df_counts["Percentage"] = (df_counts["FrameCount"] / total_frames) * 100
+    df_counts[["Residue", "Percentage"]].to_csv(f"{result_folder}/closest_residue_percentages.csv", index=False)
+
+    # === Bar plot: percentages
+    plt.figure(figsize=(10, 6))
+    bars_pct = plt.bar(df_counts["Residue"], df_counts["Percentage"])
+    plt.xticks(rotation=45)
+    plt.xlabel("Residue")
+    plt.ylabel("Percentage of Total Frames (%)")
+    plt.title("Residues Most Frequently Closest to Any Ion (as % of Frames)")
+
+    for bar in bars_pct:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
+                 f"{height:.1f}%", ha='center', va='bottom', fontsize=10)
+
+    plt.tight_layout()
+    plt.savefig(f"{result_folder}/closest_single_residue_percentages_barplot.png", dpi=300)
+
+    print("✅ All plots and CSVs saved successfully.")
+
+
+
+

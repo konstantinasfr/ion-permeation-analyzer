@@ -19,7 +19,7 @@ from analysis.force_analysis import extract_permeation_frames, extract_last_fram
 import json
 import pandas as pd
 from analysis.permation_profile_creator import PermeationAnalyzer
-from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations
+from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations, find_closest_residues_percentage, count_frames_residue_closest
 from analysis.significant_forces import significant_forces
 
 
@@ -36,16 +36,16 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
 
-    parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
+    # parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
 
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G12")
+    parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
 
     u = mda.Universe(args.top_file, args.traj_file)
@@ -282,6 +282,8 @@ def main():
     total_residue_comb_over_all_frames = close_contact_residues_analysis(close_contacts_dict, close_contact_residues_dir, args.channel_type, max_bar_number=20)
     plot_residue_counts(total_residue_comb_over_all_frames, close_contact_residues_dir, filename=f"residue_counts_all_frames.png", exclude=(), duplicates=False)
     analyze_residue_combinations(total_residue_comb_over_all_frames, close_contact_residues_dir, top_n_plot=20)
+    find_closest_residues_percentage(min_results_per_frame, close_contact_residues_dir, args.channel_type)
+    count_frames_residue_closest(min_results_per_frame, close_contact_residues_dir, end_frame, args.channel_type)
 
     with open(close_contact_residues_dir / "total_residue_comb_over_all_frames.json", "w") as f:
         json.dump(total_residue_comb_over_all_frames, f, indent=2)
