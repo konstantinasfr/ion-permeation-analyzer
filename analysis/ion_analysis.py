@@ -181,6 +181,16 @@ class IonPermeationAnalysis:
                 self._check_ion_position(ion_id, pos, self.channel4, self.ion_states4, self.permeation_events4, ts.frame, False, False)
                 self._check_ion_position(ion_id, pos, self.channel5, self.ion_states5, self.permeation_events5, ts.frame, False, False)
 
+
+    def rename_all_permeation_ion_ids(self):
+        self.permeation_events1 = self.rename_duplicate_ion_ids(self.permeation_events1)
+        self.permeation_events2 = self.rename_duplicate_ion_ids(self.permeation_events2)
+        self.permeation_events3 = self.rename_duplicate_ion_ids(self.permeation_events3)
+        self.permeation_events4 = self.rename_duplicate_ion_ids(self.permeation_events4)
+        self.permeation_events5 = self.rename_duplicate_ion_ids(self.permeation_events5)
+
+        
+
     def print_results(self):
         def print_channel_results(channel_name, ion_states, permeation_events):
             print(f"\nFinal Permeation Events for {channel_name} (1,1 Flags):")
@@ -206,14 +216,35 @@ class IonPermeationAnalysis:
 
             print(f"\nTotal forward permeation events: {len(permeation_events)}")
 
+
         print_channel_results("Channel 1", self.ion_states1, self.permeation_events1)
         print_channel_results("Channel 2", self.ion_states2, self.permeation_events2)
         print_channel_results("Channel 3", self.ion_states3, self.permeation_events3)
         print_channel_results("Channel 4", self.ion_states4, self.permeation_events4)
         print_channel_results("Channel 5", self.ion_states5, self.permeation_events5)
 
+        self.rename_all_permeation_ion_ids()
 
 
+    def rename_duplicate_ion_ids(self, events):
+        """
+        Renames ion_id fields in a list of dictionaries by appending _1, _2, etc.
+        if the same ion_id appears multiple times.
+        """
+        from collections import defaultdict
+
+        counter = defaultdict(int)
+        renamed_events = []
+
+        for event in events:
+            ion_id = event["ion_id"]
+            counter[ion_id] += 1
+            new_ion_id = f"{ion_id}_{counter[ion_id]}"
+            new_event = event.copy()
+            new_event["ion_id"] = new_ion_id
+            renamed_events.append(new_event)
+
+        return renamed_events
 
 
     def fix_permeations(self, residue_clusters):

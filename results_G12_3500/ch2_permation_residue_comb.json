@@ -1,0 +1,300 @@
+{
+  "131, 456, 781, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1661
+    ]
+  },
+  "131, 456, 781, SF": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      235
+    ]
+  },
+  "99, 749, 1074, 1106": {
+    "count": 1,
+    "permeated_residues": [
+      1106
+    ],
+    "frames": [
+      571
+    ]
+  },
+  "131, 131, 456, 1106": {
+    "count": 1,
+    "permeated_residues": [
+      131
+    ],
+    "frames": [
+      382
+    ]
+  },
+  "99, 131, 781": {
+    "count": 1,
+    "permeated_residues": [
+      131
+    ],
+    "frames": [
+      458
+    ]
+  },
+  "131, 749, 781, 1074": {
+    "count": 3,
+    "permeated_residues": [
+      781,
+      781,
+      781
+    ],
+    "frames": [
+      1091,
+      849,
+      1295
+    ]
+  },
+  "99, 456, 749, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      805
+    ]
+  },
+  "456, 749, 781": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1120
+    ]
+  },
+  "131, 749, 781, SF": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1716
+    ]
+  },
+  "99, 131, 749, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1000
+    ]
+  },
+  "131, 456, 749, 781, 1074": {
+    "count": 2,
+    "permeated_residues": [
+      781,
+      781
+    ],
+    "frames": [
+      1416,
+      1331
+    ]
+  },
+  "99, 781, 1074, SF": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1489
+    ]
+  },
+  "99, 131, 749, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      131
+    ],
+    "frames": [
+      1585
+    ]
+  },
+  "99, 781, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1899
+    ]
+  },
+  "99, 456, 749, 1074, 1106": {
+    "count": 1,
+    "permeated_residues": [
+      1106
+    ],
+    "frames": [
+      1638
+    ]
+  },
+  "749, 749, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1811
+    ]
+  },
+  "456, 749, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1842
+    ]
+  },
+  "99, 131, 1074, SF": {
+    "count": 1,
+    "permeated_residues": [
+      131
+    ],
+    "frames": [
+      2151
+    ]
+  },
+  "99, 131, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      2079
+    ]
+  },
+  "131, 781, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1878
+    ]
+  },
+  "131, 131, 781, 1074": {
+    "count": 1,
+    "permeated_residues": [
+      131
+    ],
+    "frames": [
+      1940
+    ]
+  },
+  "99, 131, 749, 1074, SF": {
+    "count": 1,
+    "permeated_residues": [
+      131
+    ],
+    "frames": [
+      2065
+    ]
+  },
+  "131, 749, 781, 781": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      1988
+    ]
+  },
+  "99, 749, 781": {
+    "count": 4,
+    "permeated_residues": [
+      781,
+      781,
+      781,
+      781
+    ],
+    "frames": [
+      2343,
+      2241,
+      2309,
+      2430
+    ]
+  },
+  "99, 781, 781": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      2113
+    ]
+  },
+  "131, 749, 781": {
+    "count": 3,
+    "permeated_residues": [
+      781,
+      781,
+      781
+    ],
+    "frames": [
+      2197,
+      2374,
+      2385
+    ]
+  },
+  "131, 749": {
+    "count": 2,
+    "permeated_residues": [
+      131,
+      131
+    ],
+    "frames": [
+      2537,
+      2605
+    ]
+  },
+  "781": {
+    "count": 4,
+    "permeated_residues": [
+      781,
+      781,
+      781,
+      781
+    ],
+    "frames": [
+      2833,
+      3008,
+      3280,
+      3394
+    ]
+  },
+  "131, 131, 781": {
+    "count": 1,
+    "permeated_residues": [
+      781
+    ],
+    "frames": [
+      2474
+    ]
+  },
+  "749, 781": {
+    "count": 3,
+    "permeated_residues": [
+      781,
+      781,
+      781
+    ],
+    "frames": [
+      2553,
+      2697,
+      2734
+    ]
+  }
+}

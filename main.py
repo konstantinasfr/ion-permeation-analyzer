@@ -43,6 +43,9 @@ def main():
     parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
     parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
 
+    # parser.add_argument("--top_file", default="../GIRK12_WT/RUN1/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../GIRK12_WT/RUN1/protein.nc")
+
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
@@ -144,11 +147,14 @@ def main():
         sf_residues = [101, 426, 751, 1076] 
 
         start_frame = 0
-        # start_frame = 1500
+        start_frame = 3550
         # end_frame = 1000
         end_frame = 6800
+        # end_frame = 3550
 
-        results_dir = Path("results_G12")
+        results_dir = Path("results_G12_RUN1")
+        results_dir = Path("results_G12_3500_6800")
+        results_dir = Path("results_G12_3550_6800_duplicates")
 
     # start_frame = 5414
     # end_frame = 5553
@@ -161,6 +167,8 @@ def main():
     # end_frame = 6799
     # end_frame = 6562
 
+    results_dir.mkdir(exist_ok=True)
+    
     ch1 = Channel(u, upper1, lower1, num=1, radius=11)
     ch2 = Channel(u, upper2, lower2, num=2, radius=15.0)
     ch3 = Channel(u, upper3, lower3, num=3, radius=15.0)
@@ -172,6 +180,7 @@ def main():
                                      sf_low_res_residues=sf_low_res_residues, sf_low_res_diagonal_pairs=sf_low_res_diagonal_pairs)
 
     analyzer.run_analysis()
+    # analyzer.rename_all_permeation_ion_ids()
     analyzer.print_results()
 
     total_distances_dict = {}
@@ -238,7 +247,7 @@ def main():
     # results_dir = Path("results_no_mutations")
     
     # results_dir = Path("results_test")
-    results_dir.mkdir(exist_ok=True)
+    
     force_results_dir = Path(f"{results_dir}/forces")
     force_results_dir.mkdir(exist_ok=True)
     coexisting_ions_results_dir = Path(f"{results_dir}/coexisting_ions_in_channel2")
@@ -251,7 +260,6 @@ def main():
     close_contact_residues_dir.mkdir(exist_ok=True)
     last_frame_forces_dir = Path(f"{ch2_permeation_characteristics_dir}/forces_last_frame")
     last_frame_forces_dir.mkdir(exist_ok=True)
-
 
     with open(results_dir / "hbc_diameters.json", "w") as f:
         json.dump(analyzer.hbc_diameters, f, indent=2)
@@ -468,8 +476,8 @@ def main():
 
         # === Run post-analysis ===
         permeation_analysis.closest_residues_comb_before_permeation(n=-1, use_pdb_format=True, sort_residues=True)
-        permeation_analysis.analyze_cosine_significance(force_results_dir)
-        permeation_analysis.analyze_radial_significance()
+        # permeation_analysis.analyze_cosine_significance(force_results_dir)
+        # permeation_analysis.analyze_radial_significance()
 
         significant_forces(args.channel_type, force_results_dir)
         

@@ -119,11 +119,17 @@ class PermeationAnalyzer:
         for i, event in enumerate(events):
             if event["ion_id"] == target_ion_id:
                 if i == 0:
-                    return 0 # No previous, return own
+                    return self.start_frame # No previous, return own
+                    # return 0 # No previous, return own
                 return events[i - 1]["start_frame"]
         
         return None  # target ion not found
 
+    def _ion_id_exists_in_ch1(self, target_ion_id):
+        """
+        Checks if a given ion_id exists in a list of event dictionaries.
+        """
+        return any(event["ion_id"] == target_ion_id for event in self.ch1_permeation_events)
 
     def run_permeation_analysis(self):
         """
@@ -204,20 +210,12 @@ class PermeationAnalyzer:
         for event in tqdm(self.ch2_permation_residues, desc="Permeation_profile_creator: Analyzing Permeation Events in Channel 2"):
             ion_id_to_find = event["permeated"]
             ch1_start_frame= self._get_previous_start_frame(self.ch2_permeation_events, ion_id_to_find)
-
-            # # Start from the first frame of channel 1 permeation events
-            # ch1_permeation_event = next((item for item in self.ch1_permeation_events if item["ion_id"] == ion_id_to_find), None)
-            # if ch1_permeation_event:
-            #     ch1_start_frame = ch1_permeation_event["start_frame"]                
-            # else:
-            #     print(ion_id_to_find, "not found in ch1_permeation_events")
-            #     ch1_start_frame = event["start_frame"]
-            
-            # # Uncomment if you want to analyze only the last 30 frames before the event
-            # if event["start_frame"] - 30 <0:
-            #     ch1_start_frame = 0
-            # else:
-            #     ch1_start_frame = event["start_frame"] - 30
+            # ion already in the channel - More advanced
+            if not self._ion_id_exists_in_ch1(ion_id_to_find):
+                continue
+            # ###!!!!!!!!!##!##!#!#!#!#!#!#!#!#!#!#!#!#
+            # if ch1_start_frame == 0:
+            #     continue
 
 
 
@@ -285,14 +283,14 @@ class PermeationAnalyzer:
                     )
                 event_force_results["analysis"][frame] = frame_result
 
-                # Radial distance analysis
-                radial_distances_result = analyze_radial_distances(
-                    positions=positions,
-                    permeating_ion_id=event["permeated"],
-                    frame=frame,
-                    channel=self.ch2
-                )
-                event_radial_distances_results["analysis"][frame] = radial_distances_result
+                # # Radial distance analysis
+                # radial_distances_result = analyze_radial_distances(
+                #     positions=positions,
+                #     permeating_ion_id=event["permeated"],
+                #     frame=frame,
+                #     channel=self.ch2
+                # )
+                # event_radial_distances_results["analysis"][frame] = radial_distances_result
 
                 # Closest residues analysis
                 close_residues_result = analyze_close_residues(
@@ -324,7 +322,8 @@ class PermeationAnalyzer:
                     event_force_intervals_results["analysis"][frame] = force_intervals_result
                     del force_intervals_result
 
-                del frame_result, radial_distances_result, close_residues_result
+                # del frame_result, radial_distances_result, close_residues_result
+                del frame_result, close_residues_result
                 gc.collect()                
 
             # Append results per event

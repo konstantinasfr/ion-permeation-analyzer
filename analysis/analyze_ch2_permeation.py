@@ -13,7 +13,7 @@ This script identifies which ions are present and what residues they are closest
 at the exact frame where another ion permeates (i.e., exits the channel).
 """
 
-def get_residues_at_frame(min_results_per_frame: Dict[str, List[Dict[str, Any]]], target_frame: int, pdb_format:bool, channel_type:str) -> Dict[int, int]:
+def get_residues_at_frame(min_results_per_frame, target_frame, pdb_format, channel_type):
     """
     Returns a dictionary of ions and their closest residue at a specific frame.
     Only includes ions that have data at that frame.
@@ -31,9 +31,9 @@ def get_residues_at_frame(min_results_per_frame: Dict[str, List[Dict[str, Any]]]
         for entry in entries:
             if entry.get("frame") == target_frame:
                 if pdb_format:
-                    residues_at_frame[int(ion_id)] = convert_to_pdb_numbering(entry["residue"], channel_type)
+                    residues_at_frame[(ion_id)] = convert_to_pdb_numbering(entry["residue"], channel_type)
                 else:
-                    residues_at_frame[int(ion_id)] = entry["residue"]
+                    residues_at_frame[(ion_id)] = entry["residue"]
                 break
 
     return residues_at_frame
@@ -55,7 +55,7 @@ def find_smallest_start_frame(events, target_ion_id):
     return min(start_frames)
 
 
-def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[str, Any]]], ch2_permeations, end_frame, channel_type) -> List[Dict[str, Any]]:
+def analyze_ch2_permation_residues(min_results_per_frame, ch2_permeations, end_frame, channel_type):
     """
     For each ion, find the frame where it permeates (i.e., its last frame).
     Then collect the residues of all other ions present at that same frame.
@@ -87,7 +87,7 @@ def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[st
             "start_frame": find_smallest_start_frame(ch2_permeations, ion_id),
             "frame": ion_last_frame,
             "ions": residues_at_frame,
-            "permeated": int(ion_id)
+            "permeated": (ion_id)
         })
 
         residues_at_frame = get_residues_at_frame(min_results_per_frame, ion_last_frame, True, channel_type)
@@ -95,7 +95,7 @@ def analyze_ch2_permation_residues(min_results_per_frame: Dict[str, List[Dict[st
             "start_frame": find_smallest_start_frame(ch2_permeations, ion_id),
             "frame": ion_last_frame,
             "ions": residues_at_frame,
-            "permeated": int(ion_id)
+            "permeated": (ion_id)
         })
 
 

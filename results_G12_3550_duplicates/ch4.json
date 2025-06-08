@@ -1,0 +1,302 @@
+[
+  {
+    "ion_id": "1305_1",
+    "start_frame": 0,
+    "exit_frame": 229,
+    "total_time": 229
+  },
+  {
+    "ion_id": "1314_1",
+    "start_frame": 237,
+    "exit_frame": 505,
+    "total_time": 268
+  },
+  {
+    "ion_id": "1316_1",
+    "start_frame": 415,
+    "exit_frame": 462,
+    "total_time": 47
+  },
+  {
+    "ion_id": "1312_1",
+    "start_frame": 465,
+    "exit_frame": 615,
+    "total_time": 150
+  },
+  {
+    "ion_id": "1315_1",
+    "start_frame": 594,
+    "exit_frame": 757,
+    "total_time": 163
+  },
+  {
+    "ion_id": "2299_1",
+    "start_frame": 807,
+    "exit_frame": 835,
+    "total_time": 28
+  },
+  {
+    "ion_id": "2203_1",
+    "start_frame": 854,
+    "exit_frame": 872,
+    "total_time": 18
+  },
+  {
+    "ion_id": "2265_1",
+    "start_frame": 1004,
+    "exit_frame": 1096,
+    "total_time": 92
+  },
+  {
+    "ion_id": "2280_1",
+    "start_frame": 1095,
+    "exit_frame": 1288,
+    "total_time": 193
+  },
+  {
+    "ion_id": "2271_1",
+    "start_frame": 1122,
+    "exit_frame": 1193,
+    "total_time": 71
+  },
+  {
+    "ion_id": "2246_1",
+    "start_frame": 1296,
+    "exit_frame": 1433,
+    "total_time": 137
+  },
+  {
+    "ion_id": "2241_1",
+    "start_frame": 1338,
+    "exit_frame": 1354,
+    "total_time": 16
+  },
+  {
+    "ion_id": "2188_1",
+    "start_frame": 1423,
+    "exit_frame": 1482,
+    "total_time": 59
+  },
+  {
+    "ion_id": "2315_1",
+    "start_frame": 1491,
+    "exit_frame": 1589,
+    "total_time": 98
+  },
+  {
+    "ion_id": "2253_1",
+    "start_frame": 1596,
+    "exit_frame": 1620,
+    "total_time": 24
+  },
+  {
+    "ion_id": "2194_1",
+    "start_frame": 1640,
+    "exit_frame": 1661,
+    "total_time": 21
+  },
+  {
+    "ion_id": "1311_1",
+    "start_frame": 1662,
+    "exit_frame": 1746,
+    "total_time": 84
+  },
+  {
+    "ion_id": "2313_1",
+    "start_frame": 1723,
+    "exit_frame": 1795,
+    "total_time": 72
+  },
+  {
+    "ion_id": "2197_1",
+    "start_frame": 1813,
+    "exit_frame": 1841,
+    "total_time": 28
+  },
+  {
+    "ion_id": "2295_1",
+    "start_frame": 1844,
+    "exit_frame": 1855,
+    "total_time": 11
+  },
+  {
+    "ion_id": "1312_2",
+    "start_frame": 1855,
+    "exit_frame": 1902,
+    "total_time": 47
+  },
+  {
+    "ion_id": "2182_1",
+    "start_frame": 1882,
+    "exit_frame": 1892,
+    "total_time": 10
+  },
+  {
+    "ion_id": "2234_1",
+    "start_frame": 1896,
+    "exit_frame": 1897,
+    "total_time": 1
+  },
+  {
+    "ion_id": "2434_1",
+    "start_frame": 1911,
+    "exit_frame": 1939,
+    "total_time": 28
+  },
+  {
+    "ion_id": "2308_1",
+    "start_frame": 1946,
+    "exit_frame": 1973,
+    "total_time": 27
+  },
+  {
+    "ion_id": "2230_1",
+    "start_frame": 1989,
+    "exit_frame": 2021,
+    "total_time": 32
+  },
+  {
+    "ion_id": "2171_1",
+    "start_frame": 2068,
+    "exit_frame": 2095,
+    "total_time": 27
+  },
+  {
+    "ion_id": "2296_1",
+    "start_frame": 2091,
+    "exit_frame": 2111,
+    "total_time": 20
+  },
+  {
+    "ion_id": "2193_1",
+    "start_frame": 2117,
+    "exit_frame": 2134,
+    "total_time": 17
+  },
+  {
+    "ion_id": "2201_1",
+    "start_frame": 2154,
+    "exit_frame": 2203,
+    "total_time": 49
+  },
+  {
+    "ion_id": "2312_1",
+    "start_frame": 2201,
+    "exit_frame": 2242,
+    "total_time": 41
+  },
+  {
+    "ion_id": "2227_1",
+    "start_frame": 2243,
+    "exit_frame": 2277,
+    "total_time": 34
+  },
+  {
+    "ion_id": "2188_2",
+    "start_frame": 2287,
+    "exit_frame": 2312,
+    "total_time": 25
+  },
+  {
+    "ion_id": "2302_1",
+    "start_frame": 2315,
+    "exit_frame": 2331,
+    "total_time": 16
+  },
+  {
+    "ion_id": "2327_1",
+    "start_frame": 2344,
+    "exit_frame": 2357,
+    "total_time": 13
+  },
+  {
+    "ion_id": "2304_1",
+    "start_frame": 2376,
+    "exit_frame": 2396,
+    "total_time": 20
+  },
+  {
+    "ion_id": "2249_1",
+    "start_frame": 2395,
+    "exit_frame": 2443,
+    "total_time": 48
+  },
+  {
+    "ion_id": "2266_1",
+    "start_frame": 2453,
+    "exit_frame": 2478,
+    "total_time": 25
+  },
+  {
+    "ion_id": "2247_1",
+    "start_frame": 2505,
+    "exit_frame": 2533,
+    "total_time": 28
+  },
+  {
+    "ion_id": "2215_1",
+    "start_frame": 2540,
+    "exit_frame": 2548,
+    "total_time": 8
+  },
+  {
+    "ion_id": "2294_1",
+    "start_frame": 2557,
+    "exit_frame": 2565,
+    "total_time": 8
+  },
+  {
+    "ion_id": "2224_1",
+    "start_frame": 2649,
+    "exit_frame": 2661,
+    "total_time": 12
+  },
+  {
+    "ion_id": "2438_1",
+    "start_frame": 2699,
+    "exit_frame": 2731,
+    "total_time": 32
+  },
+  {
+    "ion_id": "2267_1",
+    "start_frame": 2738,
+    "exit_frame": 2890,
+    "total_time": 152
+  },
+  {
+    "ion_id": "2232_1",
+    "start_frame": 2874,
+    "exit_frame": 2918,
+    "total_time": 44
+  },
+  {
+    "ion_id": "2291_1",
+    "start_frame": 3031,
+    "exit_frame": 3036,
+    "total_time": 5
+  },
+  {
+    "ion_id": "2308_2",
+    "start_frame": 3160,
+    "exit_frame": 3195,
+    "total_time": 35
+  },
+  {
+    "ion_id": "2247_2",
+    "start_frame": 3311,
+    "exit_frame": 3330,
+    "total_time": 19
+  },
+  {
+    "ion_id": "2179_1",
+    "start_frame": 3351,
+    "exit_frame": 3472,
+    "total_time": 121
+  },
+  {
+    "ion_id": "2167_1",
+    "start_frame": 3412,
+    "exit_frame": 3420,
+    "total_time": 8
+  }
+]

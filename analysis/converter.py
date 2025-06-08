@@ -32,3 +32,6 @@ def convert_to_pdb_numbering(residue_id, channel_type):
     else:
         return "SF"
         
+
+def get_first_ion_id_part(ion_id):
+    return ion_id.split('_')[0]

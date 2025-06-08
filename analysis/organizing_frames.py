@@ -236,7 +236,7 @@ def tracking_ion_distances(
     # Convert a flat list of CH2 entry/exit records into a dictionary grouped by ion_id
     ch2_entry_exit_dict = defaultdict(list)
     for entry in ch2_entry_exit_list:
-        ion_id = int(entry['ion_id'])
+        ion_id = (entry['ion_id'])
         ch2_entry_exit_dict[ion_id].append({
             'start_frame': entry['start_frame'],
             'exit_frame': entry['exit_frame']
@@ -250,7 +250,7 @@ def tracking_ion_distances(
 
     for event in permeation_events:
 
-        target_ion = int(event['permeated'])
+        target_ion = (event['permeated'])
         results[target_ion] = []
         end_frame = event['frame']
         start_frame = latest_permeation_bounds[target_ion]['start_frame']
@@ -265,7 +265,7 @@ def tracking_ion_distances(
             for ion_in_ch2 in event["ions"]:
                 if ion_in_ch2 != target_ion:
                     try:
-                        proximate_ions[int(ion_in_ch2)] = ion_ion_dist[ion_in_ch2]
+                        proximate_ions[(ion_in_ch2)] = ion_ion_dist[ion_in_ch2]
                     except KeyError:
                         continue
             results[target_ion].append({
@@ -314,14 +314,13 @@ def plot_ion_distance_traces(distance_data, results_dir):
             frame = entry["frame"]
             for other_ion, distance in entry["distances"].items():
                 records.append({
-                    "target_ion": int(target_ion),
-                    "other_ion": int(other_ion),
+                    "target_ion": (target_ion),
+                    "other_ion": (other_ion),
                     "frame": int(frame),
                     "distance": distance
                 })
 
     df = pd.DataFrame(records)
-
     # Create and save one plot per target ion (full timeline + last 15 frames per other ion)
     for target_ion in df["target_ion"].unique():
         subset = df[df["target_ion"] == target_ion].sort_values("frame")
@@ -525,12 +524,20 @@ def plot_percent_time_by_ion_count(df, folder="./"):
     plt.savefig(output_path, dpi=300)
 
 
+# def parse_ion_string(ion_str):
+#     """
+#     Converts a comma-separated string of ion IDs into a list of integers.
+#     Example: '2400, 2276, 2397, 2399' → [2400, 2276, 2397, 2399]
+#     """
+#     return [int(x.strip()) for x in ion_str.split(",") if x.strip().isdigit()]
+
 def parse_ion_string(ion_str):
     """
-    Converts a comma-separated string of ion IDs into a list of integers.
-    Example: '2400, 2276, 2397, 2399' → [2400, 2276, 2397, 2399]
+    Converts a comma-separated string of ion IDs (e.g., '2400_1, 2276_1')
+    into a list of strings like ['2400_1', '2276_1'].
     """
-    return [int(x.strip()) for x in ion_str.split(",") if x.strip().isdigit()]
+    return [x.strip() for x in ion_str.split(",") if x.strip()]
+
 
 def get_clean_ion_coexistence_table(ion_events, folder="./"):
     """

@@ -1,0 +1,7 @@
+residue_combination,count
+N184.B,5
+D173.A_N184.B_N184.C,2
+E152.D,1
+E152.B_N184.B_N184.D,1
+N184.C,1
+N184.B_N184.C,1

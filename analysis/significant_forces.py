@@ -532,6 +532,7 @@ def significant_forces(channel_type="G2", folder="./significant_forces"):
     json_files = [f for f in os.listdir(json_folder) if f.endswith(".json")]
 
     for filename in tqdm(json_files, desc="Processing JSON force files", total=len(json_files), unit="file"):
+        # print(f"🔄 Processing {filename}")
         json_path = os.path.join(json_folder, filename)
         csv_filename = filename.replace(".json", ".csv")
         csv_path = os.path.join(csv_folder, csv_filename)
@@ -543,6 +544,7 @@ def significant_forces(channel_type="G2", folder="./significant_forces"):
         try:
             df = create_force_dataframe(json_data)
             df.to_csv(csv_path, index=False)
+            
         except Exception as e:
             print(f"❌ Failed to process {filename}: {e}")
             continue
@@ -555,11 +557,16 @@ def significant_forces(channel_type="G2", folder="./significant_forces"):
             print(f"❌ Failed to extract frame info from {filename}: {e}")
             continue
         
-        if permeation_frame == start_stuck_frame or start_stuck_frame == 0:
+        if permeation_frame <= start_stuck_frame:
             continue
         # print(extract_number(filename),json_data["start_frame"], permeation_frame, start_stuck_frame)
         # Analyze
+        
         df_result = analyze_force_vectors(df, permeation_frame, start_stuck_frame)
+        # if filename == "2397_1.json":
+        #     print(permeation_frame, start_stuck_frame)
+        #     print(df)
+        #     print(df_result)
         df_result = df_result.sort_values("delta_magnitude", ascending=False)
         plot_force_magnitudes_for_one_ion(df, extract_number(filename), start_stuck_frame, permeation_frame, channel_type, folder)
         plot_force_magnitude_boxplots_for_one_ion(df, extract_number(filename), start_stuck_frame, permeation_frame, channel_type,folder)

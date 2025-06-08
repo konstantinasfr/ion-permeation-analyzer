@@ -1,6 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 import pandas as pd
+from analysis.converter import convert_to_pdb_numbering, get_first_ion_id_part
 
 # =========================
 # Utility Functions
@@ -260,6 +261,7 @@ def analyze_forces(u, positions, residue_positions, pip2_positions, pip2_resids,
         "sf_contributions": []
     }
 
+    permeating_ion_id = int(get_first_ion_id_part(permeating_ion_id))
     permeating_pos = positions.get(frame, {}).get(permeating_ion_id)
     if permeating_pos is None:
         return result
