@@ -349,14 +349,14 @@ class IonPermeationAnalysis:
             
             if sorted_ion_grouped_frames == []:
                 print(ion_id, ion_grouped_frames)
-            if sorted_ion_grouped_frames[0]["residue"] == "SF":
-                ch2_start = sorted_ion_grouped_frames[0]["end"]+1
-                ######################################################
-                #### make the ch2 json start frame correct too
-                for item in self.permeation_events2:
-                    if item["ion_id"] == ion_id:
-                        item["start_frame"] = ch2_start  
-                ######################################################
+            # if sorted_ion_grouped_frames[0]["residue"] == "SF":
+            #     ch2_start = sorted_ion_grouped_frames[0]["end"]+1
+            #     ######################################################
+            #     #### make the ch2 json start frame correct too
+            #     for item in self.permeation_events2:
+            #         if item["ion_id"] == ion_id:
+            #             item["start_frame"] = ch2_start  
+            #     ######################################################
 
             else:
                 ch2_start = sorted_ion_grouped_frames[0]["start"]
@@ -365,7 +365,7 @@ class IonPermeationAnalysis:
             for group in sorted_ion_grouped_frames[1:]:
                 if group["residue"] == "SF":
                     # if group["end"]-group["start"]+1>10:
-                    if group["end"]-group["start"]+1>3:
+                    if group["end"]-group["start"]+1>10:
                         ch2_fixed.append({
                                     "ion_id": ion_id,
                                     "start_frame": ch2_start,

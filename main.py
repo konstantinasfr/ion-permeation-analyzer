@@ -22,7 +22,7 @@ from analysis.permation_profile_creator import PermeationAnalyzer
 from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations, find_closest_residues_percentage
 from analysis.close_residues_analysis import count_frames_residue_closest, extract_min_mean_distance_pairs, count_frames_pair_closest, plot_start_frame_residue_distribution
 from analysis.significant_forces import significant_forces
-
+from analysis.find_clean_stuck_frames import find_clean_stuck_frames
 
 
 def main():
@@ -451,6 +451,12 @@ def main():
                 with open(force_intervals_path, "w") as f:
                     json.dump(force_intervals_results, f, indent=2)
 
+                for ion_forces in forces_results:
+                    ion_id = ion_forces["permeated_ion"]
+                    with open(force_per_ion_results_dir / f"{ion_id}.json", "w") as f:
+                        json.dump(ion_forces, f, indent=2)        
+
+            
             # === Recalculate everything else, even if loaded ===
             last_frame_forces = extract_last_frame_analysis(forces_results)
             permeation_analysis.last_frame_forces = last_frame_forces
@@ -459,10 +465,7 @@ def main():
             with open(last_frame_forces_dir / "force_results_last_frame.json", "w") as f:
                 json.dump(last_frame_forces, f, indent=2)
 
-            for ion_forces in forces_results:
-                ion_id = ion_forces["permeated_ion"]
-                with open(force_per_ion_results_dir / f"{ion_id}.json", "w") as f:
-                    json.dump(ion_forces, f, indent=2)
+
 
             forces_df = pd.DataFrame(forces_results)
             # forces_df.to_excel(force_results_dir / "force_results.xlsx", index=False)
@@ -485,7 +488,7 @@ def main():
             # permeation_analysis.analyze_radial_significance()
 
             significant_forces(args.channel_type, force_results_dir)
-        
+            find_clean_stuck_frames(force_per_ion_results_dir, force_results_dir, u, sf_residues)
     else:
         print("No permeation events found in channel 2")
 

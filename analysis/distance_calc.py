@@ -133,6 +133,7 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
             sorted_indices = coords[:, 2].argsort()  # sort Z-values
             upper_index = sorted_indices[0]  # second from the end
             atom_indices.append(residue_atoms[upper_index].index)
+            
 
         upper_atoms = u.atoms[atom_indices]
         upper_center = upper_atoms.center_of_mass()

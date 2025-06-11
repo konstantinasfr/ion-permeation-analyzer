@@ -108,7 +108,7 @@ class Channel:
     #     self.channel_center = (self.upper_center + self.lower_center) / 2
 
     def compute_geometry(self, gate_num):
-        offset = 1.33  # adjust this value as needed (in Ångströms)
+        # offset = 1.33  # adjust this value as needed (in Ångströms)
         
         atom_indices = []
         for resid in self.upper_gate_residues:

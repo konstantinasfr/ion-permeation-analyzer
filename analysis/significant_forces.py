@@ -285,6 +285,9 @@ import numpy as np
 import pandas as pd
 from scipy.stats import mannwhitneyu
 
+
+
+
 def analyze_force_vectors(df, permeation_frame, stuck_start_frame):
     """
     Compares force vectors between stuck frames and a given permeation frame.
