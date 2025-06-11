@@ -27,6 +27,7 @@ from analysis.significant_forces import significant_forces
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
+    parser.add_argument("--do_permeation_analysis", default=True)
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
 
@@ -37,11 +38,12 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    # parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
 
-    parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
+    # parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
+    
 
     # parser.add_argument("--top_file", default="../GIRK12_WT/RUN1/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../GIRK12_WT/RUN1/protein.nc")
@@ -49,8 +51,10 @@ def main():
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G12")
+    parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
+
+    data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
 
     u = mda.Universe(args.top_file, args.traj_file)
 
@@ -118,7 +122,7 @@ def main():
         end_frame = 1250
         # end_frame = 1000
 
-        results_dir = Path("results_G2")
+        results_dir = Path(f"{data_path}/results_G2")
 
     elif args.channel_type == "G12":
         upper1 = [107, 432, 757, 1082]
@@ -152,9 +156,9 @@ def main():
         end_frame = 6800
         # end_frame = 3550
 
-        results_dir = Path("results_G12_RUN1")
-        results_dir = Path("results_G12_3500_6800")
-        results_dir = Path("results_G12_3550_6800_duplicates")
+        results_dir = Path(f"{data_path}/results_G12_RUN1")
+        results_dir = Path(f"{data_path}/results_G12_3500_6800")
+        results_dir = Path(f"{data_path}/results_G12_3550_6800_duplicates")
 
     # start_frame = 5414
     # end_frame = 5553
@@ -173,7 +177,7 @@ def main():
     ch2 = Channel(u, upper2, lower2, num=2, radius=15.0)
     ch3 = Channel(u, upper3, lower3, num=3, radius=15.0)
     ch4 = Channel(u, upper4, lower4, num=4, radius=15.0)
-    ch5 = Channel(u, upper5, lower5, num=5, radius=20.0)
+    ch5 = Channel(u, upper5, lower5, num=5, radius=15.0)
 
     analyzer = IonPermeationAnalysis(u, ion_selection="resname K+ K", start_frame=start_frame, end_frame=end_frame, channel1=ch1, channel2=ch2, channel3=ch3, channel4=ch4, channel5=ch5,
                                      hbc_residues=hbc_residues, hbc_diagonal_pairs=hbc_diagonal_pairs,
@@ -373,113 +377,114 @@ def main():
         
         plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
         
-        permeation_analysis = PermeationAnalyzer(
-            ch2_permation_residues=ch2_permation_residues,
-            ch1_permeation_events=analyzer.permeation_events1,
-            ch2_permeation_events=analyzer.permeation_events2,
-            u=u,
-            start_frame=start_frame,
-            end_frame=end_frame,
-            min_results_per_frame=min_results_per_frame,
-            ch2=ch2,
-            close_contacts_dict=close_contacts_dict,
-            total_residue_comb_over_all_frames=total_residue_comb_over_all_frames,
-            glu_residues = glu_residues,
-            asn_residues = asn_residues,
-            sf_residues= sf_residues,
-            cutoff=15.0,
-            calculate_total_force=False,
-            prmtop_file=args.top_file,
-            nc_file=args.traj_file,
-            output_base_dir=ch2_permeation_characteristics_dir
-        )
+        if args.do_permeation_analysis:
+            permeation_analysis = PermeationAnalyzer(
+                ch2_permation_residues=ch2_permation_residues,
+                ch1_permeation_events=analyzer.permeation_events1,
+                ch2_permeation_events=analyzer.permeation_events2,
+                u=u,
+                start_frame=start_frame,
+                end_frame=end_frame,
+                min_results_per_frame=min_results_per_frame,
+                ch2=ch2,
+                close_contacts_dict=close_contacts_dict,
+                total_residue_comb_over_all_frames=total_residue_comb_over_all_frames,
+                glu_residues = glu_residues,
+                asn_residues = asn_residues,
+                sf_residues= sf_residues,
+                cutoff=15.0,
+                calculate_total_force=False,
+                prmtop_file=args.top_file,
+                nc_file=args.traj_file,
+                output_base_dir=ch2_permeation_characteristics_dir
+            )
 
 
 
-        # === Define cached result file paths ===
-        force_results_path = force_results_dir / "force_results.json"
-        radial_distances_path = ch2_permeation_characteristics_dir / "radial_distances_results.json"
-        close_residues_path = ch2_permeation_characteristics_dir / "close_residues_results.json"
-        force_intervals_path = last_frame_forces_dir / "force_intervals_results.json"
+            # === Define cached result file paths ===
+            force_results_path = force_results_dir / "force_results.json"
+            radial_distances_path = ch2_permeation_characteristics_dir / "radial_distances_results.json"
+            close_residues_path = ch2_permeation_characteristics_dir / "close_residues_results.json"
+            force_intervals_path = last_frame_forces_dir / "force_intervals_results.json"
 
-        # === Try to load only the 4 core results ===
-        if (
-            force_results_path.exists()
-            and radial_distances_path.exists()
-            and close_residues_path.exists()
-            and force_intervals_path.exists()
-        ):
-            print("✅ Loaded precomputed core results (forces, radial, close, intervals).")
+            # === Try to load only the 4 core results ===
+            if (
+                force_results_path.exists()
+                and radial_distances_path.exists()
+                and close_residues_path.exists()
+                and force_intervals_path.exists()
+            ):
+                print("✅ Loaded precomputed core results (forces, radial, close, intervals).")
 
-            with open(force_results_path) as f:
-                forces_results = json.load(f)
+                with open(force_results_path) as f:
+                    forces_results = json.load(f)
+                    permeation_analysis.force_results = forces_results
+
+                with open(radial_distances_path) as f:
+                    radial_distances_results = json.load(f)
+                    permeation_analysis.radial_distances_results = radial_distances_results
+
+                with open(close_residues_path) as f:
+                    close_residues_results = json.load(f)
+                    permeation_analysis.close_residues_results = close_residues_results
+
+                with open(force_intervals_path) as f:
+                    force_intervals_results = json.load(f)
+                    permeation_analysis.force_intervals_results = force_intervals_results
+
+            else:
+                print("⚙️ Running full `run_permeation_analysis()`...")
+                forces_results, radial_distances_results, close_residues_results, force_intervals_results = permeation_analysis.run_permeation_analysis()
+
                 permeation_analysis.force_results = forces_results
-
-            with open(radial_distances_path) as f:
-                radial_distances_results = json.load(f)
                 permeation_analysis.radial_distances_results = radial_distances_results
-
-            with open(close_residues_path) as f:
-                close_residues_results = json.load(f)
                 permeation_analysis.close_residues_results = close_residues_results
-
-            with open(force_intervals_path) as f:
-                force_intervals_results = json.load(f)
                 permeation_analysis.force_intervals_results = force_intervals_results
 
-        else:
-            print("⚙️ Running full `run_permeation_analysis()`...")
-            forces_results, radial_distances_results, close_residues_results, force_intervals_results = permeation_analysis.run_permeation_analysis()
+                # Save the 4 core results
+                with open(force_results_path, "w") as f:
+                    json.dump(forces_results, f, indent=2)
+                with open(radial_distances_path, "w") as f:
+                    json.dump(radial_distances_results, f, indent=2)
+                with open(close_residues_path, "w") as f:
+                    json.dump(close_residues_results, f, indent=2)
+                with open(force_intervals_path, "w") as f:
+                    json.dump(force_intervals_results, f, indent=2)
 
-            permeation_analysis.force_results = forces_results
-            permeation_analysis.radial_distances_results = radial_distances_results
-            permeation_analysis.close_residues_results = close_residues_results
-            permeation_analysis.force_intervals_results = force_intervals_results
+            # === Recalculate everything else, even if loaded ===
+            last_frame_forces = extract_last_frame_analysis(forces_results)
+            permeation_analysis.last_frame_forces = last_frame_forces
+            extract_permeation_forces(data=last_frame_forces, output_dir=last_frame_forces_dir)
 
-            # Save the 4 core results
-            with open(force_results_path, "w") as f:
-                json.dump(forces_results, f, indent=2)
-            with open(radial_distances_path, "w") as f:
-                json.dump(radial_distances_results, f, indent=2)
-            with open(close_residues_path, "w") as f:
-                json.dump(close_residues_results, f, indent=2)
-            with open(force_intervals_path, "w") as f:
-                json.dump(force_intervals_results, f, indent=2)
+            with open(last_frame_forces_dir / "force_results_last_frame.json", "w") as f:
+                json.dump(last_frame_forces, f, indent=2)
 
-        # === Recalculate everything else, even if loaded ===
-        last_frame_forces = extract_last_frame_analysis(forces_results)
-        permeation_analysis.last_frame_forces = last_frame_forces
-        extract_permeation_forces(data=last_frame_forces, output_dir=last_frame_forces_dir)
+            for ion_forces in forces_results:
+                ion_id = ion_forces["permeated_ion"]
+                with open(force_per_ion_results_dir / f"{ion_id}.json", "w") as f:
+                    json.dump(ion_forces, f, indent=2)
 
-        with open(last_frame_forces_dir / "force_results_last_frame.json", "w") as f:
-            json.dump(last_frame_forces, f, indent=2)
+            forces_df = pd.DataFrame(forces_results)
+            # forces_df.to_excel(force_results_dir / "force_results.xlsx", index=False)
 
-        for ion_forces in forces_results:
-            ion_id = ion_forces["permeated_ion"]
-            with open(force_per_ion_results_dir / f"{ion_id}.json", "w") as f:
-                json.dump(ion_forces, f, indent=2)
+            top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results)
+            with open(force_results_dir / "top_cosine_ionic_motion.json", "w") as f:
+                json.dump(top_cosine_ionic_motion, f, indent=2)
 
-        forces_df = pd.DataFrame(forces_results)
-        # forces_df.to_excel(force_results_dir / "force_results.xlsx", index=False)
+            df_permeation_frames_forces_with_ions, df_permeation_frames_forces = extract_permeation_frames(forces_results, offset_from_end=1)
+            df_permeation_frames_forces.to_csv(force_results_dir / "permeation_frames_forces.csv", index=False)
+            df_permeation_frames_forces.to_excel(force_results_dir / "permeation_frames_forces.xlsx", index=False)
+            df_permeation_frames_forces_with_ions.to_csv(force_results_dir / "permeation_frames_forces_with_ions.csv", index=False)
+            df_permeation_frames_forces_with_ions.to_excel(force_results_dir / "permeation_frames_forces_with_ions.xlsx", index=False)
 
-        top_cosine_ionic_motion = collect_sorted_cosines_until_permeation(forces_results)
-        with open(force_results_dir / "top_cosine_ionic_motion.json", "w") as f:
-            json.dump(top_cosine_ionic_motion, f, indent=2)
+            print("Saved force results and recalculated dependent outputs.")
 
-        df_permeation_frames_forces_with_ions, df_permeation_frames_forces = extract_permeation_frames(forces_results, offset_from_end=1)
-        df_permeation_frames_forces.to_csv(force_results_dir / "permeation_frames_forces.csv", index=False)
-        df_permeation_frames_forces.to_excel(force_results_dir / "permeation_frames_forces.xlsx", index=False)
-        df_permeation_frames_forces_with_ions.to_csv(force_results_dir / "permeation_frames_forces_with_ions.csv", index=False)
-        df_permeation_frames_forces_with_ions.to_excel(force_results_dir / "permeation_frames_forces_with_ions.xlsx", index=False)
+            # === Run post-analysis ===
+            permeation_analysis.closest_residues_comb_before_permeation(n=-1, use_pdb_format=True, sort_residues=True)
+            # permeation_analysis.analyze_cosine_significance(force_results_dir)
+            # permeation_analysis.analyze_radial_significance()
 
-        print("Saved force results and recalculated dependent outputs.")
-
-        # === Run post-analysis ===
-        permeation_analysis.closest_residues_comb_before_permeation(n=-1, use_pdb_format=True, sort_residues=True)
-        # permeation_analysis.analyze_cosine_significance(force_results_dir)
-        # permeation_analysis.analyze_radial_significance()
-
-        significant_forces(args.channel_type, force_results_dir)
+            significant_forces(args.channel_type, force_results_dir)
         
     else:
         print("No permeation events found in channel 2")

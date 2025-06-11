@@ -520,9 +520,9 @@ def summarize_significant_forces(result_folder, output_plot_path_1, output_plot_
 def significant_forces(channel_type="G2", folder="./significant_forces"):
     
     # Define your data folders
-    json_folder = f"./{folder}/forces_per_ion/"
-    csv_folder = f"./{folder}/csv_per_ion/"
-    result_folder = f"./{folder}/comparison_results/"
+    json_folder = f"{folder}/forces_per_ion/"
+    csv_folder = f"{folder}/csv_per_ion/"
+    result_folder = f"{folder}/comparison_results/"
 
     # Create output folders if they don't exist
     os.makedirs(csv_folder, exist_ok=True)
@@ -573,7 +573,6 @@ def significant_forces(channel_type="G2", folder="./significant_forces"):
 
         # Save result as CSV
         df_result.to_csv(result_csv_path, index=False)
-        # print(f"✅ Saved result to {result_csv_path}")
 
         # Save result as image
         try:

@@ -72,65 +72,84 @@ class Channel:
     #     self.channel_axis = self.channel_vector / self.channel_length
     #     self.channel_center = (self.upper_center + self.lower_center) / 2
 
+    # def compute_geometry(self, gate_num):
+    #     offset = 1.33  # adjust this value as needed (in Ångströms)
+    #     # offset = 0  # adjust this value as needed (in Ångströms)
+    #     atom_indices = []
+    #     for resid in self.upper_gate_residues:
+    #         residue_atoms = self.u.select_atoms(f"resid {resid}")
+    #         coords = residue_atoms.positions
+    #         sorted_indices = coords[:, 2].argsort()  # sort Z-values
+    #         upper_index = sorted_indices[0]  # second from the end
+    #         atom_indices.append(residue_atoms[upper_index].index)
+
+    #     upper_atoms = self.u.atoms[atom_indices]
+    #     self.upper_center = upper_atoms.center_of_mass()
+        
+
+    #     pos = 0
+
+  
+    #     atom_indices = []
+    #     for resid in self.lower_gate_residues:
+    #         residue_atoms = self.u.select_atoms(f"resid {resid}")
+    #         coords = residue_atoms.positions
+    #         sorted_indices = coords[:, 2].argsort()  # sort Z-values
+    #         lowest_index = sorted_indices[pos]  # second from the end
+    #         atom_indices.append(residue_atoms[lowest_index].index)
+
+    #     lowest_atoms = self.u.atoms[atom_indices]
+    #     self.lower_center = lowest_atoms.center_of_mass()
+
+
+    #     self.channel_vector = self.lower_center - self.upper_center
+    #     self.channel_length = np.linalg.norm(self.channel_vector)
+    #     self.channel_axis = self.channel_vector / self.channel_length
+    #     self.channel_center = (self.upper_center + self.lower_center) / 2
+
     def compute_geometry(self, gate_num):
         offset = 1.33  # adjust this value as needed (in Ångströms)
-        # offset = 0  # adjust this value as needed (in Ångströms)
+        
         atom_indices = []
         for resid in self.upper_gate_residues:
-            residue_atoms = self.u.select_atoms(f"resid {resid}")
-            coords = residue_atoms.positions
-            sorted_indices = coords[:, 2].argsort()  # sort Z-values
-            upper_index = sorted_indices[0]  # second from the end
-            atom_indices.append(residue_atoms[upper_index].index)
+            if gate_num in [4, 5]:
+                residue_atoms = self.u.select_atoms(f"resid {resid} and name CA")
+            else:
+                residue_atoms = self.u.select_atoms(f"resid {resid}")
+                coords = residue_atoms.positions
+                sorted_indices = coords[:, 2].argsort()
+                upper_index = sorted_indices[0]
+                residue_atoms = residue_atoms[[upper_index]]
+            atom_indices.append(residue_atoms[0].index)
 
         upper_atoms = self.u.atoms[atom_indices]
         self.upper_center = upper_atoms.center_of_mass()
         
-
-        pos = 0
-
-  
+        # in channel 5 by choosing ca for upper gate and min for lower gate i maximize the distance between upper and lower gates
+        pos = 0  # use pos if you want lowest or second-lowest atom; adjust as needed
         atom_indices = []
         for resid in self.lower_gate_residues:
-            residue_atoms = self.u.select_atoms(f"resid {resid}")
-            coords = residue_atoms.positions
-            sorted_indices = coords[:, 2].argsort()  # sort Z-values
-            lowest_index = sorted_indices[pos]  # second from the end
-            atom_indices.append(residue_atoms[lowest_index].index)
+            if gate_num in [4]:
+                residue_atoms = self.u.select_atoms(f"resid {resid} and name CA")
+            else:
+                residue_atoms = self.u.select_atoms(f"resid {resid}")
+                coords = residue_atoms.positions
+                sorted_indices = coords[:, 2].argsort()
+                lowest_index = sorted_indices[pos]
+                residue_atoms = residue_atoms[[lowest_index]]
+            atom_indices.append(residue_atoms[0].index)
 
         lowest_atoms = self.u.atoms[atom_indices]
         self.lower_center = lowest_atoms.center_of_mass()
 
+        # if gate_num in [5]:
+        #     self.lower_center[2] -= offset
 
         self.channel_vector = self.lower_center - self.upper_center
         self.channel_length = np.linalg.norm(self.channel_vector)
         self.channel_axis = self.channel_vector / self.channel_length
         self.channel_center = (self.upper_center + self.lower_center) / 2
 
-    # def compute_geometry(self, gate_num):
-    #     # Calculate upper gate center from CA atoms
-    #     upper_indices = []
-    #     for resid in self.upper_gate_residues:
-    #         atoms = self.u.select_atoms(f"resid {resid}")
-    #         if len(atoms) > 0:
-    #             upper_indices.append(atoms[0].index)
-    #     upper_atoms = self.u.atoms[upper_indices]
-    #     self.upper_center = upper_atoms.center_of_mass()
-
-    #     # Calculate lower gate center from CA atoms
-    #     lower_indices = []
-    #     for resid in self.lower_gate_residues:
-    #         atoms = self.u.select_atoms(f"resid {resid} and name CA")
-    #         if len(atoms) > 0:
-    #             lower_indices.append(atoms[0].index)
-    #     lower_atoms = self.u.atoms[lower_indices]
-    #     self.lower_center = lower_atoms.center_of_mass()
-
-    #     # Channel geometry
-    #     self.channel_vector = self.lower_center - self.upper_center
-    #     self.channel_length = np.linalg.norm(self.channel_vector)
-    #     self.channel_axis = self.channel_vector / self.channel_length
-    #     self.channel_center = (self.upper_center + self.lower_center) / 2
 
 
 

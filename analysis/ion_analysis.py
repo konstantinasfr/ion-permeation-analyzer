@@ -44,6 +44,8 @@ class IonPermeationAnalysis:
         lower_z = np.dot(channel.lower_center - channel.channel_center, channel.channel_axis)
         in_cylinder = channel.is_within_cylinder(ion_pos)
 
+        # if channel_number==5 and ion_id==2257:
+        #     print(f"Debugging ion_id: {ion_id}, frame: {frame}, in_cylinder: {in_cylinder}")
         if in_cylinder:
             if states[ion_id]['upper_flag'] == 0:
                 states[ion_id]['upper_flag'] = 1
@@ -189,15 +191,66 @@ class IonPermeationAnalysis:
         self.permeation_events4 = self.rename_duplicate_ion_ids(self.permeation_events4)
         self.permeation_events5 = self.rename_duplicate_ion_ids(self.permeation_events5)
 
-        
+    def filter_permeation_events(self, permeation_events_previous, permeation_events_current):
+        """
+        Filters the permeation events to keep only those that are not present in the previous events.
+        """
+        previous_ids = {event['ion_id'] for event in permeation_events_previous}
+        filtered_events = [event for event in permeation_events_current if event['ion_id'] in previous_ids]
+        return filtered_events
+
+       
+    def keep_ions_that_pass_all_channels(self):
+        """
+        Filters the ion states to keep only those ions that have passed through all channels.
+        """
+        self.permeation_events2 = self.filter_permeation_events(self.permeation_events1, self.permeation_events2)
+        self.permeation_events3 = self.filter_permeation_events(self.permeation_events2, self.permeation_events3)
+        self.permeation_events4 = self.filter_permeation_events(self.permeation_events3, self.permeation_events4)
+        self.permeation_events5 = self.filter_permeation_events(self.permeation_events4, self.permeation_events5)
+
+    # def print_results(self):
+    #     def print_channel_results(channel_name, ion_states, permeation_events):
+    #         print(f"\nFinal Permeation Events for {channel_name} (1,1 Flags):")
+    #         print("Ion ID | Start Frame | Exit Frame | Total Time (frames)")
+    #         print("-" * 55)
+
+    #         for ion_id, state in ion_states.items():
+    #             if state['upper_flag'] == 1 and state['lower_flag'] == 1:
+    #                 start_frame = state['upper_flag_frame']
+    #                 exit_frame = state['lower_flag_frame']
+    #                 total_time = exit_frame - start_frame
+    #                 permeation_events.append({
+    #                     'ion_id': int(ion_id),
+    #                     'start_frame': int(start_frame),
+    #                     'exit_frame': int(exit_frame),
+    #                     'total_time': int(total_time)
+    #                 })
+
+    #         permeation_events.sort(key=lambda x: x['start_frame'])
+
+    #         for event in permeation_events:
+    #             print(f"{int(event['ion_id']):6d} | {int(event['start_frame']):11d} | {int(event['exit_frame']):10d} | {int(event['total_time']):10d}")
+
+    #         print(f"\nTotal forward permeation events: {len(permeation_events)}")
+
+
+    #     print_channel_results("Channel 1", self.ion_states1, self.permeation_events1)
+    #     print_channel_results("Channel 2", self.ion_states2, self.permeation_events2)
+    #     print_channel_results("Channel 3", self.ion_states3, self.permeation_events3)
+    #     print_channel_results("Channel 4", self.ion_states4, self.permeation_events4)
+    #     print_channel_results("Channel 5", self.ion_states5, self.permeation_events5)
+
+    #     self.rename_all_permeation_ion_ids()
+
+
 
     def print_results(self):
-        def print_channel_results(channel_name, ion_states, permeation_events):
-            print(f"\nFinal Permeation Events for {channel_name} (1,1 Flags):")
-            print("Ion ID | Start Frame | Exit Frame | Total Time (frames)")
-            print("-" * 55)
-
+        def create_ch_permeation_dict(ion_states, permeation_events):
             for ion_id, state in ion_states.items():
+                # print(f"Processing ion_id: {ion_id}, state: {state}")
+                if int(ion_id) == 2400:
+                    print(f"Debugging ion_id: {ion_id}, state: {state}")
                 if state['upper_flag'] == 1 and state['lower_flag'] == 1:
                     start_frame = state['upper_flag_frame']
                     exit_frame = state['lower_flag_frame']
@@ -211,19 +264,37 @@ class IonPermeationAnalysis:
 
             permeation_events.sort(key=lambda x: x['start_frame'])
 
+        def print_channel_results(channel_name, permeation_events):
+            print(f"\nFinal Permeation Events for {channel_name} (1,1 Flags):")
+            print("Ion ID | Start Frame | Exit Frame | Total Time (frames)")
+            print("-" * 55)
+
             for event in permeation_events:
-                print(f"{int(event['ion_id']):6d} | {int(event['start_frame']):11d} | {int(event['exit_frame']):10d} | {int(event['total_time']):10d}")
+                print(f"{str(event['ion_id'])} | {int(event['start_frame']):11d} | {int(event['exit_frame']):10d} | {int(event['total_time']):10d}")
 
             print(f"\nTotal forward permeation events: {len(permeation_events)}")
 
 
-        print_channel_results("Channel 1", self.ion_states1, self.permeation_events1)
-        print_channel_results("Channel 2", self.ion_states2, self.permeation_events2)
-        print_channel_results("Channel 3", self.ion_states3, self.permeation_events3)
-        print_channel_results("Channel 4", self.ion_states4, self.permeation_events4)
-        print_channel_results("Channel 5", self.ion_states5, self.permeation_events5)
-
+        create_ch_permeation_dict(self.ion_states1, self.permeation_events1)
+        create_ch_permeation_dict(self.ion_states2, self.permeation_events2)
+        create_ch_permeation_dict(self.ion_states3, self.permeation_events3)
+        create_ch_permeation_dict(self.ion_states4, self.permeation_events4)
+        create_ch_permeation_dict(self.ion_states5, self.permeation_events5)
         self.rename_all_permeation_ion_ids()
+        self.keep_ions_that_pass_all_channels()
+        print_channel_results("Channel 1", self.permeation_events1)
+        print_channel_results("Channel 2", self.permeation_events2)
+        print_channel_results("Channel 3", self.permeation_events3)
+        print_channel_results("Channel 4", self.permeation_events4)
+        print_channel_results("Channel 5", self.permeation_events5)
+                   
+       
+        
+
+
+
+
+
 
 
     def rename_duplicate_ion_ids(self, events):
@@ -293,7 +364,8 @@ class IonPermeationAnalysis:
             previous_mean_distance = 0
             for group in sorted_ion_grouped_frames[1:]:
                 if group["residue"] == "SF":
-                    if group["end"]-group["start"]+1>10:
+                    # if group["end"]-group["start"]+1>10:
+                    if group["end"]-group["start"]+1>3:
                         ch2_fixed.append({
                                     "ion_id": ion_id,
                                     "start_frame": ch2_start,
