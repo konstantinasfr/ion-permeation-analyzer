@@ -2,11 +2,11 @@ import MDAnalysis as mda
 import numpy as np
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
+import json
+from tqdm import tqdm
 
 def convert_to_pdb_numbering(residue_id, channel_type):
-    """
-    Converts a residue ID to a PDB-style numbering.
-    """
     if channel_type == "G4":
         residues_per_chain = 325
         offset = 49
@@ -17,35 +17,37 @@ def convert_to_pdb_numbering(residue_id, channel_type):
         residues_per_chain = 325
         offset = 53
 
-    amino_acid_names = {152:"E",
-                       184:"N",
-                       141:"E",
-                       173:"D",
-                       }
+    amino_acid_names = {152: "E", 184: "N", 141: "E", 173: "D"}
+
     if residue_id != "SF":
         residue_id = int(residue_id)
-        chain_number = int(residue_id)//residues_per_chain
+        chain_number = int(residue_id) // residues_per_chain
         if channel_type == "G2":
-            chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
+            chain_dict = {0: "A", 1: "B", 2: "C", 3: "D"}
         elif channel_type == "G12":
-            chain_dict = {0:"D", 1:"C", 2:"B", 3:"A"}
-        pdb_number = residue_id-residues_per_chain*chain_number+offset
-        if channel_type == "G12" and residue_id<=325:
-            pdb_number = residue_id+42
-        return f"{amino_acid_names[pdb_number]}{pdb_number}.{chain_dict[chain_number]}"
+            chain_dict = {0: "D", 1: "C", 2: "B", 3: "A"}
+        pdb_number = residue_id - residues_per_chain * chain_number + offset
+        if channel_type == "G12" and residue_id <= 325:
+            pdb_number = residue_id + 42
+        return f"{amino_acid_names.get(pdb_number, 'X')}{pdb_number}.{chain_dict[chain_number]}"
     else:
         return "SF"
 
-def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type="G4", output_dir="./residue_distances_output"):
+def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type="G4", output_dir="./residue_distances_output", sidechain_only=False):
     os.makedirs(output_dir, exist_ok=True)
 
     sf_group = u.select_atoms("resid " + " ".join(map(str, sf_residues)))
     hbc_group = u.select_atoms("resid " + " ".join(map(str, hbc_residues)))
-    residue_groups = {resid: u.select_atoms(f"resid {resid}") for resid in target_residues}
+
+    if sidechain_only:
+        residue_groups = {resid: u.select_atoms(f"resid {resid} and not name N CA C O HA H") for resid in target_residues}
+    else:
+        residue_groups = {resid: u.select_atoms(f"resid {resid}") for resid in target_residues}
 
     records = []
 
-    for ts in u.trajectory:
+    tqmd_text = "Calculating distances for all atoms" if not sidechain_only else "Calculating distances for sidechains only"
+    for ts in tqdm(u.trajectory, desc=tqmd_text, unit="frame"):
         frame = ts.frame
         sf_com = sf_group.center_of_mass()
         hbc_com = hbc_group.center_of_mass()
@@ -83,32 +85,13 @@ def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, cha
 
     return df
 
-
-import os
-import pandas as pd
-import matplotlib.pyplot as plt
-import json
-
-def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base="./plots"):
-    """
-    Generates 11 plots per residue:
-    - 5 base plots: 3 over time, 2 scatter comparisons
-    - 3 frame-based plots with ion start_frame lines
-    - 3 frame-based plots with ion exit_frame lines
-
-    Parameters:
-        csv_folder (str): Folder with residue CSVs
-        ion_json_path (str): JSON file containing ion permeation events
-        output_base (str): Folder to save plots
-    """
+def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base="./plots", sidechain_only=False):
     os.makedirs(output_base, exist_ok=True)
     csv_files = [f for f in os.listdir(csv_folder) if f.endswith(".csv")]
 
-    # Load ion events
     with open(ion_json_path, "r") as f:
         ion_events = json.load(f)
     start_frames = [e["start_frame"] for e in ion_events]
-    # Exclude the largest exit frame
     all_exit_frames = [e["exit_frame"] for e in ion_events]
     exit_frames = [x for x in all_exit_frames if x != max(all_exit_frames)]
 
@@ -121,28 +104,23 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
             continue
 
         residue_label = df["pdb_label"].iloc[0]
-        residue_folder_name = residue_label.replace(".", "")
+        suffix = "_sidechain" if sidechain_only else "_full"
+        residue_folder_name = residue_label.replace(".", "") + suffix
         plot_dir = os.path.join(output_base, f"plots/{residue_folder_name}")
         os.makedirs(plot_dir, exist_ok=True)
 
-        # Helper to plot a time series with optional vertical lines
         def plot_with_lines(y, ylabel, title, filename, lines=None, color="blue", linecolor="black", linestyle="--", linelabel=None):
             plt.figure()
             plt.plot(df["frame"], df[y], color=color, label="Distance")
-        
-            # Only draw vertical lines if provided
             if lines:
                 for i, x in enumerate(lines):
-                    # Only add label to first line for the legend
                     if i == 0 and linelabel:
                         plt.axvline(x=x, linestyle=linestyle, color=linecolor, linewidth=1, label=linelabel)
                     else:
                         plt.axvline(x=x, linestyle=linestyle, color=linecolor, linewidth=1)
-        
             plt.title(f"{residue_label} – {title}")
             plt.xlabel("Frame")
             plt.ylabel(ylabel)
-            # plt.grid(True)
             if linelabel:
                 plt.legend(loc="best")
             plt.tight_layout()
@@ -150,160 +128,86 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
             plt.close()
 
         def plot_with_2lines(y, ylabel, title, filename,
-                    lines1=None, label1=None, color1="green", style1="--",
-                    lines2=None, label2=None, color2="red", style2="--",
-                    color="blue"):
+                             lines1=None, label1=None, color1="green", style1="--",
+                             lines2=None, label2=None, color2="red", style2="--",
+                             color="blue"):
             plt.figure()
             plt.plot(df["frame"], df[y], color=color, label="Distance")
-
-            # Start frame lines (e.g., ion enters SF)
             if lines1:
                 for i, x in enumerate(lines1):
                     if i == 0 and label1:
                         plt.axvline(x=x, linestyle=style1, color=color1, linewidth=1, label=label1)
                     else:
                         plt.axvline(x=x, linestyle=style1, color=color1, linewidth=1)
-
-            # Exit frame lines (e.g., ion exits GLU/ASN)
             if lines2:
                 for i, x in enumerate(lines2):
                     if i == 0 and label2:
                         plt.axvline(x=x, linestyle=style2, color=color2, linewidth=1, label=label2)
                     else:
                         plt.axvline(x=x, linestyle=style2, color=color2, linewidth=1)
-
             plt.title(f"{residue_label} – {title}")
             plt.xlabel("Frame")
             plt.ylabel(ylabel)
-            # plt.grid(True)
             if label1 or label2:
                 plt.legend(loc="best")
             plt.tight_layout()
             plt.savefig(os.path.join(plot_dir, filename))
             plt.close()
 
-
-
         # === BASIC PLOTS ===
-        plot_with_lines(
-            "com_to_sf_com_distance", "Distance (Å)",
-            "Distance Between Residue COM and SF COM",
-            "1_com_to_sf_com_distance.png", color="blue"
-        )
-        plot_with_lines(
-            "min_atom_to_sf_com_distance", "Distance (Å)",
-            "Closest Atom in Residue to SF COM (per frame)",
-            "2_min_atom_to_sf_com_distance.png", color="blue"
-        )
-        plot_with_lines(
-            "radial_distance", "Radial Distance (Å)",
-            "Radial Distance from Pore Axis (per frame)",
-            "3_radial_distance.png", color="red"
-        )
+        plot_with_lines("com_to_sf_com_distance", "Distance (Å)", "Distance Between Residue COM and SF COM", "1_com_to_sf_com_distance.png")
+        plot_with_lines("min_atom_to_sf_com_distance", "Distance (Å)", "Closest Atom in Residue to SF COM", "2_min_atom_to_sf_com_distance.png")
+        plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance from Pore Axis", "3_radial_distance.png", color="red")
 
-        # === COMPARISON PLOTS ===
         plt.figure()
         plt.scatter(df["min_atom_to_sf_com_distance"], df["radial_distance"], color="purple", s=10)
-        plt.title(f"{residue_label} – Radial vs. Closest Atom Distance to SF COM")
-        plt.xlabel("Minimum Atom-to-SF COM Distance (Å)")
+        plt.title(f"{residue_label} – Radial vs. Closest Atom Distance")
+        plt.xlabel("Min Atom-to-SF COM Distance (Å)")
         plt.ylabel("Radial Distance (Å)")
-        # plt.grid(True)
         plt.tight_layout()
         plt.savefig(os.path.join(plot_dir, "4_min_vs_radial.png"))
         plt.close()
 
         plt.figure()
         plt.scatter(df["com_to_sf_com_distance"], df["radial_distance"], color="orange", s=10)
-        plt.title(f"{residue_label} – Radial vs. COM Distance to SF COM")
+        plt.title(f"{residue_label} – Radial vs. COM Distance")
         plt.xlabel("COM-to-SF COM Distance (Å)")
         plt.ylabel("Radial Distance (Å)")
-        # plt.grid(True)
         plt.tight_layout()
         plt.savefig(os.path.join(plot_dir, "5_com_vs_radial.png"))
         plt.close()
 
-        # === PLOTS WITH START FRAME LINES ===
-        plot_with_lines(
-            "com_to_sf_com_distance", "Distance (Å)",
-            "Distance Between Residue COM and SF COM",
-            "6_com_with_start_lines.png", lines=start_frames, color="blue", linecolor="green", linelabel="Ion leaves SF"
-        )
-        plot_with_lines(
-            "min_atom_to_sf_com_distance", "Distance (Å)",
-            "Min Atom–SF Distance",
-            "7_min_with_start_lines.png", lines=start_frames, color="blue", linecolor="green", linelabel="Ion leaves SF"
-        )
-        plot_with_lines(
-            "radial_distance", "Radial Distance (Å)",
-            "Radial Distance",
-            "8_radial_with_start_lines.png", lines=start_frames, color="red", linecolor="green", linelabel="Ion leaves SF"
-        )
+        # === LINE PLOTS ===
+        plot_with_lines("com_to_sf_com_distance", "Distance (Å)", "Distance Between Residue COM and SF COM", "6_com_with_start_lines.png", lines=start_frames, linecolor="green", linelabel="Ion leaves SF")
+        plot_with_lines("min_atom_to_sf_com_distance", "Distance (Å)", "Min Atom–SF Distance", "7_min_with_start_lines.png", lines=start_frames, linecolor="green", linelabel="Ion leaves SF")
+        plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance", "8_radial_with_start_lines.png", lines=start_frames, color="red", linecolor="green", linelabel="Ion leaves SF")
+        plot_with_lines("com_to_sf_com_distance", "Distance (Å)", "Distance Between Residue COM and SF COM", "9_com_with_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion leaves GLU/ASN")
+        plot_with_lines("min_atom_to_sf_com_distance", "Distance (Å)", "Min Atom–SF Distance", "10_min_with_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion leaves GLU/ASN")
+        plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance", "11_radial_with_exit_lines.png", lines=exit_frames, color="red", linecolor="black", linelabel="Ion leaves GLU/ASN")
 
-        # === PLOTS WITH EXIT FRAME LINES ===
-        plot_with_lines(
-            "com_to_sf_com_distance", "Distance (Å)",
-            "Distance Between Residue COM and SF COM",
-            "9_com_with_exit_lines.png", lines=exit_frames, color="blue", linecolor="black", linelabel="Ion leaves GLU/ASN region"
-        )
-        plot_with_lines(
-            "min_atom_to_sf_com_distance", "Distance (Å)",
-            "Min Atom–SF Distance",
-            "10_min_with_exit_lines.png", lines=exit_frames, color="blue", linecolor="black", linelabel="Ion leaves GLU/ASN region"
-        )
-        plot_with_lines(
-            "radial_distance", "Radial Distance (Å)",
-            "Radial Distance",
-            "11_radial_with_exit_lines.png", lines=exit_frames, color="red", linecolor="black", linelabel="Ion leaves GLU/ASN region"
-        )
+        # === DOUBLE LINE PLOTS ===
+        plot_with_2lines("com_to_sf_com_distance", "Distance (Å)", "COM to SF COM\n(Entry & Exit Events)", "12_com_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
+        plot_with_2lines("min_atom_to_sf_com_distance", "Distance (Å)", "Closest Atom to SF COM\n(Entry & Exit Events)", "13_min_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
+        plot_with_2lines("radial_distance", "Radial Distance (Å)", "Radial Distance from Pore Axis\n(Entry & Exit Events)", "14_radial_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="black")
 
-        # === PLOTS WITH BOTH START AND EXIT LINES ===
-        plot_with_2lines(
-            "com_to_sf_com_distance", "Distance (Å)",
-            "COM to SF COM\n(Entry & Exit Events)",
-            "12_com_with_start_and_exit_lines.png",
-            lines1=start_frames, label1="Ion exits SF",
-            lines2=exit_frames, label2="Ion exits GLU/ASN",
-            color="blue"
-        )
-
-        plot_with_2lines(
-            "min_atom_to_sf_com_distance", "Distance (Å)",
-            "Closest Atom to SF COM\n(Entry & Exit Events)",
-            "13_min_with_start_and_exit_lines.png",
-            lines1=start_frames, label1="Ion exits SF",
-            lines2=exit_frames, label2="Ion exits GLU/ASN",
-            color="blue"
-        )
-
-        plot_with_2lines(
-            "radial_distance", "Radial Distance (Å)",
-            "Radial Distance from Pore Axis\n(Entry & Exit Events)",
-            "14_radial_with_start_and_exit_lines.png",
-            lines1=start_frames, label1="Ion exits SF",
-            lines2=exit_frames, label2="Ion exits GLU/ASN",
-            color="black"
-        )
-
-
-        print(f"✅ All plots saved to: {plot_dir}")
-
-
-
+# === MAIN EXECUTION ===
 channel_type = "G12"
 run_type = 2
+
+# suffix = "_sidechain" if sidechain_only else "_full"
 data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
 
-if channel_type=="G2":
+if channel_type == "G2":
     topology_path = "../Rep0/com_4fs.prmtop"
     trajectory_path = "../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc"
-    output_dir = "./G2_geometry/"
+    output_dir = f"./G2_geometry/"
     ion_json_path = f"{data_path}/results_G2/ch2.json"
     glu_residues = [98, 426, 754, 1082]
     asn_residues = [130, 458, 786, 1114]
     sf_residues = [100, 428, 756, 1084]
     hbc_residues = [138, 466, 794, 1122]
-    
-elif channel_type=="G12":
+
+elif channel_type == "G12":
     topology_path = f"../GIRK12_WT/RUN{run_type}/com_4fs.prmtop"
     trajectory_path = f"../GIRK12_WT/RUN{run_type}/protein.nc"
     output_dir = f"./G12_RUN{run_type}_geometry/"
@@ -311,29 +215,21 @@ elif channel_type=="G12":
         ion_json_path = f"{data_path}/results_G12_duplicates/ch2.json"
     elif run_type == 1:
         ion_json_path = f"{data_path}/results_G12_RUN1/ch2.json"
-
     glu_residues = [99, 424, 749, 1074]
     asn_residues = [131, 456, 781, 1106]
     sf_residues = [101, 426, 751, 1076]
-    hbc_residues = [139, 464, 789, 1114]  
-
+    hbc_residues = [139, 464, 789, 1114]
 
 target_residues = glu_residues + asn_residues
 
 u = mda.Universe(topology_path, trajectory_path)
-df = compute_residue_distances(
-    u,
-    sf_residues=sf_residues,
-    hbc_residues=hbc_residues,
-    target_residues=target_residues,
-    channel_type=channel_type,
-    output_dir=output_dir
-)
 
+sidechain_only = True
+output_dir_final = output_dir + "_sidechain"
+df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type, output_dir, sidechain_only)
+generate_residue_distance_plots_with_ion_lines(f"{output_dir}/csv", ion_json_path, output_base=output_dir, sidechain_only=sidechain_only)
 
-
-generate_residue_distance_plots_with_ion_lines(
-    csv_folder=f"{output_dir}/csv",
-    ion_json_path=ion_json_path,
-    output_base=output_dir
-)
+sidechain_only = False
+output_dir_final = output_dir + "_full"
+df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type, output_dir, sidechain_only)
+generate_residue_distance_plots_with_ion_lines(f"{output_dir}/csv", ion_json_path, output_base=output_dir, sidechain_only=sidechain_only)
