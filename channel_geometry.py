@@ -188,7 +188,7 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
         plot_with_lines("com_to_sf_com_distance", "Distance (Å)", "Distance Between Residue COM and SF COM", "6_com_with_start_lines.png", lines=start_frames, linecolor="green", linelabel="Ion leaves SF")
         plot_with_lines("min_atom_to_sf_com_distance", "Distance (Å)", "Min Atom–SF Distance", "7_min_with_start_lines.png", lines=start_frames, linecolor="green", linelabel="Ion leaves SF")
         plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance", "8_radial_with_start_lines.png", lines=start_frames, color="red", linecolor="green", linelabel="Ion leaves SF")
-        plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance", "8_radial.png", color="darkblue")
+        plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance", "8_radial.png", color="black")
         plot_with_lines("com_to_sf_com_distance", "Distance (Å)", "Distance Between Residue COM and SF COM", "9_com_with_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion leaves GLU/ASN")
         plot_with_lines("min_atom_to_sf_com_distance", "Distance (Å)", "Min Atom–SF Distance", "10_min_with_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion leaves GLU/ASN")
         plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance", "11_radial_with_exit_lines.png", lines=exit_frames, color="red", linecolor="black", linelabel="Ion leaves GLU/ASN")
@@ -203,7 +203,7 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
         plot_with_2lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM\n(Entry & Exit Events)", "18_z_offset_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="darkblue")
         
 # === MAIN EXECUTION ===
-channel_type = "G2"
+channel_type = "G12"
 run_type = 2
 
 # suffix = "_sidechain" if sidechain_only else "_full"
