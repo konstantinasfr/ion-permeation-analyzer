@@ -8,6 +8,10 @@ import pandas as pd
 import dataframe_image as dfi
 from tqdm import tqdm
 
+def strip_json_extension(filename):
+    name, ext = os.path.splitext(filename)
+    return name
+
 def load_json(filepath):
     with open(filepath, 'r') as f:
         return json.load(f)
@@ -128,7 +132,7 @@ def extract_number(s):
     return int(match.group()) if match else None
 
 
-def plot_force_magnitudes_for_one_ion(df, ion_id, stuck_start_frame, permeation_frame, channel_type = "G2",folder="./force_magnitude_plots"):
+def plot_force_magnitudes_for_one_ion(df, ion_id, stuck_frames, permeation_frame, channel_type = "G2",folder="./force_magnitude_plots"):
     """
     Generate histograms of force magnitudes during stuck frames for a single ion.
     Parameters:
@@ -139,7 +143,8 @@ def plot_force_magnitudes_for_one_ion(df, ion_id, stuck_start_frame, permeation_
         output_dir (str): root directory to save plots
     """
     output_dir = f"{folder}/force_magnitude_plots"
-    stuck_frames = list(range(stuck_start_frame, permeation_frame))
+    stuck_start_frame = min(stuck_frames)
+
     df_stuck = df[df["frame"].isin(stuck_frames)]
     df_perm = df[df["frame"] == permeation_frame]
 
@@ -185,7 +190,7 @@ def plot_force_magnitudes_for_one_ion(df, ion_id, stuck_start_frame, permeation_
 import os
 import matplotlib.pyplot as plt
 
-def plot_force_magnitude_boxplots_for_one_ion(df, ion_id, stuck_start_frame, permeation_frame,channel_type = "G2",folder="./force_magnitude_boxplots"):
+def plot_force_magnitude_boxplots_for_one_ion(df, ion_id, stuck_frames, permeation_frame,channel_type = "G2",folder="./force_magnitude_boxplots"):
     """
     Generate boxplots of force magnitudes during stuck frames for a single ion.
     Marks the permeation frame's magnitude with a red line.
@@ -197,7 +202,7 @@ def plot_force_magnitude_boxplots_for_one_ion(df, ion_id, stuck_start_frame, per
         permeation_frame (int): e.g., 706
         output_dir (str): root directory to save plots
     """
-    stuck_frames = list(range(stuck_start_frame, permeation_frame))
+    stuck_start_frame = min(stuck_frames)
     df_stuck = df[df["frame"].isin(stuck_frames)]
     df_perm = df[df["frame"] == permeation_frame]
 
@@ -288,7 +293,7 @@ from scipy.stats import mannwhitneyu
 
 
 
-def analyze_force_vectors(df, permeation_frame, stuck_start_frame):
+def analyze_force_vectors(df, permeation_frame, stuck_frames):
     """
     Compares force vectors between stuck frames and a given permeation frame.
     Performs statistical tests and outlier analysis on force magnitudes.
@@ -301,8 +306,7 @@ def analyze_force_vectors(df, permeation_frame, stuck_start_frame):
     Returns:
     - DataFrame with comparison results and significance metrics
     """
-    stuck_frames = list(range(stuck_start_frame, permeation_frame))
-
+    stuck_start_frame = min(stuck_frames)
     # Label groups
     df["group"] = df["frame"].apply(
         lambda f: "permeation" if f == permeation_frame else
@@ -526,7 +530,9 @@ def significant_forces(channel_type="G2", folder="./significant_forces"):
     json_folder = f"{folder}/forces_per_ion/"
     csv_folder = f"{folder}/csv_per_ion/"
     result_folder = f"{folder}/comparison_results/"
+    stuck_frames_json = f"{folder}/stuck_frames.json"
 
+    stuck_frames_dict = load_json(stuck_frames_json)  # Load stuck frames data to ensure it exists
     # Create output folders if they don't exist
     os.makedirs(csv_folder, exist_ok=True)
     os.makedirs(result_folder, exist_ok=True)
@@ -554,25 +560,23 @@ def significant_forces(channel_type="G2", folder="./significant_forces"):
 
         # Extract permeation and stuck frame info
         try:
-            start_stuck_frame = sorted(map(int, json_data["analysis"].keys()))[0]
+            stuck_frames_list = stuck_frames_dict[strip_json_extension(filename)]
             permeation_frame = json_data["start_frame"] - 1
         except Exception as e:
             print(f"❌ Failed to extract frame info from {filename}: {e}")
             continue
         
-        if permeation_frame <= start_stuck_frame:
-            continue
         # print(extract_number(filename),json_data["start_frame"], permeation_frame, start_stuck_frame)
         # Analyze
         
-        df_result = analyze_force_vectors(df, permeation_frame, start_stuck_frame)
+        df_result = analyze_force_vectors(df, permeation_frame, stuck_frames_list)
         # if filename == "2397_1.json":
         #     print(permeation_frame, start_stuck_frame)
         #     print(df)
         #     print(df_result)
         df_result = df_result.sort_values("delta_magnitude", ascending=False)
-        plot_force_magnitudes_for_one_ion(df, extract_number(filename), start_stuck_frame, permeation_frame, channel_type, folder)
-        plot_force_magnitude_boxplots_for_one_ion(df, extract_number(filename), start_stuck_frame, permeation_frame, channel_type,folder)
+        plot_force_magnitudes_for_one_ion(df, extract_number(filename), stuck_frames_list, permeation_frame, channel_type, folder)
+        plot_force_magnitude_boxplots_for_one_ion(df, extract_number(filename), stuck_frames_list, permeation_frame, channel_type,folder)
 
         # Save result as CSV
         df_result.to_csv(result_csv_path, index=False)

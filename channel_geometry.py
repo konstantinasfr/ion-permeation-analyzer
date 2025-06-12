@@ -33,20 +33,24 @@ def convert_to_pdb_numbering(residue_id, channel_type):
     else:
         return "SF"
 
-def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type="G4", output_dir="./residue_distances_output", sidechain_only=False):
+def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type="G4", output_dir="./residue_distances_output", residue_part="sidechain"):
     os.makedirs(output_dir, exist_ok=True)
 
     sf_group = u.select_atoms("resid " + " ".join(map(str, sf_residues)))
     hbc_group = u.select_atoms("resid " + " ".join(map(str, hbc_residues)))
 
-    if sidechain_only:
+    if residue_part == "sidechain":
         residue_groups = {resid: u.select_atoms(f"resid {resid} and not name N CA C O HA H") for resid in target_residues}
-    else:
+    elif residue_part == "full":
         residue_groups = {resid: u.select_atoms(f"resid {resid}") for resid in target_residues}
+    elif residue_part == "backbone":
+        residue_groups = {resid: u.select_atoms(f"resid {resid} and name N CA C O HA H") for resid in target_residues}
+    else:
+        raise ValueError("Invalid residue_part. Choose from 'sidechain', 'full', or 'backbone'.")
 
     records = []
 
-    tqmd_text = "Calculating distances for all atoms" if not sidechain_only else "Calculating distances for sidechains only"
+    tqmd_text = f"Calculating distances {residue_part} residue"
     for ts in tqdm(u.trajectory, desc=tqmd_text, unit="frame"):
         frame = ts.frame
         sf_com = sf_group.center_of_mass()
@@ -57,6 +61,8 @@ def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, cha
         for resid in target_residues:
             group = residue_groups[resid]
             res_com = group.center_of_mass()
+            z_offset_from_sf = sf_com[2] - res_com[2]  # Adjusted to match the original code logic
+
 
             com_distance = np.linalg.norm(res_com - sf_com)
             min_distance = np.min(np.linalg.norm(group.positions - sf_com, axis=1))
@@ -72,7 +78,8 @@ def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, cha
                 "pdb_label": convert_to_pdb_numbering(resid, channel_type),
                 "com_to_sf_com_distance": com_distance,
                 "min_atom_to_sf_com_distance": min_distance,
-                "radial_distance": radial_distance
+                "radial_distance": radial_distance,
+                "z_offset_from_sf": z_offset_from_sf
             })
 
     df = pd.DataFrame(records)
@@ -85,7 +92,7 @@ def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, cha
 
     return df
 
-def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base="./plots", sidechain_only=False):
+def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base="./plots", residue_part="sidechain"):
     os.makedirs(output_base, exist_ok=True)
     csv_files = [f for f in os.listdir(csv_folder) if f.endswith(".csv")]
 
@@ -104,7 +111,7 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
             continue
 
         residue_label = df["pdb_label"].iloc[0]
-        suffix = "_sidechain" if sidechain_only else "_full"
+        suffix = f"_{residue_part}"
         residue_folder_name = residue_label.replace(".", "") + suffix
         plot_dir = os.path.join(output_base, f"plots/{residue_folder_name}")
         os.makedirs(plot_dir, exist_ok=True)
@@ -184,12 +191,16 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
         plot_with_lines("com_to_sf_com_distance", "Distance (Å)", "Distance Between Residue COM and SF COM", "9_com_with_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion leaves GLU/ASN")
         plot_with_lines("min_atom_to_sf_com_distance", "Distance (Å)", "Min Atom–SF Distance", "10_min_with_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion leaves GLU/ASN")
         plot_with_lines("radial_distance", "Radial Distance (Å)", "Radial Distance", "11_radial_with_exit_lines.png", lines=exit_frames, color="red", linecolor="black", linelabel="Ion leaves GLU/ASN")
+        plot_with_lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM", "15_z_offset_basic.png", color="darkblue")
+        plot_with_lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM", "16_z_offset_start_lines.png", lines=start_frames, linecolor="green", linelabel="Ion exits SF", color="darkblue")
+        plot_with_lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM", "17_z_offset_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion exits GLU/ASN", color="darkblue")
 
         # === DOUBLE LINE PLOTS ===
         plot_with_2lines("com_to_sf_com_distance", "Distance (Å)", "COM to SF COM\n(Entry & Exit Events)", "12_com_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
         plot_with_2lines("min_atom_to_sf_com_distance", "Distance (Å)", "Closest Atom to SF COM\n(Entry & Exit Events)", "13_min_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
         plot_with_2lines("radial_distance", "Radial Distance (Å)", "Radial Distance from Pore Axis\n(Entry & Exit Events)", "14_radial_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="black")
-
+        plot_with_2lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM\n(Entry & Exit Events)", "18_z_offset_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="darkblue")
+        
 # === MAIN EXECUTION ===
 channel_type = "G12"
 run_type = 2
@@ -198,10 +209,10 @@ run_type = 2
 data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
 
 if channel_type == "G2":
-    topology_path = "../Rep0/com_4fs.prmtop"
-    trajectory_path = "../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc"
+    topology_path = "/home/data/Konstantina/Rep0/com_4fs.prmtop"
+    trajectory_path = "/home/data/Konstantina/Rep0/protein.nc"
     output_dir = f"./G2_geometry/"
-    ion_json_path = f"{data_path}/results_G2/ch2.json"
+    ion_json_path = f"{data_path}/results_G2_5000_frames/ch2.json"
     glu_residues = [98, 426, 754, 1082]
     asn_residues = [130, 458, 786, 1114]
     sf_residues = [100, 428, 756, 1084]
@@ -224,12 +235,8 @@ target_residues = glu_residues + asn_residues
 
 u = mda.Universe(topology_path, trajectory_path)
 
-sidechain_only = True
-output_dir_final = output_dir + "_sidechain"
-df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type, output_dir, sidechain_only)
-generate_residue_distance_plots_with_ion_lines(f"{output_dir}/csv", ion_json_path, output_base=output_dir, sidechain_only=sidechain_only)
-
-sidechain_only = False
-output_dir_final = output_dir + "_full"
-df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type, output_dir, sidechain_only)
-generate_residue_distance_plots_with_ion_lines(f"{output_dir}/csv", ion_json_path, output_base=output_dir, sidechain_only=sidechain_only)
+for part in ["sidechain", "full", "backbone"]:
+    df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type=channel_type, output_dir=output_dir, residue_part=part)
+    csv_folder = os.path.join(output_dir, "csv")
+    generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base=output_dir, residue_part=part)
+print("All calculations and plots completed successfully.")

@@ -13,6 +13,11 @@ def load_json(filepath):
     with open(filepath, 'r') as f:
         return json.load(f)
 
+def strip_json_extension(filename):
+    name, ext = os.path.splitext(filename)
+    return name
+
+
 def compute_sf_upper_center(u, sf_residues):
     atom_indices = []
     for resid in sf_residues:
@@ -41,6 +46,9 @@ def find_clean_stuck_frames(json_folder, output_path, u, sf_residues, z_margin=0
         except:
             continue
 
+        if end <= start:
+            continue
+
         clean = []
 
         for ts in u.trajectory[start:end + 1]:
@@ -61,8 +69,8 @@ def find_clean_stuck_frames(json_folder, output_path, u, sf_residues, z_margin=0
             # intruding = any(ion.position[2] > sf_z_cutoff for ion in other_ions)
             intruding = False
             for ion in other_ions:
-                if int(ion_id) == 2223 and int(ion.resid) == 2520:
-                    print(ts.frame, ion.position[2], sf_z_cutoff)
+                # if int(ion_id) == 2223 and int(ion.resid) == 2520:
+                #     print(ts.frame, ion.position[2], sf_z_cutoff)
                 if ion.position[2] > sf_z_cutoff and np.linalg.norm(ion.position - sf_center) < proximity_cutoff:
                     intruding = True
 
@@ -72,7 +80,7 @@ def find_clean_stuck_frames(json_folder, output_path, u, sf_residues, z_margin=0
             else:
                 print(f"Ion {ion_id} at frame {ts.frame} is intruding the SF, skipping.")
 
-        result[str(ion_id)] = clean
+        result[strip_json_extension(json_file)] = clean
 
     os.makedirs(output_path, exist_ok=True)
     with open(os.path.join(output_path, "stuck_frames.json"), "w") as f:

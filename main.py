@@ -38,8 +38,8 @@ def main():
     # parser.add_argument("--top_file", default="../../G4-homotetramer/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../../G4-homotetramer/protein.nc")
 
-    parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
-    parser.add_argument("--traj_file", default="../Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
+    # parser.add_argument("--top_file", default="../Rep0/com_4fs.prmtop")
+    # parser.add_argument("--traj_file", default="../Rep0/protein.nc")
 
     # parser.add_argument("--top_file", default="../GIRK12_WT/RUN2/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="../GIRK12_WT/RUN2/protein.nc")
@@ -56,7 +56,7 @@ def main():
 
     data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
 
-    u = mda.Universe(args.top_file, args.traj_file)
+    
 
     if args.channel_type == "G4":
         upper1 = [106, 431, 756, 1081]
@@ -119,10 +119,14 @@ def main():
         # start_frame = 800
         # start_frame = 5550
         # start_frame = 6500
-        end_frame = 1250
-        # end_frame = 1000
+        # end_frame = 1250
+        end_frame = 5000
 
         results_dir = Path(f"{data_path}/results_G2")
+        results_dir = Path(f"{data_path}/results_G2_5000_frames")
+
+        top_file = Path("/home/data/Konstantina/Rep0/com_4fs.prmtop")
+        traj_file = Path("/home/data/Konstantina/Rep0/protein.nc")
 
     elif args.channel_type == "G12":
         upper1 = [107, 432, 757, 1082]
@@ -151,14 +155,19 @@ def main():
         sf_residues = [101, 426, 751, 1076] 
 
         start_frame = 0
-        start_frame = 3550
+        # start_frame = 3550
         # end_frame = 1000
-        end_frame = 6800
+        # end_frame = 6800
+        end_frame = 1250
         # end_frame = 3550
+
+        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
+        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
 
         results_dir = Path(f"{data_path}/results_G12_RUN1")
         results_dir = Path(f"{data_path}/results_G12_3500_6800")
         results_dir = Path(f"{data_path}/results_G12_3550_6800_duplicates")
+        results_dir = Path(f"{data_path}/results_G12_0_1250")
 
     # start_frame = 5414
     # end_frame = 5553
@@ -170,7 +179,7 @@ def main():
     # # start_frame = 6500
     # end_frame = 6799
     # end_frame = 6562
-
+    u = mda.Universe(top_file, traj_file)
     results_dir.mkdir(exist_ok=True)
     
     ch1 = Channel(u, upper1, lower1, num=1, radius=11)
@@ -199,7 +208,7 @@ def main():
         total_distances_dict = {}
 
         for ion_id_str, frame_data in raw_data.items():
-            ion_id = int(ion_id_str)
+            ion_id = str(ion_id_str)
             total_distances_dict[ion_id] = []
 
             for entry in frame_data:
@@ -211,7 +220,7 @@ def main():
                         for k, v in entry["residues"].items()
                     },
                     "ions": {
-                        int(k): float(v) for k, v in entry["ions"].items()
+                        str(k): float(v) for k, v in entry["ions"].items()
                     }
                 }
                 total_distances_dict[ion_id].append(cleaned_entry)
@@ -394,8 +403,8 @@ def main():
                 sf_residues= sf_residues,
                 cutoff=15.0,
                 calculate_total_force=False,
-                prmtop_file=args.top_file,
-                nc_file=args.traj_file,
+                prmtop_file=top_file,
+                nc_file=traj_file,
                 output_base_dir=ch2_permeation_characteristics_dir
             )
 
@@ -487,8 +496,9 @@ def main():
             # permeation_analysis.analyze_cosine_significance(force_results_dir)
             # permeation_analysis.analyze_radial_significance()
 
-            significant_forces(args.channel_type, force_results_dir)
             find_clean_stuck_frames(force_per_ion_results_dir, force_results_dir, u, sf_residues)
+            significant_forces(args.channel_type, force_results_dir)
+            
     else:
         print("No permeation events found in channel 2")
 
