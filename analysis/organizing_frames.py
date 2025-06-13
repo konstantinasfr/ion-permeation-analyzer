@@ -539,7 +539,7 @@ def parse_ion_string(ion_str):
     return [x.strip() for x in ion_str.split(",") if x.strip()]
 
 
-def get_clean_ion_coexistence_table(ion_events, folder="./"):
+def get_clean_ion_coexistence_table(ion_events, end_frame, folder="./"):
     """
     Creates non-overlapping frame blocks where ions coexisted.
     Each block ends exactly where the next begins.
@@ -566,6 +566,14 @@ def get_clean_ion_coexistence_table(ion_events, folder="./"):
         else:
             if permeation_frames_ion_coexistence[ion_id]["permeation_frame"] < exit_frame:
                 permeation_frames_ion_coexistence[ion_id]["permeation_frame"] = exit_frame
+
+    # Remove ions that permeated exactly at the end frame
+    permeation_frames_ion_coexistence = {
+        ion_id: data
+        for ion_id, data in permeation_frames_ion_coexistence.items()
+        if data["permeation_frame"] < end_frame
+}
+
 
 
     # Step 2: Sort frames and chunk by unique ion sets

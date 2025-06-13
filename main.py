@@ -51,7 +51,7 @@ def main():
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G2")
+    parser.add_argument("--channel_type", default="G12")
     args = parser.parse_args()
 
     data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
@@ -157,8 +157,8 @@ def main():
         start_frame = 0
         # start_frame = 3550
         # end_frame = 1000
-        # end_frame = 6800
-        end_frame = 1250
+        end_frame = 6800
+        # end_frame = 1250
         # end_frame = 3550
 
         top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
@@ -167,7 +167,9 @@ def main():
         results_dir = Path(f"{data_path}/results_G12_RUN1")
         results_dir = Path(f"{data_path}/results_G12_3500_6800")
         results_dir = Path(f"{data_path}/results_G12_3550_6800_duplicates")
-        results_dir = Path(f"{data_path}/results_G12_0_1250")
+        # results_dir = Path(f"{data_path}/results_G12_3550_duplicates")
+        results_dir = Path(f"{data_path}/results_G12_duplicates")
+        # results_dir = Path(f"{data_path}/results_G12_0_1250")
 
     # start_frame = 5414
     # end_frame = 5553
@@ -321,7 +323,7 @@ def main():
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
-    get_clean_ion_coexistence_table(ch2_permeations, coexisting_ions_results_dir)
+    get_clean_ion_coexistence_table(ch2_permeations, end_frame, coexisting_ions_results_dir)
 
     with open(results_dir / "ch2_fixed.json", "w") as f:
         json.dump(ch2_permeations, f, indent=2)

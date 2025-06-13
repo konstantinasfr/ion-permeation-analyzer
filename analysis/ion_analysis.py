@@ -80,13 +80,13 @@ class IonPermeationAnalysis:
                     close_to_dipole = False
                     if channel_number == 2:
                         for resid in channel.lower_gate_residues:  # should be [130, 455, 780, 1105]
-                            # Select the five key atoms in the ASN side chain that contribute to electrostatic interactions
+                            # Select the five key atoms in the ASN side chain that contribute to electrostatic interactions CG OD1 ND2 HD21 HD22
                             asn_atoms = self.u.select_atoms(
-                                f"resid {resid} and name CG OD1 ND2 HD21 HD22"
+                                f"resid {resid}"
                             )
 
                             # Ensure that all 5 atoms are present (sometimes an atom might be missing in a corrupted frame)
-                            if len(asn_atoms) == 5:
+                            if len(asn_atoms) != 0:
                                 # Compute the distance between the ion and each ASN sidechain atom
                                 distances = np.linalg.norm(asn_atoms.positions - ion_pos, axis=1)
 
@@ -115,7 +115,8 @@ class IonPermeationAnalysis:
  #       if ion_id == 2231:
  #           print(f"'Frame: {frame}, channel_num: {channel_number}, upper_flag: {states[ion_id]['upper_flag']}, lower_flag: {states[ion_id]['lower_flag']}")
 
-        if frame == self.end_frame-1 and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
+        # if frame == self.end_frame-1 and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
+        if frame == self.end_frame and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
             states[ion_id]['lower_flag'] = 1
             states[ion_id]['lower_flag_frame'] = frame
 
