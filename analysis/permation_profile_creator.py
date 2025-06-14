@@ -56,7 +56,7 @@ class PermeationAnalyzer:
         """
         all_positions = {}
         ions = self.u.select_atoms(ion_selection)
-        trajectory_slice = self.u.trajectory[self.start_frame:self.end_frame]
+        trajectory_slice = self.u.trajectory[self.start_frame:self.end_frame+1]
 
         for ts in tqdm(trajectory_slice, desc=f"Extracting positions ({self.start_frame}:{self.end_frame})"):
             frame_dict = {ion.resid: ion.position.copy() for ion in ions}
@@ -209,6 +209,7 @@ class PermeationAnalyzer:
 
         for event in tqdm(self.ch2_permation_residues, desc="Permeation_profile_creator: Analyzing Permeation Events in Channel 2"):
             ion_id_to_find = event["permeated"]
+            print(f"Analyzing ion {ion_id_to_find} in channel 2...")
             ch1_start_frame= self._get_previous_start_frame(self.ch2_permeation_events, ion_id_to_find)
             # ion already in the channel - More advanced
             if not self._ion_id_exists_in_ch1(ion_id_to_find):
@@ -253,12 +254,16 @@ class PermeationAnalyzer:
             # frames_to_check = list(range(event["start_frame"], event["frame"] + 1))
             frames_to_check = list(range(ch1_start_frame, event["frame"] + 1))
 
-            for frame in frames_to_check:
+            for frame in tqdm(frames_to_check, desc=f"Analyzing frames for ion {ion_id_to_find}"):
                 # # Skip if ion is near SF in this frame
                 # residue_track = self.min_results_per_frame.get(event["permeated"], [])
                 # is_sf = any(entry["frame"] == frame and entry["residue"] == "SF" for entry in residue_track)
                 # if is_sf:
                 #     continue
+
+                if frame == self.end_frame:
+                    continue
+
 
                 # Force analysis
                 frame_result = analyze_forces(

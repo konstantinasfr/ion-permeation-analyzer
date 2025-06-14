@@ -32,12 +32,23 @@ def compute_sf_upper_center(u, sf_residues):
 
     return upper_atoms.center_of_mass()
 
-def find_clean_stuck_frames(json_folder, output_path, u, sf_residues, z_margin=0.0, proximity_cutoff=2.0):
+def ion_id_total_number_identifier(permeation_events2, ion_id, frame):
+    
+    for event in permeation_events2:
+        if str(ion_id) in event["ion_id"]:
+            if frame>= event["start_frame"] and frame <= event["exit_frame"]:
+                return event["ion_id"]
+    return 0
+            
+
+def find_clean_stuck_frames(permeation_events2, json_folder, output_path, u, sf_residues, z_margin=0.0, proximity_cutoff=2.0):
     json_files = [f for f in os.listdir(json_folder) if f.endswith(".json")]
     result = {}
+    stuck_ions_during_simulation = {}
 
     for json_file in tqdm(json_files, desc="Checking JSONs for clean stuck frames"):
         ion_id = extract_number(json_file)
+        ion_id_total_number = strip_json_extension(json_file)
         data = load_json(os.path.join(json_folder, json_file))
 
         try:
@@ -73,16 +84,27 @@ def find_clean_stuck_frames(json_folder, output_path, u, sf_residues, z_margin=0
                 #     print(ts.frame, ion.position[2], sf_z_cutoff)
                 if ion.position[2] > sf_z_cutoff and np.linalg.norm(ion.position - sf_center) < proximity_cutoff:
                     intruding = True
+                    break
 
             # print(f"Checking ion {ion_id} at frame {ts.frame}, intruding: {intruding}")
             if not intruding:
                 clean.append(ts.frame)
+                stuck_ions_during_simulation[ts.frame] = ion_id_total_number
             else:
+                print(ion.resid)
+                intruding_ion = ion_id_total_number_identifier(permeation_events2, ion.resid, ts.frame)
+                if intruding_ion!= 0:
+                    stuck_ions_during_simulation[ts.frame] = intruding_ion
                 print(f"Ion {ion_id} at frame {ts.frame} is intruding the SF, skipping.")
 
-        result[strip_json_extension(json_file)] = clean
+        result[ion_id_total_number] = clean
 
     os.makedirs(output_path, exist_ok=True)
     with open(os.path.join(output_path, "stuck_frames.json"), "w") as f:
         json.dump(result, f, indent=2)
+
+    with open(os.path.join(output_path, "stuck_ions_during_simulation.json"), "w") as f:
+        json.dump(stuck_ions_during_simulation, f, indent=2)
     print(f"✅ Clean stuck frame results saved to {output_path}/stuck_frames.json")
+
+    return stuck_ions_during_simulation

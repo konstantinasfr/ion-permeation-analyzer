@@ -179,7 +179,7 @@ def close_contact_residues_analysis(data, main_path, channel_type, max_bar_numbe
         plt.savefig(plot_path)
         plt.close()
 
-        print(f"✅ Ion {ion_id}: plot saved to {plot_path}, data to {csv_path}")
+        # print(f"✅ Ion {ion_id}: plot saved to {plot_path}, data to {csv_path}")
 
     # Global summary across all ions
     if total_combo_counts:
@@ -571,7 +571,8 @@ def get_clean_ion_coexistence_table(ion_events, end_frame, folder="./"):
     permeation_frames_ion_coexistence = {
         ion_id: data
         for ion_id, data in permeation_frames_ion_coexistence.items()
-        if data["permeation_frame"] < end_frame
+        if data["permeation_frame"] < end_frame-1  # Exclude ions that permeated at the last frame, -1 because in ch2_fixed we store the last frame in the region
+        # not the exit frame from the region
 }
 
 

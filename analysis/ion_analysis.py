@@ -36,6 +36,7 @@ class IonPermeationAnalysis:
         ion_vec = ion_pos - channel.channel_center
         ion_z = np.dot(ion_vec, channel.channel_axis)
         channel_number = channel.channel_number
+        
 
         if ion_id not in states:
             states[ion_id] = {'upper_flag': 0, 'lower_flag': 0, 'upper_flag_frame': 0, 'lower_flag_frame': 0, 'prev_ion_z': None}
@@ -82,7 +83,7 @@ class IonPermeationAnalysis:
                         for resid in channel.lower_gate_residues:  # should be [130, 455, 780, 1105]
                             # Select the five key atoms in the ASN side chain that contribute to electrostatic interactions CG OD1 ND2 HD21 HD22
                             asn_atoms = self.u.select_atoms(
-                                f"resid {resid}"
+                                f"resid {resid} and not name N CA C O HA H"
                             )
 
                             # Ensure that all 5 atoms are present (sometimes an atom might be missing in a corrupted frame)
@@ -112,13 +113,16 @@ class IonPermeationAnalysis:
 
         states[ion_id]['prev_ion_z'] = ion_z
 
- #       if ion_id == 2231:
- #           print(f"'Frame: {frame}, channel_num: {channel_number}, upper_flag: {states[ion_id]['upper_flag']}, lower_flag: {states[ion_id]['lower_flag']}")
 
         # if frame == self.end_frame-1 and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
         if frame == self.end_frame and states[ion_id]['upper_flag'] == 1 and states[ion_id]['lower_flag'] == 0:
+            print(f"Warning: Ion {ion_id} was still in the channel at the end of the simulation. ")
             states[ion_id]['lower_flag'] = 1
             states[ion_id]['lower_flag_frame'] = frame
+
+        # if ion_id == 2271 and channel_number == 2:
+        #    print(f"'Frame: {frame}, channel_num: {channel_number}, upper_flag: {states[ion_id]['upper_flag']}, lower_flag: {states[ion_id]['lower_flag']}")
+
 
 
     def compute_constriction_point_diameters(self, frame, atoms, diagonal_pairs):
@@ -178,7 +182,7 @@ class IonPermeationAnalysis:
             for ion in self.ions:
                 ion_id = ion.resid
                 pos = ion.position
-                self._check_ion_position(ion_id, pos, self.channel1, self.ion_states1, self.permeation_events1, ts.frame, True, False)
+                self._check_ion_position(ion_id, pos, self.channel1, self.ion_states1, self.permeation_events1, ts.frame, False, False)
                 self._check_ion_position(ion_id, pos, self.channel2, self.ion_states2, self.permeation_events2, ts.frame, False, True)
                 self._check_ion_position(ion_id, pos, self.channel3, self.ion_states3, self.permeation_events3, ts.frame, False, False)
                 self._check_ion_position(ion_id, pos, self.channel4, self.ion_states4, self.permeation_events4, ts.frame, False, False)
@@ -205,7 +209,7 @@ class IonPermeationAnalysis:
         """
         Filters the ion states to keep only those ions that have passed through all channels.
         """
-        self.permeation_events2 = self.filter_permeation_events(self.permeation_events1, self.permeation_events2)
+        # self.permeation_events2 = self.filter_permeation_events(self.permeation_events1, self.permeation_events2)
         self.permeation_events3 = self.filter_permeation_events(self.permeation_events2, self.permeation_events3)
         self.permeation_events4 = self.filter_permeation_events(self.permeation_events3, self.permeation_events4)
         self.permeation_events5 = self.filter_permeation_events(self.permeation_events4, self.permeation_events5)

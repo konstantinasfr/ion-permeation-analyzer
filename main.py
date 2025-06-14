@@ -23,11 +23,14 @@ from analysis.close_residues_analysis import plot_residue_counts, analyze_residu
 from analysis.close_residues_analysis import count_frames_residue_closest, extract_min_mean_distance_pairs, count_frames_pair_closest, plot_start_frame_residue_distribution
 from analysis.significant_forces import significant_forces
 from analysis.find_clean_stuck_frames import find_clean_stuck_frames
+from analysis.force_extractor import analyze_frame_for_ion
+from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json
 
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
-    parser.add_argument("--do_permeation_analysis", default=True)
+    parser.add_argument("--do_permeation_analysis", default=False)
+    parser.add_argument("--do_electric_field_analysis", default=True)
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/protein.nc")
 
@@ -51,13 +54,14 @@ def main():
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G12")
+    parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
 
     data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
 
     
-
+    channel_type = args.channel_type
+    
     if args.channel_type == "G4":
         upper1 = [106, 431, 756, 1081]
         lower1 = [100, 425, 750, 1075]  #sf_residues
@@ -120,7 +124,7 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        end_frame = 5000
+        end_frame = 4999
 
         results_dir = Path(f"{data_path}/results_G2")
         results_dir = Path(f"{data_path}/results_G2_5000_frames")
@@ -155,20 +159,25 @@ def main():
         sf_residues = [101, 426, 751, 1076] 
 
         start_frame = 0
-        # start_frame = 3550
+        # start_frame = 6000
         # end_frame = 1000
-        end_frame = 6800
-        # end_frame = 1250
+        # end_frame = 1200
+        end_frame = 6799
         # end_frame = 3550
 
-        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
-        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
+        # top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
+        # traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
+
+        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
+        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
+
 
         results_dir = Path(f"{data_path}/results_G12_RUN1")
-        results_dir = Path(f"{data_path}/results_G12_3500_6800")
-        results_dir = Path(f"{data_path}/results_G12_3550_6800_duplicates")
+        # results_dir = Path(f"{data_path}/results_G12_3500_6800")
+        # results_dir = Path(f"{data_path}/results_G12_3550_6800_duplicates")
         # results_dir = Path(f"{data_path}/results_G12_3550_duplicates")
-        results_dir = Path(f"{data_path}/results_G12_duplicates")
+        # results_dir = Path(f"{data_path}/results_G12_duplicates")
+        # results_dir = Path(f"{data_path}/results_G12_test")
         # results_dir = Path(f"{data_path}/results_G12_0_1250")
 
     # start_frame = 5414
@@ -275,6 +284,8 @@ def main():
     close_contact_residues_dir.mkdir(exist_ok=True)
     last_frame_forces_dir = Path(f"{ch2_permeation_characteristics_dir}/forces_last_frame")
     last_frame_forces_dir.mkdir(exist_ok=True)
+    electric_field_results_dir = Path(f"{results_dir}/electric_field")
+    electric_field_results_dir.mkdir(exist_ok=True)
 
     with open(results_dir / "hbc_diameters.json", "w") as f:
         json.dump(analyzer.hbc_diameters, f, indent=2)
@@ -498,11 +509,57 @@ def main():
             # permeation_analysis.analyze_cosine_significance(force_results_dir)
             # permeation_analysis.analyze_radial_significance()
 
-            find_clean_stuck_frames(force_per_ion_results_dir, force_results_dir, u, sf_residues)
+            stuck_ions_during_simulation = find_clean_stuck_frames(analyzer.permeation_events2, force_per_ion_results_dir, force_results_dir, u, sf_residues, z_margin=0.0)
             significant_forces(args.channel_type, force_results_dir)
+
+
+            # all_results = {}
+            # # Loop over the mapping and call the function
+            # for frame_str, ion_id in tqdm(stuck_ions_during_simulation.items(), desc="Analyzing stuck ions", unit="ion"):
+            #     frame = int(frame_str)
+            #     try:
+            #         all_results[frame_str] = analyze_frame_for_ion(force_per_ion_results_dir, ion_id, frame)
+            #     except Exception as e:
+            #         print(f"❌ Error processing frame {frame}, ion {ion_id}: {e}")
+
+            # # Save to file
+            # with open(f"{force_results_dir}/stuck_ions_during_simulation_forces.json", "w") as out:
+            #     json.dump(all_results, out, indent=2)
+
+        if args.do_electric_field_analysis:
+            print("⚡ Running electric field analysis...")
+
+            headgroup_atoms = [
+                            "P1", "O1", "O13",        # First phosphate group
+                            "C1", "C2", "C3", "C4", "C5", "C6",  # Inositol ring
+                            "O2", "HO2",              # Hydroxyl group
+                            "O3", "HO3",              # Hydroxyl group
+                            "O6", "HO6",              # Hydroxyl group
+                            "O4P", "P4", "O41", "O42", "O43",   # Second phosphate group
+                            "O5P", "P5", "O51", "O52", "O53"    # Third phosphate group
+                        ]
+
+            run_field_analysis(
+                u, sf_residues, glu_residues, asn_residues,
+                pip2_resname="PIP", headgroup_atoms=headgroup_atoms, exclude_backbone=False,
+                output_path=electric_field_results_dir / "sf_min_atoms_electric_field_results.json",
+                point_strategy="sf_min_atoms"
+            )
             
+            electric_field_plots_dir = Path(f"{electric_field_results_dir}/sf_min_atoms")
+            electric_field_plots_dir.mkdir(exist_ok=True)
+
+            plot_field_magnitudes_from_json(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", analyzer.permeation_events2, electric_field_plots_dir,channel_type)
+
+
+            print("✅ Electric field analysis completed.")
     else:
         print("No permeation events found in channel 2")
+
+
+
+
+
 
 
 if __name__ == "__main__":
