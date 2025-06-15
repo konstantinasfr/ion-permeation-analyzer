@@ -17,7 +17,9 @@ def compute_force(q1, q2, pos1, pos2, k=332):
     q1, q2: Charges
     pos1, pos2: Coordinates of ions
     k: Coulomb constant (kcal·Å/(mol·e²))
-    https://simtk.org/api_docs/simbody/api_docs33/Simbody/html/group__PhysConstants.html?utm_source=chatgpt.com
+    https://simtk.org/api_docs/simbody/api_docs33/Simbody/html/group__PhysConstants.html
+    https://simtk.org/api_docs/simbody/api_docs33/Simbody/html/group__PhysConstants.html#gabf54205837d054a965337502f46e1d65
+    https://ambermd.org/FileFormats.php#:~:text=CHARGE%20%3A%20the%20atom%20charges,section%20of%20the%20prmtop%20file
     It is the Coulomb constant 1/4πε0 is expressed in MD-compatible units, i.e.:
     - Distance in Ångströms
     - Energy in kcal/mol

@@ -24,7 +24,7 @@ from analysis.close_residues_analysis import count_frames_residue_closest, extra
 from analysis.significant_forces import significant_forces
 from analysis.find_clean_stuck_frames import find_clean_stuck_frames
 from analysis.force_extractor import analyze_frame_for_ion
-from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json
+from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json, significance_field_analysis
 
 
 def main():
@@ -54,14 +54,14 @@ def main():
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G2")
+    parser.add_argument("--channel_type", default="G12")
     args = parser.parse_args()
 
     data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
 
     
     channel_type = args.channel_type
-    
+
     if args.channel_type == "G4":
         upper1 = [106, 431, 756, 1081]
         lower1 = [100, 425, 750, 1075]  #sf_residues
@@ -124,13 +124,22 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        end_frame = 4999
+        
+        
 
         results_dir = Path(f"{data_path}/results_G2")
-        results_dir = Path(f"{data_path}/results_G2_5000_frames")
+        
+        
 
         top_file = Path("/home/data/Konstantina/Rep0/com_4fs.prmtop")
         traj_file = Path("/home/data/Konstantina/Rep0/protein.nc")
+        results_dir = Path(f"{data_path}/results_G2_5000_frames")
+        end_frame = 4999
+
+        # top_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
+        # traj_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
+        # results_dir = Path(f"{data_path}/results_G2_CHL_frames")
+        # end_frame = 6799
 
     elif args.channel_type == "G12":
         upper1 = [107, 432, 757, 1082]
@@ -168,15 +177,15 @@ def main():
         # top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
         # traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
 
-        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
-        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
+        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
+        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
 
 
         results_dir = Path(f"{data_path}/results_G12_RUN1")
         # results_dir = Path(f"{data_path}/results_G12_3500_6800")
         # results_dir = Path(f"{data_path}/results_G12_3550_6800_duplicates")
         # results_dir = Path(f"{data_path}/results_G12_3550_duplicates")
-        # results_dir = Path(f"{data_path}/results_G12_duplicates")
+        results_dir = Path(f"{data_path}/results_G12_duplicates")
         # results_dir = Path(f"{data_path}/results_G12_test")
         # results_dir = Path(f"{data_path}/results_G12_0_1250")
 
@@ -540,7 +549,7 @@ def main():
                         ]
 
             run_field_analysis(
-                u, sf_residues, glu_residues, asn_residues,
+                u, sf_residues, hbc_residues, glu_residues, asn_residues,
                 pip2_resname="PIP", headgroup_atoms=headgroup_atoms, exclude_backbone=False,
                 output_path=electric_field_results_dir / "sf_min_atoms_electric_field_results.json",
                 point_strategy="sf_min_atoms"
@@ -551,6 +560,7 @@ def main():
 
             plot_field_magnitudes_from_json(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", analyzer.permeation_events2, electric_field_plots_dir,channel_type)
 
+            significance_field_analysis(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", analyzer.permeation_events2, electric_field_results_dir / "field_leave_sf_frame_values")
 
             print("✅ Electric field analysis completed.")
     else:

@@ -203,17 +203,23 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
         plot_with_2lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM\n(Entry & Exit Events)", "18_z_offset_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="darkblue")
         
 # === MAIN EXECUTION ===
-channel_type = "G12"
+channel_type = "G2"
 run_type = 2
 
 # suffix = "_sidechain" if sidechain_only else "_full"
 data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
 
 if channel_type == "G2":
-    topology_path = "/home/data/Konstantina/Rep0/com_4fs.prmtop"
-    trajectory_path = "/home/data/Konstantina/Rep0/protein.nc"
-    output_dir = f"./G2_geometry/"
-    ion_json_path = f"{data_path}/results_G2_5000_frames/ch2.json"
+    # topology_path = "/home/data/Konstantina/Rep0/com_4fs.prmtop"
+    # trajectory_path = "/home/data/Konstantina/Rep0/protein.nc"
+    # output_dir = f"./G2_geometry/"
+    # ion_json_path = f"{data_path}/results_G2_5000_frames/ch2.json"
+
+    topology_path = "/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop"
+    trajectory_path = "/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc"
+    output_dir = f"./G2_CHL_geometry/"
+    ion_json_path = f"{data_path}/results_G2_CHL_frames/ch2.json"
+
     glu_residues = [98, 426, 754, 1082]
     asn_residues = [130, 458, 786, 1114]
     sf_residues = [100, 428, 756, 1084]
