@@ -101,7 +101,7 @@ class IonPermeationAnalysis:
                                 min_distance = np.min(distances)
 
                                 # If the ion is within 6 Å of any of the atoms, flag it
-                                if min_distance < 6.0:
+                                if min_distance < 10.0:
                                     close_to_dipole = True  # Flag this residue as relevant for force calculation
                                     break  # No need to check more residues — one nearby ASN is enough
 

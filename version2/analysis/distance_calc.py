@@ -40,8 +40,14 @@ def calculate_distances(ion_permeated, analyzer, use_ca_only=True, use_min_dista
 
     # Get start/exit frame for this ion from Channel 2 event list
     start_frame, exit_frame = next(
-        (event['start_frame'], event['exit_frame']) for event in ch2 if event['ion_id'] == ion_id_str
+        (event['start_frame'], event['exit_frame'] ) for event in ch2 if event['ion_id'] == ion_id_str
     )
+
+    ch3_ids = [event['ion_id'] for event in ch3]
+    if ion_id_str in ch3_ids:
+        exit_frame = next(
+            event['exit_frame'] for event in ch3 if event['ion_id'] == ion_id_str
+        )
 
     temp_distances_dict = {ion_id_str: []}
     ions_to_test = get_overlapping_ions(ion_id_str, start_frame, exit_frame, ch1) + \

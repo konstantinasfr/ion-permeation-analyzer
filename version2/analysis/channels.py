@@ -79,7 +79,7 @@ class Channel:
         
         atom_indices = []
         for resid in self.upper_gate_residues:
-            if gate_num in [4, 5]:
+            if gate_num in [1, 3, 4]:
                 residue_atoms = self.u.select_atoms(f"resid {resid} and name CA")
             else:
                 residue_atoms = self.u.select_atoms(f"resid {resid}")
@@ -97,7 +97,7 @@ class Channel:
         pos = 0  # use pos if you want lowest or second-lowest atom; adjust as needed
         atom_indices = []
         for resid in self.lower_gate_residues:
-            if gate_num in [4]:
+            if gate_num in [2, 3, 4]:
                 residue_atoms = self.u.select_atoms(f"resid {resid} and name CA")
             else:
                 residue_atoms = self.u.select_atoms(f"resid {resid}")

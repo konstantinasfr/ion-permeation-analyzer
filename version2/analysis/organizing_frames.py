@@ -17,7 +17,7 @@ def cluster_frames_by_closest_residue(distance_data):
         not_sf_starting = False
 
         SF_only = True
-        for frame_data in frame_list[:-1]:
+        for frame_data in frame_list:
             frame = frame_data["frame"]
             residues = frame_data["residues"]
             closest_residue, closest_distance = min(residues.items(), key=lambda item: item[1])
@@ -25,7 +25,7 @@ def cluster_frames_by_closest_residue(distance_data):
                 SF_only = False
                 break
 
-        for frame_data in frame_list[:-1]:
+        for frame_data in frame_list:
             frame = frame_data["frame"]
             residues = frame_data["residues"]
 
@@ -551,10 +551,10 @@ def get_clean_ion_coexistence_table(ion_events, end_frame, folder="./"):
     for ion in ion_events:
         ion_id = ion["ion_id"]
         exit_frame = ion["exit_frame"]
-        if ion_id == "2304_3":
-            print("LALA")
-            print(end_frame)
-            print(exit_frame)
+        # if ion_id == "1320_1":
+        #     print("LALA")
+        #     print(end_frame)
+        #     print(exit_frame)
     
         # Build frame-by-frame presence
         for frame in range(ion["start_frame"], exit_frame + 1):
@@ -571,6 +571,7 @@ def get_clean_ion_coexistence_table(ion_events, end_frame, folder="./"):
             if permeation_frames_ion_coexistence[ion_id]["permeation_frame"] < exit_frame:
                 permeation_frames_ion_coexistence[ion_id]["permeation_frame"] = exit_frame
 
+    print(permeation_frames_ion_coexistence)
     # Remove ions that permeated exactly at the end frame
     permeation_frames_ion_coexistence = {
         ion_id: data
@@ -615,7 +616,10 @@ def get_clean_ion_coexistence_table(ion_events, end_frame, folder="./"):
     df = pd.DataFrame(result)
     df["ions"] = df["ions"].apply(lambda x: ", ".join(map(str, x)))  # Clean formatting
 
+    df.to_csv(f"{folder}/ion_coexistence.csv", index=False)
+
     for ion_id, ion_perm_event in permeation_frames_ion_coexistence.items():
+        print(ion_id, ion_perm_event)
         permation_frame = ion_perm_event['permeation_frame']
         coexisting_ions = df[df["end"] == permation_frame]["ions"].values[0]
         coexisting_ions_list = parse_ion_string(coexisting_ions)

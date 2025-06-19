@@ -270,7 +270,17 @@ class IonPermeationAnalysis:
 
     #     self.rename_all_permeation_ion_ids()
 
-
+    def create_cavity_dict(self):
+        self.cavity_events = []
+        for event2 in self.permeation_events2:
+            for event3 in self.permeation_events3:
+                if event2['ion_id'] == event3['ion_id']:
+                    self.cavity_events = {
+                        'ion_id': event2['ion_id'],
+                        "start_frame": event2['start_frame'],
+                        "exit_frame": event3['exit_frame'],
+                        "total_time": event3['exit_frame'] - event2['start_frame']
+                    }
 
     def print_results(self):
         def create_ch_permeation_dict(ion_states, permeation_events):
@@ -314,6 +324,7 @@ class IonPermeationAnalysis:
         print_channel_results("Channel 3", self.permeation_events3)
         print_channel_results("Channel 4", self.permeation_events4)
         # print_channel_results("Channel 5", self.permeation_events5)
+        self.create_cavity_dict()
 
         self.plot_residue_distances(self.hbc_diameters, self.results_dir, "hbc_pairs_distances.png", "HBC Residue Pair Distances Over Time", "exit_frame")
         self.plot_residue_distances(self.sf_low_res_diameters, self.results_dir, "sf_pairs_distances.png", "SF Residue Pair Distances Over Time", "start_frame")
@@ -396,8 +407,8 @@ class IonPermeationAnalysis:
                                 })
                         ch2_start = group["end"]+1
 
-                elif group["mean_distance"] > 10.0:
-                    if previous_mean_distance < 10.0:
+                elif group["mean_distance"] > 15.0:
+                    if previous_mean_distance < 15.0:
                         ch2_fixed.append({
                             "ion_id": ion_id,
                             "start_frame": ch2_start,

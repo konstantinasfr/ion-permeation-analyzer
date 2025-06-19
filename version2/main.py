@@ -252,10 +252,10 @@ def main():
         print("🚀 Calculating distances...")
         total_distances_dict = {}
 
-        for ion_in_ch2 in tqdm(analyzer.permeation_events2, total=len(analyzer.permeation_events2),
+        for ion_in_cavity in tqdm(analyzer.permeation_events2, total=len(analyzer.permeation_events2),
                             desc="Calculating Distances", unit="ion"):
             temp_distances_dict = calculate_distances(
-                ion_in_ch2, analyzer, use_ca_only=False, use_min_distances=False, use_charges=True,
+                ion_in_cavity, analyzer, use_ca_only=False, use_min_distances=False, use_charges=True,
                 glu_residues=glu_residues, asn_residues=asn_residues, sf_residues=sf_residues
             )
             total_distances_dict.update(temp_distances_dict)
@@ -320,6 +320,9 @@ def main():
     with open(results_dir / "ch5.json", "w") as f:
         json.dump(analyzer.permeation_events5, f, indent=2)
 
+    with open(results_dir / "cavity_events.json", "w") as f:
+        json.dump(analyzer.cavity_events, f, indent=2)
+
     #     # Save total_distances_dict to JSON
     # with open(results_dir / "distances_ca.json", "w") as f:
     #     json.dump(total_distances_dict_ca, f, indent=2)
@@ -346,10 +349,10 @@ def main():
 
     ch2_permeations = analyzer.fix_permeations(residue_clusters)
 
-    get_clean_ion_coexistence_table(ch2_permeations, end_frame, coexisting_ions_results_dir)
-
     with open(results_dir / "ch2_fixed.json", "w") as f:
         json.dump(ch2_permeations, f, indent=2)
+
+    get_clean_ion_coexistence_table(ch2_permeations, end_frame, coexisting_ions_results_dir)
 
     with open(results_dir / "min_results_per_frame.json", "w") as f:
         json.dump(min_results_per_frame, f, indent=2)

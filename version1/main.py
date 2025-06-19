@@ -203,7 +203,7 @@ def main():
     u = mda.Universe(top_file, traj_file)
     results_dir.mkdir(exist_ok=True)
     
-    ch1 = Channel(u, upper1, lower1, num=1, radius=11)
+    ch1 = Channel(u, upper1, lower1, num=1, radius=2.5)
     ch2 = Channel(u, upper2, lower2, num=2, radius=15.0)
     ch3 = Channel(u, upper3, lower3, num=3, radius=15.0)
     ch4 = Channel(u, upper4, lower4, num=4, radius=15.0)
