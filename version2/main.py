@@ -104,7 +104,8 @@ def main():
         lower3 = [138, 466, 794, 1122] #hbc_residues
 
         upper4 = [138, 466, 794, 1122] #hbc_residues
-        lower4 = [265, 593, 921, 1249]
+        lower4 = [259, 587, 915, 1243] #lower gloop
+        # lower4 = [265, 593, 921, 1249]
 
         upper5 = [265, 593, 921, 1249] #upper gloop
         lower5 = [259, 587, 915, 1243] #lower gloop
@@ -139,8 +140,8 @@ def main():
         top_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
         traj_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
         results_dir = Path(f"{data_path}/results_G2_CHL_frames")
-        # end_frame = 6799
-        end_frame = 1600
+        end_frame = 6799
+        # end_frame = 1600
 
     elif args.channel_type == "G12":
         upper1 = [107, 432, 757, 1082]
@@ -204,7 +205,7 @@ def main():
     u = mda.Universe(top_file, traj_file)
     results_dir.mkdir(exist_ok=True)
     
-    ch1 = Channel(u, upper1, lower1, num=1, radius=11)
+    ch1 = Channel(u, upper1, lower1, num=1, radius=2.5)
     ch2 = Channel(u, upper2, lower2, num=2, radius=15.0)
     ch3 = Channel(u, upper3, lower3, num=3, radius=15.0)
     ch4 = Channel(u, upper4, lower4, num=4, radius=15.0)

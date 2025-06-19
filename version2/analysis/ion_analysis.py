@@ -75,6 +75,7 @@ class IonPermeationAnalysis:
                         'total_time': int(total_time)
                     })
                     states[ion_id]['upper_flag_frame'] = frame
+                    states[ion_id]['lower_flag_frame'] = 0
                 states[ion_id]['lower_flag'] = 0
 
        
@@ -103,9 +104,9 @@ class IonPermeationAnalysis:
             states[ion_id]['lower_flag'] = 1
             states[ion_id]['lower_flag_frame'] = frame  # keep the end_fram as frame so that we can identify it latter
 
-        if ion_id == 1317 and channel_number <= 1:
-           print(f"'Frame: {frame}, channel_num: {channel_number}, upper_flag: {states[ion_id]['upper_flag']}, lower_flag: {states[ion_id]['lower_flag']}, exit_frame:{states[ion_id]['lower_flag_frame']}, insertion:{states[ion_id]['upper_flag_frame']}")
-           print(upper_z, lower_z,ion_z)
+        # if ion_id == 1317 and channel_number <= 1:
+        #    print(f"'Frame: {frame}, channel_num: {channel_number}, upper_flag: {states[ion_id]['upper_flag']}, lower_flag: {states[ion_id]['lower_flag']}, exit_frame:{states[ion_id]['lower_flag_frame']}, insertion:{states[ion_id]['upper_flag_frame']}")
+        #    print(in_cylinder, upper_z, lower_z,ion_z)
 
 
     def compute_constriction_point_diameters(self, frame, atoms, diagonal_pairs):
@@ -189,8 +190,15 @@ class IonPermeationAnalysis:
                 filtered_events.append(event)
                 continue
             for prev_event in permeation_events_previous:
-                if event['ion_id'] == prev_event['ion_id'] and event["start_frame"] == prev_event["exit_frame"]+1:
-                    filtered_events.append(event)
+                if event['ion_id'] == prev_event['ion_id']:
+                    if abs(event["start_frame"] -prev_event["exit_frame"]+1)<50:
+                        updated_event = {
+                                    'ion_id':event['ion_id'],
+                                    'start_frame': prev_event['exit_frame']+1,
+                                    'exit_frame':event['exit_frame'],
+                                    'total_time':event['exit_frame']- prev_event['exit_frame']+1
+                        }
+                        filtered_events.append(updated_event)
             
         # previous_ids = {event['ion_id'] for event in permeation_events_previous}
         # filtered_events = [event for event in permeation_events_current if event['ion_id'] in previous_ids]
@@ -223,7 +231,7 @@ class IonPermeationAnalysis:
         """
         Filters the ion states to keep only those ions that have passed through all channels.
         """
-        # self.permeation_events2 = self.filter_permeation_events(self.permeation_events1, self.permeation_events2, 2)
+        self.permeation_events2 = self.filter_permeation_events(self.permeation_events1, self.permeation_events2, 2)
         self.permeation_events3 = self.filter_permeation_events(self.permeation_events2, self.permeation_events3, 3)
         self.permeation_events4 = self.filter_permeation_events(self.permeation_events3, self.permeation_events4, 4)
         self.permeation_events5 = self.filter_permeation_events(self.permeation_events4, self.permeation_events5, 5)
@@ -305,7 +313,7 @@ class IonPermeationAnalysis:
         print_channel_results("Channel 2", self.permeation_events2)
         print_channel_results("Channel 3", self.permeation_events3)
         print_channel_results("Channel 4", self.permeation_events4)
-        print_channel_results("Channel 5", self.permeation_events5)
+        # print_channel_results("Channel 5", self.permeation_events5)
 
         self.plot_residue_distances(self.hbc_diameters, self.results_dir, "hbc_pairs_distances.png", "HBC Residue Pair Distances Over Time", "exit_frame")
         self.plot_residue_distances(self.sf_low_res_diameters, self.results_dir, "sf_pairs_distances.png", "SF Residue Pair Distances Over Time", "start_frame")
