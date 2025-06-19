@@ -18,13 +18,14 @@ from analysis.force_analysis import collect_sorted_cosines_until_permeation
 from analysis.force_analysis import extract_permeation_frames, extract_last_frame_analysis, extract_permeation_forces
 import json
 import pandas as pd
+import os
 from analysis.permation_profile_creator import PermeationAnalyzer
 from analysis.close_residues_analysis import plot_residue_counts, analyze_residue_combinations, find_closest_residues_percentage
 from analysis.close_residues_analysis import count_frames_residue_closest, extract_min_mean_distance_pairs, count_frames_pair_closest, plot_start_frame_residue_distribution
 from analysis.significant_forces import significant_forces
 from analysis.find_clean_stuck_frames import find_clean_stuck_frames
 from analysis.force_extractor import analyze_frame_for_ion
-from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json, significance_field_analysis
+from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json, significance_field_analysis, generate_electric_field_heatmap_along_axis
 from analysis.best_alignment import run_best_combo_per_ion_from_json
 
 
@@ -125,7 +126,7 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        
+        run_number = 7
         
 
         results_dir = Path(f"{data_path}/results_G2")
@@ -137,10 +138,16 @@ def main():
         # results_dir = Path(f"{data_path}/results_G2_5000_frames")
         # end_frame = 4999
 
-        top_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
-        traj_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
-        results_dir = Path(f"{data_path}/results_G2_CHL_frames")
-        end_frame = 6799
+        if run_number ==2:
+            top_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
+            traj_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
+            results_dir = Path(f"{data_path}/results_G2_CHL_frames")
+            end_frame = 6799
+        else:
+            top_file = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_number}/com_4fs.prmtop")
+            traj_file = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_number}/protein.nc")
+            results_dir = Path(f"{data_path}/results_G2_CHL_RUN{run_number}")
+            end_frame = 6799
 
     elif args.channel_type == "G12":
         upper1 = [107, 432, 757, 1082]
@@ -171,17 +178,18 @@ def main():
         start_frame = 0
         # start_frame = 6000
         # end_frame = 1000
-        # end_frame = 1200
-        end_frame = 6799
+        end_frame = 1250
+        # end_frame = 6799
         # end_frame = 3550
 
-        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
-        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
-        results_dir = Path(f"{data_path}/results_G12_RUN1")
+        # top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
+        # traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
+        # results_dir = Path(f"{data_path}/results_G12_RUN1")
 
-        # top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
-        # traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
-        # results_dir = Path(f"{data_path}/results_G12_duplicates")
+        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
+        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
+        results_dir = Path(f"{data_path}/results_G12_duplicates")
+        results_dir = Path(f"{data_path}/results_G12_0_1250")
 
         
         # results_dir = Path(f"{data_path}/results_G12_3500_6800")
@@ -287,6 +295,8 @@ def main():
     force_results_dir.mkdir(exist_ok=True)
     coexisting_ions_results_dir = Path(f"{results_dir}/coexisting_ions_in_channel2")
     coexisting_ions_results_dir.mkdir(exist_ok=True)
+    alignment_results_dir = Path(f"{results_dir}/alignment")
+    alignment_results_dir.mkdir(exist_ok=True)
     force_per_ion_results_dir = Path(f"{force_results_dir}/forces_per_ion")
     force_per_ion_results_dir.mkdir(exist_ok=True)
     ch2_permeation_characteristics_dir = Path(f"{results_dir}/ch2_permeation_characteristics")
@@ -564,9 +574,29 @@ def main():
 
             significance_field_analysis(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", analyzer.permeation_events2, electric_field_results_dir / "field_leave_sf_frame_values")
 
+
+            generate_electric_field_heatmap_along_axis(
+                u, sf_residues,
+                hbc_residues,
+                glu_residues,
+                asn_residues,
+                pip2_resname="PIP",
+                headgroup_atoms=headgroup_atoms,
+                exclude_backbone=False, 
+                start=start_frame, 
+                end=end_frame,
+                channel_type = channel_type,
+                n_points=20,
+                mode="axial",  # or "magnitude"
+                output_dir=electric_field_results_dir
+            )
+
             print("✅ Electric field analysis completed.")
 
-        run_best_combo_per_ion_from_json(f"{force_results_dir}/csv_per_ion", analyzer.permeation_events2, results_dir, source_filter="residue", channel_type=channel_type)
+
+
+        if os.path.exists(f"{force_results_dir}/csv_per_ion"):
+            run_best_combo_per_ion_from_json(f"{force_results_dir}/csv_per_ion", analyzer.permeation_events2, alignment_results_dir, source_filter=['residue', 'pip', 'ionic_up'], channel_type=channel_type)
     else:
         print("No permeation events found in channel 2")
 

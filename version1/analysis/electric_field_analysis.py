@@ -8,6 +8,7 @@ import os
 import json
 import numpy as np
 from tqdm import tqdm
+import matplotlib.cm as cm
 
 
 def compute_electric_field_at_point(point, atom_positions, atom_charges, k=332):
@@ -485,3 +486,128 @@ def significance_field_analysis(field_json_path,ion_events, output_folder):
         print(f"=== {label} ===")
         print(f"  Magnitude: U={mag_stat:.2f}, p={mag_p:.4f} -> {'Significant ✅' if mag_p < 0.05 else 'Not significant ❌'}")
         print(f"  Axial    : U={axial_stat:.2f}, p={axial_p:.4f} -> {'Significant ✅' if axial_p < 0.05 else 'Not significant ❌'}\n")
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm, colors as mcolors
+from tqdm import tqdm
+import os
+
+
+def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
+                                 pip2_resname, headgroup_atoms, exclude_backbone,
+                                 ion_selection="resname K+ K", n_points=20,
+                                 start=0, end=None, channel_type="G2", k=332,
+                                 mode="axial",  # or "magnitude"
+                                 output_dir="field_heatmaps"):
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    # === Detect PIP2 ===
+    pip2_resids = detect_pip2_resids(u, pip2_resname)
+
+    # === Find Z-range ===
+    def mean_z(residues):
+        return np.mean([u.select_atoms(f"resid {resid}").center_of_mass()[2] for resid in residues])
+
+    z_top = max(mean_z(sf_residues), mean_z(glu_residues))  # Start from GLU if above SF
+    z_bottom = mean_z(hbc_residues)
+
+    axis_vector = np.array([0, 0, z_bottom - z_top])
+    axis_unit_vector = axis_vector / np.linalg.norm(axis_vector)
+    points_along_axis = [np.array([0, 0, z_top]) + i * axis_vector / (n_points - 1) for i in range(n_points)]
+
+    if end is None:
+        end = len(u.trajectory)
+
+    # === Which source types to compute ===
+    field_sources = {
+        "total": "GLU + ASN + PIP2 + Ions",
+        "total_no_ions": "GLU + ASN + PIP2",
+        "total_asn_glu": "GLU + ASN",
+        "total_glu": "GLU Only",
+        "total_asn": "ASN Only"
+    }
+
+    # === For each field source ===
+    for key, label in field_sources.items():
+        print(f"📊 Computing heatmap: {label}")
+        heatmap_matrix = []
+
+        for ts in tqdm(u.trajectory[start:end], desc=label):
+            frame_values = []
+            for point in points_along_axis:
+                result = compute_frame_field(
+                    u, ts.frame, point, glu_residues, asn_residues,
+                    pip2_resids, exclude_backbone, headgroup_atoms,
+                    axis_unit_vector, ion_selection, k
+                )
+                result = add_totals_to_result(result, axis_unit_vector)
+                value = result.get(key, {}).get(mode, 0)
+                frame_values.append(value)
+            heatmap_matrix.append(frame_values)
+
+        heatmap_matrix = np.array(heatmap_matrix).T  # rows = axis points, cols = frames
+
+        # === Compute mean Z-position per residue ===
+        def compute_residue_mean_z(residue_ids):
+            z_sums = {resid: 0.0 for resid in residue_ids}
+            counts = {resid: 0 for resid in residue_ids}
+            for ts in u.trajectory[start:end]:
+                for resid in residue_ids:
+                    atoms = u.select_atoms(f"resid {resid}")
+                    if len(atoms) > 0:
+                        z = atoms.center_of_mass()[2]
+                        z_sums[resid] += z
+                        counts[resid] += 1
+            return {resid: z_sums[resid] / counts[resid] for resid in residue_ids if counts[resid] > 0}
+
+        glu_z = compute_residue_mean_z(glu_residues)
+        asn_z = compute_residue_mean_z(asn_residues)
+        sf_z = compute_residue_mean_z(sf_residues)
+        hbc_z = compute_residue_mean_z(hbc_residues)
+
+        # === Plot ===
+        z_coords = [pt[2] for pt in points_along_axis]
+        extent = [start, end, z_coords[0], z_coords[-1]]
+
+        plt.figure(figsize=(12, 6))
+        vmin = np.percentile(heatmap_matrix, 1)
+        vmax = np.percentile(heatmap_matrix, 99)
+        im = plt.imshow(heatmap_matrix, aspect='auto', origin='lower', cmap="coolwarm",
+                        extent=extent, vmin=vmin, vmax=vmax)
+
+        plt.colorbar(im, label=f"Electric Field {mode.capitalize()}")
+        plt.xlabel("Frame", fontsize=14)
+        plt.ylabel("Z Position (Å)", fontsize=14)
+        plt.title(f"{label} – Electric Field {mode.capitalize()} Along Channel Axis", fontsize=16)
+
+        # === Unique colors per residue ===
+        distinct_colors = list(mcolors.TABLEAU_COLORS.values()) + list(mcolors.BASE_COLORS.values())
+
+        for i, (resid, z) in enumerate(glu_z.items()):
+            label_text = convert_to_pdb_numbering(resid, channel_type)
+            plt.axhline(y=z, linestyle="--", color=distinct_colors[i % len(distinct_colors)],
+                        linewidth=1.0, label=f"GLU {label_text}")
+
+        for i, (resid, z) in enumerate(asn_z.items()):
+            label_text = convert_to_pdb_numbering(resid, channel_type)
+            plt.axhline(y=z, linestyle="--", color=distinct_colors[(i+10) % len(distinct_colors)],
+                        linewidth=1.0, label=f"ASN {label_text}")
+
+        # === Mark average SF and HBC
+        plt.axhline(np.mean(list(sf_z.values())), linestyle="-.", color="black", linewidth=1.0, label="SF avg")
+        plt.axhline(np.mean(list(hbc_z.values())), linestyle=":", color="black", linewidth=1.0, label="HBC avg")
+
+        # === Clean legend
+        handles, labels = plt.gca().get_legend_handles_labels()
+        unique = dict(zip(labels, handles))
+        plt.legend(unique.values(), unique.keys(), fontsize=9, loc="upper right", frameon=True)
+
+        plt.tight_layout()
+        save_path = os.path.join(output_dir, f"heatmap_{key}_{mode}.png")
+        plt.savefig(save_path)
+        plt.close()
+        print(f"✅ Saved heatmap to {save_path}")

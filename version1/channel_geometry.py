@@ -303,8 +303,164 @@ def compute_residue_pair_distances(u, residue_list_1, residue_list_2, channel_ty
     plt.savefig(os.path.join(output_dir, f"{prefix}_smoothed_pairs_distance_plot.png"))
     plt.close()
 
-def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_dir="./chi1_output", window_size=50):
+# def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_dir="./chi1_output", window_size=50):
 
+#     os.makedirs(output_dir, exist_ok=True)
+
+#     # Complete chi1 atom mapping (N-CA-CB-X where X is the fourth atom)
+#     chi1_atom_map = {
+#         "GLU": "CG", "ASP": "CG", "ASN": "CG", "GLN": "CG",
+#         "TYR": "CG", "PHE": "CG", "HIS": "CG", "TRP": "CG",
+#         "CYS": "SG", "SER": "OG", "THR": "OG1", "MET": "SD",
+#         "LYS": "CG", "ARG": "CG", "LEU": "CG", "ILE": "CG1",
+#         "VAL": "CG1", "PRO": "CG"
+#     }
+
+#     all_raw = {}
+#     all_smoothed = {}
+#     max_frames = len(u.trajectory)
+
+#     for resid in tqdm(residue_ids, desc=f"{prefix}: Computing χ1 angles"):
+#         try:
+#             res_atoms = u.select_atoms(f"resid {resid}")
+#             if len(res_atoms) == 0:
+#                 print(f"[Warning] Resid {resid} not found. Skipping.")
+#                 continue
+                
+#             resname = res_atoms[0].resname.upper()
+            
+#             # Skip glycine (no chi1 angle)
+#             if resname == "GLY":
+#                 print(f"[Info] Resid {resid} is GLY (no chi1 angle). Skipping.")
+#                 continue
+            
+#             # Get the fourth atom for chi1 angle
+#             atom4 = chi1_atom_map.get(resname)
+#             if atom4 is None:
+#                 print(f"[Warning] Resid {resid} ({resname}) not in chi1_atom_map. Skipping.")
+#                 continue
+
+#             # Select atoms in the correct order for chi1: N-CA-CB-X
+#             try:
+#                 atom_N = u.select_atoms(f"resid {resid} and name N")
+#                 atom_CA = u.select_atoms(f"resid {resid} and name CA")
+#                 atom_CB = u.select_atoms(f"resid {resid} and name CB")
+#                 atom_X = u.select_atoms(f"resid {resid} and name {atom4}")
+                
+#                 # Check if all atoms exist
+#                 if len(atom_N) != 1 or len(atom_CA) != 1 or len(atom_CB) != 1 or len(atom_X) != 1:
+#                     print(f"[Warning] Resid {resid} ({resname}) missing required atoms. Skipping.")
+#                     continue
+                
+#                 # Create atomgroup in correct order for dihedral calculation
+#                 atomgroup = atom_N + atom_CA + atom_CB + atom_X
+                
+#             except Exception as e:
+#                 print(f"[Error] Resid {resid} atom selection failed: {e}")
+#                 continue
+
+#             # Calculate dihedral angle
+#             dihedral = Dihedral([atomgroup])
+#             dihedral.run()
+
+#             # MDAnalysis Dihedral already returns angles in degrees
+#             angles_deg = dihedral.results.angles[:, 0]
+
+#             # Handle NaNs if any (e.g., interpolate)
+#             if np.any(np.isnan(angles_deg)):
+#                 mask = ~np.isnan(angles_deg)
+#                 if np.sum(mask) > 0:  # Only interpolate if we have some valid values
+#                     angles_deg[~mask] = np.interp(
+#                         np.flatnonzero(~mask),
+#                         np.flatnonzero(mask),
+#                         angles_deg[mask]
+#                     )
+#                 else:
+#                     print(f"[Warning] Resid {resid} has all NaN angles. Skipping.")
+#                     continue
+
+#             # Apply smoothing
+#             if len(angles_deg) >= window_size:
+#                 smooth_angles = np.convolve(angles_deg, np.ones(window_size) / window_size, mode='same')
+#             else:
+#                 smooth_angles = angles_deg.copy()
+#                 print(f"[Info] Resid {resid}: trajectory shorter than window_size, no smoothing applied.")
+
+#             label = f"{convert_to_pdb_numbering(resid, channel_type)}"
+            
+#             # Save individual residue data
+#             np.savetxt(os.path.join(output_dir, f"{label}_chi1_angles.txt"), angles_deg)
+#             all_raw[label] = angles_deg
+#             all_smoothed[label] = smooth_angles
+
+#         except Exception as e:
+#             print(f"[Error] resid {resid}: {e}")
+#             continue
+
+#     if not all_raw:
+#         print("[Warning] No valid chi1 angles calculated. Check your residue IDs and trajectory.")
+#         return
+
+#     # === Save combined CSV ===
+#     df = pd.DataFrame({"frame": np.arange(max_frames)})
+#     for label, angles in all_raw.items():
+#         if len(angles) == max_frames:
+#             df[label] = angles
+#         else:
+#             print(f"[Warning] {label} has {len(angles)} frames, expected {max_frames}")
+    
+#     df.to_csv(os.path.join(output_dir, f"{prefix}_chi1_all_residues_raw.csv"), index=False)
+
+#     # === Combined Plot: Raw ===
+#     plt.figure(figsize=(12, 8))
+#     for label, data in all_raw.items():
+#         plt.plot(range(len(data)), data, label=label, linewidth=1, alpha=0.8)
+    
+#     plt.title("χ1 Dihedral Angles (Raw)", fontsize=16)
+#     plt.xlabel("Frame", fontsize=14)
+#     plt.ylabel("Angle (degrees)", fontsize=14)
+#     plt.xticks(fontsize=12)
+#     plt.yticks(fontsize=12)
+#     plt.ylim(-180, 180)
+#     plt.grid(True, alpha=0.3)
+    
+#     # Handle legend for many residues
+#     if len(all_raw) > 20:
+#         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
+#     else:
+#         plt.legend(fontsize=12)
+    
+#     plt.tight_layout()
+#     plt.savefig(os.path.join(output_dir, f"{prefix}_chi1_all_residues_raw.png"), dpi=300, bbox_inches='tight')
+#     plt.close()
+
+#     # === Combined Plot: Smoothed ===
+#     plt.figure(figsize=(12, 8))
+#     for label, data in all_smoothed.items():
+#         plt.plot(range(len(data)), data, label=label, linewidth=2, alpha=0.8)
+    
+#     plt.title("χ1 Dihedral Angles (Smoothed)", fontsize=16)
+#     plt.xlabel("Frame", fontsize=14)
+#     plt.ylabel("Angle (degrees)", fontsize=14)
+#     plt.xticks(fontsize=12)
+#     plt.yticks(fontsize=12)
+#     plt.ylim(-180, 180)
+#     plt.grid(True, alpha=0.3)
+    
+#     # Handle legend for many residues
+#     if len(all_smoothed) > 20:
+#         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
+#     else:
+#         plt.legend(fontsize=12)
+    
+#     plt.tight_layout()
+#     plt.savefig(os.path.join(output_dir, f"{prefix}_chi1_all_residues_smoothed.png"), dpi=300, bbox_inches='tight')
+#     plt.close()
+
+#     print(f"[Success] Calculated chi1 angles for {len(all_raw)} residues.")
+#     print(f"[Success] Results saved to {output_dir}")
+    
+def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_dir="./chi1_output", window_size=50):
     os.makedirs(output_dir, exist_ok=True)
 
     # Complete chi1 atom mapping (N-CA-CB-X where X is the fourth atom)
@@ -316,150 +472,113 @@ def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_
         "VAL": "CG1", "PRO": "CG"
     }
 
+    atomgroups = []
+    labels = []
+
+    for resid in tqdm(residue_ids, desc=f"{prefix}: Preparing AtomGroups"):
+        try:
+            res_atoms = u.select_atoms(f"resid {resid}")
+            if len(res_atoms) == 0:
+                continue
+
+            resname = res_atoms[0].resname.upper()
+            if resname == "GLY":
+                continue
+
+            atom4 = chi1_atom_map.get(resname)
+            if atom4 is None:
+                continue
+
+            ag = u.select_atoms(f"resid {resid} and (name N or name CA or name CB or name {atom4})")
+            if len(ag) == 4:
+                atomgroups.append(ag)
+                labels.append(f"{resname}_{convert_to_pdb_numbering(resid, channel_type)}")
+
+        except Exception as e:
+            print(f"[Error] resid {resid}: {e}")
+
+    if not atomgroups:
+        print("[Warning] No valid χ1 atomgroups found.")
+        return
+
+    # Compute all dihedrals in batch
+    dih = Dihedral(atomgroups)
+    dih.run()
+    angles_matrix = dih.results.angles  # Already in degrees
+
+    # Process output
     all_raw = {}
     all_smoothed = {}
     max_frames = len(u.trajectory)
 
-    for resid in tqdm(residue_ids, desc=f"{prefix}: Computing χ1 angles"):
-        try:
-            res_atoms = u.select_atoms(f"resid {resid}")
-            if len(res_atoms) == 0:
-                print(f"[Warning] Resid {resid} not found. Skipping.")
-                continue
-                
-            resname = res_atoms[0].resname.upper()
-            
-            # Skip glycine (no chi1 angle)
-            if resname == "GLY":
-                print(f"[Info] Resid {resid} is GLY (no chi1 angle). Skipping.")
-                continue
-            
-            # Get the fourth atom for chi1 angle
-            atom4 = chi1_atom_map.get(resname)
-            if atom4 is None:
-                print(f"[Warning] Resid {resid} ({resname}) not in chi1_atom_map. Skipping.")
-                continue
+    for i, label in enumerate(labels):
+        angles_deg = angles_matrix[:, i]
 
-            # Select atoms in the correct order for chi1: N-CA-CB-X
-            try:
-                atom_N = u.select_atoms(f"resid {resid} and name N")
-                atom_CA = u.select_atoms(f"resid {resid} and name CA")
-                atom_CB = u.select_atoms(f"resid {resid} and name CB")
-                atom_X = u.select_atoms(f"resid {resid} and name {atom4}")
-                
-                # Check if all atoms exist
-                if len(atom_N) != 1 or len(atom_CA) != 1 or len(atom_CB) != 1 or len(atom_X) != 1:
-                    print(f"[Warning] Resid {resid} ({resname}) missing required atoms. Skipping.")
-                    continue
-                
-                # Create atomgroup in correct order for dihedral calculation
-                atomgroup = atom_N + atom_CA + atom_CB + atom_X
-                
-            except Exception as e:
-                print(f"[Error] Resid {resid} atom selection failed: {e}")
-                continue
-
-            # Calculate dihedral angle
-            dihedral = Dihedral([atomgroup])
-            dihedral.run()
-
-            # MDAnalysis Dihedral already returns angles in degrees
-            angles_deg = dihedral.results.angles[:, 0]
-
-            # Handle NaNs if any (e.g., interpolate)
-            if np.any(np.isnan(angles_deg)):
-                mask = ~np.isnan(angles_deg)
-                if np.sum(mask) > 0:  # Only interpolate if we have some valid values
-                    angles_deg[~mask] = np.interp(
-                        np.flatnonzero(~mask),
-                        np.flatnonzero(mask),
-                        angles_deg[mask]
-                    )
-                else:
-                    print(f"[Warning] Resid {resid} has all NaN angles. Skipping.")
-                    continue
-
-            # Apply smoothing
-            if len(angles_deg) >= window_size:
-                smooth_angles = np.convolve(angles_deg, np.ones(window_size) / window_size, mode='same')
+        # Interpolate NaNs if needed
+        if np.any(np.isnan(angles_deg)):
+            mask = ~np.isnan(angles_deg)
+            if np.any(mask):
+                angles_deg[~mask] = np.interp(
+                    np.flatnonzero(~mask),
+                    np.flatnonzero(mask),
+                    angles_deg[mask]
+                )
             else:
-                smooth_angles = angles_deg.copy()
-                print(f"[Info] Resid {resid}: trajectory shorter than window_size, no smoothing applied.")
+                print(f"[Warning] {label} has only NaNs — skipping.")
+                continue
 
-            label = f"{convert_to_pdb_numbering(resid, channel_type)}"
-            
-            # Save individual residue data
-            np.savetxt(os.path.join(output_dir, f"{label}_chi1_angles.txt"), angles_deg)
-            all_raw[label] = angles_deg
-            all_smoothed[label] = smooth_angles
+        # Smoothing
+        if len(angles_deg) >= window_size:
+            smooth = np.convolve(angles_deg, np.ones(window_size) / window_size, mode='same')
+        else:
+            smooth = angles_deg.copy()
 
-        except Exception as e:
-            print(f"[Error] resid {resid}: {e}")
-            continue
-
-    if not all_raw:
-        print("[Warning] No valid chi1 angles calculated. Check your residue IDs and trajectory.")
-        return
+        np.savetxt(os.path.join(output_dir, f"{label}_chi1_angles.txt"), angles_deg)
+        all_raw[label] = angles_deg
+        all_smoothed[label] = smooth
 
     # === Save combined CSV ===
     df = pd.DataFrame({"frame": np.arange(max_frames)})
-    for label, angles in all_raw.items():
-        if len(angles) == max_frames:
-            df[label] = angles
-        else:
-            print(f"[Warning] {label} has {len(angles)} frames, expected {max_frames}")
-    
+    for label, data in all_raw.items():
+        df[label] = data
     df.to_csv(os.path.join(output_dir, f"{prefix}_chi1_all_residues_raw.csv"), index=False)
 
-    # === Combined Plot: Raw ===
+    # === Plot Raw ===
     plt.figure(figsize=(12, 8))
     for label, data in all_raw.items():
-        plt.plot(range(len(data)), data, label=label, linewidth=1, alpha=0.8)
-    
+        plt.plot(df["frame"], data, label=label, linewidth=1, alpha=0.8)
     plt.title("χ1 Dihedral Angles (Raw)", fontsize=16)
     plt.xlabel("Frame", fontsize=14)
     plt.ylabel("Angle (degrees)", fontsize=14)
-    plt.xticks(fontsize=12)
-    plt.yticks(fontsize=12)
     plt.ylim(-180, 180)
     plt.grid(True, alpha=0.3)
-    
-    # Handle legend for many residues
     if len(all_raw) > 20:
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
     else:
         plt.legend(fontsize=12)
-    
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, f"{prefix}_chi1_all_residues_raw.png"), dpi=300, bbox_inches='tight')
     plt.close()
 
-    # === Combined Plot: Smoothed ===
+    # === Plot Smoothed ===
     plt.figure(figsize=(12, 8))
     for label, data in all_smoothed.items():
-        plt.plot(range(len(data)), data, label=label, linewidth=2, alpha=0.8)
-    
+        plt.plot(df["frame"], data, label=label, linewidth=2, alpha=0.85)
     plt.title("χ1 Dihedral Angles (Smoothed)", fontsize=16)
     plt.xlabel("Frame", fontsize=14)
     plt.ylabel("Angle (degrees)", fontsize=14)
-    plt.xticks(fontsize=12)
-    plt.yticks(fontsize=12)
     plt.ylim(-180, 180)
     plt.grid(True, alpha=0.3)
-    
-    # Handle legend for many residues
     if len(all_smoothed) > 20:
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
     else:
         plt.legend(fontsize=12)
-    
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, f"{prefix}_chi1_all_residues_smoothed.png"), dpi=300, bbox_inches='tight')
     plt.close()
 
-    print(f"[Success] Calculated chi1 angles for {len(all_raw)} residues.")
-    print(f"[Success] Results saved to {output_dir}")
-    
+    print(f"[Success] Calculated χ1 angles for {len(all_raw)} residues.")
+    print(f"[Success] Results saved in: {output_dir}")
 
 # === MAIN EXECUTION ===
 channel_type = "G12"

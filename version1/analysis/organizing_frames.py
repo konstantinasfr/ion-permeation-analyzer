@@ -169,10 +169,11 @@ def close_contact_residues_analysis(data, main_path, channel_type, max_bar_numbe
             plt.text(bar.get_x() + bar.get_width() / 2, height + 0.5,
                      str(count), ha='center', va='bottom', fontsize=9)
 
-        plt.title(f"Ion {ion_id} — Top {max_bar_number} combos")
-        plt.xlabel("Residue combination")
-        plt.ylabel("Frequency")
-        plt.xticks(rotation=45)
+        plt.title(f"Ion {ion_id} — Top {max_bar_number} combos", fontsize=16)
+        plt.xlabel("Residue combination", fontsize=14)
+        plt.ylabel("Frequency", fontsize=14)
+        plt.xticks(rotation=45, fontsize=12)
+        plt.yticks(fontsize=12)
         plt.tight_layout()
 
         plot_path = os.path.join(plot_dir, f"{ion_id}.png")
@@ -201,10 +202,11 @@ def close_contact_residues_analysis(data, main_path, channel_type, max_bar_numbe
             plt.text(bar.get_x() + bar.get_width() / 2, height + 0.5,
                      str(count), ha='center', va='bottom', fontsize=9)
 
-        plt.title(f"All Ions — Top {max_bar_number} Residue Combinations")
-        plt.xlabel("Residue combination")
-        plt.ylabel("Total Frequency")
-        plt.xticks(rotation=45)
+        plt.title(f"All Ions — Top {max_bar_number} Residue Combinations", fontsize=16)
+        plt.xlabel("Residue combination", fontsize=14)
+        plt.ylabel("Total Frequency", fontsize=14)
+        plt.xticks(rotation=45, fontsize=12)
+        plt.xticks(fontsize=12)
         plt.tight_layout()
 
         total_plot_path = os.path.join(main_path, "ALL_ions_combined.png")
@@ -328,11 +330,12 @@ def plot_ion_distance_traces(distance_data, results_dir):
         # === Full plot ===
         plt.figure(figsize=(10, 6))
         sns.lineplot(data=subset, x="frame", y="distance", hue="other_ion", marker="o", palette="tab10")
-        plt.title(f"Distances from Ion {target_ion} to Other Ions (Full Timeline)")
-        plt.xlabel("Frame")
-        plt.ylabel("Distance")
-        plt.legend(title="Other Ion")
-        plt.xticks(subset["frame"].unique())
+        plt.title(f"Distances from Ion {target_ion} to Other Ions (Full Timeline)", fontsize=16)
+        plt.xlabel("Frame", fontsize=14)
+        plt.ylabel("Distance", fontsize=14)
+        plt.legend(title="Other Ion", fontsize=12)
+        plt.xticks(subset["frame"].unique(), fontsize=12)
+        plt.yticks(fontsize=12)
         plt.tight_layout()
         plt.savefig(full_dir / f"{target_ion}.png")
         plt.close()
@@ -345,11 +348,12 @@ def plot_ion_distance_traces(distance_data, results_dir):
 
         plt.figure(figsize=(10, 6))
         sns.lineplot(data=last_15_frames, x="frame", y="distance", hue="other_ion", marker="o", palette="tab10")
-        plt.title(f"Distances from Ion {target_ion} (Last 15 Frames per Ion Before Permeation)")
-        plt.xlabel("Frame")
-        plt.ylabel("Distance")
-        plt.legend(title="Other Ion")
-        plt.xticks(last_15_frames["frame"].unique())
+        plt.title(f"Distances from Ion {target_ion} (Last 15 Frames per Ion Before Permeation)", fontsize=16)
+        plt.xlabel("Frame", fontsize=14)
+        plt.ylabel("Distance", fontsize=14)
+        plt.legend(title="Other Ion", fontsize=12)
+        plt.xticks(last_15_frames["frame"].unique(), fontsize=12)
+        plt.yticks(fontsize=12)
         plt.tight_layout()
         plt.savefig(last15_dir / f"{target_ion}.png")
         plt.close()
@@ -437,10 +441,11 @@ def plot_ion_channel_percentages(data, folder="./"):
                  ha='center', va='bottom', fontsize=12)
 
     
-    plt.xlabel("Number of ions within proximity to GLU/ASN")
-    plt.ylabel("Percentage (%)")
-    plt.title("Ion count near GLU/ASN during >10 Å displacement from ASN")
-    plt.xticks(labels)
+    plt.xlabel("Number of ions within proximity to GLU/ASN", fontsize=14)
+    plt.ylabel("Percentage (%)", fontsize=14)
+    plt.title("Ion count near GLU/ASN during >10 Å displacement from ASN", fontsize=16)
+    plt.xticks(labels, fontsize=12)
+    plt.yticks(fontsize=12)
     plt.ylim(0, max(percentages) * 1.15)  # add some headroom
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
