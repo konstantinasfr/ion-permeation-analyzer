@@ -5,6 +5,11 @@ import os
 import matplotlib.pyplot as plt
 import json
 from tqdm import tqdm
+from MDAnalysis.analysis.dihedrals import Dihedral
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import os
 
 def convert_to_pdb_numbering(residue_id, channel_type):
     if channel_type == "G4":
@@ -17,7 +22,7 @@ def convert_to_pdb_numbering(residue_id, channel_type):
         residues_per_chain = 325
         offset = 53
 
-    amino_acid_names = {152: "E", 184: "N", 141: "E", 173: "D"}
+    amino_acid_names = {152: "E", 184: "N", 141: "E", 173: "D", 148: "S", 137:"F"}
 
     if residue_id != "SF":
         residue_id = int(residue_id)
@@ -125,11 +130,14 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
                         plt.axvline(x=x, linestyle=linestyle, color=linecolor, linewidth=1, label=linelabel)
                     else:
                         plt.axvline(x=x, linestyle=linestyle, color=linecolor, linewidth=1)
-            plt.title(f"{residue_label} – {title}")
-            plt.xlabel("Frame")
-            plt.ylabel(ylabel)
+            plt.title(f"{residue_label} – {title}", fontsize=16)
+            plt.xlabel("Frame", fontsize=14)
+            plt.ylabel(ylabel, fontsize=14)
+                # Larger ticks
+            plt.xticks(fontsize=12)
+            plt.yticks(fontsize=12)
             if linelabel:
-                plt.legend(loc="best")
+                plt.legend(loc="best", fontsize=12)
             plt.tight_layout()
             plt.savefig(os.path.join(plot_dir, filename))
             plt.close()
@@ -152,11 +160,14 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
                         plt.axvline(x=x, linestyle=style2, color=color2, linewidth=1, label=label2)
                     else:
                         plt.axvline(x=x, linestyle=style2, color=color2, linewidth=1)
-            plt.title(f"{residue_label} – {title}")
-            plt.xlabel("Frame")
-            plt.ylabel(ylabel)
+            plt.title(f"{residue_label} – {title}", fontsize=16)
+            plt.xlabel("Frame" , fontsize=14)
+            plt.ylabel(ylabel, fontsize=14)
+                # Larger ticks
+            plt.xticks(fontsize=12)
+            plt.yticks(fontsize=12)
             if label1 or label2:
-                plt.legend(loc="best")
+                plt.legend(loc="best", fontsize=12)
             plt.tight_layout()
             plt.savefig(os.path.join(plot_dir, filename))
             plt.close()
@@ -168,18 +179,24 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
 
         plt.figure()
         plt.scatter(df["min_atom_to_sf_com_distance"], df["radial_distance"], color="purple", s=10)
-        plt.title(f"{residue_label} – Radial vs. Closest Atom Distance")
-        plt.xlabel("Min Atom-to-SF COM Distance (Å)")
-        plt.ylabel("Radial Distance (Å)")
+        plt.title(f"{residue_label} – Radial vs. Closest Atom Distance", fontsize=16)
+        plt.xlabel("Min Atom-to-SF COM Distance (Å)", fontsize=14)
+        plt.ylabel("Radial Distance (Å)", fontsize=14)
+            # Larger ticks
+        plt.xticks(fontsize=12)
+        plt.yticks(fontsize=12)
         plt.tight_layout()
         plt.savefig(os.path.join(plot_dir, "4_min_vs_radial.png"))
         plt.close()
 
         plt.figure()
         plt.scatter(df["com_to_sf_com_distance"], df["radial_distance"], color="orange", s=10)
-        plt.title(f"{residue_label} – Radial vs. COM Distance")
-        plt.xlabel("COM-to-SF COM Distance (Å)")
-        plt.ylabel("Radial Distance (Å)")
+        plt.title(f"{residue_label} – Radial vs. COM Distance",fontsize=16)
+        plt.xlabel("COM-to-SF COM Distance (Å)", fontsize=14)
+        plt.ylabel("Radial Distance (Å)",fontsize=14)
+            # Larger ticks
+        plt.xticks(fontsize=12)
+        plt.yticks(fontsize=12)
         plt.tight_layout()
         plt.savefig(os.path.join(plot_dir, "5_com_vs_radial.png"))
         plt.close()
@@ -197,17 +214,259 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
         plot_with_lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM", "17_z_offset_exit_lines.png", lines=exit_frames, linecolor="black", linelabel="Ion exits GLU/ASN", color="darkblue")
 
         # === DOUBLE LINE PLOTS ===
-        plot_with_2lines("com_to_sf_com_distance", "Distance (Å)", "COM to SF COM\n(Entry & Exit Events)", "12_com_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
-        plot_with_2lines("min_atom_to_sf_com_distance", "Distance (Å)", "Closest Atom to SF COM\n(Entry & Exit Events)", "13_min_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
-        plot_with_2lines("radial_distance", "Radial Distance (Å)", "Radial Distance from Pore Axis\n(Entry & Exit Events)", "14_radial_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="black")
-        plot_with_2lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM\n(Entry & Exit Events)", "18_z_offset_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="darkblue")
-        
+        plot_with_2lines("com_to_sf_com_distance", "Distance (Å)", "COM to SF COM\n", "12_com_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
+        plot_with_2lines("min_atom_to_sf_com_distance", "Distance (Å)", "Closest Atom to SF COM\n", "13_min_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
+        plot_with_2lines("radial_distance", "Radial Distance (Å)", "Radial Distance from Pore Axis\n", "14_radial_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="black")
+        plot_with_2lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM\n", "18_z_offset_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="darkblue")
+
+
+def compute_residue_pair_distances(u, residue_list_1, residue_list_2, channel_type="G2", prefix="glu_asn", output_dir="./"):
+    import matplotlib.pyplot as plt
+    os.makedirs(output_dir, exist_ok=True)
+
+    assert len(residue_list_1) == len(residue_list_2), "Both residue lists must have the same length"
+
+    residue_pairs = list(zip(residue_list_1, residue_list_2))
+    pair_labels = [f"{convert_to_pdb_numbering(r1,channel_type)}_{convert_to_pdb_numbering(r2,channel_type)}" for r1, r2 in residue_pairs]
+    pair_data = {label: [] for label in pair_labels}
+
+    for ts in tqdm(u.trajectory, desc="Computing residue pair distances", unit="frame"):
+        for (r1, r2), label in zip(residue_pairs, pair_labels):
+            sel1 = u.select_atoms(f"resid {r1} and not name N CA C O HA H")
+            sel2 = u.select_atoms(f"resid {r2} and not name N CA C O HA H")
+            if len(sel1) == 0 or len(sel2) == 0:
+                continue
+            com1 = sel1.center_of_mass()
+            com2 = sel2.center_of_mass()
+            dist = np.linalg.norm(com1 - com2)
+            pair_data[label].append(dist)
+
+    # Create a DataFrame
+    frames = list(range(len(u.trajectory)))
+    df = pd.DataFrame({"frame": frames})
+    for label, distances in pair_data.items():
+        df[label] = distances
+
+    # Save CSV
+    df.to_csv(os.path.join(output_dir, f"{prefix}_combined_pairwise_distances.csv"), index=False)
+
+    # Plot all distances in one figure
+    plt.figure(figsize=(10, 6))
+    for label in pair_labels:
+        if label in df.columns:
+            plt.plot(df["frame"], df[label], label=f"{label}", linewidth=1.8)
+
+    # Set a larger title based on prefix
+    if prefix == "glu_asn":
+        plt.title("Distance Between Residue GLU and ASN Sidechains", fontsize=16)
+    elif prefix == "ser_glu":
+        plt.title("Distance Between Residue GLU and SER Sidechains", fontsize=16)
+    else:
+        plt.title("Distance Between Residue Pairs (Sidechains)", fontsize=16)
+
+    # Larger axis labels
+    plt.xlabel("Frame", fontsize=14)
+    plt.ylabel("Distance (Å)", fontsize=14)
+
+    # Larger ticks
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+
+    # Larger legend
+    plt.legend(loc="upper right", fontsize=12)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f"{prefix}_all_pairs_distance_plot.png"))
+    plt.close()
+
+    # Smoothed plot version (rolling mean)
+    window_size = 50  # Adjust this for more or less smoothing
+    plt.figure(figsize=(10, 6))
+    for label in pair_labels:
+        if label in df.columns:
+            smoothed = df[label].rolling(window=window_size, center=True).mean()
+            plt.plot(df["frame"], smoothed, label=f"{label}", linewidth=2)
+
+    if prefix == "glu_asn":
+        plt.title("Smoothed Distance Between Residue GLU and ASN Sidechains", fontsize=16)
+    elif prefix == "ser_glu":
+        plt.title("Smoothed Distance Between Residue GLU and SER Sidechains", fontsize=16)
+    else:
+        plt.title("Smoothed Distance Between Residue Pairs (Sidechains)", fontsize=16)
+
+    plt.xlabel("Frame", fontsize=14)
+    plt.ylabel("Distance (Å)", fontsize=14)
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.legend(loc="upper right", fontsize=12)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f"{prefix}_smoothed_pairs_distance_plot.png"))
+    plt.close()
+
+def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_dir="./chi1_output", window_size=50):
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Complete chi1 atom mapping (N-CA-CB-X where X is the fourth atom)
+    chi1_atom_map = {
+        "GLU": "CG", "ASP": "CG", "ASN": "CG", "GLN": "CG",
+        "TYR": "CG", "PHE": "CG", "HIS": "CG", "TRP": "CG",
+        "CYS": "SG", "SER": "OG", "THR": "OG1", "MET": "SD",
+        "LYS": "CG", "ARG": "CG", "LEU": "CG", "ILE": "CG1",
+        "VAL": "CG1", "PRO": "CG"
+    }
+
+    all_raw = {}
+    all_smoothed = {}
+    max_frames = len(u.trajectory)
+
+    for resid in tqdm(residue_ids, desc=f"{prefix}: Computing χ1 angles"):
+        try:
+            res_atoms = u.select_atoms(f"resid {resid}")
+            if len(res_atoms) == 0:
+                print(f"[Warning] Resid {resid} not found. Skipping.")
+                continue
+                
+            resname = res_atoms[0].resname.upper()
+            
+            # Skip glycine (no chi1 angle)
+            if resname == "GLY":
+                print(f"[Info] Resid {resid} is GLY (no chi1 angle). Skipping.")
+                continue
+            
+            # Get the fourth atom for chi1 angle
+            atom4 = chi1_atom_map.get(resname)
+            if atom4 is None:
+                print(f"[Warning] Resid {resid} ({resname}) not in chi1_atom_map. Skipping.")
+                continue
+
+            # Select atoms in the correct order for chi1: N-CA-CB-X
+            try:
+                atom_N = u.select_atoms(f"resid {resid} and name N")
+                atom_CA = u.select_atoms(f"resid {resid} and name CA")
+                atom_CB = u.select_atoms(f"resid {resid} and name CB")
+                atom_X = u.select_atoms(f"resid {resid} and name {atom4}")
+                
+                # Check if all atoms exist
+                if len(atom_N) != 1 or len(atom_CA) != 1 or len(atom_CB) != 1 or len(atom_X) != 1:
+                    print(f"[Warning] Resid {resid} ({resname}) missing required atoms. Skipping.")
+                    continue
+                
+                # Create atomgroup in correct order for dihedral calculation
+                atomgroup = atom_N + atom_CA + atom_CB + atom_X
+                
+            except Exception as e:
+                print(f"[Error] Resid {resid} atom selection failed: {e}")
+                continue
+
+            # Calculate dihedral angle
+            dihedral = Dihedral([atomgroup])
+            dihedral.run()
+
+            # MDAnalysis Dihedral already returns angles in degrees
+            angles_deg = dihedral.results.angles[:, 0]
+
+            # Handle NaNs if any (e.g., interpolate)
+            if np.any(np.isnan(angles_deg)):
+                mask = ~np.isnan(angles_deg)
+                if np.sum(mask) > 0:  # Only interpolate if we have some valid values
+                    angles_deg[~mask] = np.interp(
+                        np.flatnonzero(~mask),
+                        np.flatnonzero(mask),
+                        angles_deg[mask]
+                    )
+                else:
+                    print(f"[Warning] Resid {resid} has all NaN angles. Skipping.")
+                    continue
+
+            # Apply smoothing
+            if len(angles_deg) >= window_size:
+                smooth_angles = np.convolve(angles_deg, np.ones(window_size) / window_size, mode='same')
+            else:
+                smooth_angles = angles_deg.copy()
+                print(f"[Info] Resid {resid}: trajectory shorter than window_size, no smoothing applied.")
+
+            label = f"{convert_to_pdb_numbering(resid, channel_type)}"
+            
+            # Save individual residue data
+            np.savetxt(os.path.join(output_dir, f"{label}_chi1_angles.txt"), angles_deg)
+            all_raw[label] = angles_deg
+            all_smoothed[label] = smooth_angles
+
+        except Exception as e:
+            print(f"[Error] resid {resid}: {e}")
+            continue
+
+    if not all_raw:
+        print("[Warning] No valid chi1 angles calculated. Check your residue IDs and trajectory.")
+        return
+
+    # === Save combined CSV ===
+    df = pd.DataFrame({"frame": np.arange(max_frames)})
+    for label, angles in all_raw.items():
+        if len(angles) == max_frames:
+            df[label] = angles
+        else:
+            print(f"[Warning] {label} has {len(angles)} frames, expected {max_frames}")
+    
+    df.to_csv(os.path.join(output_dir, f"{prefix}_chi1_all_residues_raw.csv"), index=False)
+
+    # === Combined Plot: Raw ===
+    plt.figure(figsize=(12, 8))
+    for label, data in all_raw.items():
+        plt.plot(range(len(data)), data, label=label, linewidth=1, alpha=0.8)
+    
+    plt.title("χ1 Dihedral Angles (Raw)", fontsize=16)
+    plt.xlabel("Frame", fontsize=14)
+    plt.ylabel("Angle (degrees)", fontsize=14)
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.ylim(-180, 180)
+    plt.grid(True, alpha=0.3)
+    
+    # Handle legend for many residues
+    if len(all_raw) > 20:
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
+    else:
+        plt.legend(fontsize=12)
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f"{prefix}_chi1_all_residues_raw.png"), dpi=300, bbox_inches='tight')
+    plt.close()
+
+    # === Combined Plot: Smoothed ===
+    plt.figure(figsize=(12, 8))
+    for label, data in all_smoothed.items():
+        plt.plot(range(len(data)), data, label=label, linewidth=2, alpha=0.8)
+    
+    plt.title("χ1 Dihedral Angles (Smoothed)", fontsize=16)
+    plt.xlabel("Frame", fontsize=14)
+    plt.ylabel("Angle (degrees)", fontsize=14)
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.ylim(-180, 180)
+    plt.grid(True, alpha=0.3)
+    
+    # Handle legend for many residues
+    if len(all_smoothed) > 20:
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
+    else:
+        plt.legend(fontsize=12)
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f"{prefix}_chi1_all_residues_smoothed.png"), dpi=300, bbox_inches='tight')
+    plt.close()
+
+    print(f"[Success] Calculated chi1 angles for {len(all_raw)} residues.")
+    print(f"[Success] Results saved to {output_dir}")
+    
+
 # === MAIN EXECUTION ===
 channel_type = "G12"
-run_type = 1
+run_type = 2
 
 # suffix = "_sidechain" if sidechain_only else "_full"
-data_path = "/home/data/Konstantina/ion-permeation-analyzer-results"
+data_path = "/home/data/Konstantina/ion-permeation-analyzer-results/version1"
 
 if channel_type == "G2":
     # topology_path = "/home/data/Konstantina/Rep0/com_4fs.prmtop"
@@ -224,10 +483,11 @@ if channel_type == "G2":
     asn_residues = [130, 458, 786, 1114]
     sf_residues = [100, 428, 756, 1084]
     hbc_residues = [138, 466, 794, 1122]
+    ser_residues = [94, 422, 750, 1078]
 
 elif channel_type == "G12":
-    topology_path = f"../GIRK12_WT/RUN{run_type}/com_4fs.prmtop"
-    trajectory_path = f"../GIRK12_WT/RUN{run_type}/protein.nc"
+    topology_path = f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/com_4fs.prmtop"
+    trajectory_path = f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/protein.nc"
     output_dir = f"./G12_RUN{run_type}_geometry/"
     if run_type == 2:
         ion_json_path = f"{data_path}/results_G12_duplicates/ch2.json"
@@ -237,13 +497,28 @@ elif channel_type == "G12":
     asn_residues = [131, 456, 781, 1106]
     sf_residues = [101, 426, 751, 1076]
     hbc_residues = [139, 464, 789, 1114]
+    ser_residues = [95, 420, 745, 1070]
 
 target_residues = glu_residues + asn_residues
 
 u = mda.Universe(topology_path, trajectory_path)
 
-for part in ["sidechain", "full", "backbone"]:
-    df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type=channel_type, output_dir=output_dir, residue_part=part)
-    csv_folder = os.path.join(output_dir, "csv")
-    generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base=output_dir, residue_part=part)
+if not os.path.exists(f"{output_dir}/plots"):
+    os.makedirs(output_dir)
+    for part in ["sidechain", "full", "backbone"]:
+        df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type=channel_type, output_dir=output_dir, residue_part=part)
+        csv_folder = os.path.join(output_dir, "csv")
+        generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base=output_dir, residue_part=part)
+
+if not os.path.exists(f"{output_dir}/glu_asn"):
+    compute_residue_pair_distances(u, glu_residues, asn_residues, channel_type, prefix="glu_asn", output_dir=f"{output_dir}/glu_asn")
+if not os.path.exists(f"{output_dir}/ser_glu"):
+    compute_residue_pair_distances(u, glu_residues, ser_residues, channel_type, prefix="ser_glu", output_dir=f"{output_dir}/ser_glu")
+
+# if not os.path.exists(f"{output_dir}/glu_chi1"):
+compute_chi1_angles(u, glu_residues, channel_type, prefix="glu", output_dir=f"{output_dir}/glu_chi1", window_size=200)
+# if not os.path.exists(f"{output_dir}/asn_chi1"):
+compute_chi1_angles(u, asn_residues, channel_type, prefix="asn", output_dir=f"{output_dir}/asn_chi1", window_size=200)
+
+
 print("All calculations and plots completed successfully.")
