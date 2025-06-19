@@ -357,16 +357,14 @@ def plot_ion_distance_traces(distance_data, results_dir):
 import json
 import matplotlib.pyplot as plt
 from collections import Counter
+from collections import Counter
+import matplotlib.pyplot as plt
 
 def plot_ion_channel_frequencies(data, folder="./"):
     """
-    Reads a JSON file of ion permeation data and plots the frequency
-    of 'number_of_ions_in_channel' values as a bar chart.
-
-    Parameters:
-    - json_path: str, path to the JSON file
+    Plots a histogram of the number of ions detected near GLU/ASN gate residues during permeation.
+    Each bar is annotated with frequency and percentage.
     """
-
     # Extract 'number_of_ions_in_channel' values
     ion_counts = [entry["number_of_ions_in_channel"] for entry in data.values()]
 
@@ -376,25 +374,34 @@ def plot_ion_channel_frequencies(data, folder="./"):
     # Prepare data for plotting
     labels = sorted(count_freq.keys())
     frequencies = [count_freq[label] for label in labels]
+    total = sum(frequencies)
 
     # Plotting
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 6))
     bars = plt.bar(labels, frequencies)
 
-    # Add text on top of each bar
+    # Add annotated labels (value + percentage)
     for bar, freq in zip(bars, frequencies):
-        plt.text(bar.get_x() + bar.get_width()/2, bar.get_height(), str(freq),
-                 ha='center', va='bottom', fontsize=12)
-        
-    plt.xlabel("Number of ions within proximity to GLU/ASN")
-    plt.ylabel("Frequency")
-    plt.title("Histogram of ions detected near GLU and ASN gate residues during permeation")
-    plt.xticks(labels)
+        percent = (freq / total) * 100
+        label = f"{freq} ({percent:.1f}%)"
+        plt.text(bar.get_x() + bar.get_width()/2, bar.get_height(), label,
+                 ha='center', va='bottom', fontsize=14)
+
+    # Axis formatting
+    plt.xlabel("Number of ions within proximity to GLU/ASN", fontsize=16)
+    plt.ylabel("Frequency", fontsize=16)
+    plt.title("Ion count near GLU/ASN during >10 Å displacement from ASN", fontsize=18)
+    plt.xticks(labels, fontsize=14)
+    plt.yticks(fontsize=14)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
+
+    # Save figure
     output_path = f"{folder}/number_of_ions_within_proximity_to_GLU_ASN.png"
-        # Save figure
     plt.savefig(output_path, dpi=300)
+    print(f"Plot saved to {output_path}")
+    plt.close()
+
 
 import json
 import matplotlib.pyplot as plt
@@ -432,7 +439,7 @@ def plot_ion_channel_percentages(data, folder="./"):
     
     plt.xlabel("Number of ions within proximity to GLU/ASN")
     plt.ylabel("Percentage (%)")
-    plt.title("Histogram of ions detected near GLU and ASN gate residues during permeation")
+    plt.title("Ion count near GLU/ASN during >10 Å displacement from ASN")
     plt.xticks(labels)
     plt.ylim(0, max(percentages) * 1.15)  # add some headroom
     plt.grid(axis='y', linestyle='--', alpha=0.7)
@@ -473,28 +480,37 @@ import matplotlib.pyplot as plt
 
 def plot_total_frames_by_ion_count(df, folder="./"):
     """
-    Plots a bar chart of total_frames vs. ion_count with values annotated.
+    Plots a bar chart of total_frames vs. ion_count with annotated values.
+    Each bar shows the total number of frames and the % of total.
     """
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 6))
     x = df["ion_count"].astype(int).tolist()
-    y = df["total_frames"].tolist()  # or df["percent_time"].tolist()
+    y = df["total_frames"].tolist()
+
+    total = sum(y)
     bars = plt.bar(x, y, width=0.6)
 
-
-    # Add labels
-    for bar in bars:
+    # Add labels with count and frequency
+    for i, bar in enumerate(bars):
         height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, height, str(height),
-                 ha='center', va='bottom', fontsize=12)
+        percent = (height / total) * 100
+        label = f"{height} ({percent:.1f}%)"
+        plt.text(bar.get_x() + bar.get_width() / 2, height, label,
+                 ha='center', va='bottom', fontsize=14)
 
-    plt.xticks(x)
-    plt.xlabel("Number of ions near GLU/ASN residues")
-    plt.ylabel("Number of frames")
-    plt.title("Frames with N ions near GLU/ASN gate residues")
+    # Axis and tick settings
+    plt.xticks(x, fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel("Number of ions near GLU/ASN residues", fontsize=16)
+    plt.ylabel("Number of frames", fontsize=16)
+    plt.title("Frames with N ions near GLU/ASN gate residues", fontsize=18)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
+
     output_path = f"{folder}/total_frames_by_ion_count.png"
     plt.savefig(output_path, dpi=300)
+    print(f"Plot saved to {output_path}")
+    plt.close()
 
 import matplotlib.pyplot as plt
 
@@ -551,10 +567,10 @@ def get_clean_ion_coexistence_table(ion_events, end_frame, folder="./"):
     for ion in ion_events:
         ion_id = ion["ion_id"]
         exit_frame = ion["exit_frame"]
-        if ion_id == "2304_3":
-            print("LALA")
-            print(end_frame)
-            print(exit_frame)
+        # if ion_id == "2304_3":
+        #     print("LALA")
+        #     print(end_frame)
+        #     print(exit_frame)
     
         # Build frame-by-frame presence
         for frame in range(ion["start_frame"], exit_frame + 1):

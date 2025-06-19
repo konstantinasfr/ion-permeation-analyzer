@@ -25,6 +25,7 @@ from analysis.significant_forces import significant_forces
 from analysis.find_clean_stuck_frames import find_clean_stuck_frames
 from analysis.force_extractor import analyze_frame_for_ion
 from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json, significance_field_analysis
+from analysis.best_alignment import run_best_combo_per_ion_from_json
 
 
 def main():
@@ -564,6 +565,8 @@ def main():
             significance_field_analysis(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", analyzer.permeation_events2, electric_field_results_dir / "field_leave_sf_frame_values")
 
             print("✅ Electric field analysis completed.")
+
+        run_best_combo_per_ion_from_json(f"{force_results_dir}/csv_per_ion", analyzer.permeation_events2, results_dir, source_filter="residue", channel_type=channel_type)
     else:
         print("No permeation events found in channel 2")
 
