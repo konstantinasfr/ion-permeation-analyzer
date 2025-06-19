@@ -54,7 +54,7 @@ def main():
     # parser.add_argument("--top_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/com_4fs.prmtop")
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
-    parser.add_argument("--channel_type", default="G12")
+    parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
 
     data_path = "/home/data/Konstantina/ion-permeation-analyzer-results/version2"
@@ -139,7 +139,8 @@ def main():
         top_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
         traj_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
         results_dir = Path(f"{data_path}/results_G2_CHL_frames")
-        end_frame = 6799
+        # end_frame = 6799
+        end_frame = 1600
 
     elif args.channel_type == "G12":
         upper1 = [107, 432, 757, 1082]
