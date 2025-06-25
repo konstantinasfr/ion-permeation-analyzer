@@ -432,18 +432,18 @@ from scipy.stats import mannwhitneyu
 import os
 
 
-def significance_field_analysis(field_json_path,ion_events, output_folder):
-    # === Paths ===
+def significance_field_analysis(field_json_path, ion_events, output_folder):
+    # === Create output folder ===
     os.makedirs(output_folder, exist_ok=True)
 
-    # === Load data ===
+    # === Load field data from JSON ===
     with open(field_json_path) as f:
         field_data = json.load(f)
 
-    # === Collect start frames ===
-    start_frames = [event["start_frame"]-1 for event in ion_events]
+    # === Collect start frames from ion events ===
+    start_frames = [event["start_frame"] - 1 for event in ion_events]
 
-    # === Function to extract magnitude/axial lists ===
+    # === Function to extract magnitude and axial lists for a given key ===
     def extract_lists(key):
         mag, axial = [], []
         for frame_str in field_data:
@@ -452,7 +452,7 @@ def significance_field_analysis(field_json_path,ion_events, output_folder):
             axial.append(entry.get("axial", 0))
         return np.array(mag), np.array(axial)
 
-    # === Total field categories ===
+    # === Define the total field categories to analyze ===
     fields = {
         "total_glu": "GLU",
         "total_asn": "ASN",
@@ -461,32 +461,41 @@ def significance_field_analysis(field_json_path,ion_events, output_folder):
         "total_no_ions": "ASN_GLU_PIP2"
     }
 
-    # === Loop over each field and perform analysis ===
-    for json_key, label in fields.items():
-        mag, axial = extract_lists(json_key)
+    # === Open report file to write results ===
+    report_path = os.path.join(output_folder, "significance_report.txt")
+    with open(report_path, "w") as report_file:
+        # === Loop over each field and perform analysis ===
+        for json_key, label in fields.items():
+            mag, axial = extract_lists(json_key)
 
-        # Frame indices
-        all_frames = np.arange(len(mag))
-        is_start = np.isin(all_frames, start_frames)
+            # Frame indices
+            all_frames = np.arange(len(mag))
+            is_start = np.isin(all_frames, start_frames)
 
-        # Separate into start frame vs rest
-        mag_start = mag[is_start]
-        mag_rest = mag[~is_start]
-        axial_start = axial[is_start]
-        axial_rest = axial[~is_start]
+            # Split into start frame and rest
+            mag_start = mag[is_start]
+            mag_rest = mag[~is_start]
+            axial_start = axial[is_start]
+            axial_rest = axial[~is_start]
 
-        # Save to files
-        np.savetxt(os.path.join(output_folder, f"{label}_magnitude_start_frames.txt"), mag_start)
-        np.savetxt(os.path.join(output_folder, f"{label}_axial_start_frames.txt"), axial_start)
+            # Save frame-specific values
+            np.savetxt(os.path.join(output_folder, f"{label}_magnitude_start_frames.txt"), mag_start)
+            np.savetxt(os.path.join(output_folder, f"{label}_axial_start_frames.txt"), axial_start)
 
-        # Significance test (Mann-Whitney U)
-        mag_stat, mag_p = mannwhitneyu(mag_start, mag_rest, alternative='two-sided')
-        axial_stat, axial_p = mannwhitneyu(axial_start, axial_rest, alternative='two-sided')
+            # Mann-Whitney U test
+            mag_stat, mag_p = mannwhitneyu(mag_start, mag_rest, alternative='two-sided')
+            axial_stat, axial_p = mannwhitneyu(axial_start, axial_rest, alternative='two-sided')
 
-        print(f"=== {label} ===")
-        print(f"  Magnitude: U={mag_stat:.2f}, p={mag_p:.4f} -> {'Significant ✅' if mag_p < 0.05 else 'Not significant ❌'}")
-        print(f"  Axial    : U={axial_stat:.2f}, p={axial_p:.4f} -> {'Significant ✅' if axial_p < 0.05 else 'Not significant ❌'}\n")
+            # Format result text
+            result = (
+                f"=== {label} ===\n"
+                f"  Magnitude: U={mag_stat:.2f}, p={mag_p:.4f} -> {'Significant ✅' if mag_p < 0.05 else 'Not significant ❌'}\n"
+                f"  Axial    : U={axial_stat:.2f}, p={axial_p:.4f} -> {'Significant ✅' if axial_p < 0.05 else 'Not significant ❌'}\n\n"
+            )
 
+            # Print and write to file
+            print(result)
+            report_file.write(result)
 
 
 import numpy as np
@@ -495,34 +504,37 @@ from matplotlib import cm, colors as mcolors
 from tqdm import tqdm
 import os
 
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm, colors as mcolors
+from tqdm import tqdm
+import os
+from analysis.converter import convert_to_pdb_numbering
+
 
 def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
                                  pip2_resname, headgroup_atoms, exclude_backbone,
                                  ion_selection="resname K+ K", n_points=20,
                                  start=0, end=None, channel_type="G2", k=332,
                                  mode="axial",  # or "magnitude"
-                                 output_dir="field_heatmaps"):
+                                 output_dir="field_heatmaps",
+                                 vmin=-200, vmax=200):
 
+    import os
     os.makedirs(output_dir, exist_ok=True)
 
-    # === Detect PIP2 ===
     pip2_resids = detect_pip2_resids(u, pip2_resname)
-
-    # === Find Z-range ===
-    def mean_z(residues):
-        return np.mean([u.select_atoms(f"resid {resid}").center_of_mass()[2] for resid in residues])
-
-    z_top = max(mean_z(sf_residues), mean_z(glu_residues))  # Start from GLU if above SF
-    z_bottom = mean_z(hbc_residues)
-
-    axis_vector = np.array([0, 0, z_bottom - z_top])
+    sf_group = u.select_atoms("resid " + " ".join(map(str, sf_residues)))
+    hbc_group = u.select_atoms("resid " + " ".join(map(str, hbc_residues)))
+    sf_com = sf_group.center_of_mass()
+    hbc_com = hbc_group.center_of_mass()
+    axis_vector = hbc_com - sf_com
     axis_unit_vector = axis_vector / np.linalg.norm(axis_vector)
-    points_along_axis = [np.array([0, 0, z_top]) + i * axis_vector / (n_points - 1) for i in range(n_points)]
+    points_along_axis = [sf_com + i * axis_vector / (n_points - 1) for i in range(n_points)]
 
     if end is None:
         end = len(u.trajectory)
 
-    # === Which source types to compute ===
     field_sources = {
         "total": "GLU + ASN + PIP2 + Ions",
         "total_no_ions": "GLU + ASN + PIP2",
@@ -531,7 +543,7 @@ def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu
         "total_asn": "ASN Only"
     }
 
-    # === For each field source ===
+    # Compute heatmap for each source type
     for key, label in field_sources.items():
         print(f"📊 Computing heatmap: {label}")
         heatmap_matrix = []
@@ -551,8 +563,43 @@ def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu
 
         heatmap_matrix = np.array(heatmap_matrix).T  # rows = axis points, cols = frames
 
-        # === Compute mean Z-position per residue ===
-        def compute_residue_mean_z(residue_ids):
+        # === Map residue Z-positions to point index along axis ===
+        def map_residues_to_axis_indices(residues):
+            indices = []
+            for resid in residues:
+                atoms = u.select_atoms(f"resid {resid}")
+                if len(atoms) == 0:
+                    continue
+                z = atoms.center_of_mass()[2]
+                closest_idx = np.argmin([abs(point[2] - z) for point in points_along_axis])
+                indices.append(closest_idx)
+            return indices
+
+        glu_indices = map_residues_to_axis_indices(glu_residues)
+        asn_indices = map_residues_to_axis_indices(asn_residues)
+
+        # === Plot ===
+        # === Plot using real Z coordinates ===
+        z_coords = [point[2] for point in points_along_axis]
+        extent = [start, end, z_coords[0], z_coords[-1]]
+        boundaries = max(abs(np.min(heatmap_matrix)), abs(np.max(heatmap_matrix)))
+        vmin = -boundaries
+        vmax = boundaries
+
+        plt.figure(figsize=(12, 6))
+
+        im = plt.imshow(heatmap_matrix, aspect='auto', origin='lower', cmap="coolwarm",
+                        extent=extent, vmin=vmin, vmax=vmax)
+
+        plt.colorbar(im, label=f"Electric Field {mode.capitalize()}")
+        plt.xlabel("Frame", fontsize=14)
+        plt.ylabel("Z Position (Å)", fontsize=14)
+        plt.title(f"{label} – Electric Field {mode.capitalize()} Along Channel Axis", fontsize=16)
+
+        # === Compute mean Z positions for each GLU/ASN residue ===
+        def compute_residue_mean_z(u, residue_ids, start=0, end=None):
+            if end is None:
+                end = len(u.trajectory)
             z_sums = {resid: 0.0 for resid in residue_ids}
             counts = {resid: 0 for resid in residue_ids}
             for ts in u.trajectory[start:end]:
@@ -562,44 +609,27 @@ def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu
                         z = atoms.center_of_mass()[2]
                         z_sums[resid] += z
                         counts[resid] += 1
-            return {resid: z_sums[resid] / counts[resid] for resid in residue_ids if counts[resid] > 0}
+            mean_z = {}
+            for resid in residue_ids:
+                if counts[resid] > 0:
+                    mean_z[resid] = z_sums[resid] / counts[resid]
+            return mean_z
 
-        glu_z = compute_residue_mean_z(glu_residues)
-        asn_z = compute_residue_mean_z(asn_residues)
-        sf_z = compute_residue_mean_z(sf_residues)
-        hbc_z = compute_residue_mean_z(hbc_residues)
+        glu_z = compute_residue_mean_z(u, glu_residues, start, end)
+        asn_z = compute_residue_mean_z(u, asn_residues, start, end)
 
-        # === Plot ===
-        z_coords = [pt[2] for pt in points_along_axis]
-        extent = [start, end, z_coords[0], z_coords[-1]]
+        # === Unique colors for each residue ===
+        glu_colors = cm.get_cmap("Greens")(np.linspace(0.4, 0.9, len(glu_z)))
+        asn_colors = cm.get_cmap("Purples")(np.linspace(0.4, 0.9, len(asn_z)))
 
-        plt.figure(figsize=(12, 6))
-        vmin = np.percentile(heatmap_matrix, 1)
-        vmax = np.percentile(heatmap_matrix, 99)
-        im = plt.imshow(heatmap_matrix, aspect='auto', origin='lower', cmap="coolwarm",
-                        extent=extent, vmin=vmin, vmax=vmax)
+        # === Plot horizontal lines with labels ===
+        for color, (resid, z) in zip(glu_colors, glu_z.items()):
+            label = convert_to_pdb_numbering(resid, channel_type=channel_type)
+            plt.axhline(y=z, linestyle="--", color=color, linewidth=1.0, label=f"{label}")
 
-        plt.colorbar(im, label=f"Electric Field {mode.capitalize()}")
-        plt.xlabel("Frame", fontsize=14)
-        plt.ylabel("Z Position (Å)", fontsize=14)
-        plt.title(f"{label} – Electric Field {mode.capitalize()} Along Channel Axis", fontsize=16)
-
-        # === Unique colors per residue ===
-        distinct_colors = list(mcolors.TABLEAU_COLORS.values()) + list(mcolors.BASE_COLORS.values())
-
-        for i, (resid, z) in enumerate(glu_z.items()):
-            label_text = convert_to_pdb_numbering(resid, channel_type)
-            plt.axhline(y=z, linestyle="--", color=distinct_colors[i % len(distinct_colors)],
-                        linewidth=1.0, label=f"GLU {label_text}")
-
-        for i, (resid, z) in enumerate(asn_z.items()):
-            label_text = convert_to_pdb_numbering(resid, channel_type)
-            plt.axhline(y=z, linestyle="--", color=distinct_colors[(i+10) % len(distinct_colors)],
-                        linewidth=1.0, label=f"ASN {label_text}")
-
-        # === Mark average SF and HBC
-        plt.axhline(np.mean(list(sf_z.values())), linestyle="-.", color="black", linewidth=1.0, label="SF avg")
-        plt.axhline(np.mean(list(hbc_z.values())), linestyle=":", color="black", linewidth=1.0, label="HBC avg")
+        for color, (resid, z) in zip(asn_colors, asn_z.items()):
+            label = convert_to_pdb_numbering(resid, channel_type=channel_type)
+            plt.axhline(y=z, linestyle="--", color=color, linewidth=1.0, label=f"{label}")
 
         # === Clean legend
         handles, labels = plt.gca().get_legend_handles_labels()
@@ -607,7 +637,6 @@ def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu
         plt.legend(unique.values(), unique.keys(), fontsize=9, loc="upper right", frameon=True)
 
         plt.tight_layout()
-        save_path = os.path.join(output_dir, f"heatmap_{key}_{mode}.png")
-        plt.savefig(save_path)
+        plt.savefig(os.path.join(output_dir, f"heatmap_{key}_{mode}.png"))
         plt.close()
-        print(f"✅ Saved heatmap to {save_path}")
+        print(f"✅ Saved heatmap to {output_dir}/heatmap_{key}_{mode}.png")

@@ -141,17 +141,18 @@ def plot_residue_counts(data, output_dir, filename="residue_counts.png", exclude
     # Add count labels above each bar
     for bar, count in zip(bars, counts):
         plt.text(bar.get_x() + bar.get_width() / 2, count + 0.5, str(count),
-                 ha='center', va='bottom', fontsize=9)
+                 ha='center', va='bottom', fontsize=11)
 
     # Format y-axis: only integers and some top margin
     plt.ylim(0, max(counts) * 1.15)
     plt.grid(False)
 
     # Labels and layout
-    plt.title(f"Residue Combinations Occurrences in {len(data)} Events")
-    plt.xlabel("Residue Combinations")
-    plt.ylabel("Count")
-    plt.xticks(rotation=45, ha='right')
+    plt.title(f"Residue Combinations Occurrences in {len(data)} Events", fontsize=16)
+    plt.xlabel("Residue Combinations", fontsize=14)
+    plt.ylabel("Count", fontsize=14)
+    plt.xticks(rotation=45, ha='right', fontsize=12)
+    plt.yticks(fontsize=12)
     plt.tight_layout()
 
     # Step 5: Save figure
@@ -216,11 +217,12 @@ def analyze_residue_combinations(data, output_dir, top_n_plot=20):
 
     for bar, count in zip(bars, counts):
         plt.text(bar.get_x() + bar.get_width()/2, count + 0.5, str(count),
-                 ha='center', va='bottom', fontsize=9)
+                 ha='center', va='bottom', fontsize=11)
 
-    plt.xticks(rotation=45, ha='right')
-    plt.ylabel("Frames Appeared")
-    plt.title(f"Top {top_n_plot} Residue Combinations Across {len(data)} Frames")
+    plt.xticks(rotation=45, ha='right', fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.ylabel("Frames Appeared", fontsize=14)
+    plt.title(f"Top {top_n_plot} Residue Combinations Across {len(data)} Frames",  fontsize=16)
     plt.tight_layout()
 
     plot_path = os.path.join(output_dir, "residue_combination_plot.png")
@@ -311,10 +313,11 @@ def find_closest_residues_percentage(data, result_folder, channel_type="G12"):
     # === Boxplot
     plt.figure(figsize=(10, 6))
     sns.boxplot(data=df_pct_long, x="Residue", y="Percentage")
-    plt.ylabel("Percentage of Frames")
-    plt.xlabel("Residue")
-    plt.title("Residue Proximity Distribution Across Ions")
-    plt.xticks(rotation=45)
+    plt.ylabel("Percentage of Frames",  fontsize=14)
+    plt.xlabel("Residue",  fontsize=14)
+    plt.title("Residue Proximity Distribution Across Ions",  fontsize=16)
+    plt.xticks(rotation=45,  fontsize=12)
+    plt.yticks(fontsize=12)
     plt.tight_layout()
     plt.savefig(f"{result_folder}/residue_proximity_boxplot.png", dpi=300)
 
@@ -359,17 +362,18 @@ def count_frames_residue_closest(data, result_folder, total_frames, channel_type
     # === Bar plot: frame counts
     plt.figure(figsize=(10, 6))
     bars = plt.bar(df_counts["Residue"], df_counts["FrameCount"])
-    plt.xticks(rotation=30)
-    plt.xlabel("Residue")
-    plt.ylabel("Number of Frames Appearing as Closest")
-    plt.title("Residues Most Frequently Closest to Any Ion (Per Frame)")
+    plt.xticks(rotation=30, fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("Residue", fontsize=14)
+    plt.ylabel("Number of Frames Appearing as Closest", fontsize=14)
+    plt.title("Residues Most Frequently Closest to Any Ion (Per Frame)", fontsize=16)
 
     for bar, count in zip(bars, df_counts["FrameCount"]):
         height = bar.get_height()
         percentage = (count / total_frames) * 100
         label = f"{int(count)} ({percentage:.1f}%)"
         plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
-                label, ha='center', va='bottom', fontsize=10)
+                label, ha='center', va='bottom', fontsize=11)
         plt.tight_layout()
         plt.savefig(f"{result_folder}/closest_single_residue_counts_barplot.png", dpi=300)
 
@@ -380,15 +384,16 @@ def count_frames_residue_closest(data, result_folder, total_frames, channel_type
     # === Bar plot: percentages
     plt.figure(figsize=(10, 6))
     bars_pct = plt.bar(df_counts["Residue"], df_counts["Percentage"])
-    plt.xticks(rotation=45)
-    plt.xlabel("Residue")
-    plt.ylabel("Percentage of Total Frames (%)")
-    plt.title("Residues Most Frequently Closest to Any Ion (as % of Frames)")
+    plt.xticks(rotation=45, fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("Residue", fontsize=14)
+    plt.ylabel("Percentage of Total Frames (%)", fontsize=14)
+    plt.title("Residues Most Frequently Closest to Any Ion (as % of Frames)", fontsize=16)
 
     for bar in bars_pct:
         height = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
-                 f"{height:.1f}%", ha='center', va='bottom', fontsize=10)
+                 f"{height:.1f}%", ha='center', va='bottom', fontsize=11)
 
     plt.tight_layout()
     plt.savefig(f"{result_folder}/closest_single_residue_percentages_barplot.png", dpi=300)
@@ -475,17 +480,18 @@ def count_frames_pair_closest(data, result_folder, total_frames, channel_type="G
     # === Bar plot: frame counts
     plt.figure(figsize=(10, 6))
     bars = plt.bar(df_counts["ResiduePair"], df_counts["FrameCount"], width=0.5)
-    plt.xticks(rotation=30)
-    plt.xlabel("Residue Pair")
-    plt.ylabel("Number of Frames Appearing as Closest")
-    plt.title("Residue Pairs Most Frequently Closest to Any Ion (Per Frame)")
+    plt.xticks(rotation=30, fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("Residue Pair", fontsize=14)
+    plt.ylabel("Number of Frames Appearing as Closest", fontsize=14)
+    plt.title("Residue Pairs Most Frequently Closest to Any Ion (Per Frame)", fontsize=16)
 
     for bar, count in zip(bars, df_counts["FrameCount"]):
         height = bar.get_height()
         percentage = (count / total_frames) * 100
         label = f"{int(count)} ({percentage:.1f}%)"
         plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
-                label, ha='center', va='bottom', fontsize=9)
+                label, ha='center', va='bottom', fontsize=11)
 
 
     plt.tight_layout()
@@ -498,15 +504,16 @@ def count_frames_pair_closest(data, result_folder, total_frames, channel_type="G
     # === Bar plot: percentages
     plt.figure(figsize=(10, 6))
     bars_pct = plt.bar(df_counts["ResiduePair"], df_counts["Percentage"], width=0.5)
-    plt.xticks(rotation=45)
-    plt.xlabel("Residue Pair")
-    plt.ylabel("Percentage of Total Frames (%)")
-    plt.title("Residue Pairs Most Frequently Closest to Any Ion (as % of Frames)")
+    plt.xticks(rotation=45, fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("Residue Pair", fontsize=14)
+    plt.ylabel("Percentage of Total Frames (%)", fontsize=14)
+    plt.title("Residue Pairs Most Frequently Closest to Any Ion (as % of Frames)", fontsize=16)
 
     for bar in bars_pct:
         height = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, height + height * 0.01,
-                 f"{height:.1f}%", ha='center', va='bottom', fontsize=9)
+                 f"{height:.1f}%", ha='center', va='bottom', fontsize=11)
 
     plt.tight_layout()
     plt.savefig(f"{result_folder}/closest_residue_pair_percentages_barplot.png", dpi=300)

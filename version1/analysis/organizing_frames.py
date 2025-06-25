@@ -369,8 +369,12 @@ def plot_ion_channel_frequencies(data, folder="./"):
     Plots a histogram of the number of ions detected near GLU/ASN gate residues during permeation.
     Each bar is annotated with frequency and percentage.
     """
-    # Extract 'number_of_ions_in_channel' values
-    ion_counts = [entry["number_of_ions_in_channel"] for entry in data.values()]
+    # Extract only valid 'number_of_ions_in_channel' entries
+    ion_counts = [
+        entry.get("number_of_ions_in_channel")
+        for entry in data.values()
+        if entry.get("number_of_ions_in_channel") is not None
+    ]
 
     # Count frequencies
     count_freq = Counter(ion_counts)
@@ -394,7 +398,7 @@ def plot_ion_channel_frequencies(data, folder="./"):
     # Axis formatting
     plt.xlabel("Number of ions within proximity to GLU/ASN", fontsize=16)
     plt.ylabel("Frequency", fontsize=16)
-    plt.title("Ion count near GLU/ASN during >10 Å displacement from ASN", fontsize=18)
+    plt.title("Ion count near GLU/ASN during >6 Å displacement from ASN", fontsize=18)
     plt.xticks(labels, fontsize=14)
     plt.yticks(fontsize=14)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
@@ -443,7 +447,7 @@ def plot_ion_channel_percentages(data, folder="./"):
     
     plt.xlabel("Number of ions within proximity to GLU/ASN", fontsize=14)
     plt.ylabel("Percentage (%)", fontsize=14)
-    plt.title("Ion count near GLU/ASN during >10 Å displacement from ASN", fontsize=16)
+    plt.title("Ion count near GLU/ASN during >6 Å displacement from ASN", fontsize=16)
     plt.xticks(labels, fontsize=12)
     plt.yticks(fontsize=12)
     plt.ylim(0, max(percentages) * 1.15)  # add some headroom
@@ -638,7 +642,16 @@ def get_clean_ion_coexistence_table(ion_events, end_frame, folder="./"):
 
     for ion_id, ion_perm_event in permeation_frames_ion_coexistence.items():
         permation_frame = ion_perm_event['permeation_frame']
-        coexisting_ions = df[df["end"] == permation_frame]["ions"].values[0]
+        # coexisting_ions = df[df["end"] == permation_frame]["ions"].values[0]
+        match = df[df["end"] == permation_frame]
+
+        if not match.empty:
+            coexisting_ions = match["ions"].values[0]
+            # proceed with analysis
+        else:
+            print(f"[Skip] No match for frame {permation_frame}, skipping.")
+            continue  # or pass, depending on your loop logic
+
         coexisting_ions_list = parse_ion_string(coexisting_ions)
         permeation_frames_ion_coexistence[ion_id]["ions_in_channel"] = coexisting_ions_list
         permeation_frames_ion_coexistence[ion_id]["number_of_ions_in_channel"] = len(coexisting_ions_list)

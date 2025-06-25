@@ -58,7 +58,7 @@ def main():
     # parser.add_argument("--channel_type", default="G12")
     parser.add_argument("--channel_type", default="G2")
     args = parser.parse_args()
-
+    generate_electric_field_heatmap =  False
     data_path = "/home/data/Konstantina/ion-permeation-analyzer-results/version1"
 
     
@@ -126,7 +126,7 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        run_number = 7
+        run_number = 4
         
 
         results_dir = Path(f"{data_path}/results_G2")
@@ -176,20 +176,26 @@ def main():
         sf_residues = [101, 426, 751, 1076] 
 
         start_frame = 0
-        # start_frame = 6000
+        # start_frame = 3550
         # end_frame = 1000
-        end_frame = 1250
-        # end_frame = 6799
+        # end_frame = 1250
+        end_frame = 6799
         # end_frame = 3550
 
-        # top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
-        # traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
-        # results_dir = Path(f"{data_path}/results_G12_RUN1")
-
-        top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/com_4fs.prmtop")
-        traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN2/protein.nc")
-        results_dir = Path(f"{data_path}/results_G12_duplicates")
-        results_dir = Path(f"{data_path}/results_G12_0_1250")
+        run_type = 5
+        if run_type == 1:
+            top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
+            traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
+            results_dir = Path(f"{data_path}/results_G12_RUN1")
+        elif run_type == 2:
+            top_file = Path(f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
+            traj_file = Path(f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/protein.nc")
+            results_dir = Path(f"{data_path}/results_G12_duplicates")
+        else:
+            top_file = Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
+            traj_file = Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/protein.nc")
+            results_dir = Path(f"{data_path}/results_G12_RUN{run_type}")
+        # results_dir = Path(f"{data_path}/results_G12_0_1250")
 
         
         # results_dir = Path(f"{data_path}/results_G12_3500_6800")
@@ -574,24 +580,24 @@ def main():
 
             significance_field_analysis(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", analyzer.permeation_events2, electric_field_results_dir / "field_leave_sf_frame_values")
 
+            if  generate_electric_field_heatmap:
+                generate_electric_field_heatmap_along_axis(
+                    u, sf_residues,
+                    hbc_residues,
+                    glu_residues,
+                    asn_residues,
+                    pip2_resname="PIP",
+                    headgroup_atoms=headgroup_atoms,
+                    exclude_backbone=False, 
+                    start=start_frame, 
+                    end=end_frame,
+                    channel_type = channel_type,
+                    n_points=20,
+                    mode="axial",  # or "magnitude"
+                    output_dir=electric_field_results_dir
+                )
 
-            generate_electric_field_heatmap_along_axis(
-                u, sf_residues,
-                hbc_residues,
-                glu_residues,
-                asn_residues,
-                pip2_resname="PIP",
-                headgroup_atoms=headgroup_atoms,
-                exclude_backbone=False, 
-                start=start_frame, 
-                end=end_frame,
-                channel_type = channel_type,
-                n_points=20,
-                mode="axial",  # or "magnitude"
-                output_dir=electric_field_results_dir
-            )
-
-            print("✅ Electric field analysis completed.")
+                print("✅ Electric field analysis completed.")
 
 
 

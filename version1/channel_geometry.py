@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import os
+from pathlib import Path
 
 def convert_to_pdb_numbering(residue_id, channel_type):
     if channel_type == "G4":
@@ -570,7 +571,7 @@ def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_
     plt.ylim(-180, 180)
     plt.grid(True, alpha=0.3)
     if len(all_smoothed) > 20:
-        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=11)
     else:
         plt.legend(fontsize=12)
     plt.tight_layout()
@@ -581,8 +582,8 @@ def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_
     print(f"[Success] Results saved in: {output_dir}")
 
 # === MAIN EXECUTION ===
-channel_type = "G12"
-run_type = 2
+channel_type = "G2"
+run_type = 4
 
 # suffix = "_sidechain" if sidechain_only else "_full"
 data_path = "/home/data/Konstantina/ion-permeation-analyzer-results/version1"
@@ -593,10 +594,21 @@ if channel_type == "G2":
     # output_dir = f"./G2_geometry/"
     # ion_json_path = f"{data_path}/results_G2_5000_frames/ch2.json"
 
-    topology_path = "/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop"
-    trajectory_path = "/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc"
-    output_dir = f"./G2_CHL_geometry/"
-    ion_json_path = f"{data_path}/results_G2_CHL_frames/ch2.json"
+    if run_type ==2:
+            topology_path = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
+            trajectory_path = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
+            output_dir = f"./G2_CHL_geometry/"
+            ion_json_path = f"{data_path}/results_G2_CHL_frames/ch2.json"
+    else:
+            topology_path = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_type}/com_4fs.prmtop")
+            trajectory_path = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_type}/protein.nc")
+            output_dir = f"./G2_CHL_geometry_RUN{run_type}/"
+            ion_json_path = f"{data_path}/results_G2_CHL_RUN{run_type}/ch2.json"
+
+    # topology_path = "/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop"
+    # trajectory_path = "/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc"
+    # output_dir = f"./G2_CHL_geometry/"
+    # ion_json_path = f"{data_path}/results_G2_CHL_frames/ch2.json"
 
     glu_residues = [98, 426, 754, 1082]
     asn_residues = [130, 458, 786, 1114]
@@ -605,13 +617,22 @@ if channel_type == "G2":
     ser_residues = [94, 422, 750, 1078]
 
 elif channel_type == "G12":
-    topology_path = f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/com_4fs.prmtop"
-    trajectory_path = f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/protein.nc"
-    output_dir = f"./G12_RUN{run_type}_geometry/"
-    if run_type == 2:
-        ion_json_path = f"{data_path}/results_G12_duplicates/ch2.json"
-    elif run_type == 1:
-        ion_json_path = f"{data_path}/results_G12_RUN1/ch2.json"
+    if run_type <=2:
+        topology_path = f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/com_4fs.prmtop"
+        trajectory_path = f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/protein.nc"
+        output_dir = f"./G12_RUN{run_type}_geometry/"
+        if run_type == 2:
+            ion_json_path = f"{data_path}/results_G12_duplicates/ch2.json"
+        elif run_type == 1:
+            ion_json_path = f"{data_path}/results_G12_RUN1/ch2.json"
+    else:
+        topology_path =  Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
+        trajectory_path =  Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/protein.nc")
+        output_dir = f"./G12_RUN{run_type}_geometry/"
+        ion_json_path = f"{data_path}/results_G12_RUN{run_type}/ch2.json"
+
+
+
     glu_residues = [99, 424, 749, 1074]
     asn_residues = [131, 456, 781, 1106]
     sf_residues = [101, 426, 751, 1076]
