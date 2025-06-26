@@ -74,8 +74,10 @@ def add_totals_to_result(result, axis_unit_vector):
 
 
 def compute_frame_field(u, frame, point, glu_residues, asn_residues,
-                        pip2_resids, exclude_backbone, headgroup_atoms,
-                        axis_unit_vector, ion_selection="resname K+ K", k=332):
+                        pip2_resids, exclude_backbone, sf_stuck_ions, headgroup_atoms,
+                        axis_unit_vector, ion_selection="resname K+ K", k=332,
+                        distance_cutoff=15.0):  # Å default threshold
+
     u.trajectory[frame]
 
     def collect_pa_ch(atom_group, exclude_backbone=False, allowed_names=None):
@@ -125,23 +127,37 @@ def compute_frame_field(u, frame, point, glu_residues, asn_residues,
     up_list, down_list = [], []
     up_total, down_total = np.zeros(3), np.zeros(3)
 
+    stuck_resid = sf_stuck_ions.get(str(frame), {}).get("resid", None)
+
     for ion in u.select_atoms(ion_selection):
+        # Skip the SF-stuck ion for this frame
+        if stuck_resid is not None and ion.resid == stuck_resid:
+            continue
+
+        # Compute distance to point
+        dist = np.linalg.norm(point - ion.position)
+        if dist > distance_cutoff:
+            continue  # ❌ skip distant ions
+
+        # Compute electric field from this ion at the point
         field = compute_electric_field_at_point(point, [ion.position], [ion.charge], k)
+
         entry = {
             "ion_id": int(ion.index),
             "field": field.tolist(),
             "magnitude": float(np.linalg.norm(field)),
             "axial": float(np.dot(field, axis_unit_vector)),
-            "distance": float(np.linalg.norm(point - ion.position))
+            "distance": float(dist)
         }
-        if abs(ion.position[2] - point[2]) < 1:
-            continue
+
+        # Classify based on Z-position relative to the point
         if ion.position[2] > point[2]:
             up_list.append(entry)
             up_total += field
         else:
             down_list.append(entry)
             down_total += field
+
 
     result["ionic_up_fields"] = up_list
     result["ionic_down_fields"] = down_list
@@ -168,7 +184,7 @@ def detect_pip2_resids(u, pip2_resname):
 
 
 def run_field_analysis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
-                       pip2_resname, headgroup_atoms, exclude_backbone,
+                       pip2_resname, headgroup_atoms, exclude_backbone, sf_stuck_ions,
                        output_path="sf_field_results.json",
                        point_strategy="sf_com", fixed_point=None,
                        ion_selection="resname K+ K"):
@@ -209,7 +225,7 @@ def run_field_analysis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
 
         frame_result = compute_frame_field(
             u, ts.frame, point, glu_residues, asn_residues,
-            pip2_resids, exclude_backbone, headgroup_atoms,
+            pip2_resids, exclude_backbone, sf_stuck_ions, headgroup_atoms,
             axis_unit_vector, ion_selection, k=332
         )
         field_by_frame[int(ts.frame)] = add_totals_to_result(frame_result, axis_unit_vector)
@@ -513,7 +529,7 @@ from analysis.converter import convert_to_pdb_numbering
 
 
 def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
-                                 pip2_resname, headgroup_atoms, exclude_backbone,
+                                 pip2_resname, headgroup_atoms, exclude_backbone, sf_stuck_ions,
                                  ion_selection="resname K+ K", n_points=20,
                                  start=0, end=None, channel_type="G2", k=332,
                                  mode="axial",  # or "magnitude"
@@ -553,7 +569,7 @@ def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu
             for point in points_along_axis:
                 result = compute_frame_field(
                     u, ts.frame, point, glu_residues, asn_residues,
-                    pip2_resids, exclude_backbone, headgroup_atoms,
+                    pip2_resids, exclude_backbone, sf_stuck_ions, headgroup_atoms,
                     axis_unit_vector, ion_selection, k
                 )
                 result = add_totals_to_result(result, axis_unit_vector)

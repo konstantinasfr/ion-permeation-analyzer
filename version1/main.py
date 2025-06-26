@@ -27,7 +27,7 @@ from analysis.find_clean_stuck_frames import find_clean_stuck_frames
 from analysis.force_extractor import analyze_frame_for_ion
 from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json, significance_field_analysis, generate_electric_field_heatmap_along_axis
 from analysis.best_alignment import run_best_combo_per_ion_from_json
-
+from analysis.find_closest_unentered_ion_to_upper_gate import find_closest_unentered_ion_to_upper_gate
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
@@ -126,7 +126,7 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        run_number = 4
+        run_number = 2
         
 
         results_dir = Path(f"{data_path}/results_G2")
@@ -426,6 +426,8 @@ def main():
         
         plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
         
+        closest_unentered_ion_to_upper_gate = find_closest_unentered_ion_to_upper_gate(u, sf_residues, results_dir)
+        
         if args.do_permeation_analysis:
             permeation_analysis = PermeationAnalyzer(
                 ch2_permation_residues=ch2_permation_residues,
@@ -568,7 +570,7 @@ def main():
 
             run_field_analysis(
                 u, sf_residues, hbc_residues, glu_residues, asn_residues,
-                pip2_resname="PIP", headgroup_atoms=headgroup_atoms, exclude_backbone=False,
+                pip2_resname="PIP", headgroup_atoms=headgroup_atoms, exclude_backbone=False, sf_stuck_ions = closest_unentered_ion_to_upper_gate,
                 output_path=electric_field_results_dir / "sf_min_atoms_electric_field_results.json",
                 point_strategy="sf_min_atoms"
             )
@@ -589,6 +591,7 @@ def main():
                     pip2_resname="PIP",
                     headgroup_atoms=headgroup_atoms,
                     exclude_backbone=False, 
+                    sf_stuck_ions = closest_unentered_ion_to_upper_gate,
                     start=start_frame, 
                     end=end_frame,
                     channel_type = channel_type,
