@@ -340,10 +340,12 @@ def plot_field_magnitudes_from_json(field_json_path, ion_events, output_dir="fie
                         for i, x in enumerate(start_frames):
                             plt.axvline(x=x, linestyle="--", color="green", linewidth=0.8,
                                         label="Ion leaves SF" if i == 0 else None)
-                    plt.xlabel("Frame")
-                    plt.ylabel("Field " + metric.capitalize())
-                    plt.title(f"{title} ({metric.capitalize()}){' (Smoothed)' if smooth_flag else ''}")
-                    plt.legend()
+                    plt.xlabel("Frame", fontsize=16)
+                    plt.ylabel("Field " + metric.capitalize(), fontsize=16)
+                    plt.title(f"{title} ({metric.capitalize()}){' (Smoothed)' if smooth_flag else ''}", fontsize=18)
+                    plt.legend(fontsize=14)
+                    plt.xticks(fontsize=12)
+                    plt.yticks(fontsize=12)
                     suffix = f"_{metric}{'_smoothed' if smooth_flag else ''}{'_start_lines' if with_lines else ''}.png"
                     plt.tight_layout()
                     save_plot(fig, output_dir, subfolder, filename_base + suffix)
@@ -361,10 +363,12 @@ def plot_field_magnitudes_from_json(field_json_path, ion_events, output_dir="fie
                         for i, x in enumerate(start_frames):
                             plt.axvline(x=x, linestyle="--", color="green", linewidth=0.8,
                                         label="Ion leaves SF" if i == 0 else None)
-                    plt.xlabel("Frame")
-                    plt.ylabel("Field " + metric.capitalize())
-                    plt.title(f"{title} ({metric.capitalize()}){' (Smoothed)' if smooth_flag else ''}")
-                    plt.legend()
+                    plt.xlabel("Frame", fontsize=16)
+                    plt.ylabel("Field " + metric.capitalize(), fontsize=16)
+                    plt.title(f"{title} ({metric.capitalize()}){' (Smoothed)' if smooth_flag else ''}", fontsize=18)
+                    plt.legend(fontsize=14)
+                    plt.xticks(fontsize=12)
+                    plt.yticks(fontsize=12)
                     suffix = f"_{metric}{'_smoothed' if smooth_flag else ''}{'_start_lines' if with_lines else ''}.png"
                     plt.tight_layout()
                     save_plot(fig, output_dir, subfolder, filename_base + suffix)
@@ -391,10 +395,12 @@ def plot_field_magnitudes_from_json(field_json_path, ion_events, output_dir="fie
                             plt.axvline(x=x, linestyle="--", color="green", linewidth=0.8,
                                         label="Ion leaves SF" if i == 0 else None)
 
-                    plt.xlabel("Frame")
-                    plt.ylabel("Field " + metric.capitalize())
-                    plt.title(f"{title} ({metric.capitalize()}){' (Smoothed)' if smooth_flag else ''}")
-                    plt.legend()
+                    plt.xlabel("Frame", fontsize=16)
+                    plt.ylabel("Field " + metric.capitalize(), fontsize=16)
+                    plt.title(f"{title} ({metric.capitalize()}){' (Smoothed)' if smooth_flag else ''}", fontsize=18)
+                    plt.legend(fontsize=14)
+                    plt.xticks(fontsize=12)
+                    plt.yticks(fontsize=12)
                     suffix = f"_{metric}{'_smoothed' if smooth_flag else ''}{'_start_lines' if with_lines else ''}.png"
                     full_path = os.path.join(output_dir, subfolder)
                     os.makedirs(full_path, exist_ok=True)

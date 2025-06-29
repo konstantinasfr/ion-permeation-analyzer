@@ -10,7 +10,7 @@ from analysis.channels import Channel
 from analysis.ion_analysis import IonPermeationAnalysis
 from analysis.distance_calc import calculate_distances
 from analysis.organizing_frames import cluster_frames_by_closest_residue, tracking_ion_distances, plot_ion_distance_traces
-from analysis.organizing_frames import close_contact_residues_analysis, get_clean_ion_coexistence_table
+from analysis.organizing_frames import close_contact_residues_analysis, get_clean_ion_coexistence_table, analyze_and_plot_average_ions_per_residue
 from analysis.frames_frequencies_plots import plot_top_intervals_by_frames
 from analysis.analyze_ch2_permeation import analyze_ch2_permation_residues, count_residue_combinations_with_duplicates, find_all_pre_permeation_patterns
 from analysis.analyze_ch2_permeation import count_last_residues,plot_last_residue_bar_chart, save_residue_combination_summary_to_excel
@@ -28,7 +28,7 @@ from analysis.force_extractor import analyze_frame_for_ion
 from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json, significance_field_analysis, generate_electric_field_heatmap_along_axis
 from analysis.best_alignment import run_best_combo_per_ion_from_json
 from analysis.find_closest_unentered_ion_to_upper_gate import find_closest_unentered_ion_to_upper_gate
-from analysis.ions_sf_analysis import analyze_resid_changes_and_plot, plot_field_histograms_from_json
+from analysis.ions_sf_analysis import analyze_resid_changes_and_plot, plot_field_histograms_from_json, run_all_field_permeation_analyses
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
@@ -129,7 +129,7 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        run_number = 1
+        run_number = 2
         
 
         results_dir = Path(f"{data_path}/results_G2")
@@ -142,13 +142,13 @@ def main():
         # end_frame = 4999
 
         if run_number ==2:
-            top_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
-            traj_file = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
+            top_file = Path("/home/data/Konstantina/GIRK2/G2_4KFM_RUN2/com_4fs.prmtop")
+            traj_file = Path("/home/data/Konstantina/GIRK2/G2_4KFM_RUN2/protein.nc")
             results_dir = Path(f"{data_path}/results_G2_CHL_frames")
             end_frame = 6799
         else:
-            top_file = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_number}/com_4fs.prmtop")
-            traj_file = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_number}/protein.nc")
+            top_file = Path(f"/home/data/Konstantina/GIRK2/G2_4KFM_RUN{run_number}/com_4fs.prmtop")
+            traj_file = Path(f"/home/data/Konstantina/GIRK2/G2_4KFM_RUN{run_number}/protein.nc")
             results_dir = Path(f"{data_path}/results_G2_CHL_RUN{run_number}")
             end_frame = 6799
 
@@ -236,8 +236,8 @@ def main():
             # traj_file = Path(f"/media/konsfr/KINGSTON/trajectory/simulations/GIRK12_WT/RUN{run_type}/protein.nc")
             # results_dir = Path(f"{data_path}/results_G12_duplicates")
         else:
-            top_file = Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
-            traj_file = Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/protein.nc")
+            top_file = Path(f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
+            traj_file = Path(f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/protein.nc")
             results_dir = Path(f"{data_path}/results_G12_RUN{run_type}")
         # results_dir = Path(f"{data_path}/results_G12_0_1250")
 
@@ -386,6 +386,7 @@ def main():
     #     json.dump(total_distances_dict_ca, f, indent=2)
 
     residue_clusters, min_results_per_frame, close_contacts_dict = cluster_frames_by_closest_residue(total_distances_dict)
+    analyze_and_plot_average_ions_per_residue(close_contacts_dict, close_contact_residues_dir)
 
     total_residue_comb_over_all_frames = close_contact_residues_analysis(close_contacts_dict, close_contact_residues_dir, args.channel_type, max_bar_number=20)
     plot_residue_counts(total_residue_comb_over_all_frames, close_contact_residues_dir, filename=f"residue_counts_all_frames.png", exclude=(), duplicates=False)
@@ -472,7 +473,7 @@ def main():
         
         plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
         
-        closest_unentered_ion_to_upper_gate = find_closest_unentered_ion_to_upper_gate(u, sf_residues, results_dir)
+        closest_unentered_ion_to_upper_gate = find_closest_unentered_ion_to_upper_gate(u, sf_residues, ions_sf_analysis_dir)
         analyze_resid_changes_and_plot(closest_unentered_ion_to_upper_gate, ions_sf_analysis_dir, analyzer.permeation_events2)
         
         if args.do_permeation_analysis:
@@ -631,6 +632,8 @@ def main():
 
             plot_field_histograms_from_json(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", ions_sf_analysis_dir)
             
+            run_all_field_permeation_analyses(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", closest_unentered_ion_to_upper_gate, ions_sf_analysis_dir)
+
             if  generate_electric_field_heatmap:
                 generate_electric_field_heatmap_along_axis(
                     u, sf_residues,

@@ -38,7 +38,7 @@ def convert_to_pdb_numbering(residue_id, channel_type):
         pdb_number = residue_id-residues_per_chain*chain_number+offset
         if channel_type == "G12" and residue_id<=325:
             pdb_number = residue_id+42
-        if channel_type == "G2_FD" and pdb_number==184:
+        if channel_type == "G2_FD" and pdb_number==184 and chain_number==0:
             return "D184.A"
         else:
             return f"{amino_acid_names[pdb_number]}{pdb_number}.{chain_dict[chain_number]}"

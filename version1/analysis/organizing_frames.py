@@ -100,6 +100,99 @@ def cluster_frames_by_closest_residue(distance_data):
 
     return clustered_results, min_results_per_frame, close_contacts_dict
 
+import json
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from collections import defaultdict
+
+def analyze_and_plot_average_ions_per_residue(data, output_folder):
+    # with open(json_path, "r") as f:
+    #     data = json.load(f)
+
+    os.makedirs(output_folder, exist_ok=True)
+
+    residue_frame_counts = defaultdict(lambda: defaultdict(int))
+    all_frames = set()
+
+    for ion, frame_dict in data.items():
+        for frame_str, residues in frame_dict.items():
+            frame = int(frame_str)
+            all_frames.add(frame)
+            for res in residues:
+                if isinstance(res, int):  # skip "SF" etc
+                    residue_frame_counts[res][frame] += 1
+
+    total_frames = len(all_frames)
+    avg_per_residue = {}
+    median_per_residue = {}
+    full_distributions = {}
+
+    for res, frame_counts in residue_frame_counts.items():
+        frame_vals = [frame_counts.get(f, 0) for f in all_frames]
+        avg_per_residue[res] = np.mean(frame_vals)
+        median_per_residue[res] = np.median(frame_vals)
+        full_distributions[res] = frame_vals
+
+    # Sort residues by ID for consistent plotting
+    sorted_residues = sorted(avg_per_residue.keys())
+
+    # --- BAR PLOT: AVERAGE AND MEDIAN ---
+    x = np.arange(len(sorted_residues))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.bar(x - width/2, [avg_per_residue[r] for r in sorted_residues], width, label='Average', color='skyblue')
+    ax.bar(x + width/2, [median_per_residue[r] for r in sorted_residues], width, label='Median', color='lightgreen')
+
+    ax.set_xlabel('Residue ID', fontsize=16)
+    ax.set_ylabel('Number of Ions per Frame', fontsize=16)
+    ax.set_title('Average and Median Ions per Frame per Residue', fontsize=18)
+    ax.set_xticks(x)
+    ax.set_xticklabels(sorted_residues, fontsize=14)
+    ax.tick_params(axis='y', labelsize=14)
+    ax.legend(fontsize=14)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_folder, "avg_median_ions_per_residue.png"))
+    plt.close()
+
+    # --- BOXPLOT ---
+    fig, ax = plt.subplots(figsize=(14, 6))
+    data_to_plot = [full_distributions[r] for r in sorted_residues]
+    x_positions = np.arange(len(sorted_residues))
+
+    # Original boxplot with gray fill
+    ax.boxplot(
+        data_to_plot,
+        positions=x_positions,
+        widths=0.6,
+        patch_artist=True,
+        boxprops=dict(facecolor="lightgray"),
+        medianprops=dict(color="black"),
+        flierprops=dict(marker='o', markersize=4, markerfacecolor='red')
+    )
+
+    # # Overlay all values as blue dots (with jitter)
+    # for i, y_vals in enumerate(data_to_plot):
+    #     x_vals = np.random.normal(loc=x_positions[i], scale=0.08, size=len(y_vals))
+    #     ax.scatter(x_vals, y_vals, color='blue', alpha=0.6, s=10, zorder=3)
+
+    # Labels and formatting
+    ax.set_xlabel('Residue ID', fontsize=16)
+    ax.set_ylabel('Ion numbers', fontsize=16)
+    ax.set_title('Ions close to residues per Frame', fontsize=18)
+    ax.set_xticks(x_positions)
+    ax.set_xticklabels(sorted_residues, fontsize=14)
+    ax.tick_params(axis='y', labelsize=14)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_folder, "ion_count_boxplot_per_residue.png"))
+    plt.close()
+
+
+    return avg_per_residue, median_per_residue
+
+
 
 import os
 import matplotlib.pyplot as plt
