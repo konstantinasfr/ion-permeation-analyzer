@@ -13,29 +13,48 @@ import os
 from pathlib import Path
 
 def convert_to_pdb_numbering(residue_id, channel_type):
+    """
+    Converts a residue ID to a PDB-style numbering.
+    """
     if channel_type == "G4":
         residues_per_chain = 325
         offset = 49
-    elif channel_type == "G2":
+    elif channel_type == "G2" or channel_type == "G2_FD":
         residues_per_chain = 328
         offset = 54
     elif channel_type == "G12":
         residues_per_chain = 325
         offset = 53
 
-    amino_acid_names = {152: "E", 184: "N", 141: "E", 173: "D", 148: "S", 137:"F"}
+    amino_acid_names = {152:"E",
+                       184:"N",
+                       141:"E",
+                       173:"D", 148: "S", 137:"F"
+                       }
 
+    if channel_type == "G2_FD":
+            amino_acid_names = {152:"E",
+                       184:"N",
+                       141:"E",
+                       173:"D", 148: "S", 137:"F"
+                       }
+            
     if residue_id != "SF":
         residue_id = int(residue_id)
-        chain_number = int(residue_id) // residues_per_chain
-        if channel_type == "G2":
-            chain_dict = {0: "A", 1: "B", 2: "C", 3: "D"}
+        chain_number = int(residue_id)//residues_per_chain
+        if channel_type == "G2" or channel_type == "G2_FD":
+            chain_dict = {0:"A", 1:"B", 2:"C", 3:"D"}
         elif channel_type == "G12":
-            chain_dict = {0: "D", 1: "C", 2: "B", 3: "A"}
-        pdb_number = residue_id - residues_per_chain * chain_number + offset
-        if channel_type == "G12" and residue_id <= 325:
-            pdb_number = residue_id + 42
-        return f"{amino_acid_names.get(pdb_number, 'X')}{pdb_number}.{chain_dict[chain_number]}"
+            chain_dict = {0:"D", 1:"C", 2:"B", 3:"A"}
+        pdb_number = residue_id-residues_per_chain*chain_number+offset
+        if channel_type == "G12" and residue_id<=325:
+            pdb_number = residue_id+42
+        if channel_type == "G2_FD" and pdb_number==184 and chain_number==0:
+            return "D184.A"
+        elif channel_type == "G2_FD" and pdb_number==148 and chain_number==0:
+            return "F148.A"
+        else:
+            return f"{amino_acid_names[pdb_number]}{pdb_number}.{chain_dict[chain_number]}"
     else:
         return "SF"
 
@@ -582,8 +601,8 @@ def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_
     print(f"[Success] Results saved in: {output_dir}")
 
 # === MAIN EXECUTION ===
-channel_type = "G2"
-run_type = 4
+channel_type = "G2_FD"
+run_type = 1
 
 # suffix = "_sidechain" if sidechain_only else "_full"
 data_path = "/home/data/Konstantina/ion-permeation-analyzer-results/version1"
@@ -615,6 +634,26 @@ if channel_type == "G2":
     sf_residues = [100, 428, 756, 1084]
     hbc_residues = [138, 466, 794, 1122]
     ser_residues = [94, 422, 750, 1078]
+
+elif channel_type == "G2_FD":
+    # topology_path = "/home/data/Konstantina/Rep0/com_4fs.prmtop"
+    # trajectory_path = "/home/data/Konstantina/Rep0/protein.nc"
+    # output_dir = f"./G2_geometry/"
+    # ion_json_path = f"{data_path}/results_G2_5000_frames/ch2.json"
+
+    topology_path = Path(f"/home/data/Konstantina/GIRK2/GIRK2_FD_RUN{run_type}/com_4fs.prmtop")
+    trajectory_path = Path(f"/home/data/Konstantina/GIRK2/GIRK2_FD_RUN{run_type}/protein.nc")
+
+    output_dir = f"./G2_FD_CHL_geometry_RUN{run_type}/"
+    ion_json_path = f"{data_path}/results_G2_FD_CHL_RUN{run_type}/ch2.json"
+
+
+    glu_residues = [98, 426, 754, 1082]
+    asn_residues = [130, 458, 786, 1114]
+    sf_residues = [100, 428, 756, 1084]
+    hbc_residues = [138, 466, 794, 1122]
+    ser_residues = [94, 422, 750, 1078]
+
 
 elif channel_type == "G12":
     if run_type <=2:
