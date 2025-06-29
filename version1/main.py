@@ -28,6 +28,7 @@ from analysis.force_extractor import analyze_frame_for_ion
 from analysis.electric_field_analysis import run_field_analysis, plot_field_magnitudes_from_json, significance_field_analysis, generate_electric_field_heatmap_along_axis
 from analysis.best_alignment import run_best_combo_per_ion_from_json
 from analysis.find_closest_unentered_ion_to_upper_gate import find_closest_unentered_ion_to_upper_gate
+from analysis.ions_sf_analysis import analyze_resid_changes_and_plot, plot_field_histograms_from_json
 
 def main():
     parser = argparse.ArgumentParser(description="Run dual-channel ion permeation analysis.")
@@ -57,9 +58,11 @@ def main():
     # parser.add_argument("--traj_file", default="/media/konsfr/KINGSTON/trajectory/Rep0/GIRK_4kfm_NoCHL_Rep0_500ns.nc")
     # parser.add_argument("--channel_type", default="G12")
     parser.add_argument("--channel_type", default="G2")
+    # parser.add_argument("--channel_type", default="G2_FD")
     args = parser.parse_args()
     generate_electric_field_heatmap =  False
     data_path = "/home/data/Konstantina/ion-permeation-analyzer-results/version1"
+    # data_path = "/media/konsfr/KINGSTON/trajectory/final_results/"
 
     
     channel_type = args.channel_type
@@ -126,7 +129,7 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        run_number = 2
+        run_number = 1
         
 
         results_dir = Path(f"{data_path}/results_G2")
@@ -148,6 +151,44 @@ def main():
             traj_file = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_number}/protein.nc")
             results_dir = Path(f"{data_path}/results_G2_CHL_RUN{run_number}")
             end_frame = 6799
+
+    elif args.channel_type == "G2_FD":
+        upper1 = [106, 434, 762, 1090]
+        lower1 = [100, 428, 756, 1084]
+
+        upper2 = [100, 428, 756, 1084]
+        lower2 = [130, 458, 786, 1114] #asn_residues
+
+        upper3 = [130, 458, 786, 1114] #asn_residues
+        lower3 = [138, 466, 794, 1122] #hbc_residues
+
+        upper4 = [138, 466, 794, 1122] #hbc_residues
+        lower4 = [265, 593, 921, 1249]
+
+        upper5 = [265, 593, 921, 1249] #upper gloop
+        lower5 = [259, 587, 915, 1243] #lower gloop
+
+        hbc_residues = [138, 466, 794, 1122]
+        hbc_diagonal_pairs = [(138, 794), (466, 1122)]
+
+        glu_residues = [98, 426, 754, 1082]
+        asn_residues = [130, 458, 786, 1114]
+        sf_residues = [100, 428, 756, 1084]
+
+        sf_low_res_residues = [100, 428, 756, 1084]
+        sf_low_res_diagonal_pairs = [(100, 756), (428, 1084)]
+
+        start_frame = 0
+        # start_frame = 800
+        # start_frame = 5550
+        # start_frame = 6500
+        # end_frame = 1250
+        run_number = 1
+
+        top_file = Path(f"/home/data/Konstantina/GIRK2/GIRK2_FD_RUN{run_number}/com_4fs.prmtop")
+        traj_file = Path(f"/home/data/Konstantina/GIRK2/GIRK2_FD_RUN{run_number}/protein.nc")
+        results_dir = Path(f"{data_path}/results_G2_FD_CHL_RUN{run_number}")
+        end_frame = 6799
 
     elif args.channel_type == "G12":
         upper1 = [107, 432, 757, 1082]
@@ -182,7 +223,7 @@ def main():
         end_frame = 6799
         # end_frame = 3550
 
-        run_type = 5
+        run_type = 2
         if run_type == 1:
             top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
             traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
@@ -191,6 +232,9 @@ def main():
             top_file = Path(f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
             traj_file = Path(f"/home/data/Konstantina/GIRK12_WT/RUN{run_type}/protein.nc")
             results_dir = Path(f"{data_path}/results_G12_duplicates")
+            # top_file = Path(f"/media/konsfr/KINGSTON/trajectory/simulations/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
+            # traj_file = Path(f"/media/konsfr/KINGSTON/trajectory/simulations/GIRK12_WT/RUN{run_type}/protein.nc")
+            # results_dir = Path(f"{data_path}/results_G12_duplicates")
         else:
             top_file = Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/com_4fs.prmtop")
             traj_file = Path(f"/home/yongcheng/Nousheen/trajectory/GIRK12_WT/RUN{run_type}/protein.nc")
@@ -299,6 +343,8 @@ def main():
     
     force_results_dir = Path(f"{results_dir}/forces")
     force_results_dir.mkdir(exist_ok=True)
+    ions_sf_analysis_dir = Path(f"{results_dir}/ions_sf_analysis")
+    ions_sf_analysis_dir.mkdir(exist_ok=True)
     coexisting_ions_results_dir = Path(f"{results_dir}/coexisting_ions_in_channel2")
     coexisting_ions_results_dir.mkdir(exist_ok=True)
     alignment_results_dir = Path(f"{results_dir}/alignment")
@@ -427,6 +473,7 @@ def main():
         plot_top_intervals_by_frames(residue_clusters, max_bar_number=20)
         
         closest_unentered_ion_to_upper_gate = find_closest_unentered_ion_to_upper_gate(u, sf_residues, results_dir)
+        analyze_resid_changes_and_plot(closest_unentered_ion_to_upper_gate, ions_sf_analysis_dir, analyzer.permeation_events2)
         
         if args.do_permeation_analysis:
             permeation_analysis = PermeationAnalyzer(
@@ -582,6 +629,8 @@ def main():
 
             significance_field_analysis(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", analyzer.permeation_events2, electric_field_results_dir / "field_leave_sf_frame_values")
 
+            plot_field_histograms_from_json(electric_field_results_dir / "sf_min_atoms_electric_field_results.json", ions_sf_analysis_dir)
+            
             if  generate_electric_field_heatmap:
                 generate_electric_field_heatmap_along_axis(
                     u, sf_residues,

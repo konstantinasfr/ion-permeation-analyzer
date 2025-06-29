@@ -127,11 +127,12 @@ def compute_frame_field(u, frame, point, glu_residues, asn_residues,
     up_list, down_list = [], []
     up_total, down_total = np.zeros(3), np.zeros(3)
 
-    stuck_resid = sf_stuck_ions.get(str(frame), {}).get("resid", None)
+    stuck_resid = int(sf_stuck_ions[int(frame)]["resid"])
 
     for ion in u.select_atoms(ion_selection):
         # Skip the SF-stuck ion for this frame
         if stuck_resid is not None and ion.resid == stuck_resid:
+            # print(ion.resid, frame)
             continue
 
         # Compute distance to point
@@ -143,7 +144,7 @@ def compute_frame_field(u, frame, point, glu_residues, asn_residues,
         field = compute_electric_field_at_point(point, [ion.position], [ion.charge], k)
 
         entry = {
-            "ion_id": int(ion.index),
+            "ion_id": int(ion.resid),
             "field": field.tolist(),
             "magnitude": float(np.linalg.norm(field)),
             "axial": float(np.dot(field, axis_unit_vector)),
