@@ -108,12 +108,12 @@ def compute_residue_distances(u, sf_residues, hbc_residues, target_residues, cha
             })
 
     df = pd.DataFrame(records)
-    df.to_csv(os.path.join(output_dir, "residue_distances_all_frames.csv"), index=False)
+    df.to_csv(os.path.join(output_dir, f"{residue_part}_residue_distances_all_frames.csv"), index=False)
 
-    os.makedirs(f"{output_dir}/csv", exist_ok=True)
+    os.makedirs(f"{output_dir}/csv/{residue_part}", exist_ok=True)
     for resid in df["resid"].unique():
         df_res = df[df["resid"] == resid]
-        df_res.to_csv(os.path.join(f"{output_dir}/csv", f"residue_{resid}_distances.csv"), index=False)
+        df_res.to_csv(os.path.join(f"{output_dir}/csv/{residue_part}", f"residue_{resid}_distances.csv"), index=False)
 
     return df
 
@@ -238,6 +238,62 @@ def generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, ou
         plot_with_2lines("min_atom_to_sf_com_distance", "Distance (Å)", "Closest Atom to SF COM\n", "13_min_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="blue")
         plot_with_2lines("radial_distance", "Radial Distance (Å)", "Radial Distance from Pore Axis\n", "14_radial_with_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="black")
         plot_with_2lines("z_offset_from_sf", "Z Offset (Å)", "Z Difference from SF COM\n", "18_z_offset_start_and_exit_lines.png", lines1=start_frames, label1="Ion exits SF", lines2=exit_frames, label2="Ion exits GLU/ASN", color="darkblue")
+
+def generate_residue_distance_histograms(csv_folder, output_base="./histograms", residue_part="sidechain", bins=50):
+    """
+    Generate histograms of residue distances for each residue CSV.
+    
+    Parameters:
+        csv_folder (str): Path to folder with per-residue CSVs.
+        output_base (str): Folder to save histogram plots.
+        residue_part (str): One of 'sidechain', 'full', 'backbone'.
+        bins (int): Number of bins for histograms.
+    """
+    # Create a folder for histograms
+    hist_folder = os.path.join(output_base, f"histograms_{residue_part}")
+    os.makedirs(hist_folder, exist_ok=True)
+
+    # Get all CSV files
+    csv_files = [f for f in os.listdir(csv_folder) if f.endswith(".csv")]
+
+    # Loop over each residue CSV
+    for file in csv_files:
+        filepath = os.path.join(csv_folder, file)
+        df = pd.read_csv(filepath)
+
+        if "pdb_label" not in df.columns:
+            print(f"Skipping {file} (no pdb_label column).")
+            continue
+
+        residue_label = df["pdb_label"].iloc[0]
+        residue_folder = os.path.join(hist_folder, residue_label.replace(".", "") + f"_{residue_part}")
+        os.makedirs(residue_folder, exist_ok=True)
+
+        # Define metrics to plot
+        metrics = [
+            ("com_to_sf_com_distance", "COM-to-SF COM Distance (Å)"),
+            ("min_atom_to_sf_com_distance", "Min Atom-to-SF COM Distance (Å)"),
+            ("radial_distance", "Radial Distance from Pore Axis (Å)"),
+            ("z_offset_from_sf", "Z Offset from SF COM (Å)")
+        ]
+
+        # Create histograms for each metric
+        for col, label in metrics:
+            plt.figure(figsize=(8, 6))
+            plt.hist(df[col], bins=bins, color="steelblue", edgecolor="black")
+            plt.title(f"{residue_label} – {label}\n({residue_part})", fontsize=16)
+            plt.xlabel(label, fontsize=14)
+            plt.ylabel("Frequency", fontsize=14)
+            plt.xticks(fontsize=12)
+            plt.yticks(fontsize=12)
+            plt.tight_layout()
+            filename = f"{col}_histogram.png"
+            plt.savefig(os.path.join(residue_folder, filename))
+            plt.close()
+
+        print(f"Histograms saved for {residue_label} ({residue_part}).")
+
+    print(f"\n✅ All histograms saved in: {hist_folder}")
 
 
 def compute_residue_pair_distances(u, residue_list_1, residue_list_2, channel_type="G2", prefix="glu_asn", output_dir="./"):
@@ -601,8 +657,8 @@ def compute_chi1_angles(u, residue_ids, channel_type='G2', prefix="glu", output_
     print(f"[Success] Results saved in: {output_dir}")
 
 # === MAIN EXECUTION ===
-channel_type = "G2_FD"
-run_type = 1
+channel_type = "G12"
+run_type = 2
 
 # suffix = "_sidechain" if sidechain_only else "_full"
 data_path = "/home/data/Konstantina/ion-permeation-analyzer-results/version1"
@@ -614,13 +670,13 @@ if channel_type == "G2":
     # ion_json_path = f"{data_path}/results_G2_5000_frames/ch2.json"
 
     if run_type ==2:
-            topology_path = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/com_4fs.prmtop")
-            trajectory_path = Path("/home/yongcheng/Konstantina/G2_4KFM_RUN2/protein.nc")
+            topology_path = Path("/home/data/Konstantina/GIRK2/G2_4KFM_RUN2/com_4fs.prmtop")
+            trajectory_path = Path("/home/data/Konstantina/GIRK2/G2_4KFM_RUN2/protein.nc")
             output_dir = f"./G2_CHL_geometry/"
             ion_json_path = f"{data_path}/results_G2_CHL_frames/ch2.json"
     else:
-            topology_path = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_type}/com_4fs.prmtop")
-            trajectory_path = Path(f"/home/yongcheng/Konstantina/G2_4KFM_RUN{run_type}/protein.nc")
+            topology_path = Path(f"/home/data/Konstantina/GIRK2/G2_4KFM_RUN{run_type}/com_4fs.prmtop")
+            trajectory_path = Path(f"/home/data/Konstantina/GIRK2/G2_4KFM_RUN{run_type}/protein.nc")
             output_dir = f"./G2_CHL_geometry_RUN{run_type}/"
             ion_json_path = f"{data_path}/results_G2_CHL_RUN{run_type}/ch2.json"
 
@@ -686,8 +742,10 @@ if not os.path.exists(f"{output_dir}/plots"):
     os.makedirs(output_dir)
     for part in ["sidechain", "full", "backbone"]:
         df = compute_residue_distances(u, sf_residues, hbc_residues, target_residues, channel_type=channel_type, output_dir=output_dir, residue_part=part)
-        csv_folder = os.path.join(output_dir, "csv")
+        csv_folder = os.path.join(output_dir, f"csv/{part}")
+        os.makedirs(csv_folder, exist_ok=True)
         generate_residue_distance_plots_with_ion_lines(csv_folder, ion_json_path, output_base=output_dir, residue_part=part)
+        generate_residue_distance_histograms(csv_folder, output_base=os.path.join(output_dir, "plots"), residue_part=part)
 
 if not os.path.exists(f"{output_dir}/glu_asn"):
     compute_residue_pair_distances(u, glu_residues, asn_residues, channel_type, prefix="glu_asn", output_dir=f"{output_dir}/glu_asn")

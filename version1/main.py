@@ -129,7 +129,7 @@ def main():
         # start_frame = 5550
         # start_frame = 6500
         # end_frame = 1250
-        run_number = 2
+        run_number = 8
         
 
         results_dir = Path(f"{data_path}/results_G2")
@@ -223,7 +223,7 @@ def main():
         end_frame = 6799
         # end_frame = 3550
 
-        run_type = 2
+        run_type = 5
         if run_type == 1:
             top_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/com_4fs.prmtop")
             traj_file = Path("/home/data/Konstantina/GIRK12_WT/RUN1/protein.nc")
@@ -620,7 +620,7 @@ def main():
                 u, sf_residues, hbc_residues, glu_residues, asn_residues,
                 pip2_resname="PIP", headgroup_atoms=headgroup_atoms, exclude_backbone=False, sf_stuck_ions = closest_unentered_ion_to_upper_gate,
                 output_path=electric_field_results_dir / "sf_min_atoms_electric_field_results.json",
-                point_strategy="sf_min_atoms"
+                point_strategy="sf_min_atoms_com_xy_min_z"
             )
             
             electric_field_plots_dir = Path(f"{electric_field_results_dir}/sf_min_atoms")

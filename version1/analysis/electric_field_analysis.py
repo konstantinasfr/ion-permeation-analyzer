@@ -130,6 +130,7 @@ def compute_frame_field(u, frame, point, glu_residues, asn_residues,
     stuck_resid = int(sf_stuck_ions[int(frame)]["resid"])
 
     for ion in u.select_atoms(ion_selection):
+
         # Skip the SF-stuck ion for this frame
         if stuck_resid is not None and ion.resid == stuck_resid:
             # print(ion.resid, frame)
@@ -139,6 +140,9 @@ def compute_frame_field(u, frame, point, glu_residues, asn_residues,
         dist = np.linalg.norm(point - ion.position)
         if dist > distance_cutoff:
             continue  # ❌ skip distant ions
+
+        # if frame == 3992:
+        #     print(ion.resid, point, ion.position)
 
         # Compute electric field from this ion at the point
         field = compute_electric_field_at_point(point, [ion.position], [ion.charge], k)
@@ -197,7 +201,9 @@ def run_field_analysis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
     hbc_group = u.select_atoms("resid " + " ".join(map(str, hbc_residues)))
 
     axis_vector = hbc_group.center_of_mass() - sf_group.center_of_mass()
-    axis_unit_vector = axis_vector / np.linalg.norm(axis_vector)
+    # axis_unit_vector = axis_vector / np.linalg.norm(axis_vector)
+    axis_unit_vector = np.array([0, 0, -1])  # προς τα πάνω
+
 
     for ts in tqdm(u.trajectory, desc="Frames"):
         if point_strategy == "sf_com":
@@ -216,6 +222,20 @@ def run_field_analysis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
             sf_min_atoms = u.atoms[atom_indices]
             point = sf_min_atoms.center_of_mass()
 
+        elif point_strategy == "sf_min_atoms_com_xy_min_z":
+            atom_indices = []
+            for resid in sf_residues:
+                residue_atoms = u.select_atoms(f"resid {resid}")
+                if len(residue_atoms) == 0:
+                    continue
+                coords = residue_atoms.positions
+                min_index = coords[:, 2].argmin()
+                atom_indices.append(residue_atoms[min_index].index)
+            sf_min_atoms = u.atoms[atom_indices]
+            com = sf_min_atoms.center_of_mass()
+            min_z = sf_min_atoms.positions[:, 2].min()
+            point = np.array([com[0], com[1], min_z])
+
         elif point_strategy == "fixed":
             if fixed_point is None:
                 raise ValueError("fixed_point must be provided")
@@ -224,6 +244,8 @@ def run_field_analysis(u, sf_residues, hbc_residues, glu_residues, asn_residues,
         else:
             raise ValueError("point_strategy must be one of 'sf_com', 'sf_min_atoms', or 'fixed'")
 
+        # if ts.frame<30:
+        #     print("field", ts.frame, point)
         frame_result = compute_frame_field(
             u, ts.frame, point, glu_residues, asn_residues,
             pip2_resids, exclude_backbone, sf_stuck_ions, headgroup_atoms,
@@ -552,7 +574,9 @@ def generate_electric_field_heatmap_along_axis(u, sf_residues, hbc_residues, glu
     sf_com = sf_group.center_of_mass()
     hbc_com = hbc_group.center_of_mass()
     axis_vector = hbc_com - sf_com
-    axis_unit_vector = axis_vector / np.linalg.norm(axis_vector)
+    # axis_unit_vector = axis_vector / np.linalg.norm(axis_vector)
+    axis_unit_vector = np.array([0, 0, -1])  # points down the channel
+
     points_along_axis = [sf_com + i * axis_vector / (n_points - 1) for i in range(n_points)]
 
     if end is None:

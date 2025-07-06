@@ -23,7 +23,7 @@ def convert_to_pdb_numbering(residue_id, channel_type):
                        }
     if channel_type == "G2_FD":
             amino_acid_names = {152:"E",
-                       184:"D",
+                       184:"N",
                        141:"E",
                        173:"D",
                        }

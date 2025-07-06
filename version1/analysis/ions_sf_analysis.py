@@ -225,22 +225,11 @@ def extract_permeation_frames_by_mode(data, mode="all"):
 
     return permeation_frames
 
-
-def analyze_field_at_permeation(json_path, closest_unentered_ion_to_upper_gate, permation_mode , output_path, key="total", field_component="axial"):
-    """
-    Compares the electric field component values (e.g., axial or magnitude) between
-    frames with ion permeation and those without.
-
-    Parameters:
-    - json_path: path to the JSON file containing frame-wise field data
-    - permeation_frames: set of integers representing frames with SF exit/permeation
-    - output_path: folder to save the boxplot
-    - key: which key from the JSON to use ("total", "total_glu", "total_asn", etc.)
-    - field_component: either "axial" or "magnitude"
-
-    Returns:
-    - A dictionary with lists of values for "with_permeation" and "without_permeation"
-    """
+def analyze_field_at_permeation(json_path, closest_unentered_ion_to_upper_gate, permation_mode, output_path, key="total", field_component="axial"):
+    import json, os
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from scipy.stats import mannwhitneyu
 
     with open(json_path, 'r') as f:
         data = json.load(f)
@@ -259,57 +248,81 @@ def analyze_field_at_permeation(json_path, closest_unentered_ion_to_upper_gate, 
         else:
             without_permeation.append(value)
 
-    # Plot
+    # Create plot with more space for text
     os.makedirs(output_path, exist_ok=True)
-    plt.figure(figsize=(6, 5))
-    box = plt.boxplot([with_permeation, without_permeation],
-                  labels=["Permeation", "No Permeation"],
-                  showfliers=False)
+    fig, ax = plt.subplots(figsize=(9, 7))  # Increased figure size
+    
+    box_plot = ax.boxplot([with_permeation, without_permeation],
+                         labels=["Permeation", "No Permeation"],
+                         showfliers=False)
 
+    ax.set_ylabel(f"{key} - {field_component.capitalize()} Field", fontsize=14)
+    ax.set_title(f"{field_component.capitalize()} Field During vs Not During Permeation", fontsize=15)
+    ax.tick_params(axis='x', labelsize=13)
+    ax.tick_params(axis='y', labelsize=13)
 
-    # Labels and titles
-    plt.ylabel(f"{key} - {field_component.capitalize()} Field", fontsize=14)
-    plt.title(f"{field_component.capitalize()} Field During vs Not During Permeation", fontsize=15)
-    plt.xticks([1, 2], ["Permeation", "No Permeation"], fontsize=13)
-    plt.yticks(fontsize=13)
+    # Stats
+    def get_stats(group):
+        return {
+            "mean": np.mean(group),
+            "median": np.median(group),
+            # "min": np.min(group),
+            # "max": np.max(group),
+            # "n": len(group)
+        }
 
-
-
-    # Compute stats
-    mean_perm = np.mean(with_permeation)
-    median_perm = np.median(with_permeation)
-    min_perm = np.min(with_permeation)
-    max_perm = np.max(with_permeation)
-
-    mean_no = np.mean(without_permeation)
-    median_no = np.median(without_permeation)
-    min_no = np.min(without_permeation)
-    max_no = np.max(without_permeation)
-
-    # Mann–Whitney U test
+    stats_perm = get_stats(with_permeation)
+    stats_no = get_stats(without_permeation)
     stat, p_value = mannwhitneyu(with_permeation, without_permeation, alternative='two-sided')
 
-    # Format stat text
-    def format_stats(mean, median, min_val, max_val):
-        return f"Mean: {mean:.2f}\nMedian: {median:.2f}\nMin: {min_val:.2f}\nMax: {max_val:.2f}"
+    def format_group_text(stats):
+        return (
+            f"Mean: {stats['mean']:.2f}\n"
+            f"Median: {stats['median']:.2f}"
+            # f"Min: {stats['min']:.2f}\n"
+            # f"Max: {stats['max']:.2f}\n"
+            # f"N: {stats['n']}"
+        )
 
-    y_bottom = plt.ylim()[0] - 0.05 * (plt.ylim()[1] - plt.ylim()[0])
+    # Get current axis limits
+    y_min, y_max = ax.get_ylim()
+    y_range = y_max - y_min
+    
+    # Don't extend y-axis since we're using figure coordinates now
+    # Keep original y-limits for clean plot area
+    
+    # Position text below the x-axis line
+    # Get the actual bottom of the plot area (where x-axis line is)
+    ax_bottom = ax.get_position().y0
+    
+    # Use figure coordinates to place text below the x-axis
+    fig_height = fig.get_figheight()
+    
+    # Position the boxes very close to the x-axis line
+    # Blue box under "Permeation", Green box under "No Permeation"
+    stats_box_y = 0.47  # Position for stats boxes (very close to x-axis)
+    pvalue_box_y = 0.47  # Position for p-value box (lower)
+    
+    # Position stats boxes directly under their respective boxplots
+    fig.text(0.25, stats_box_y, format_group_text(stats_perm), 
+            ha='center', va='center', fontsize=10, 
+            bbox=dict(boxstyle="round,pad=0.3", facecolor="lightblue", alpha=0.8))
+    
+    fig.text(0.75, stats_box_y, format_group_text(stats_no), 
+            ha='center', va='center', fontsize=10,
+            bbox=dict(boxstyle="round,pad=0.3", facecolor="lightgreen", alpha=0.8))
+    
+    # P-value box centered below both, at a lower position
+    fig.text(0.5, pvalue_box_y, f"Mann–Whitney U Test\np = {p_value:.3e}", 
+            ha='center', va='center', fontsize=11, fontweight='bold',
+            bbox=dict(boxstyle="round,pad=0.4", facecolor="lightcoral", alpha=0.8))
 
-    plt.text(1, y_bottom, format_stats(mean_perm, median_perm, min_perm, max_perm), ha='center', fontsize=10)
-    plt.text(2, y_bottom, format_stats(mean_no, median_no, min_no, max_no), ha='center', fontsize=10)
-
-    # Add Mann–Whitney p-value below both boxes
-    plt.text(1.5, y_bottom - 0.1 * (plt.ylim()[1] - plt.ylim()[0]),
-            f"Mann–Whitney U Test p = {p_value:.3e}", ha='center', fontsize=11, fontweight='bold')
-
-
-
-    plt.subplots_adjust(bottom=0.35)  # or tweak this value as needed
+    # Adjust layout to provide space for text boxes very close to x-axis
+    plt.subplots_adjust(bottom=0.55)  # Even more space at bottom for very close positioning
+    
     plot_path = os.path.join(output_path, f"{key}_{field_component}_permeation_comparison.png")
-    plt.savefig(plot_path)
+    plt.savefig(plot_path, dpi=300, bbox_inches='tight')
     plt.close()
-
-
 
 def run_all_field_permeation_analyses(json_path, closest_ion_dict, output_base_path):
     import os
