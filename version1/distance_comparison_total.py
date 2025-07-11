@@ -52,56 +52,88 @@ def convert_to_pdb_numbering(residue_id, channel_type):
 RESIDUE_DICT = {
     "G2": {
         "glu_residues": [98, 426, 754, 1082],
-        "sf_residues": [100, 428, 756, 1084]
+        "sf_residues": [100, 428, 756, 1084],
+        "hbc_residues": [138, 466, 794, 1122]
     },
     "G2_FD": {
         "glu_residues": [98, 426, 754, 1082],
-        "sf_residues": [100, 428, 756, 1084]
+        "sf_residues": [100, 428, 756, 1084],
+        "hbc_residues": [138, 466, 794, 1122]
     },
     "G12": {
         "glu_residues": [99, 424, 749, 1074],
-        "sf_residues": [101, 426, 751, 1076]
+        "sf_residues": [101, 426, 751, 1076],
+        "hbc_residues": [139, 464, 789, 1114]
     }
 }
 
 def compute_all_distances(topology_paths, trajectory_paths, channel_types, output_dir):
     """
     Compute distances for all systems and save combined data.
-    """
 
+    Calculates z-offset, COM distances, min atom distances, and radial distances
+    for all specified residues in all systems.
+
+    Parameters:
+        topology_paths (list): Paths to topology files (.prmtop)
+        trajectory_paths (list): Paths to trajectory files (.nc)
+        channel_types (list): List of channel types ("G2", "G12", "G2_FD")
+        output_dir (str): Directory where output CSV will be saved
+
+    Returns:
+        DataFrame: Combined distances for all systems
+    """
     all_records = []
 
     for system_idx, (top, traj, ch_type) in enumerate(zip(topology_paths, trajectory_paths, channel_types), start=1):
         print(f"📂 Processing system {system_idx} ({ch_type})...")
         group = 1 if ch_type == "G2" else (2 if ch_type == "G12" else 3)
+
+        # Load trajectory
         u = mda.Universe(top, traj)
 
+        # Get residues from RESIDUE_DICT
         sf_residues = RESIDUE_DICT[ch_type]["sf_residues"]
+        hbc_residues = RESIDUE_DICT[ch_type]["hbc_residues"]
         glu_residues = RESIDUE_DICT[ch_type]["glu_residues"]
 
+        # Select groups
         sf_group = u.select_atoms("resid " + " ".join(map(str, sf_residues)))
-        residue_groups = {resid: u.select_atoms(f"resid {resid} and not name N CA C O HA H")
-                          for resid in glu_residues}
+        hbc_group = u.select_atoms("resid " + " ".join(map(str, hbc_residues)))
+        residue_groups = {
+            resid: u.select_atoms(f"resid {resid} and not name N CA C O HA H")
+            for resid in glu_residues
+        }
 
+        # Iterate over trajectory
         for ts in tqdm(u.trajectory, desc=f"System {system_idx}", unit="frame"):
             sf_com = sf_group.center_of_mass()
+            hbc_com = hbc_group.center_of_mass()
+
+            # Define pore axis: SF → HBC
+            axis_vector = sf_com - hbc_com
+            axis_vector /= np.linalg.norm(axis_vector)
 
             for resid, atoms in residue_groups.items():
                 res_com = atoms.center_of_mass()
+
+                # z-offset relative to SF
                 z_offset = sf_com[2] - res_com[2]
+
+                # Distance metrics
                 com_distance = np.linalg.norm(res_com - sf_com)
                 min_distance = np.min(np.linalg.norm(atoms.positions - sf_com, axis=1))
 
-                # Compute radial distance
-                axis_vector = sf_com - res_com
-                axis_vector /= np.linalg.norm(axis_vector)
-                v = res_com - sf_com
+                # Radial distance relative to pore axis
+                v = res_com - hbc_com
                 proj_length = np.dot(v, axis_vector)
-                proj_point = sf_com + proj_length * axis_vector
+                proj_point = hbc_com + proj_length * axis_vector
                 radial_distance = np.linalg.norm(res_com - proj_point)
 
+                # Residue labeling
                 pdb_label, pdb_chain = convert_to_pdb_numbering(resid, ch_type)
 
+                # Store record
                 all_records.append({
                     "system": system_idx,
                     "channel_type": ch_type,
@@ -116,11 +148,13 @@ def compute_all_distances(topology_paths, trajectory_paths, channel_types, outpu
                     "radial_distance": radial_distance
                 })
 
+    # Save combined data
     df = pd.DataFrame(all_records)
     combined_file = os.path.join(output_dir, "combined_distances.csv")
     df.to_csv(combined_file, index=False)
     print(f"✅ Saved combined distances: {combined_file}")
     return df
+
 
 def compute_threshold_median_of_means(df, metric, start_fraction=0.05):
     """
@@ -284,24 +318,161 @@ def plot_residue_summaries_grouped(summary_df, threshold, output_dir, metric, di
     print(f"📊 All plots for {metric} saved in: {base_folder}")
 
 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans, DBSCAN
+
+def cluster_residues(summary_file, output_dir, metric_name):
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.cluster import KMeans, DBSCAN
+    from sklearn.decomposition import PCA
+    from sklearn.manifold import TSNE
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    import numpy as np
+    import os
+
+    # Read the summary file
+    df = pd.read_csv(summary_file)
+
+    # Features for clustering
+    features = [f"{metric_name}_mean", f"{metric_name}_variance",
+                f"{metric_name}_min", f"{metric_name}_max", f"{metric_name}_range"]
+
+    X = df[features].values
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+    # --- KMeans Clustering ---
+    kmeans = KMeans(n_clusters=3, random_state=42)
+    kmeans_labels = kmeans.fit_predict(X_scaled)
+    df["kmeans_cluster"] = kmeans_labels
+
+    # --- DBSCAN Clustering ---
+    dbscan = DBSCAN(eps=1.5, min_samples=3)
+    dbscan_labels = dbscan.fit_predict(X_scaled)
+    df["dbscan_cluster"] = dbscan_labels  # Includes noise (-1)
+    df["is_dbscan_outlier"] = (dbscan_labels == -1)
+
+    # Save results
+    cluster_csv = os.path.join(output_dir, f"{metric_name}_clustering.csv")
+    df.to_csv(cluster_csv, index=False)
+    print(f"✅ Saved clustering results: {cluster_csv}")
+
+    # --- PCA for KMeans visualization ---
+    pca = PCA(n_components=2)
+    X_pca = pca.fit_transform(X_scaled)
+    df["PC1"] = X_pca[:, 0]
+    df["PC2"] = X_pca[:, 1]
+
+    plt.figure(figsize=(10, 6))
+    for cluster in np.unique(kmeans_labels):
+        cluster_data = df[df["kmeans_cluster"] == cluster]
+        plt.scatter(cluster_data["PC1"], cluster_data["PC2"],
+                    label=f"KMeans Cluster {cluster}", s=60)
+
+    # Overlay DBSCAN outliers with X
+    outliers = df[df["is_dbscan_outlier"]]
+    plt.scatter(outliers["PC1"], outliers["PC2"],
+                color="black", marker="x", s=100, label="DBSCAN Outlier")
+
+    # Annotate DBSCAN outliers and systems 9 & 10
+    to_annotate = df[df["is_dbscan_outlier"] | df["system"].isin([9, 10])]
+    for _, row in to_annotate.iterrows():
+        plt.text(row["PC1"], row["PC2"],
+                 f"{row['pdb_label']} ({row['system']}, {row['channel_type']})",
+                 fontsize=8, ha='right', va='bottom')
+
+    plt.title(f"KMeans Clustering (PCA) for {metric_name.replace('_', ' ').title()}")
+    plt.xlabel("PC1")
+    plt.ylabel("PC2")
+    plt.legend()
+    plt.tight_layout()
+
+    kmeans_plot_file = os.path.join(output_dir, f"{metric_name}_kmeans_pca.png")
+    plt.savefig(kmeans_plot_file)
+    plt.close()
+    print(f"📊 Saved KMeans PCA plot: {kmeans_plot_file}")
+
+    # --- t-SNE for DBSCAN visualization ---
+    tsne = TSNE(n_components=2, random_state=42, perplexity=5, n_iter=1000)
+    tsne_coords = tsne.fit_transform(X_scaled)
+    df["TSNE1"] = tsne_coords[:, 0]
+    df["TSNE2"] = tsne_coords[:, 1]
+
+    plt.figure(figsize=(10, 6))
+    for cluster in np.unique(dbscan_labels):
+        if cluster == -1:
+            continue  # Skip noise for now
+        cluster_data = df[df["dbscan_cluster"] == cluster]
+        plt.scatter(cluster_data["TSNE1"], cluster_data["TSNE2"],
+                    label=f"DBSCAN Cluster {cluster}", s=60, marker='o')
+
+    # Plot DBSCAN noise points as red dots
+    noise = df[df["dbscan_cluster"] == -1]
+    plt.scatter(noise["TSNE1"], noise["TSNE2"],
+                color="red", marker="o", s=80, label="DBSCAN Noise")
+
+    # Annotate DBSCAN noise points and systems 9 & 10
+    to_annotate_tsne = df[df["is_dbscan_outlier"] | df["system"].isin([9, 10])]
+    for _, row in to_annotate_tsne.iterrows():
+        plt.text(row["TSNE1"], row["TSNE2"],
+                 f"{row['pdb_label']} ({row['system']}, {row['channel_type']})",
+                 fontsize=8, ha='right', va='bottom')
+
+    plt.title(f"DBSCAN Clustering (t-SNE) for {metric_name.replace('_', ' ').title()}")
+    plt.xlabel("t-SNE 1")
+    plt.ylabel("t-SNE 2")
+    plt.legend()
+    plt.tight_layout()
+
+    dbscan_plot_file = os.path.join(output_dir, f"{metric_name}_dbscan_tsne.png")
+    plt.savefig(dbscan_plot_file)
+    plt.close()
+    print(f"📊 Saved DBSCAN t-SNE plot: {dbscan_plot_file}")
+
+
+
+
+def run_clustering_on_all_summaries(summary_folder, output_folder):
+    os.makedirs(output_folder, exist_ok=True)
+    summary_files = [f for f in os.listdir(summary_folder) if f.endswith("_summary.csv")]
+
+    for file in summary_files:
+        metric_name = file.replace("_summary.csv", "")
+        print(f"\n🔍 Processing metric: {metric_name}")
+        summary_path = os.path.join(summary_folder, file)
+        metric_output = os.path.join(output_folder, metric_name)
+        os.makedirs(metric_output, exist_ok=True)
+
+        cluster_residues(summary_path, metric_output, metric_name)
 
 
 
 def run_full_pipeline(topology_paths, trajectory_paths, channel_types, output_dir):
-    df = compute_all_distances(topology_paths, trajectory_paths, channel_types, output_dir)
-    metrics = ["z_offset_from_sf", "com_to_sf_com_distance", "min_atom_to_sf_com_distance", "radial_distance"]
 
-    for metric in metrics:
-        threshold, direction, _ = compute_threshold_median_of_means(df, metric)
-        summary_df = compute_residue_summaries(df, metric, threshold, direction, output_dir)
-        plot_residue_summaries_grouped(
-                summary_df=summary_df,              # The DataFrame with all your summary metrics
-                threshold=threshold,                # The threshold value you computed
-                output_dir=output_dir,      # Folder where plots will be saved
-                metric=metric,             # The metric you want to plot
-                direction=direction                    # Either "drop" or "rise" (same as your threshold logic)
-            )
+    if not os.path.exists(f"{output_dir}/plots_grouped"):
+        df = compute_all_distances(topology_paths, trajectory_paths, channel_types, output_dir)
+        metrics = ["z_offset_from_sf", "com_to_sf_com_distance", "min_atom_to_sf_com_distance", "radial_distance"]
 
+        for metric in metrics:
+            threshold, direction, _ = compute_threshold_median_of_means(df, metric)
+            summary_df = compute_residue_summaries(df, metric, threshold, direction, output_dir)
+            plot_residue_summaries_grouped(
+                    summary_df=summary_df,              # The DataFrame with all your summary metrics
+                    threshold=threshold,                # The threshold value you computed
+                    output_dir=output_dir,      # Folder where plots will be saved
+                    metric=metric,             # The metric you want to plot
+                    direction=direction                    # Either "drop" or "rise" (same as your threshold logic)
+                )
+
+    run_clustering_on_all_summaries(
+        summary_folder=output_dir,
+        output_folder=os.path.join(output_dir, "clustering_results")
+    )
 
 
 
