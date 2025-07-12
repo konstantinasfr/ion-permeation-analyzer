@@ -6,6 +6,7 @@ import seaborn as sns
 import os
 from tqdm import tqdm
 from scipy.stats import norm
+from relaxation_frame_finder import analyze_system_relaxation
 
 # Residue dictionary for each channel type
 RESIDUE_DICT = {
@@ -76,7 +77,7 @@ def bootstrap_and_fit_gaussian(values, sample_size=50, n_bootstrap=1000):
     return bootstrap_means, mu, std
 
 
-def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_dir,
+def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_dir, sidechain=True, relaxation=True,
                         sample_size=50, n_bootstrap=1000):
     """
     Analyze a single simulation, computing Gaussians for specified residues and metrics
@@ -85,7 +86,24 @@ def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_
     u = mda.Universe(top_path, traj_path)
 
     # Create folder for this simulation
-    sim_output_dir = os.path.join(output_dir, f"simulation_{simulation_id}")
+    if sidechain:
+        output_dir_full = os.path.join(output_dir, "sidechain")
+    else:
+        output_dir_full = os.path.join(output_dir, "full_residue")
+
+    # Decide subfolder based on relaxation flag
+    mode = "relaxation" if relaxation else "no_relaxation"
+    output_dir_full = os.path.join(output_dir_full, mode)
+
+    # Set simulation folder
+    sim_output_dir = os.path.join(output_dir_full, f"simulation_{simulation_id}")
+
+    # Determine start frame
+    start_frame = (
+        analyze_system_relaxation(top_path, traj_path, sim_output_dir)
+        if relaxation else 0
+    )
+
     os.makedirs(sim_output_dir, exist_ok=True)
 
     sf_residues = RESIDUE_DICT[channel_type]["sf_residues"]
@@ -95,11 +113,16 @@ def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_
     # Select groups
     sf_group = u.select_atoms("resid " + " ".join(map(str, sf_residues)))
     hbc_group = u.select_atoms("resid " + " ".join(map(str, hbc_residues)))
-    residue_groups = {
-        resid: u.select_atoms(f"resid {resid} and not name N CA C O HA H")
-        for resid in glu_residues
-    }
-
+    if sidechain:
+        residue_groups = {
+            resid: u.select_atoms(f"resid {resid} and not name N CA C O HA H")
+            for resid in glu_residues
+        }
+    else:
+        residue_groups = {
+            resid: u.select_atoms(f"resid {resid}")
+            for resid in glu_residues
+        }
     # Metrics dictionary: {metric: {resid: [values]}}
     metrics_data = {
         "z_offset_from_sf": {resid: [] for resid in glu_residues},
@@ -109,7 +132,7 @@ def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_
     }
 
     print(f"🔄 Parsing trajectory for Simulation {simulation_id}...")
-    for ts in tqdm(u.trajectory, desc=f"Simulation {simulation_id}", unit="frame"):
+    for ts in tqdm(u.trajectory[start_frame:], desc=f"Simulation {simulation_id}", unit="frame"):
         sf_com = sf_group.center_of_mass()
         hbc_com = hbc_group.center_of_mass()
         axis_vector = sf_com - hbc_com
@@ -133,10 +156,16 @@ def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_
             metrics_data["min_atom_to_sf_com_distance"][resid].append(min_distance)
             metrics_data["radial_distance"][resid].append(radial_distance)
 
+    # Create a dictionary to store all Gaussian parameters for all metrics
+    all_gaussian_params_by_metric = {}
+
     # Process metrics and save results
     for metric, residues_data in metrics_data.items():
         plt.figure(figsize=(10, 6))
-        gaussian_params = []
+        
+        # Initialize list to collect all Gaussian params for this metric
+        if metric not in all_gaussian_params_by_metric:
+            all_gaussian_params_by_metric[metric] = []
 
         for resid, values in residues_data.items():
             values = np.array(values)
@@ -149,8 +178,8 @@ def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_
             # Convert to PDB numbering
             pdb_label, pdb_chain = convert_to_pdb_numbering(resid, channel_type)
 
-            # Save Gaussian parameters
-            gaussian_params.append({
+            # Save Gaussian parameters for this residue
+            all_gaussian_params_by_metric[metric].append({
                 "Simulation": simulation_id,
                 "Metric": metric,
                 "Residue": resid,
@@ -174,7 +203,7 @@ def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_
                 color=CHAIN_COLORS[pdb_chain]
             )
 
-
+        # Save Gaussian plot for this simulation and metric
         plt.title(f"Simulation {simulation_id} – {metric}")
         plt.xlabel("Bootstrap Sample Means")
         plt.ylabel("Density")
@@ -183,22 +212,33 @@ def analyze_simulation(top_path, traj_path, simulation_id, channel_type, output_
         plt.savefig(os.path.join(sim_output_dir, f"{metric}_gaussians.png"))
         plt.close()
 
-        # Save Gaussian parameters to CSV (per metric)
-        df_params = pd.DataFrame(gaussian_params)
-        csv_path = os.path.join(sim_output_dir, f"{metric}_gaussian_parameters.csv")
-        df_params.to_csv(csv_path, index=False)
-        print(f"✅ Saved Gaussian parameters for {metric} in Simulation {simulation_id}")
+        print(f"✅ Saved Gaussian plot for {metric} in Simulation {simulation_id}")
+
+    # After processing all simulations, save combined CSVs per metric
+    for metric, params_list in all_gaussian_params_by_metric.items():
+        df_params = pd.DataFrame(params_list)
+        os.makedirs(os.path.join(output_dir_full, "plots"), exist_ok=True)
+        csv_path = os.path.join(output_dir_full, "plots", f"{metric}_gaussian_parameters.csv")
+        # If file exists, append without header
+        if os.path.exists(csv_path):
+            df_params.to_csv(csv_path, mode='a', header=False, index=False)
+        else:
+            # If file doesn't exist, write with header
+            df_params.to_csv(csv_path, index=False)
+
+        print(f"✅ Saved combined Gaussian parameters for {metric} in {csv_path}")
+
 
 
 
 def analyze_all_simulations(topology_paths, trajectory_paths, simulation_ids, channel_types,
-                            output_dir, sample_size=50, n_bootstrap=1000):
+                            output_dir, sidechain=True, relaxation=False, sample_size=50, n_bootstrap=1000):
     """
     Run Gaussian analysis for all simulations.
     """
     os.makedirs(output_dir, exist_ok=True)
     for top, traj, sim_id, ch_type in zip(topology_paths, trajectory_paths, simulation_ids, channel_types):
-        analyze_simulation(top, traj, sim_id, ch_type, output_dir,
+        analyze_simulation(top, traj, sim_id, ch_type, output_dir, sidechain=sidechain, relaxation=relaxation,
                            sample_size=sample_size, n_bootstrap=n_bootstrap)
 
 
@@ -237,23 +277,24 @@ simulation_ids = ["G2_RUN1", "G2_RUN2", "G2_RUN3", "G2_RUN4",
 
 
 
-base = "/home/data/Konstantina/"
-topology_paths = [
-    f"{base}/GIRK2/G2_4KFM_RUN1/com_4fs.prmtop",
-    f"{base}/GIRK12_WT/RUN2/com_4fs.prmtop"
-]
-trajectory_paths = [
-    f"{base}/GIRK2/G2_4KFM_RUN1/protein.nc",
-    f"{base}/GIRK12_WT/RUN2/protein.nc"
-]
-simulation_ids = ["G2_RUN1", "G12_RUN2"]
-channel_types = ["G2", "G12"]
+# base = "/home/data/Konstantina/"
+# topology_paths = [
+#     f"{base}/GIRK2/G2_4KFM_RUN1/com_4fs.prmtop",
+#     f"{base}/GIRK12_WT/RUN2/com_4fs.prmtop"
+# ]
+# trajectory_paths = [
+#     f"{base}/GIRK2/G2_4KFM_RUN1/protein.nc",
+#     f"{base}/GIRK12_WT/RUN2/protein.nc"
+# ]
+# simulation_ids = ["G2_RUN1", "G12_RUN2"]
+# channel_types = ["G2", "G12"]
 
 
 # Output directory
 output_dir = "./gaussian_analysis_results"
-
+sidechain = False  # Set to True for sidechain analysis, False for full residue analysis
+relaxation = False  
 # Run analysis
 analyze_all_simulations(topology_paths, trajectory_paths, simulation_ids,
-                        channel_types, output_dir,
-                        sample_size=50, n_bootstrap=1000)
+                        channel_types, output_dir, sidechain=sidechain,relaxation=relaxation,
+                        sample_size=50, n_bootstrap=5000)

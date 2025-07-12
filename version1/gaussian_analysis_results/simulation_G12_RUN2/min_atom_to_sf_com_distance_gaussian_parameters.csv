@@ -1,5 +1,0 @@
-Simulation,Metric,Residue,PDB_Label,Gaussian_Mean,Gaussian_StdDev
-G12_RUN2,min_atom_to_sf_com_distance,99,E141.D,10.784365408176328,0.03419740798919255
-G12_RUN2,min_atom_to_sf_com_distance,424,E152.C,10.814389416277558,0.0432718637502617
-G12_RUN2,min_atom_to_sf_com_distance,749,E152.B,10.447447314297078,0.04764476489904317
-G12_RUN2,min_atom_to_sf_com_distance,1074,E152.A,10.483555539728462,0.05012000100773958
