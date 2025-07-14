@@ -1,0 +1,3 @@
+📊 Shapiro-Wilk Test for Normality:
+Statistic = 0.9863, p-value = 0.9013
+✅ The means are likely Gaussian (fail to reject H0).
